@@ -23,4 +23,5 @@ public interface IService {
 	boolean deleteComment(Comment comment);
 	boolean createMessage(Message message);
 	boolean deleteMessage(Message message);
+
 }
