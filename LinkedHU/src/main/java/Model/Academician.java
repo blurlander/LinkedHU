@@ -14,14 +14,18 @@ public class Academician extends PostCreator{
 		this.academicTitle = academicTitle;
 	}
 	public String getProfessionalHistory() {
+
 		//professionalHistory = professionalHistory.replaceAll("\n","�");
+
 		return professionalHistory;
 	}
 	public void setProfessionalHistory(String professionalHistory) {
 		this.professionalHistory = professionalHistory;
 	}
 	public String getResearchHistory() {
+
 		//researchHistory = researchHistory.replaceAll("\n","�");
+
 		return researchHistory;
 	}
 	public void setResearchHistory(String researchHistory) {

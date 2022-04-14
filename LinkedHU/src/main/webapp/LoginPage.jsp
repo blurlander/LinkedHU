@@ -75,7 +75,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Layout Skins(used by all pages) -->
                 <!--end::Layout Skins -->
 
-        <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" />
+
+        <link rel="shortcut icon" href="./assets/media/logos/loginlogo.png" />
+
     </head>
     <!-- end::Head -->
 
@@ -91,15 +93,20 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-login__body">
                         <div class="kt-login__logo">
                             <a href="#">
-                                <img src="./assets/media/company-logos/logo-2.png">      
+
+                                <img src="./assets/media/logos/loginlogo.png">      
+
                             </a>
                         </div>
 
                         <div class="kt-login__signin">
-                            <div class="kt-login__head">
-                                <h3 class="kt-login__title">Sign In To Admin</h3>
-                            </div>
+
+                            
                             <div class="kt-login__form">
+                            <div class="kt-login__head">
+                                <h3 class="kt-login__title">Sign In</h3>
+                            </div>
+
                                 <form class="kt-form" id = "form1" method="POST" action="UserController">
                                     <div class="form-group">
                                         <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
@@ -203,13 +210,15 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
 
-        <div class="kt-grid__item kt-grid__item--fluid kt-grid__item--center kt-grid kt-grid--ver kt-login__content" style="background-image: url(./assets/media//bg/bg-4.jpg);">
+
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid__item--center kt-grid kt-grid--ver kt-login__content" style="background-image: url(./assets/media/bg/bgb.jpg);">
             <div class="kt-login__section">
                 <div class="kt-login__block">
-                    <h3 class="kt-login__title">Join Our Community</h3>
+                    <h3 class="kt-login__title">Welcome to LinkedHU_CENG!</h3>
                     <div class="kt-login__desc">
-                        Lorem ipsum dolor sit amet, coectetuer adipiscing
-                        <br>elit sed diam nonummy et nibh euismod   
+                        This is by far the biggest platform that ever brought
+                        <br>all the members of this huge community together!
+
                     </div>
                 </div>
             </div>
