@@ -1,6 +1,9 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 8
@@ -19,7 +22,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <head><!--begin::Base Path (base relative path for assets of this page) -->
         <meta charset="utf-8"/>
 
-        <title>Metronic | List Columns - 1</title>
+        <title>Home Page</title>
+
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -71,7 +75,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Layout Skins(used by all pages) -->
                 <!--end::Layout Skins -->
 
-        <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" />
+
+        <!-- <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" /> -->
+
     </head>
     <!-- end::Head -->
 
@@ -615,181 +621,13 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--end: Quick actions -->
 
 	<!--begin: Cart -->
-	<div class="kt-header__topbar-item dropdown">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px" aria-expanded="true">
-			<span class="kt-header__topbar-icon"><i class="flaticon2-shopping-cart-1"></i></span>
-		</div>
-		<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
-			<form>
-				<!-- begin:: Mycart -->
-<div class="kt-mycart">
-            <div class="kt-mycart__head kt-head" style="background-image: url(./assets/media/misc/bg-1.jpg);">
-            <div class="kt-mycart__info">
-                <span class="kt-mycart__icon"><i class="flaticon2-shopping-cart-1 kt-font-success"></i></span>
-                <h3 class="kt-mycart__title">My Cart</h3>
-            </div> 
-            <div class="kt-mycart__button">
-                <button type="button" class="btn btn-success btn-sm" style=" ">2 Items</button>
-            </div>                
-        </div>        
-    
-    <div class="kt-mycart__body kt-scroll" data-scroll="true" data-height="245" data-mobile-height="200">
-        <div class="kt-mycart__item">
-            <div class="kt-mycart__container">
-                <div class="kt-mycart__info">
-                    <a href="#" class="kt-mycart__title">
-                        Samsung                      
-                    </a>
-                    <span class="kt-mycart__desc">
-                        Profile info, Timeline etc
-                    </span>
 
-                    <div class="kt-mycart__action">
-                        <span class="kt-mycart__price">$ 450</span>
-                        <span class="kt-mycart__text">for</span>
-                        <span class="kt-mycart__quantity">7</span>
-                        <a href="#" class="btn btn-label-success btn-icon">&minus;</a>
-                        <a href="#" class="btn btn-label-success btn-icon">&plus;</a>
-                    </div>    
-                </div>
-                
-                <a href="#" class="kt-mycart__pic">
-                    <img src="./assets/media/products/product9.jpg" title="">
-                </a>    
-            </div>     			 
-        </div>
 
-        <div class="kt-mycart__item">
-            <div class="kt-mycart__container">
-                <div class="kt-mycart__info">
-                    <a href="#" class="kt-mycart__title">
-                        Panasonic                       
-                    </a>
-
-                    <span class="kt-mycart__desc">
-                        For PHoto & Others
-                    </span>
-
-                    <div class="kt-mycart__action">
-                        <span class="kt-mycart__price">$ 329</span>
-                        <span class="kt-mycart__text">for</span>
-                        <span class="kt-mycart__quantity">1</span>
-                        <a href="#" class="btn btn-label-success btn-icon">&minus;</a>
-                        <a href="#" class="btn btn-label-success btn-icon">&plus;</a>                          
-                    </div>    
-                </div>
-                
-                <a href="#" class="kt-mycart__pic">
-                    <img src="./assets/media/products/product13.jpg" title="">
-                </a>     
-            </div>     			 
-        </div>    
-        
-        <div class="kt-mycart__item">
-            <div class="kt-mycart__container">
-                <div class="kt-mycart__info">
-                    <a href="#" class="kt-mycart__title">
-                        Fujifilm                       
-                    </a>
-                    <span class="kt-mycart__desc">
-                        Profile info, Timeline etc
-                    </span>
-
-                    <div class="kt-mycart__action">
-                        <span class="kt-mycart__price">$ 520</span>
-                        <span class="kt-mycart__text">for</span>
-                        <span class="kt-mycart__quantity">6</span>
-                        <a href="#" class="btn btn-label-success btn-icon">&minus;</a>
-                        <a href="#" class="btn btn-label-success btn-icon">&plus;</a>
-                    </div>    
-                </div>
-                
-                <a href="#" class="kt-mycart__pic">
-                    <img src="./assets/media/products/product16.jpg" title="">
-                </a>    
-            </div>     			 
-        </div>
-
-        <div class="kt-mycart__item">
-            <div class="kt-mycart__container">
-                <div class="kt-mycart__info">
-                    <a href="#" class="kt-mycart__title">
-                        Candy Machine                      
-                    </a>
-
-                    <span class="kt-mycart__desc">
-                        For PHoto & Others
-                    </span>
-
-                    <div class="kt-mycart__action">
-                        <span class="kt-mycart__price">$ 784</span>
-                        <span class="kt-mycart__text">for</span>
-                        <span class="kt-mycart__quantity">4</span>
-                        <a href="#" class="btn btn-label-success btn-icon">&minus;</a>
-                        <a href="#" class="btn btn-label-success btn-icon">&plus;</a>                       
-                    </div>    
-                </div>
-                
-                <a href="#" class="kt-mycart__pic">
-                    <img src="./assets/media/products/product15.jpg" title="" alt="">
-                </a>     
-            </div>     			 
-        </div>          
-    </div>
-
-    <div class="kt-mycart__footer">
-        <div class="kt-mycart__section">
-            <div class="kt-mycart__subtitel">
-                <span>Sub Total</span>
-                <span>Taxes</span>
-                <span>Total</span>                    
-            </div>  
-                    
-            <div class="kt-mycart__prices">
-                <span>$ 840.00</span> 
-                <span>$ 72.00</span> 
-                <span class="kt-font-brand">$ 912.00</span>
-            </div>  
-        </div>
-        <div class="kt-mycart__button kt-align-right">
-            <button type="button" class="btn btn-primary btn-sm">Place Order</button>
-        </div>
-    </div>
-</div>
-<!-- end:: Mycart -->			</form>
-		</div>
-	</div>
 	<!--end: Cart -->
 
 	<!--begin: Language bar -->
-	<div class="kt-header__topbar-item kt-header__topbar-item--langs">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-			<span class="kt-header__topbar-icon">
-				<img class="" src="./assets/media/flags/020-flag.svg" alt="" />
-			</span>
-		</div>
-		<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim">
-			<ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
-    <li class="kt-nav__item kt-nav__item--active">
-        <a href="#" class="kt-nav__link">
-            <span class="kt-nav__link-icon"><img src="./assets/media/flags/020-flag.svg" alt="" /></span>
-            <span class="kt-nav__link-text">English</span>
-        </a>
-    </li>
-    <li class="kt-nav__item">
-        <a href="#" class="kt-nav__link">
-            <span class="kt-nav__link-icon"><img src="./assets/media/flags/016-spain.svg" alt="" /></span>
-            <span class="kt-nav__link-text">Spanish</span>
-        </a>
-    </li>
-    <li class="kt-nav__item">
-        <a href="#" class="kt-nav__link">
-            <span class="kt-nav__link-icon"><img src="./assets/media/flags/017-germany.svg" alt="" /></span>
-            <span class="kt-nav__link-text">German</span>
-        </a>
-    </li>
-</ul>		</div>
-	</div>
+	
+
 	<!--end: Language bar -->
 
 
@@ -1039,212 +877,164 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>        
         <div class="kt-subheader__toolbar">
 
-                            <a href="#" class="">
-                    
-                                    </a>
-            
-                                                <a href="demo9/custom/apps/projects/add-project.html" class="btn btn-label-brand btn-bold">
-                        
-                        Add Project                    </a>
-                                        
-                            <div class="kt-subheader__wrapper">
-                    <div class="dropdown dropdown-inline" data-toggle="kt-tooltip-" title="Quick actions" data-placement="left">
-                        <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
+            <div class="kt-subheader__wrapper">
+                           <!-- Create post iÃ§in buton -->
+                           <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
+                
+                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
+                    <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
+
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
         <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
         <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000"/>
     </g>
-</svg>                            <!--<i class="flaticon2-plus"></i>-->
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
-                            <!--begin::Nav-->
-                            <ul class="kt-nav">
-                                <li class="kt-nav__head">
-                                    Add New:                                    
-                                    <i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
-                                </li>
-                                <li class="kt-nav__separator"></li>
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-drop"></i>
-                                        <span class="kt-nav__link-text">Orders</span>
-                                    </a>
-                                </li>                        
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-new-email"></i>
-                                        <span class="kt-nav__link-text">Members</span>
-                                        <span class="kt-nav__link-badge">
-                                            <span class="kt-badge kt-badge--brand kt-badge--rounded">15</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-calendar-8"></i>
-                                        <span class="kt-nav__link-text">Reports</span>
-                                    </a>
-                                </li>
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-link"></i>
-                                        <span class="kt-nav__link-text">Finance</span>
-                                    </a>
-                                </li>
-                                <li class="kt-nav__separator"></li>
-                                <li class="kt-nav__foot">
-                                    <a class="btn btn-label-brand btn-bold btn-sm" href="#">More options</a>                                    
-                                    <a class="btn btn-clean btn-bold btn-sm kt-hidden" href="#" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more...">Learn more</a>
-                                </li>
-                            </ul>
-                            <!--end::Nav-->
-                        </div>
+
+</svg>                        <!--<i class="flaticon2-plus"></i>-->
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
+                        <!--begin::Nav-->
+                        <ul class="kt-nav">
+                            <li class="kt-nav__head">
+                                Upload File:
+                                <i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
+                            </li>
+
+                            <li class="kt-nav__separator"></li>
+                            <li class="kt-nav__foot">
+                                <a class="btn btn-label-brand btn-bold btn-sm" href="#">Share as a post</a>
+                                <a class="btn btn-clean btn-bold btn-sm" href="#"  data-placement="right" >To resources</a>
+                            </li>
+                        </ul>
+                        <!--end::Nav-->
                     </div>
                 </div>
-                    </div>
+            </div>
+        </div>
+                         
+
     </div>
 </div>
 <!-- end:: Content Head -->
 <!-- begin:: Content -->
 	<div id = "1234567" class="kt-container  kt-grid__item kt-grid__item--fluid" >
+	           <div class="modal fade show" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="PostController" id = "create-post-form">
+                    <div class="form-group">
+                        <label for="post-name" class="form-control-label">Title:</label>
+                        <input type="text" class="form-control" name="title">
+                        
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="post-text" class="form-control-label">Text:</label>
+                        <textarea class="form-control" id="message-text" name = "text"></textarea>
+                        <input type="hidden" id = "5" name = "opp" value="5">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="submit" form="create-post-form" value="submit" class="btn btn-primary">Share Post</button>
+                
+            </div>
+        </div>
+    </div>
+</div>  
 		<!--Begin::Section-->
-		<input type="hidden" id="demo" value="<%= (String)session.getAttribute("viewData")%>">
+		<c:forEach items="${map.entrySet()}" var="entry">
+<!--Begin::Section-->
+<div class="row" id =${ String.valueOf(entry.getKey().postID)} >
+    <div class="col-xl-12">
+        <!--begin:: Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <!--begin::Widget -->
+                <div class="kt-widget kt-widget--project-1">
+                
+                    <div class="kt-widget__head">
+                        <div class="kt-widget__label">
+                            <div class="kt-widget__media">
+                                <span class="kt-media kt-media--lg kt-media--circle"> 
+                                    <img src="./assets/media/project-logos/8.png" alt="image">  
+                                </span>
+                            </div>
+                            <div class="kt-widget__info kt-margin-t-5">
+                                <a href="#" class="kt-widget__title">
+                                ${entry.getValue().fullName}                                        
+                                </a>
+                                <span class="kt-widget__desc">
+                                ${entry.getKey().createdAt}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
+                                <i class="flaticon-more-1"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
+                                <form action = "PostController" method = "POST">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
+                                            <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
+                                        </button>
+                                        <input type = "hidden" name = "opp" value = "6" >
+                                        <input type = "hidden" name = "delPost" value = ${ String.valueOf(entry.getKey().postID)}>
+                                        
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kt-widget__body">
+                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;">
+                    		${entry.getKey().messageText} 
+                    	</span>	
+                    </div>
+
+                    <div class="kt-widget__footer">
+                        <div class="kt-widget__wrapper">
+                           	<div class="kt-widget__section">
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
+                           		</div>
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${entry.getKey().commentCount} Comments</a>
+                           		</div>
+                           	</div>
+                           	<div class="kt-widget__section">
+                           		<button class="btn btn-outline-dark" type="button">Details</button>
+                           	</div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Widget -->
+            </div>
+        </div>
+        <!--end:: Portlet-->
+    </div>
+      
+</div>
+<!--End::Section-->
+	</c:forEach>
+	
 
 	</div>
-		    <script type="text/javascript">
-                        what();
-						function what(){
-							   // Converting necessary java variables to the javascript variables.
-							   var viewData = document.getElementById("demo").value ;
-							   
-							   /* mainDiv is a container that will contain our posts
-							   All child elements will be inserted inside it.
-							   */
-							   var postData = viewData.split("*");
-							   var postCount = (postData.length)/5;
-							   for(var i=0;i<postData.length;i+=5){
-								   var authorID = postData[i];
-								   console.log(authorID);
-								   var messageWithoutQuote = postData[i+1];
-								   var message = messageWithoutQuote.replaceAll("@##>>>!!","\"");
-								   var commentCount = postData[i+2];
-								   var likeCount = postData[i+3];
-								   var createdAt = postData[i+4];
-								   createNewPost(authorID,message,commentCount,likeCount,createdAt);
-								    
-							   }
-						  };
-						  function createNewPost(authorID,message,commentCount,likeCount,createdAt){
-							   const mainDiv = document.getElementById("1234567");
-							   // Creating the template of a specific post here.
-							   const rowDiv = document.createElement("div");
-							   rowDiv.setAttribute("class","row");
-							   const columnDiv = document.createElement("div");
-							   columnDiv.setAttribute("class","col-xl-12");
-							   const postDiv1 = document.createElement("div");
-							   postDiv1.setAttribute("class","kt-portlet kt-portlet--height-fluid");
-							   const postDiv2 = document.createElement("div");
-							   postDiv2.setAttribute("class","kt-portlet__body kt-portlet__body--fit");
-							   const postDiv3 = document.createElement("div");
-							   postDiv3.setAttribute("class","kt-widget kt-widget--project-1");
-							   const postDiv4 = document.createElement("div");
-							   postDiv4.setAttribute("class","kt-widget__head");
-							   const postDiv5 = document.createElement("div");
-							   postDiv5.setAttribute("class","kt-widget__label");
-							   const postDiv6 = document.createElement("div");
-							   postDiv6.setAttribute("class","kt-widget__media");
-							   const postMediaSpan = document.createElement("SPAN");
-							   postMediaSpan.setAttribute("class","kt-media kt-media--lg kt-media--circle");
-							   const postImg = document.createElement("img");
-							   postImg.setAttribute("src","./assets/media/project-logos/8.png");
-							   postImg.setAttribute("alt","image");
-							   postMediaSpan.appendChild(postImg);
-							   postDiv6.appendChild(postMediaSpan); //div6 ready
-							   postDiv5.appendChild(postDiv6);
-							   const postDiv7 = document.createElement("div");
-							   postDiv7.setAttribute("class","kt-widget__info kt-margin-t-5");
-							   const tagA1 = document.createElement("a");
-							   tagA1.href = "#";
-							   tagA1.setAttribute("class","kt-widget__title");
-							   const widgetSpan= document.createElement("SPAN");
-							   widgetSpan.setAttribute("class","kt-widget__desc");
-							   postDiv7.appendChild(tagA1);
-							   postDiv7.appendChild(widgetSpan);
-							   postDiv5.appendChild(postDiv7);
-							   postDiv4.appendChild(postDiv5); 
-							   postDiv3.appendChild(postDiv4);
-							   const postDiv8 = document.createElement("div");
-							   postDiv8.setAttribute("class","kt-widget__body");
-							   const messageSpan= document.createElement("SPAN");
-							   messageSpan.setAttribute("class","kt-widget__text");
-							   messageSpan.style.fontSize = "17px";
-							   messageSpan.style.whiteSpace = "pre-line";
-							   postDiv8.appendChild(messageSpan);
-							   postDiv3.appendChild(postDiv8);
-							   const postDiv9 = document.createElement("div");
-							   postDiv9.setAttribute("class","kt-widget__footer");
-							   const postDiv10 = document.createElement("div");
-							   postDiv10.setAttribute("class","kt-widget__wrapper");
-							   const postDiv11 = document.createElement("div");
-							   postDiv11.setAttribute("class","kt-widget__section");
-							   const postDiv12 = document.createElement("div");
-							   postDiv12.setAttribute("class","kt-demo-icon__preview");
-							   const likeButton = document.createElement("button");
-							   likeButton.type = "button";
-							   likeButton.style.border = "none";
-							   likeButton.style.backgroundColor = "white";
-							   likeButton.style.fontSize = "25px";
-							   likeButton.style.color = "#DCDCDC";
-							   likeButton.setAttribute("class","flaticon-black");
-							   const likeButtonLink = document.createElement("a");
-							   likeButtonLink.href = "#";
-							   likeButtonLink.style.fontSize = "15px";
-							   likeButtonLink.style.color = "black";
-							   likeButtonLink.innerHTML = "72 Likes";
-							   postDiv12.appendChild(likeButton);
-							   postDiv12.appendChild(likeButtonLink);
-							   postDiv11.appendChild(postDiv12);
-							   postDiv11.appendChild( document.createTextNode('\u00A0\u00A0\u00A0\u00A0'));
-							   const postDiv13 = document.createElement("div");
-							   postDiv13.setAttribute("class","kt-demo-icon__preview");
-							   const commentButton = document.createElement("button");
-							   commentButton.type = "button";
-							   commentButton.style.border = "none";
-							   commentButton.style.backgroundColor = "white";
-							   commentButton.style.fontSize = "25px";
-							   commentButton.setAttribute("class","flaticon2-chat-1");
-							   const commentButtonLink = document.createElement("a");
-							   commentButtonLink.href = "#";
-							   commentButtonLink.style.fontSize = "15px";
-							   commentButtonLink.style.color = "black";
-							   commentButtonLink.innerHTML = "110 Comments";
-							   postDiv13.appendChild(commentButton);
-							   postDiv13.appendChild(commentButtonLink);
-							   postDiv11.appendChild(postDiv13);
-							   postDiv10.appendChild(postDiv11);
-							   const postDiv15 = document.createElement("div");
-							   postDiv15.setAttribute("class","kt-widget__section");
-							   const detailsButton = document.createElement("button");
-							   detailsButton.setAttribute("class","btn btn-outline-dark");
-							   detailsButton.type = "button";
-							   detailsButton.innerHTML = "Details";
-							   postDiv15.appendChild(detailsButton);
-							   postDiv10.appendChild(postDiv15);
-							   postDiv9.appendChild(postDiv10);
-							   postDiv3.appendChild(postDiv9);
-							   postDiv2.appendChild(postDiv3);
-							   postDiv1.appendChild(postDiv2);
-							   columnDiv.appendChild(postDiv1);
-							   rowDiv.appendChild(columnDiv);
-							   tagA1.textContent = authorID;
-							   messageSpan.textContent = message;
-							   widgetSpan.textContent = createdAt;
-							   mainDiv.appendChild(rowDiv);
-						  };
-            </script>
-	
+
 	
 	
 	
@@ -1694,23 +1484,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<i class="fa fa-arrow-up"></i>
 </div>
 <!-- end::Scrolltop -->
-    <!-- begin::Sticky Toolbar -->
-<ul class="kt-sticky-toolbar" style="margin-top: 30px;">
-	<li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--success" id="kt_demo_panel_toggle" data-toggle="kt-tooltip"  title="Check out more demos" data-placement="right">
-		<a href="#" class=""><i class="flaticon2-drop"></i></a>
-	</li>
-	<li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--brand" data-toggle="kt-tooltip" title="Layout Builder" data-placement="left">
-        		<a href="https://keenthemes.com/metronic/preview/demo9/builder.html" target="_blank"><i class="flaticon2-gear"></i></a>
-	</li>
-	<li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--warning" data-toggle="kt-tooltip" title="Documentation" data-placement="left">
-		<a href="https://keenthemes.com/metronic/?page=docs" target="_blank"><i class="flaticon2-telegram-logo"></i></a>
-	</li>
 
-	<li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--danger" id="kt_sticky_toolbar_chat_toggler" data-toggle="kt-tooltip" title="Chat Example" data-placement="left">
-		<a href="#" data-toggle="modal" data-target="#kt_chat_modal"><i class="flaticon2-chat-1"></i></a>
-	</li>
-</ul>
-<!-- end::Sticky Toolbar -->
 	<!-- begin::Demo Panel -->
 
 <div id="kt_demo_panel" class="kt-demo-panel">

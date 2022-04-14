@@ -1,8 +1,15 @@
 package Controller;
 
 import java.io.IOException;
+
+import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,49 +41,95 @@ public class PostController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
-			User currentUser = (User)session.getAttribute("currentUser");
-			List<Post> allPosts = service.fetchAllPosts();
-			String viewData = "";
-			for(int i=0;i<allPosts.size();i++) {
-				if(allPosts.get(i).getAuthorID() == currentUser.getUserID()) {
-					continue;
-				}
-				if(i != allPosts.size()-1) {
-					viewData+= getPostInfo(allPosts.get(i))+"*";
-					continue;
-				}
-				viewData+=getPostInfo(allPosts.get(i));
-			}
-			session.setAttribute("viewData", viewData);
-		   	session.removeAttribute("operation");
-		}
+
 		
-		
+		request.getRequestDispatcher("Final.jsp").forward(request, response);
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
+			User currentUser = (User)session.getAttribute("currentUser");
+			List<Post> allPosts = service.fetchAllPosts();
+			List<User> allUsers = service.fetchAllUsers();
+			HashMap<Post,User> map = new HashMap<>();
+			for(Post p:allPosts) {
+				map.put(p,getPostInfo(p,allUsers));
+				
+			}
+			session.setAttribute("map",map);
+			session.setAttribute("operation", "failgetPostsForDiscoverPage");
+		}
+
+		else if(request.getParameter("opp").equals("5")) {
+			List<User> allUsers = service.fetchAllUsers();
+			HashMap<Post,User> map = new HashMap<>();
+			Random random = new Random();
+			PrintWriter out = response.getWriter();
+			int upperbound = 1000000;
+			int int_random = random.nextInt(upperbound);
+			String title = request.getParameter("title");
+			String text = request.getParameter("text");
+			User user = (User)session.getAttribute("currentUser");
+			int authorID = user.getUserID();
+			Post post = new Post();
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			post.setCreatedAt(timestamp);
+			post.setAuthorID(authorID);
+			post.setTitle(title);
+			post.setMessageText(text);
+			post.setCommentCount(0);
+			post.setLikeCount(0);
+			post.setPostType("Normal");
+			post.setPostID(int_random);
+			HashMap<Post,User> map1 = (HashMap<Post,User>)session.getAttribute("map");
+			map1.put(post, getPostInfo(post,allUsers));
+			session.setAttribute("map",map1);
+			createNewPost(post);
+			response.sendRedirect("PostController");
+			
+		}
+		else if(request.getParameter("opp").equals("6")) {
+			int id = Integer.parseInt(request.getParameter("delPost"));
+			HashMap<Post,User> map1 = (HashMap<Post,User>)session.getAttribute("map");
+			for (Post p :  map1.keySet()) {
+				if (p.getPostID() == id) {
+					map1.remove(p);
+					deletePost(p);
+					break;
+				}
+			}
+			session.setAttribute("map", map1);
+			response.sendRedirect("PostController");
+			
+		}
 	}
 	
-	public String getPostInfo(Post p) {
-		User user = null;
-		for(User u : service.fetchAllUsers()) {
+	public User getPostInfo(Post p,List<User> users) {
+		for(User u : users) {
 			if(u.getUserID()== p.getAuthorID()) {
-				user = u;
-				break;
+				return u;
 			}
 		}
-		String postInfo = "";
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.M.yyyy hh:mm");  
-		postInfo+= user.getFullName()+"*"+p.getMessageText()+"*"+p.getCommentCount()+"*"+p.getLikeCount()+"*"+formatter.format(p.getCreatedAt());
-		return postInfo;
-		
+		return null;	
+	}
+	
+	
+	public boolean createNewPost(Post p) {
+		if(service.createPost(p)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deletePost(Post p) {
+		return (service.deletePost(p));
+
 	}
 	
 	

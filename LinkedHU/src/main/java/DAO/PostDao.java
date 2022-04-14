@@ -49,6 +49,7 @@ public class PostDao implements IDao<Post>{
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			ResultSet rSet = preparedStatement.executeQuery();
+
 			while(rSet.next()) {
 				Post post = new Post();
 				post.setPostID(rSet.getInt("postID"));
@@ -71,15 +72,60 @@ public class PostDao implements IDao<Post>{
 	}
 
 	@Override
-	public boolean create(Post t) {
-		// TODO Auto-generated method stub
-		return false;
+
+	public boolean create(Post p) {
+		String query = "Insert into post values(?,?,?,?,?,?,?,?,?,?)";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1,p.getPostID());
+			preparedStatement.setString(2,p.getTitle());
+			preparedStatement.setString(3,p.getMessageText());
+			preparedStatement.setTimestamp(4,p.t);
+			preparedStatement.setInt(5,0);
+			preparedStatement.setInt(6,0);
+			preparedStatement.setString(7,"Normal");
+			preparedStatement.setString(8,"");
+			preparedStatement.setString(9,"");
+			preparedStatement.setInt(10,p.getAuthorID());
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	@Override
 	public Post read(int id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Post post = new Post();
+		String query = "Select * from Post where postID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			ResultSet rSet = preparedStatement.executeQuery();
+			
+			while(rSet.next()) {
+				post.setPostID(rSet.getInt("postID"));
+				post.setTitle(rSet.getString("title"));
+				post.setMessageText(rSet.getString("messageText"));
+				post.setCreatedAt(rSet.getTimestamp(4));
+				post.setCommentCount(rSet.getInt("commentCount"));
+				post.setLikeCount(rSet.getInt("likeCount"));
+				post.setPostType(rSet.getString("postType"));
+				post.setAuthorID(rSet.getInt("authorID"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return post;
+
 	}
 
 	@Override
@@ -90,8 +136,22 @@ public class PostDao implements IDao<Post>{
 
 	@Override
 	public boolean delete(Post t) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean control;
+		String query = "Delete from Post where postID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1,t.getPostID());
+			preparedStatement.executeUpdate();
+			control = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			control = false;
+					
+			e.printStackTrace();
+		}
+		return control;
+
 	}
 	
 	
