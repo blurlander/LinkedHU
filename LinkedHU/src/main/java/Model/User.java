@@ -8,7 +8,7 @@ public class User {
 	private String email;
 	private String password; 
 	private String fullName;
-	private String userType;
+	private int userType;
 	private ArrayList<Comment> comments = null;
 	private ArrayList<Message> messages = null;
 	
@@ -42,10 +42,10 @@ public class User {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	public String getUserType() {
+	public int getUserType() {
 		return userType;
 	}
-	public void setUserType(String userType) {
+	public void setUserType(int userType) {
 		this.userType = userType;
 	}
 	public ArrayList<Comment> getComments() {

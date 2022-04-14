@@ -1,12 +1,16 @@
 package DAO;
+import Model.Academician;
+import Model.Graduate;
 import Model.User;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,20 +55,26 @@ public class UserDao implements IDao<User> {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
 			while(rs.next()) {
-				User user = new User();
-				user.setUserID(rs.getInt("userID"));
-				user.setUsername(rs.getString("username"));
-				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("password"));
-				user.setFullName(rs.getString("fullName"));
-				user.setUserType(rs.getString("userType"));
-				allUsers.add(user);
+				switch(rs.getInt("userType")) 
+				{
+					case 0 : // Admin
+						break;
+					case 1 : // Academician
+						addAcademician(allUsers);
+						break;
+					case 2:  // Graduate
+						break;
+					case 3:  // Student
+						break;
+				}
+				//allUsers.add(user);
 				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(allUsers.get(0).getFullName());
 		return allUsers;
 	}
 
@@ -83,7 +93,29 @@ public class UserDao implements IDao<User> {
 	@Override
 	public boolean update(User user) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		String query = "UPDATE user SET "
+				+ "username=?, email=?, password=?, "
+				+ "fullName=? WHERE userID = ? ";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1,user.getUsername());
+			preparedStatement.setString(2,user.getEmail());
+			preparedStatement.setString(3,user.getPassword());
+			preparedStatement.setString(4,user.getFullName());
+			preparedStatement.setInt(5,user.getUserID());
+			
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	
+
 	}
 
 	@Override
@@ -92,8 +124,59 @@ public class UserDao implements IDao<User> {
 		return false;
 	}
 	
+	private void addAcademician(List<User> allUsers) {
+		String query = "Select * from Academician";
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Academician academician = new Academician();
+				academician.setUserID(rs.getInt("userID"));
+				academician.setUsername(rs.getString("username"));
+				academician.setEmail(rs.getString("email"));
+				academician.setPassword(rs.getString("password"));
+				academician.setFullName(rs.getString("fullName"));
+				academician.setUserType(rs.getInt("userType"));
+				academician.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				academician.setStatus(rs.getString("status"));
+				academician.setBio(rs.getString("bio"));
+				academician.setAcademicTitle(rs.getString("academicTitle"));
+				academician.setProfessionalHistory(rs.getString("professionalHistory"));
+				academician.setResearchHistory(rs.getString("researchHistory"));
+				academician.setProficiencies(rs.getString("proficiencies"));
+				academician.setOfficeNumber(rs.getString("officeNumber"));
+				allUsers.add(academician);		
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+	}
+	private void addGraduate(List<User> allUsers) {
+		String query = "Select * from Graduate";
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Graduate graduate = new Graduate();
+				graduate.setUserID(rs.getInt("userID"));
+				graduate.setUsername(rs.getString("username"));
+				graduate.setEmail(rs.getString("email"));
+				graduate.setPassword(rs.getString("password"));
+				graduate.setFullName(rs.getString("fullName"));
+				graduate.setUserType(rs.getInt("userType"));
+				graduate.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				graduate.setStatus(rs.getString("status"));
+				graduate.setBio(rs.getString("bio"));
+				allUsers.add(graduate);		
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+	}
 	
-	
-	
-
 }

@@ -86,8 +86,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed " >
 	<div class="kt-header-mobile__logo">
-		<a href="demo9/index.html">
-			<img alt="Logo" src="./assets/media/logos/logo-9-sm.png"/>
+		<a href="Final.jsp">
+			<h4>LinkedHU_CENG</h4>
 		</a>
 	</div>
 	<div class="kt-header-mobile__toolbar">
@@ -118,8 +118,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- end: Header Menu -->		
 		<!-- begin:: Brand -->
 <div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
-	<a class="kt-header__brand-logo" href="demo9/index.html">
-		<img alt="Logo" src="./assets/media/logoslogo.png"/>		
+	<a class="kt-header__brand-logo" href="Final.jsp">
+		<!--  <img alt="Logo" src="./assets/media/logoslogo.png"/>	-->	
 	</a>		
 </div>
 <!-- end:: Brand -->		<!-- begin:: Header Topbar -->
@@ -779,6 +779,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- end:: Aside Menu -->
 </div>
 <!-- end:: Aside -->				
+		
+		
 				
 <!-- begin:: Content -->
 <div class="kt-container  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
@@ -792,7 +794,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="kt-widget kt-widget--user-profile-3">
             <div class="kt-widget__top">
                 <div class="kt-widget__media kt-hidden-">
-                    <img src="./assets/media/users/100_1.jpg" alt="image">
+                    <img src="./assets/media/project-logos/8.png" alt="image">
                 </div>
                 <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
                     JM
@@ -800,79 +802,89 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="kt-widget__content">
                     <div class="kt-widget__head">
                         <a href="#" class="kt-widget__username">
-                            Jason Muller    
+                            <c:out value="${currentUser.fullName}">name</c:out>    
                             <i class="flaticon2-correct"></i>                       
                         </a>
 
                         <div class="kt-widget__action">
-                            <button type="button" class="btn btn-label-success btn-sm btn-upper">ask</button>&nbsp;
-                            <button type="button" class="btn btn-brand btn-sm btn-upper">hire</button>
+                            <button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>&nbsp;
+                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='Final.jsp'">Go Back to the Main Page</button>
                         </div>
                     </div>
 
                     <div class="kt-widget__subhead">
-                        <a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
-                        <a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
-                        <a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
+                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${currentUser.email}">email</c:out></a>
+                        <a href="#"><i class="flaticon2-calendar-3"></i> <c:out value="${currentUser.academicTitle}">academicTitle</c:out> </a>
+                        <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
+                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${currentUser.officeNumber}">officeNumber</c:out> </a>
                     </div>
 
                     <div class="kt-widget__info">
                         <div class="kt-widget__desc">
-                            I distinguish three main text objektive could be merely to inform people.
-                            <br> A second could be persuade people.You want people to bay objective
+                            <c:out value="${currentUser.bio}">bio</c:out>
+						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
+							<div class="kt-portlet__head">
+								<div class="kt-portlet__head-label">
+									<h3 class="kt-portlet__head-title">
+										Profile
+									</h3>
+								</div>
+							</div>
+							<div class="kt-portlet__body">
+								<div class="kt-widget4" >
+									<div class="kt-widget4__item"  >
+										<div class="kt-portlet__head-label" style="min-width:200px !important">
+											<h4 class="kt-portlet__head-title" style="right-margin=14px">
+												Professional History
+											</h4>
+										</div>
+										&nbsp
+										<div class="kt-widget4__info" style="white-space: pre-line" >
+											${ currentUser.professionalHistory }
+										</div>						
+									</div>	 
+						
+									<div class="kt-widget4__item">
+										<div class="kt-portlet__head-label" style="min-width:200px !important">
+											<h4 class="kt-portlet__head-title" style="right-margin=14px">
+												Research History
+											</h4>
+										</div>
+										&nbsp
+										<div class="kt-widget4__info" style="white-space: pre-line">
+											${ currentUser.researchHistory }
+										</div>						 
+									</div>
+						
+									<div class="kt-widget4__item">
+										<div class="kt-portlet__head-label" style="min-width:200px !important">
+											<h4 class="kt-portlet__head-title" style="right-margin=14px">
+												Proficiencies
+											</h4>
+										</div>
+										&nbsp
+										<div class="kt-widget4__info" style="white-space: pre-line;">
+											${currentUser.proficiencies}		 
+										</div>				
+									</div>	
+								</div>			 
+							</div>
+						</div>
+                            
                         </div>
-                        <div class="kt-widget__progress">
-                            <div class="kt-widget__text">
-                                Progress
-                            </div>
-                            <div class="progress" style="height: 5px;width: 100%;">
-                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget__stats">
-                                78%
-                            </div>
-                        </div>
+   
                     </div>
                 </div>
             </div>
             <div class="kt-widget__bottom">
+            
                 <div class="kt-widget__item">
                     <div class="kt-widget__icon">
-                        <i class="flaticon-piggy-bank"></i>
+                        <i class="flaticon-users"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">Earnings</span>
-                        <span class="kt-widget__value"><span>$</span>249,500</span>
-                    </div>
-                </div>
-
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-confetti"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <span class="kt-widget__title">Expances</span>
-                        <span class="kt-widget__value"><span>$</span>164,700</span>
-                    </div>
-                </div>
-
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-pie-chart"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <span class="kt-widget__title">Net</span>
-                        <span class="kt-widget__value"><span>$</span>164,700</span>
-                    </div>
-                </div>
-
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-file-2"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <span class="kt-widget__title">73 Tasks</span>
-                        <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                        <span class="kt-widget__title">Followers</span>
+                        <span class="kt-widget__value">249,500</span>
                     </div>
                 </div>
 
@@ -881,11 +893,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="flaticon-chat-1"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">648 Comments</span>
+                        <span class="kt-widget__title">648 Posts</span>
                         <a href="#" class="kt-widget__value kt-font-brand">View</a>
                     </div>
                 </div>
-
+				<!-- 
+				
                 <div class="kt-widget__item">
                     <div class="kt-widget__icon">
                         <i class="flaticon-network"></i>
@@ -915,6 +928,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                 </div>
+                 -->
+                
             </div>
         </div>
     </div>

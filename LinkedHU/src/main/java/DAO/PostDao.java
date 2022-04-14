@@ -1,11 +1,13 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class PostDao implements IDao<Post>{
 	private Statement statement;
 	private PreparedStatement preparedStatement;
 	
-
+	
+	
 	public PostDao() {
 		connectDatabase();
 	}
@@ -50,13 +53,15 @@ public class PostDao implements IDao<Post>{
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			ResultSet rSet = preparedStatement.executeQuery();
-
+			
 			while(rSet.next()) {
 				Post post = new Post();
 				post.setPostID(rSet.getInt("postID"));
 				post.setTitle(rSet.getString("title"));
 				post.setMessageText(rSet.getString("messageText"));
-				post.setCreatedAt(rSet.getTimestamp(4));
+				Date date = new Date(rSet.getTimestamp(4).getTime());
+				
+				post.setCreatedAt(date);
 				post.setCommentCount(rSet.getInt("commentCount"));
 				post.setLikeCount(rSet.getInt("likeCount"));
 				post.setPostType(rSet.getString("postType"));
@@ -73,7 +78,6 @@ public class PostDao implements IDao<Post>{
 	}
 
 	@Override
-
 	public boolean create(Post p) {
 		String query = "Insert into post values(?,?,?,?,?,?,?,?,?,?)";
 		try {
@@ -81,7 +85,7 @@ public class PostDao implements IDao<Post>{
 			preparedStatement.setInt(1,p.getPostID());
 			preparedStatement.setString(2,p.getTitle());
 			preparedStatement.setString(3,p.getMessageText());
-			preparedStatement.setTimestamp(4,p.t);
+			preparedStatement.setTimestamp(4,(Timestamp)p.getCreatedAt());
 			preparedStatement.setInt(5,0);
 			preparedStatement.setInt(6,0);
 			preparedStatement.setString(7,"Normal");
@@ -101,7 +105,6 @@ public class PostDao implements IDao<Post>{
 
 	@Override
 	public Post read(int id) {
-
 		Post post = new Post();
 		String query = "Select * from Post where postID = ?";
 		try {
@@ -126,7 +129,6 @@ public class PostDao implements IDao<Post>{
 		}
 		
 		return post;
-
 	}
 
 	@Override
@@ -137,7 +139,6 @@ public class PostDao implements IDao<Post>{
 
 	@Override
 	public boolean delete(Post t) {
-
 		boolean control;
 		String query = "Delete from Post where postID = ?";
 		try {
@@ -152,11 +153,8 @@ public class PostDao implements IDao<Post>{
 			e.printStackTrace();
 		}
 		return control;
-
 	}
 	
 	
 
-
 }
-

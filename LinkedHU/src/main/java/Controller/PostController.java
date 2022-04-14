@@ -1,14 +1,13 @@
 package Controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
+import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,6 @@ public class PostController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		
 		request.getRequestDispatcher("Final.jsp").forward(request, response);
 
@@ -52,14 +50,12 @@ public class PostController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-
 		// When login is success load main page
-
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
 			User currentUser = (User)session.getAttribute("currentUser");
 			List<Post> allPosts = service.fetchAllPosts();
 			List<User> allUsers = service.fetchAllUsers();
-			HashMap<Post,User> map = new HashMap<>();
+			TreeMap<Post,User> map = new TreeMap<>();
 			for(Post p:allPosts) {
 				map.put(p,getPostInfo(p,allUsers));
 				
@@ -67,13 +63,11 @@ public class PostController extends HttpServlet {
 			session.setAttribute("map",map);
 			session.setAttribute("operation", "failgetPostsForDiscoverPage");
 		}
-
 		
 		// Create Post
-
 		else if(request.getParameter("opp").equals("5")) {
 			List<User> allUsers = service.fetchAllUsers();
-			HashMap<Post,User> map = new HashMap<>();
+			TreeMap<Post,User> map = new TreeMap<>();
 			Random random = new Random();
 			PrintWriter out = response.getWriter();
 			int upperbound = 1000000;
@@ -92,19 +86,17 @@ public class PostController extends HttpServlet {
 			post.setLikeCount(0);
 			post.setPostType("Normal");
 			post.setPostID(int_random);
-			HashMap<Post,User> map1 = (HashMap<Post,User>)session.getAttribute("map");
+			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			map1.put(post, getPostInfo(post,allUsers));
 			session.setAttribute("map",map1);
 			createNewPost(post);
 			response.sendRedirect("PostController");
 			
 		}
-
 		// Delete Post
-
 		else if(request.getParameter("opp").equals("6")) {
 			int id = Integer.parseInt(request.getParameter("delPost"));
-			HashMap<Post,User> map1 = (HashMap<Post,User>)session.getAttribute("map");
+			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			for (Post p :  map1.keySet()) {
 				if (p.getPostID() == id) {
 					map1.remove(p);
@@ -137,13 +129,10 @@ public class PostController extends HttpServlet {
 	
 	public boolean deletePost(Post p) {
 		return (service.deletePost(p));
-
 	}
 	
 	
 	
 	
 
-
 }
-

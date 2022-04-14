@@ -63,6 +63,12 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean updateUser(User user) {
+		if(user.getUserType() == 1) {
+			
+			boolean academicanTableUpdate = academicianDao.update((Academician)user); 
+			boolean userTableUpdate = userDao.update(user);
+			return academicanTableUpdate && userTableUpdate;
+		}
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -76,17 +82,13 @@ public class SystemService implements IService{
 	@Override
 	public boolean createPost(Post post) {
 		// TODO Auto-generated method stub
-
 		return postDao.create(post);
-
 	}
 
 	@Override
 	public boolean deletePost(Post post) {
 		// TODO Auto-generated method stub
-
 		postDao.delete(post);
-
 		return false;
 	}
 
@@ -114,10 +116,8 @@ public class SystemService implements IService{
 		return false;
 	}
 	
-
 	public Post readPost(int t) {
 		return (Post) postDao.read(t);
 	}
 		
 }
-

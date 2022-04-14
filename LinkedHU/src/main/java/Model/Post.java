@@ -1,14 +1,13 @@
 package Model;
 
 import java.io.File;
-
 import java.sql.Timestamp;
-
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Post {
+public class Post implements Comparable<Post>{
 	private int postID;
 	private String title;
 	private String messageText;
@@ -20,10 +19,7 @@ public class Post {
 	private ArrayList<String> links = null;
 	private ArrayList<Comment> comments = null;
 	private int authorID;
-	
-
-	public Timestamp t;
-	
+	private String dateFormat;
 
 	public int getPostID() {
 		return postID;
@@ -38,7 +34,7 @@ public class Post {
 		this.title = title;
 	}
 	public String getMessageText() {
-		messageText = messageText.replaceAll("\"","@##>>>!!");
+		//messageText = messageText.replaceAll("\"","@##>>>!!");
 		return messageText;
 	}
 	public void setMessageText(String messageText) {
@@ -48,6 +44,9 @@ public class Post {
 		return createdAt;
 	}
 	public void setCreatedAt(Date createdAt) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy.mm.dd hh:mm");  
+        String strDate = dateFormat.format(createdAt); 
+        this.dateFormat = strDate;
 		this.createdAt = createdAt;
 	}
 	public int getCommentCount() {
@@ -91,6 +90,18 @@ public class Post {
 	}
 	public void setAuthorID(int authorID) {
 		this.authorID = authorID;
+	}
+	
+	public String getDateFormat() {
+		return dateFormat;
+	}
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+	@Override
+	public int compareTo(Post o) {
+		// TODO Auto-generated method stub
+		return o.getCreatedAt().compareTo(this.createdAt);
 	}
 	
 

@@ -796,76 +796,114 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
 			<div class="kt-portlet__head kt-portlet__head--lg">
 				<div class="kt-portlet__head-label">
-					<h3 class="kt-portlet__head-title">Upadate Your Profile</h3>
+					<h3 class="kt-portlet__head-title">Update Account</h3>
 				</div>
 				<div class="kt-portlet__head-toolbar">
-					<a href="#" class="btn btn-clean kt-margin-r-10">
+					<a href="Profile.jsp" class="btn btn-clean kt-margin-r-10">
 						<i class="la la-arrow-left"></i>
-						<span class="kt-hidden-mobile">Back</span>
+						<span href="Profile.jsp" class="kt-hidden-mobile">Back</span>
 					</a>
 					<div class="btn-group">
-						<button type="button" class="btn btn-brand">
+						
+						<button type="submit" form = "blablabla" class="btn btn-brand">
 							<i class="la la-check"></i> 
 							<span class="kt-hidden-mobile">Save</span>
+														
 						</button>
-				
+						
 						
 					</div>
 				</div>
 			</div>
 			<div class="kt-portlet__body">
-				<form class="kt-form" id="kt_form">
+				<form class="kt-form" action = "UserController" method = "POST" id= "blablabla">
+				
 					<div class="row">
 						<div class="col-xl-2"></div>
 						<div class="col-xl-8">
 							<div class="kt-section kt-section--first">
 								<div class="kt-section__body">
 									<h3 class="kt-section__title kt-section__title-lg">Profile:</h3>
+									
+									<div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
+                                                <div class="kt-avatar__holder" style="background-image: url(&quot;http://keenthemes.com/metronic/preview/default/custom/user/assets/media/users/100_1.jpg&quot;);"></div>
+                                                <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
+                                                    <i class="fa fa-pen"></i>
+                                                    <input type="file" name="profilePicture" accept=".png, .jpg, .jpeg">
+                                                </label>
+                                                <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
 									<div class="form-group row">
 										<label class="col-3 col-form-label">First Name</label>
 										<div class="col-9">
-											<input class="form-control" type="text" value="Nick">
+											<input required class="form-control " name ="firstName" type="text" value="Nick">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Last Name</label>
 										<div class="col-9">
-											<input class="form-control" type="text" value="Watson">
+											<input required class="form-control" name ="lastName" type="text" value="Watson">
 										</div>
 									</div>
+									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
-											<input class="form-control" type="text" value="ali">
+											<input required class="form-control" name ="acadTitle" type="text" value="ali">
 										</div>
 									</div>
+									
 									<div class="form-group row">
-										<label class="col-3 col-form-label">Contact Phone</label>
+										<label class="col-3 col-form-label">Office Number </label>
+										<div class="col-9">
+											<input required class="form-control" name ="officeNumber" type="text" value="ali">
+										</div>
+									</div>
+
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Professional History</label>
 										<div class="col-9">
 											<div class="input-group">
-												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
-												<input type="text" class="form-control" value="+45678967456" placeholder="Phone" aria-describedby="basic-addon1">
+												<textarea required name="professionalHistory" rows="5" cols="100"></textarea>
 											</div>
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-3 col-form-label">Email Address</label>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Research History</label>
 										<div class="col-9">
 											<div class="input-group">
-												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-												<input type="text" class="form-control" value="nick.watson@loop.com" placeholder="Email" aria-describedby="basic-addon1">
-											</div>
-											<span class="form-text text-muted">We'll never share your email with anyone else.</span>
-										</div>
-									</div>
-									<div class="form-group form-group-last row">
-										<label class="col-3 col-form-label">Address</label>
-										<div class="col-9">
-											<div class="input-group">
-												<textarea rows="5" cols="100"></textarea>
+												<textarea required name="researchHistory" rows="5" cols="100"></textarea>
 											</div>
 										</div>
 									</div>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Proficiencies</label>
+										<div class="col-9">
+											<div class="input-group">
+												<textarea required name="proficiencies" rows="5" cols="100"></textarea>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label"> Bio</label>
+										<div class="col-9">
+											<div class="input-group">
+												<textarea required name="bio" rows="5" cols="100"></textarea>
+											</div>
+										</div>
+									</div>
+									
 								</div>
 							</div>
 					
@@ -876,13 +914,13 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Username</label>
 										<div class="col-9">
-												<input class="form-control" type="text" value="nick84">				
+												<input required class="form-control" name ="userName" type="text" value="nick84">				
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
-												<input class="form-control" type="password">				
+												<input required class="form-control" name ="password" type="password">				
 										</div>
 									</div>
 									<div class="form-group row">
@@ -890,7 +928,8 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="col-9">
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-												<input type="text" class="form-control" value="nick.watson@loop.com" placeholder="Email" aria-describedby="basic-addon1">
+												<input required type="text" class="form-control" name ="email" value="nick.watson@loop.com" placeholder="Email" aria-describedby="basic-addon1">
+												<input type = "hidden" value = "10" name = "operation">
 											</div>
 											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
 										</div>
@@ -902,6 +941,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="col-xl-2"></div>
 					</div>
 				</form>
+				
 			</div>
 		</div>	
 		<!--end::Portlet-->

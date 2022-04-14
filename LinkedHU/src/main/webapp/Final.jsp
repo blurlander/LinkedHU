@@ -1,9 +1,7 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 8
@@ -23,7 +21,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta charset="utf-8"/>
 
         <title>Home Page</title>
-
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -75,15 +72,18 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Layout Skins(used by all pages) -->
                 <!--end::Layout Skins -->
 
-
         <!-- <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" /> -->
-
     </head>
     <!-- end::Head -->
 
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
-
+			<% if(session.getAttribute("login_status") != "success"){
+				response.sendRedirect("LoginPage.jsp");
+			}
+			
+			
+			 %>
                    <!-- begin::Page loader -->
 	
 <!-- end::Page Loader -->        
@@ -622,12 +622,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!--begin: Cart -->
 
-
 	<!--end: Cart -->
 
 	<!--begin: Language bar -->
 	
-
 	<!--end: Language bar -->
 
 
@@ -679,7 +677,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin: Navigation -->
 <div class="kt-notification">
-    <a href="demo9/custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
+    <a href="Profile.jsp" class="kt-notification__item">
         <div class="kt-notification__item-icon">
             <i class="flaticon2-calendar-3 kt-font-success"></i>
         </div>
@@ -746,9 +744,10 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
     </a>
     <div class="kt-notification__custom kt-space-between">
-        <a href="demo9/custom/user/login-v2.html" target="_blank" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
-
-        <a href="demo9/custom/user/login-v2.html" target="_blank" class="btn btn-clean btn-sm btn-bold">Upgrade Plan</a>
+        <form action="UserController" method="POST">
+        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+        <input type = "hidden" value = "7" name = "opp">        
+        </form>
     </div>
 </div>
 <!--end: Navigation -->
@@ -802,14 +801,14 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="kt-subheader__main">
             
             <h3 class="kt-subheader__title">
-                                    Projects                           
+                                    Post                           
             </h3>
 
             <span class="kt-subheader__separator kt-subheader__separator--v"></span>
             
             <div class="kt-subheader__group" id="kt_subheader_search">
                 <span class="kt-subheader__desc" id="kt_subheader_total">
-                                            54 Total                                    </span>
+                                            <c:out value="${map.size()} "/> Total                                    </span>
                 
                                     <form class="kt-margin-l-20" id="kt_subheader_search_form">
                         <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
@@ -876,7 +875,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                     </div>        
         <div class="kt-subheader__toolbar">
-
             <div class="kt-subheader__wrapper">
                            <!-- Create post iÃ§in buton -->
                            <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
@@ -884,13 +882,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
                     <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
-
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
         <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
         <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000"/>
     </g>
-
 </svg>                        <!--<i class="flaticon2-plus"></i>-->
                     </a>
                     <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
@@ -913,7 +909,6 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
                          
-
     </div>
 </div>
 <!-- end:: Content Head -->
@@ -964,16 +959,20 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-widget__head">
                         <div class="kt-widget__label">
                             <div class="kt-widget__media">
-                                <span class="kt-media kt-media--lg kt-media--circle"> 
-                                    <img src="./assets/media/project-logos/8.png" alt="image">  
+                                <span class="kt-media--circle"> 
+                                    <img src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px">  
                                 </span>
                             </div>
                             <div class="kt-widget__info kt-margin-t-5">
                                 <a href="#" class="kt-widget__title">
-                                ${entry.getValue().fullName}                                        
+                                ${ entry.getKey().title }
+                                                                        
                                 </a>
+                                
                                 <span class="kt-widget__desc">
-                                ${entry.getKey().createdAt}
+                                ${entry.getValue().fullName}
+                                <br>
+                                ${ entry.getKey().dateFormat}
                                 </span>
                             </div>
                         </div>
@@ -999,8 +998,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
 
                     <div class="kt-widget__body">
-                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;">
-                    		${entry.getKey().messageText} 
+                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
+                    		${entry.getKey().messageText}
                     	</span>	
                     </div>
 
@@ -1034,7 +1033,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	
 
 	</div>
-
+	
 	
 	
 	
@@ -1483,7 +1482,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<i class="fa fa-arrow-up"></i>
 </div>
 <!-- end::Scrolltop -->
-
 	<!-- begin::Demo Panel -->
 
 <div id="kt_demo_panel" class="kt-demo-panel">
