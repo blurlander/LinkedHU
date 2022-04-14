@@ -1,12 +1,15 @@
 package Controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +41,7 @@ public class PostController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		
 		request.getRequestDispatcher("Final.jsp").forward(request, response);
 
@@ -125,6 +129,7 @@ public class PostController extends HttpServlet {
 	
 	public boolean deletePost(Post p) {
 		return (service.deletePost(p));
+
 	}
 	
 	

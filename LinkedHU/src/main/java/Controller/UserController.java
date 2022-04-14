@@ -62,9 +62,11 @@ public class UserController extends HttpServlet {
 	}
 	protected boolean checkUserLoginInfo(String email,String password) {
 		List<User> allUsers = service.fetchAllUsers();
+
 		for (int i = 0; i < allUsers.size(); i++) {
 			System.out.println(allUsers.get(i).getFullName());
 		}
+
 		for(User u : allUsers) 
 		{
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
@@ -89,7 +91,7 @@ public class UserController extends HttpServlet {
 				boolean control = this.candidatePassword.matches("[A-Z]+");
 				boolean control1 = this.candidatePassword.matches("[a-z]+");
 				boolean control2 = this.candidatePassword.matches("[0-9]+");
-				boolean control3 = this.candidatePassword.matches("[<|>|£|#|$|@|+|-|?|!]+");
+				boolean control3 = this.candidatePassword.matches("[<|>|Â£|#|$|@|+|-|?|!]+");
 				return control&&control1&&control2&&control3;		
 			}	
 		}

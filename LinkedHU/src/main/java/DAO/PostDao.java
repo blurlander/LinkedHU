@@ -49,7 +49,7 @@ public class PostDao implements IDao<Post>{
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			ResultSet rSet = preparedStatement.executeQuery();
-			
+
 			while(rSet.next()) {
 				Post post = new Post();
 				post.setPostID(rSet.getInt("postID"));
@@ -72,6 +72,7 @@ public class PostDao implements IDao<Post>{
 	}
 
 	@Override
+
 	public boolean create(Post p) {
 		String query = "Insert into post values(?,?,?,?,?,?,?,?,?,?)";
 		try {
@@ -99,6 +100,7 @@ public class PostDao implements IDao<Post>{
 
 	@Override
 	public Post read(int id) {
+
 		Post post = new Post();
 		String query = "Select * from Post where postID = ?";
 		try {
@@ -123,6 +125,7 @@ public class PostDao implements IDao<Post>{
 		}
 		
 		return post;
+
 	}
 
 	@Override
@@ -133,6 +136,7 @@ public class PostDao implements IDao<Post>{
 
 	@Override
 	public boolean delete(Post t) {
+
 		boolean control;
 		String query = "Delete from Post where postID = ?";
 		try {
@@ -147,6 +151,7 @@ public class PostDao implements IDao<Post>{
 			e.printStackTrace();
 		}
 		return control;
+
 	}
 	
 	
