@@ -2,9 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 <!DOCTYPE html>
+
 <html lang="en" >
     <!-- begin::Head -->
     <head><!--begin::Base Path (base relative path for assets of this page) -->
@@ -13,6 +15,7 @@
         <title>Home Page</title>
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
 		<!--begin::Fonts -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">       
@@ -56,11 +59,13 @@
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Theme Styles -->
+
     </head>
     <!-- end::Head -->
 
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
+
 		<% if(session.getAttribute("login_status") != "success"){
 			response.sendRedirect("LoginPage.jsp");
 		}
@@ -85,6 +90,7 @@
 		</div>
 		<!-- end:: Header Mobile -->
 		
+
 	<div class="kt-grid kt-grid--hor kt-grid--root">
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
@@ -96,12 +102,16 @@
 <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
     
     	    <button class="kt-aside-toggler kt-aside-toggler--left" id="kt_aside_toggler"><span></span></button>
+
+
 </div>
 <!-- end: Header Menu -->		
 		<!-- begin:: Brand -->
 <div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
 	<a class="kt-header__brand-logo" href="demo9/index.html">
+
 		<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
+
 	</a>		
 </div>
 <!-- end:: Brand -->		<!-- begin:: Header Topbar -->
@@ -132,9 +142,11 @@
 	<div class="kt-header__topbar-item dropdown">
 		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 			<span class="kt-header__topbar-icon"><i class="flaticon2-bell-alarm-symbol"></i></span>
+
 			<!-- <span class="kt-badge kt-badge--danger"></span>  -->
 		</div>
 		
+
 	</div>
 	<!--end: Notifications -->
 
@@ -143,6 +155,8 @@
 		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 			<span class="kt-header__topbar-icon"><i class="flaticon2-gear"></i></span>
 		</div>
+
+
 	</div>
 	<!--end: Quick actions -->
 
@@ -157,6 +171,7 @@
 
 	<!--begin: User bar -->
 	<div class="kt-header__topbar-item kt-header__topbar-item--user">
+
 			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
 				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop"></span>
@@ -250,6 +265,7 @@
 <!-- end:: Header -->
 									
 <!-- begin:: Aside -->
+
 <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
 
 <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
@@ -263,6 +279,7 @@
 			>		
 			
 			<ul class="kt-menu__nav ">
+
 				
 				
 				<li class="kt-menu__section ">
@@ -284,11 +301,13 @@
             		</a>
             	</li>
 			</ul>
+
 		</div>
 	</div>
 	<!-- end:: Aside Menu -->
 </div>
 <!-- end:: Aside -->				
+
 <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
@@ -300,6 +319,7 @@
 <!-- end:: Content Head -->
 <!-- begin:: Content -->
 <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+
 		<div class="row">
    	<div class="col-lg-12">	
 		<!--begin::Portlet-->
@@ -351,31 +371,39 @@
                                         </div>
                                     </div>
                                     
+
                                     <c:set var="dateParts" value="${fn:split(currentUser.fullName, ' ')}" />
 									<div class="form-group row">
 										<label class="col-3 col-form-label">First Name</label>
 										<div class="col-9">
 											<input required class="form-control " name ="firstName" type="text" value="${dateParts[0]}">
+
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Last Name</label>
 										<div class="col-9">
+
 											<input required class="form-control" name ="lastName" type="text" value="${dateParts[1] } ">
+
 										</div>
 									</div>
 									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
+
 											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle }">
+
 										</div>
 									</div>
 									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Office Number </label>
 										<div class="col-9">
+
 											<input required class="form-control" name ="officeNumber" type="text" value="${currentUser.officeNumber }">
+
 										</div>
 									</div>
 
@@ -383,7 +411,9 @@
 										<label class="col-3 col-form-label">Professional History</label>
 										<div class="col-9">
 											<div class="input-group">
+
 												<textarea required name="professionalHistory" rows="5" cols="100" >${currentUser.professionalHistory }</textarea>
+
 											</div>
 										</div>
 									</div>
@@ -392,7 +422,9 @@
 										<label class="col-3 col-form-label">Research History</label>
 										<div class="col-9">
 											<div class="input-group">
+
 												<textarea required name="researchHistory" rows="5" cols="100" >${currentUser.researchHistory }</textarea>
+
 											</div>
 										</div>
 									</div>
@@ -401,7 +433,9 @@
 										<label class="col-3 col-form-label">Proficiencies</label>
 										<div class="col-9">
 											<div class="input-group">
+
 												<textarea required name="proficiencies" rows="5" cols="100">${currentUser.proficiencies }</textarea>
+
 											</div>
 										</div>
 									</div>
@@ -410,7 +444,9 @@
 										<label class="col-3 col-form-label"> Bio</label>
 										<div class="col-9">
 											<div class="input-group">
+
 												<textarea required name="bio" rows="5" cols="100">${currentUser.bio }</textarea>
+
 											</div>
 										</div>
 									</div>
@@ -425,13 +461,17 @@
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Username</label>
 										<div class="col-9">
+
 												<input required class="form-control" name ="userName" type="text" value="${currentUser.username }">				
+
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
+
 												<input required class="form-control" name ="password" type="password" value="${currentUser.password }">				
+
 										</div>
 									</div>
 									<div class="form-group row">
@@ -439,7 +479,9 @@
 										<div class="col-9">
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
+
 												<input required type="text" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
+
 												<input type = "hidden" value = "10" name = "operation">
 											</div>
 											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
@@ -458,6 +500,7 @@
 		<!--end::Portlet-->
 	</div>
 </div>	
+
 </div>	
 	
 	
@@ -466,16 +509,19 @@
 </div>
 
 				<!-- begin:: Footer -->
+
 <div class="kt-footer kt-grid__item" id="kt_footer">
 	<div class="kt-container ">
 		<div class="kt-footer__wrapper">
 			<div class="kt-footer__copyright">
+
 				2022&nbsp;&copy;&nbsp;<a href="#" target="_blank" class="kt-link">HelloWorld Inc.</a>
 			</div>
 			<div class="kt-footer__menu">
 				<a href="#" target="_blank" class="kt-link">About</a>
 				<a href="#" target="_blank" class="kt-link">Team</a>
 				<a href="#" target="_blank" class="kt-link">Contact</a>
+
 			</div>
 		</div>
 	</div>
@@ -486,6 +532,7 @@
 	
 <!-- end:: Page -->
 
+
     
 
  <!-- begin::Global Config(global config for global JS sciprts) -->
@@ -493,6 +540,7 @@
      var KTAppOptions = {"colors":{"state":{"brand":"#591df1","light":"#ffffff","dark":"#282a3c","primary":"#5867dd","success":"#34bfa3","info":"#36a3f7","warning":"#ffb822","danger":"#fd3995"},"base":{"label":["#c5cbe3","#a1a8c3","#3d4465","#3e4466"],"shape":["#f0f3ff","#d9dffa","#afb4d4","#646c9a"]}}};
  </script>
  <!-- end::Global Config -->
+
 
     	<!--begin:: Global Mandatory Vendors -->
 <script src="./assets/vendors/general/jquery/dist/jquery.js" type="text/javascript"></script>

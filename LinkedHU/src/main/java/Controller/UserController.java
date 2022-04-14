@@ -37,7 +37,9 @@ public class UserController extends HttpServlet {
 		session = request.getSession();
 		String opp = request.getParameter("opp");
 		if(opp != null && opp.equals(("7"))) {			
+
 			//session.invalidate();
+
 			doGet(request,response);
 			
 			return;
@@ -178,7 +180,9 @@ public class UserController extends HttpServlet {
 				boolean control = this.candidatePassword.matches("[A-Z]+");
 				boolean control1 = this.candidatePassword.matches("[a-z]+");
 				boolean control2 = this.candidatePassword.matches("[0-9]+");
-				boolean control3 = this.candidatePassword.matches("[<|>|£|#|$|@|+|-|?|!]+");
+
+				boolean control3 = this.candidatePassword.matches("[<|>|ï¿½|#|$|@|+|-|?|!]+");
+
 				return control&&control1&&control2&&control3;		
 			}	
 		}

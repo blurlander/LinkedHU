@@ -120,4 +120,5 @@ public class SystemService implements IService{
 		return (Post) postDao.read(t);
 	}
 		
+
 }
