@@ -1,9 +1,7 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 8
@@ -23,7 +21,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta charset="utf-8"/>
 
         <title>Home Page</title>
-
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -75,9 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Layout Skins(used by all pages) -->
                 <!--end::Layout Skins -->
 
-
         <!-- <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" /> -->
-
     </head>
     <!-- end::Head -->
 
@@ -622,12 +617,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!--begin: Cart -->
 
-
 	<!--end: Cart -->
 
 	<!--begin: Language bar -->
 	
-
 	<!--end: Language bar -->
 
 
@@ -794,255 +787,130 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- end:: Aside Menu -->
 </div>
 <!-- end:: Aside -->				
-				<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
-					<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-							<!-- begin:: Content Head -->
-<div class="kt-subheader   kt-grid__item" id="kt_subheader">
-    <div class="kt-container ">
-        <div class="kt-subheader__main">
-            
-            <h3 class="kt-subheader__title">
-                                    Projects                           
-            </h3>
-
-            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-            
-            <div class="kt-subheader__group" id="kt_subheader_search">
-                <span class="kt-subheader__desc" id="kt_subheader_total">
-                                            54 Total                                    </span>
-                
-                                    <form class="kt-margin-l-20" id="kt_subheader_search_form">
-                        <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
-                            <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                            <span class="kt-input-icon__icon kt-input-icon__icon--right">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect id="bound" x="0" y="0" width="24" height="24"/>
-        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" id="Path-2" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" id="Path" fill="#000000" fill-rule="nonzero"/>
-    </g>
-</svg>                                    <!--<i class="flaticon2-search-1"></i>-->
-                                </span>
-                            </span>
-                        </div>
-                    </form>
-                            </div>
-
-                            <div class="kt-subheader__group kt-hidden" id="kt_subheader_group_actions">
-
-                    <div class="kt-subheader__desc"><span id="kt_subheader_group_selected_rows"></span> Selected:</div>
-                    
-                    <div class="btn-toolbar kt-margin-l-20">
-                        <div class="dropdown" id="kt_subheader_group_actions_status_change">
-                            <button type="button" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
-                                Update Status
-                            </button>
-                            <div class="dropdown-menu">
-                                <ul class="kt-nav">
-                                    <li class="kt-nav__section kt-nav__section--first">
-                                        <span class="kt-nav__section-text">Change status to:</span>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link" data-toggle="status-change" data-status="1">
-                                            <span class="kt-nav__link-text"><span class="kt-badge kt-badge--unified-success kt-badge--inline kt-badge--bold">Approved</span></span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link" data-toggle="status-change" data-status="2">
-                                            <span class="kt-nav__link-text"><span class="kt-badge kt-badge--unified-danger kt-badge--inline kt-badge--bold">Rejected</span></span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link" data-toggle="status-change" data-status="3">
-                                            <span class="kt-nav__link-text"><span class="kt-badge kt-badge--unified-warning kt-badge--inline kt-badge--bold">Pending</span></span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link" data-toggle="status-change" data-status="4">
-                                            <span class="kt-nav__link-text"><span class="kt-badge kt-badge--unified-info kt-badge--inline kt-badge--bold">On Hold</span></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <button class="btn btn-label-success btn-bold btn-sm btn-icon-h" id="kt_subheader_group_actions_fetch" data-toggle="modal" data-target="#kt_datatable_records_fetch_modal">
-                            Fetch Selected
-                        </button>                
-                        <button class="btn btn-label-danger btn-bold btn-sm btn-icon-h" id="kt_subheader_group_actions_delete_all">
-                            Delete All
-                        </button>
-                    </div>
-                </div>
-                    </div>        
-        <div class="kt-subheader__toolbar">
-
-            <div class="kt-subheader__wrapper">
-                           <!-- Create post iÃ§in buton -->
-                           <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
-                
-                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
-                    <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
-
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
-        <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-        <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000"/>
-    </g>
-
-</svg>                        <!--<i class="flaticon2-plus"></i>-->
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
-                        <!--begin::Nav-->
-                        <ul class="kt-nav">
-                            <li class="kt-nav__head">
-                                Upload File:
-                                <i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
-                            </li>
-
-                            <li class="kt-nav__separator"></li>
-                            <li class="kt-nav__foot">
-                                <a class="btn btn-label-brand btn-bold btn-sm" href="#">Share as a post</a>
-                                <a class="btn btn-clean btn-bold btn-sm" href="#"  data-placement="right" >To resources</a>
-                            </li>
-                        </ul>
-                        <!--end::Nav-->
-                    </div>
-                </div>
-            </div>
-        </div>
-                         
-
-    </div>
-</div>
-<!-- end:: Content Head -->
+				
 <!-- begin:: Content -->
-	<div id = "1234567" class="kt-container  kt-grid__item kt-grid__item--fluid" >
-	           <div class="modal fade show" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="PostController" id = "create-post-form">
-                    <div class="form-group">
-                        <label for="post-name" class="form-control-label">Title:</label>
-                        <input type="text" class="form-control" name="title">
-                        
-                        
-                    </div>
-                    <div class="form-group">
-                        <label for="post-text" class="form-control-label">Text:</label>
-                        <textarea class="form-control" id="message-text" name = "text"></textarea>
-                        <input type="hidden" id = "5" name = "opp" value="5">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                <button type="submit" form="create-post-form" value="submit" class="btn btn-primary">Share Post</button>
-                
-            </div>
-        </div>
-    </div>
-</div>  
-		<!--Begin::Section-->
-		<c:forEach items="${map.entrySet()}" var="entry">
-<!--Begin::Section-->
-<div class="row" id =${ String.valueOf(entry.getKey().postID)} >
-    <div class="col-xl-12">
-        <!--begin:: Portlet-->
-        <div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__body kt-portlet__body--fit">
-                <!--begin::Widget -->
-                <div class="kt-widget kt-widget--project-1">
-                
-                    <div class="kt-widget__head">
-                        <div class="kt-widget__label">
-                            <div class="kt-widget__media">
-                                <span class="kt-media kt-media--lg kt-media--circle"> 
-                                    <img src="./assets/media/project-logos/8.png" alt="image">  
-                                </span>
-                            </div>
-                            <div class="kt-widget__info kt-margin-t-5">
-                                <a href="#" class="kt-widget__title">
-                                ${entry.getValue().fullName}                                        
-                                </a>
-                                <span class="kt-widget__desc">
-                                ${entry.getKey().createdAt}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__head-toolbar">
-                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
-                                <i class="flaticon-more-1"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                <form action = "PostController" method = "POST">
-                                <ul class="kt-nav">
-                                    <li class="kt-nav__item">
-                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
-                                            <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
-                                        </button>
-                                        <input type = "hidden" name = "opp" value = "6" >
-                                        <input type = "hidden" name = "delPost" value = ${ String.valueOf(entry.getKey().postID)}>
-                                        
-                                    </li>
-                                </ul>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="kt-widget__body">
-                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;">
-                    		${entry.getKey().messageText} 
-                    	</span>	
-                    </div>
-
-                    <div class="kt-widget__footer">
-                        <div class="kt-widget__wrapper">
-                           	<div class="kt-widget__section">
-                           		<div class="kt-demo-icon__preview">
-                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
-                           			<a href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
-                           		</div>
-                           		<div class="kt-demo-icon__preview">
-                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
-                           			<a href="#" style="font-size: 15px; color: black;">${entry.getKey().commentCount} Comments</a>
-                           		</div>
-                           	</div>
-                           	<div class="kt-widget__section">
-                           		<button class="btn btn-outline-dark" type="button">Details</button>
-                           	</div>
-                        </div>
-                    </div>
-                </div>
-                <!--end::Widget -->
-            </div>
-        </div>
-        <!--end:: Portlet-->
-    </div>
-      
-</div>
-<!--End::Section-->
-	</c:forEach>
-	
-
-	</div>
-
-	
-	
-	
-	
-<!-- end:: Content -->					</div>
+	<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+		<div class="row">
+   	<div class="col-lg-12">	
+		<!--begin::Portlet-->
+		<div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+			<div class="kt-portlet__head kt-portlet__head--lg">
+				<div class="kt-portlet__head-label">
+					<h3 class="kt-portlet__head-title">Upadate Your Profile</h3>
 				</div>
+				<div class="kt-portlet__head-toolbar">
+					<a href="#" class="btn btn-clean kt-margin-r-10">
+						<i class="la la-arrow-left"></i>
+						<span class="kt-hidden-mobile">Back</span>
+					</a>
+					<div class="btn-group">
+						<button type="button" class="btn btn-brand">
+							<i class="la la-check"></i> 
+							<span class="kt-hidden-mobile">Save</span>
+						</button>
+				
+						
+					</div>
+				</div>
+			</div>
+			<div class="kt-portlet__body">
+				<form class="kt-form" id="kt_form">
+					<div class="row">
+						<div class="col-xl-2"></div>
+						<div class="col-xl-8">
+							<div class="kt-section kt-section--first">
+								<div class="kt-section__body">
+									<h3 class="kt-section__title kt-section__title-lg">Profile:</h3>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">First Name</label>
+										<div class="col-9">
+											<input class="form-control" type="text" value="Nick">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Last Name</label>
+										<div class="col-9">
+											<input class="form-control" type="text" value="Watson">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Academic Title</label>
+										<div class="col-9">
+											<input class="form-control" type="text" value="ali">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Contact Phone</label>
+										<div class="col-9">
+											<div class="input-group">
+												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+												<input type="text" class="form-control" value="+45678967456" placeholder="Phone" aria-describedby="basic-addon1">
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Email Address</label>
+										<div class="col-9">
+											<div class="input-group">
+												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
+												<input type="text" class="form-control" value="nick.watson@loop.com" placeholder="Email" aria-describedby="basic-addon1">
+											</div>
+											<span class="form-text text-muted">We'll never share your email with anyone else.</span>
+										</div>
+									</div>
+									<div class="form-group form-group-last row">
+										<label class="col-3 col-form-label">Address</label>
+										<div class="col-9">
+											<div class="input-group">
+												<textarea rows="5" cols="100"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+					
+							<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+							<div class="kt-section">
+								<div class="kt-section__body">
+									<h3 class="kt-section__title kt-section__title-lg">Account:</h3>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Username</label>
+										<div class="col-9">
+												<input class="form-control" type="text" value="nick84">				
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Password</label>
+										<div class="col-9">
+												<input class="form-control" type="password">				
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-3 col-form-label">Email Address</label>
+										<div class="col-9">
+											<div class="input-group">
+												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
+												<input type="text" class="form-control" value="nick.watson@loop.com" placeholder="Email" aria-describedby="basic-addon1">
+											</div>
+											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
+										</div>
+									</div>																					
+								</div>
+							</div>
+							<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+						</div>
+						<div class="col-xl-2"></div>
+					</div>
+				</form>
+			</div>
+		</div>	
+		<!--end::Portlet-->
+	</div>
+</div>	
+</div>
 
-				<!-- begin:: Footer -->
+
+<!-- begin:: Footer -->
 <div class="kt-footer kt-grid__item" id="kt_footer">
 	<div class="kt-container ">
 		<div class="kt-footer__wrapper">
@@ -1483,7 +1351,6 @@ License: You must have a valid license purchased only from themeforest(the above
 		<i class="fa fa-arrow-up"></i>
 </div>
 <!-- end::Scrolltop -->
-
 	<!-- begin::Demo Panel -->
 
 <div id="kt_demo_panel" class="kt-demo-panel">

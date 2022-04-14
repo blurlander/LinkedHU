@@ -76,12 +76,17 @@ public class SystemService implements IService{
 	@Override
 	public boolean createPost(Post post) {
 		// TODO Auto-generated method stub
-		return false;
+
+		return postDao.create(post);
+
 	}
 
 	@Override
 	public boolean deletePost(Post post) {
 		// TODO Auto-generated method stub
+
+		postDao.delete(post);
+
 		return false;
 	}
 
@@ -109,9 +114,10 @@ public class SystemService implements IService{
 		return false;
 	}
 	
-	
-	
-	
-	
 
+	public Post readPost(int t) {
+		return (Post) postDao.read(t);
+	}
+		
 }
+

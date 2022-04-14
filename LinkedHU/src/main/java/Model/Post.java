@@ -1,6 +1,9 @@
 package Model;
 
 import java.io.File;
+
+import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +21,10 @@ public class Post {
 	private ArrayList<Comment> comments = null;
 	private int authorID;
 	
+
+	public Timestamp t;
+	
+
 	public int getPostID() {
 		return postID;
 	}

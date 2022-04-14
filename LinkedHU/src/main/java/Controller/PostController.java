@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +52,9 @@ public class PostController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+
+		// When login is success load main page
+
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
 			User currentUser = (User)session.getAttribute("currentUser");
 			List<Post> allPosts = service.fetchAllPosts();
@@ -65,6 +67,9 @@ public class PostController extends HttpServlet {
 			session.setAttribute("map",map);
 			session.setAttribute("operation", "failgetPostsForDiscoverPage");
 		}
+
+		
+		// Create Post
 
 		else if(request.getParameter("opp").equals("5")) {
 			List<User> allUsers = service.fetchAllUsers();
@@ -94,6 +99,9 @@ public class PostController extends HttpServlet {
 			response.sendRedirect("PostController");
 			
 		}
+
+		// Delete Post
+
 		else if(request.getParameter("opp").equals("6")) {
 			int id = Integer.parseInt(request.getParameter("delPost"));
 			HashMap<Post,User> map1 = (HashMap<Post,User>)session.getAttribute("map");
@@ -136,4 +144,6 @@ public class PostController extends HttpServlet {
 	
 	
 
+
 }
+

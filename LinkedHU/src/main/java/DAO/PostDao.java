@@ -22,6 +22,7 @@ public class PostDao implements IDao<Post>{
 	private Statement statement;
 	private PreparedStatement preparedStatement;
 	
+
 	public PostDao() {
 		connectDatabase();
 	}
@@ -156,4 +157,6 @@ public class PostDao implements IDao<Post>{
 	
 	
 
+
 }
+

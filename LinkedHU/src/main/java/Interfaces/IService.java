@@ -24,6 +24,4 @@ public interface IService {
 	boolean createMessage(Message message);
 	boolean deleteMessage(Message message);
 
-	Post readPost(int id);
-
 }
