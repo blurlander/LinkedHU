@@ -1,8 +1,6 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="general.MyConstants" %>     
-
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
  
@@ -66,7 +64,13 @@
 
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
-  
+
+		<% if(session.getAttribute("login_status") != "success"){
+			response.sendRedirect("LoginPage.jsp");
+		}
+		
+		
+		 %>   
     	<!-- begin:: Page -->
     	
 		<!-- begin:: Header Mobile -->
@@ -169,11 +173,18 @@
 
 			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
-				
-				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${currentUser.username }"></c:out>
-				</span>
-				
+				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop"></span>
+				<script type="text/javascript">
+					greetUser();
+					function greetUser(){
+						<%
+					  	User user = (User)session.getAttribute("currentUser");
+						String username = user.getUsername();
+					  	%>
+					  	var username = "<%=username%>";
+					  	document.getElementById('hiNameSpan').textContent = username;
+					}
+				</script>
 				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
@@ -188,8 +199,17 @@
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currentUser.fullName }"></c:out>
 		        </div>
+		        <script type="text/javascript">
+						updateUserCard();
+						function updateUserCard(){
+							<%
+							String fullName = user.getFullName();
+						  	%>
+						  	var fullName = "<%=fullName%>";
+						  	document.getElementById('profileCardName').textContent = fullName;
+						}
+					</script>
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
 		        </div>
@@ -228,7 +248,7 @@
 		    <div class="kt-notification__custom kt-space-between">
 		        <form action="UserController" method="POST">
 		        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-		        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
+		        <input type = "hidden" value = "7" name = "opp">        
 		        </form>
 		    </div>
 		</div>
@@ -309,7 +329,7 @@
         <div class="kt-widget kt-widget--user-profile-3">
             <div class="kt-widget__top">
                 <div class="kt-widget__media kt-hidden-">
-                    <img src="./assets/media/project-logos/8.png" alt="image">
+                    <img src="${currentUser.profilePictureSrc}" alt="image">
                 </div>
                 <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
                     JM
@@ -323,7 +343,7 @@
 
                         <div class="kt-widget__action">
                             <button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>&nbsp;
-                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='Final.jsp'">Go Back to the Main Page</button>
+                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='Homepage.jsp'">Go Back to the Main Page</button>
                         </div>
                     </div>
 

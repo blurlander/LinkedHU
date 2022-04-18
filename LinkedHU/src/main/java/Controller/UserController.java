@@ -1,27 +1,33 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.mysql.cj.Constants;
+import javax.servlet.http.Part;
 
 import Interfaces.IService;
 import Model.Academician;
 import Model.SystemService;
 import Model.User;
-import general.MyConstants;
 
 @WebServlet("/UserController")
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+maxFileSize=1024*1024*50,      	// 50 MB
+maxRequestSize=1024*1024*100)   	// 100 MB
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	RequestDispatcher dispatcher = null;
@@ -34,39 +40,45 @@ public class UserController extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String operation = request.getParameter("operation");
+		
 		session = request.getSession();
-				
+		String opp = request.getParameter("opp");
+		if(opp != null && opp.equals(("7"))) {			
+
+			//session.invalidate();
+
+			doGet(request,response);
+			
+			return;
+		}
+		
+		
+		
 		switch(operation) 
 		{
-			case MyConstants.OPP_LOGOUT:
-				doGet(request,response);
-				return;
-		
-			case MyConstants.OPP_LOGIN:
-				
+			case "1":
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
 				boolean control = checkUserLoginInfo(email, password);
 				//dispatcher = request.getRequestDispatcher("LoginPage.jsp");
 				if(control) {
+					session.setAttribute("login_status", "success");
 					session.setAttribute("status","success");
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
-					response.sendRedirect("Final.jsp");
 					//dispatcher.include(request, response);
 				}
 				else {
 					// To prevent re-submission of forms,this pattern is used here.
 					// POST-REDIRECT-GET
 					session.setAttribute("status","fail");
-					response.sendRedirect("UserController");
+					
 				}
-				
+				response.sendRedirect("UserController");
 				break;
-				
-			case MyConstants.OPP_UPDATE_PROFILE:
-				
+			case "10":
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String fullName = firstName.concat(" ").concat(lastName);
@@ -81,6 +93,11 @@ public class UserController extends HttpServlet {
 				String username = request.getParameter("userName");
 				String password1 = request.getParameter("password");
 				String email1 = request.getParameter("email");
+				Part filePart = request.getPart("profilePicture");
+				String fileName = username+".jpg";
+				String destSRC = "C:\\Users\\dyavu\\Desktop\\PROJEEE\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures/"+fileName;
+				filePart.write(destSRC);
+				String profilePictureSrc = "./ProfilePictures/"+fileName;
 				
 				List<String> infoList = new ArrayList<String>();
 				
@@ -89,6 +106,7 @@ public class UserController extends HttpServlet {
 				infoList.add(password1);
 				infoList.add(fullName);
 				infoList.add(bio);
+				infoList.add(profilePictureSrc);
 				infoList.add(acadTitle);
 				infoList.add(professionalHistory);
 				infoList.add(researchHistory);
@@ -98,6 +116,8 @@ public class UserController extends HttpServlet {
 				updateAccountInfo(infoList);
 				
 				response.sendRedirect("Profile.jsp");
+				PrintWriter out = response.getWriter();
+				out.println(filePart.getName());
 				
 				break;
 				
@@ -120,22 +140,22 @@ public class UserController extends HttpServlet {
 	public boolean updateAccountInfo(List<String> infoList) {
 		
 		User u = (User)session.getAttribute("currentUser");
-		if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
-			
+		if(u.getUserType() == 1) {
 			Academician a = (Academician)u;
+			
 			
 			a.setUsername(infoList.get(0));
 			a.setEmail(infoList.get(1));
 			a.setPassword(infoList.get(2));
 			a.setFullName(infoList.get(3));
 			a.setBio(infoList.get(4));
-			a.setAcademicTitle(infoList.get(5));
-			a.setProfessionalHistory(infoList.get(6));
-			a.setResearchHistory(infoList.get(7));
-			a.setProficiencies(infoList.get(8));
-			a.setOfficeNumber(infoList.get(9));
-			
-			
+			a.setProfilePictureSrc(infoList.get(5));
+			a.setAcademicTitle(infoList.get(6));
+			a.setProfessionalHistory(infoList.get(7));
+			a.setResearchHistory(infoList.get(8));
+			a.setProficiencies(infoList.get(9));
+			a.setOfficeNumber(infoList.get(10));
+					
 			if(service.updateUser(a)) {
 				session.setAttribute("currentUser", a);
 			}
