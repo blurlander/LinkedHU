@@ -2,6 +2,7 @@ package DAO;
 import Model.Academician;
 import Model.Graduate;
 import Model.User;
+import general.MyConstants;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -57,14 +58,14 @@ public class UserDao implements IDao<User> {
 			while(rs.next()) {
 				switch(rs.getInt("userType")) 
 				{
-					case 0 : // Admin
+					case MyConstants.TYPE_ADMIN : 
 						break;
-					case 1 : // Academician
+					case MyConstants.TYPE_ACADEMICIAN :
 						addAcademician(allUsers);
 						break;
-					case 2:  // Graduate
+					case MyConstants.TYPE_GRADUATE:  
 						break;
-					case 3:  // Student
+					case MyConstants.TYPE_STUDENT: 
 						break;
 				}
 				//allUsers.add(user);
@@ -74,7 +75,7 @@ public class UserDao implements IDao<User> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(allUsers.get(0).getFullName());
+
 		return allUsers;
 	}
 

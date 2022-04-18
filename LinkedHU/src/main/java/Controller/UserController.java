@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.Constants;
+
 import Interfaces.IService;
 import Model.Academician;
 import Model.SystemService;
 import Model.User;
+import general.MyConstants;
 
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
@@ -31,45 +34,39 @@ public class UserController extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String operation = request.getParameter("operation");
-		
 		session = request.getSession();
-		String opp = request.getParameter("opp");
-		if(opp != null && opp.equals(("7"))) {			
-
-			//session.invalidate();
-
-			doGet(request,response);
-			
-			return;
-		}
-		
-		
-		
+				
 		switch(operation) 
 		{
-			case "1":
+			case MyConstants.OPP_LOGOUT:
+				doGet(request,response);
+				return;
+		
+			case MyConstants.OPP_LOGIN:
+				
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
 				boolean control = checkUserLoginInfo(email, password);
 				//dispatcher = request.getRequestDispatcher("LoginPage.jsp");
 				if(control) {
-					session.setAttribute("login_status", "success");
 					session.setAttribute("status","success");
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
+					response.sendRedirect("Final.jsp");
 					//dispatcher.include(request, response);
 				}
 				else {
 					// To prevent re-submission of forms,this pattern is used here.
 					// POST-REDIRECT-GET
 					session.setAttribute("status","fail");
-					
+					response.sendRedirect("UserController");
 				}
-				response.sendRedirect("UserController");
+				
 				break;
-			case "10":
+				
+			case MyConstants.OPP_UPDATE_PROFILE:
+				
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String fullName = firstName.concat(" ").concat(lastName);
@@ -123,9 +120,9 @@ public class UserController extends HttpServlet {
 	public boolean updateAccountInfo(List<String> infoList) {
 		
 		User u = (User)session.getAttribute("currentUser");
-		if(u.getUserType() == 1) {
-			Academician a = (Academician)u;
+		if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
 			
+			Academician a = (Academician)u;
 			
 			a.setUsername(infoList.get(0));
 			a.setEmail(infoList.get(1));
