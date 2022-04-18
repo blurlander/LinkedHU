@@ -1,8 +1,9 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="general.MyConstants" %>    
 
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 <!DOCTYPE html>
@@ -66,12 +67,6 @@
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
 
-		<% if(session.getAttribute("login_status") != "success"){
-			response.sendRedirect("LoginPage.jsp");
-		}
-		
-		
-		 %>   
     	<!-- begin:: Page -->
     	
 		<!-- begin:: Header Mobile -->
@@ -174,18 +169,11 @@
 
 			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
-				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop"></span>
-				<script type="text/javascript">
-					greetUser();
-					function greetUser(){
-						<%
-					  	User user = (User)session.getAttribute("currentUser");
-						String username = user.getUsername();
-					  	%>
-					  	var username = "<%=username%>";
-					  	document.getElementById('hiNameSpan').textContent = username;
-					}
-				</script>
+				
+				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
+					<c:out value="${currentUser.username }"></c:out>
+				</span>
+				
 				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
@@ -200,17 +188,8 @@
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        </div>
-		        <script type="text/javascript">
-						updateUserCard();
-						function updateUserCard(){
-							<%
-							String fullName = user.getFullName();
-						  	%>
-						  	var fullName = "<%=fullName%>";
-						  	document.getElementById('profileCardName').textContent = fullName;
-						}
-					</script>
+		        	<c:out value="${currenntUser.fullName }"></c:out>
+		        </div>		        
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
 		        </div>
@@ -249,7 +228,7 @@
 		    <div class="kt-notification__custom kt-space-between">
 		        <form action="UserController" method="POST">
 		        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-		        <input type = "hidden" value = "7" name = "opp">        
+		        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
 		        </form>
 		    </div>
 		</div>
@@ -482,7 +461,7 @@
 
 												<input required type="text" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
-												<input type = "hidden" value = "10" name = "operation">
+												<input type = "hidden" value = "${MyConstants.OPP_UPDATE_PROFILE }" name = "operation">
 											</div>
 											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
 										</div>

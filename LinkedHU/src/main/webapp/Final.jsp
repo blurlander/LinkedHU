@@ -1,6 +1,8 @@
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="general.MyConstants" %>
+    
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
  
@@ -65,12 +67,6 @@
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
 
-		<% if(session.getAttribute("login_status") != "success"){
-			response.sendRedirect("LoginPage.jsp");
-		}
-		
-		
-		 %>   
     	<!-- begin:: Page -->
     	
 		<!-- begin:: Header Mobile -->
@@ -172,18 +168,12 @@
 
 			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
-				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop"></span>
-				<script type="text/javascript">
-					greetUser();
-					function greetUser(){
-						<%
-					  	User user = (User)session.getAttribute("currentUser");
-						String username = user.getUsername();
-					  	%>
-					  	var username = "<%=username%>";
-					  	document.getElementById('hiNameSpan').textContent = username;
-					}
-				</script>
+				
+				<!-- Greeting -->
+				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
+				 	<c:out value="${currentUser.username }"></c:out> 
+				 </span>
+				 
 				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
@@ -197,18 +187,12 @@
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
+		        
+		        <!-- get full name for profile Card-->
 		        <div id = "profileCardName" class="kt-user-card__name">
+		        	<c:out value="${currentUser.fullName }"></c:out>
 		        </div>
-		        <script type="text/javascript">
-						updateUserCard();
-						function updateUserCard(){
-							<%
-							String fullName = user.getFullName();
-						  	%>
-						  	var fullName = "<%=fullName%>";
-						  	document.getElementById('profileCardName').textContent = fullName;
-						}
-					</script>
+		        
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
 		        </div>
@@ -247,7 +231,7 @@
 		    <div class="kt-notification__custom kt-space-between">
 		        <form action="UserController" method="POST">
 		        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-		        <input type = "hidden" value = "7" name = "opp">        
+		        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
 		        </form>
 		    </div>
 		</div>
@@ -453,7 +437,7 @@
                     <div class="form-group">
                         <label for="post-text" class="form-control-label">Text:</label>
                         <textarea class="form-control" id="message-text" name = "text"></textarea>
-                        <input type="hidden" id = "5" name = "opp" value="5">
+                        <input type="hidden" id = "5" name = "operation" value="${MyConstants.OPP_CREATE_POST }">
                     </div>
                 </form>
             </div>
@@ -507,7 +491,7 @@
                                         <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
                                             <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
                                         </button>
-                                        <input type = "hidden" name = "opp" value = "6" >
+                                        <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
                                         <input type = "hidden" name = "delPost" value = ${ String.valueOf(entry.getKey().postID)}>
                                         
                                     </li>

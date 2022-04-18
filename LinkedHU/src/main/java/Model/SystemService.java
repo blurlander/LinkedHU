@@ -3,6 +3,7 @@ package Model;
 import java.util.List;
 
 import Interfaces.IService;
+import general.MyConstants;
 import Interfaces.IDao;
 import DAO.UserDao;
 import DAO.AcademicianDao;
@@ -63,7 +64,7 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean updateUser(User user) {
-		if(user.getUserType() == 1) {
+		if(user.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
 			
 			boolean academicanTableUpdate = academicianDao.update((Academician)user); 
 			boolean userTableUpdate = userDao.update(user);

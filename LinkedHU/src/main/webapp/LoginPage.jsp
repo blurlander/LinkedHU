@@ -1,7 +1,10 @@
 <%@page import="Controller.UserController"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="general.MyConstants" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 8
@@ -113,7 +116,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control form-control-last" type="password" placeholder="Password" name="password">
-                                        <input type="hidden" id = "1" name="operation" value="1">
+                                        <input type="hidden" id = "1" name="operation" value="${MyConstants.OPP_LOGIN}">
                                     </div>
                                     <div class="kt-login__extra">
                                         <label class="kt-checkbox">
@@ -125,29 +128,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="kt-login__actions">
                                         <button type="submit" form="form1" value="submit"  class="btn btn-brand btn-pill btn-elevate">Sign In</button>
                                     </div>
-                                    <p style = "color:#ff0000; font-size:15px; position:relative; left:85px; top:30px;" id="p12345" ></p>
+                                    
+                                    <!-- print an error message in case of invalid password or email  -->
+                                    <c:if test="${status == 'fail'}">
+                                    	<p style = "color:#ff0000; font-size:15px; position:relative; left:85px; top:30px;" id="p12345" >
+                                    		<c:out value="Invalid username or password"/>
+                                    	</p>
+                                    </c:if>
+                                    <%session.removeAttribute("status");%>
+                                    
                                 </form>
                             </div>
                         </div>
-                        <script type="text/javascript">
-                        what();
-						function what(){
-							<%;
-						  	String status = (String)session.getAttribute("status");
-						  	%>
-							var status = "<%=status%>";
-						   	if(status == "fail"){
-						   		document.getElementById('p12345').textContent = "Invalid username or password";
-
-						   	}
-						   	else if(status=="success"){
-						   		// Login is done. Homepage is coming...
-						   		document.getElementById('p12345').textContent = "";
-						   		window.location = "http://localhost:8080/LinkedHU/Final.jsp";
-						   	}
-						   	<%session.removeAttribute("status");%>
-						  };
-                        </script>
                         <div class="kt-login__signup">
                             <div class="kt-login__head">
                                 <h3 class="kt-login__title">Sign Up</h3>
@@ -163,7 +155,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" type="password" placeholder="Password" name="password">
-                                        <input type="hidden" id = "2" name="operation" value="2">
+                                        <input type="hidden" id = "2" name="operation" value="${MyConstants.OPP_REGISTER }">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control form-control-last" type="password" placeholder="Confirm Password" name="rpassword">

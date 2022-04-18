@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import Interfaces.IService;
 import Model.Post;
 import Model.User;
+import general.MyConstants;
 import Model.SystemService;
 
 @WebServlet("/PostController")
@@ -52,6 +53,7 @@ public class PostController extends HttpServlet {
 		
 		// When login is success load main page
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
+			
 			User currentUser = (User)session.getAttribute("currentUser");
 			List<Post> allPosts = service.fetchAllPosts();
 			List<User> allUsers = service.fetchAllUsers();
@@ -65,7 +67,8 @@ public class PostController extends HttpServlet {
 		}
 		
 		// Create Post
-		else if(request.getParameter("opp").equals("5")) {
+		else if(request.getParameter("operation").equals(MyConstants.OPP_CREATE_POST)) {
+			
 			List<User> allUsers = service.fetchAllUsers();
 			TreeMap<Post,User> map = new TreeMap<>();
 			Random random = new Random();
@@ -94,7 +97,8 @@ public class PostController extends HttpServlet {
 			
 		}
 		// Delete Post
-		else if(request.getParameter("opp").equals("6")) {
+		else if(request.getParameter("operation").equals(MyConstants.OPP_DELETE_POST)) {
+			
 			int id = Integer.parseInt(request.getParameter("delPost"));
 			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			for (Post p :  map1.keySet()) {
