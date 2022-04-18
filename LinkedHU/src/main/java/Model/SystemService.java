@@ -28,13 +28,11 @@ public class SystemService implements IService{
 	
 	@Override
 	public List<User> fetchAllUsers() {
-		// TODO Auto-generated method stub
 		return userDao.fetchAll();
 	}
 
 	@Override
 	public List<Post> fetchAllPosts() {
-		// TODO Auto-generated method stub
 		return postDao.fetchAll();
 	}
 
@@ -70,7 +68,6 @@ public class SystemService implements IService{
 			boolean userTableUpdate = userDao.update(user);
 			return academicanTableUpdate && userTableUpdate;
 		}
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -82,13 +79,12 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createPost(Post post) {
-		// TODO Auto-generated method stub
 		return postDao.create(post);
 	}
 
 	@Override
 	public boolean deletePost(Post post) {
-		// TODO Auto-generated method stub
+
 		postDao.delete(post);
 		return false;
 	}

@@ -463,9 +463,15 @@
                     <div class="kt-widget__head">
                         <div class="kt-widget__label">
                             <div class="kt-widget__media">
-                                <span class="kt-media--circle"> 
-                                    <img src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px">  
+                            	
+                            	<form action="UserController" method="POST">
+                                <span class="kt-media--circle">                                     
+                                    <input type="image" src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+                                    <input type="hidden" name="userID" value="${entry.getValue().userID }">                                	
                                 </span>
+                            	</form>
+                            	
                             </div>
                             <div class="kt-widget__info kt-margin-t-5">
                                 <a href="#" class="kt-widget__title">

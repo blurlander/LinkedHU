@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -54,6 +55,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
 					response.sendRedirect("Final.jsp");
+					
 					//dispatcher.include(request, response);
 				}
 				else {
@@ -100,9 +102,43 @@ public class UserController extends HttpServlet {
 				response.sendRedirect("Profile.jsp");
 				
 				break;
+			case MyConstants.OPP_VIEW_PROFILE:
 				
+				//  userID of the user whose profile page we want to see
+				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
+				
+				User currentUser = (User)session.getAttribute("currentUser");
+				
+				// if we want to see our profile
+				if(incomeUserID == currentUser.getUserID()) {
+					session.setAttribute("otherUser", currentUser);
+					response.sendRedirect("Profile.jsp");
+					break;
+				}
+				
+				// if we want to see other users profiles
+				Academician otherUser =  (Academician)getUserFromID(incomeUserID);
+				
+				//List<Post> userPosts = service.fetchAllPosts();
+				
+				otherUser.setAuthorOf(null);
+				
+				session.setAttribute("otherUser",otherUser);
+				
+				response.sendRedirect("Profile.jsp");
+				break;
 		}
 		
+	}
+	
+	private User getUserFromID(int userID) {
+		List<User> allUsers = service.fetchAllUsers();
+		for (User user : allUsers) {
+			if(user.getUserID() == userID) {
+				return user;
+			}
+		}
+		return null;
 	}
 	
 	protected boolean checkUserLoginInfo(String email,String password) {
@@ -111,6 +147,7 @@ public class UserController extends HttpServlet {
 		{
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
 				session.setAttribute("currentUser", u);
+				session.setAttribute("otherUser", u);
 				return true;
 			}
 		}

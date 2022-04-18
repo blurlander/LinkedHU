@@ -130,6 +130,9 @@ public class PostDao implements IDao<Post>{
 		
 		return post;
 	}
+	
+	
+	
 
 	@Override
 	public boolean update(Post t) {
@@ -155,8 +158,6 @@ public class PostDao implements IDao<Post>{
 		return control;
 	}
 	
-	
-
 
 }
 

@@ -171,7 +171,7 @@
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
 				
 				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${currentUser.username }"></c:out>
+					<c:out value="${otherUser.username }"></c:out>
 				</span>
 				
 				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
@@ -188,7 +188,7 @@
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currentUser.fullName }"></c:out>
+		        	<c:out value="${otherUser.fullName }"></c:out>
 		        </div>
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
@@ -317,7 +317,7 @@
                 <div class="kt-widget__content">
                     <div class="kt-widget__head">
                         <a href="#" class="kt-widget__username">
-                            <c:out value="${currentUser.fullName}">name</c:out>    
+                            <c:out value="${otherUser.fullName}">name</c:out>    
                             <i class="flaticon2-correct"></i>                       
                         </a>
 
@@ -328,15 +328,15 @@
                     </div>
 
                     <div class="kt-widget__subhead">
-                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${currentUser.email}">email</c:out></a>
-                        <a href="#"><i class="flaticon2-calendar-3"></i> <c:out value="${currentUser.academicTitle}">academicTitle</c:out> </a>
+                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${otherUser.email}">email</c:out></a>
+                        <a href="#"><i class="flaticon2-calendar-3"></i> <c:out value="${otherUser.academicTitle}">academicTitle</c:out> </a>
                         <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
-                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${currentUser.officeNumber}">officeNumber</c:out> </a>
+                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${otherUser.officeNumber}">officeNumber</c:out> </a>
                     </div>
 
                     <div class="kt-widget__info">
                         <div class="kt-widget__desc">
-                            <c:out value="${currentUser.bio}">bio</c:out>
+                            <c:out value="${otherUser.bio}">bio</c:out>
 						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
 							<div class="kt-portlet__head">
 								<div class="kt-portlet__head-label">
@@ -355,7 +355,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line" >
-											${ currentUser.professionalHistory }
+											${ otherUser.professionalHistory }
 										</div>						
 									</div>	 
 						
@@ -367,7 +367,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line">
-											${ currentUser.researchHistory }
+											${ otherUser.researchHistory }
 										</div>						 
 									</div>
 						
@@ -379,7 +379,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line;">
-											${currentUser.proficiencies}		 
+											${otherUser.proficiencies}		 
 										</div>				
 									</div>	
 								</div>			 
