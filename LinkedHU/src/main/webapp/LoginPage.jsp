@@ -134,8 +134,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     	<p style = "color:#ff0000; font-size:15px; position:relative; left:85px; top:30px;" id="p12345" >
                                     		<c:out value="Invalid username or password"/>
                                     	</p>
-                                    </c:if>
-                                    <%session.removeAttribute("status");%>
+                                    </c:if>                                                    	
+                                    <% session.removeAttribute("status"); %>
                                     
                                 </form>
                             </div>

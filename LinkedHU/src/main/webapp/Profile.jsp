@@ -198,19 +198,28 @@
 		
 		<!--begin: Navigation -->
 		<div class="kt-notification">
-		    <a href="Profile.jsp" class="kt-notification__item">
+		
+			<!-- GO TO MY PROFILE -->
+			<form id="myProfileClick" action="UserController" method="POST">
+			
+		    <a href="javascript:{}" class="kt-notification__item" onclick="document.getElementById('myProfileClick').submit();">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-calendar-3 kt-font-success"></i>
 		        </div>
 		        <div class="kt-notification__item-details">
 		            <div class="kt-notification__item-title kt-font-bold">
 		                My Profile
+		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
+		                <input type="hidden" name="userID" value="${currentUser.userID }">      
 		            </div>
 		            <div class="kt-notification__item-time">
 		                Account settings and more
 		            </div>
 		        </div>
 		    </a>
+		 
+			</form>
+			
 		    <a href="#" class="kt-notification__item">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-mail kt-font-warning"></i>
@@ -317,26 +326,28 @@
                 <div class="kt-widget__content">
                     <div class="kt-widget__head">
                         <a href="#" class="kt-widget__username">
-                            <c:out value="${currentUser.fullName}">name</c:out>    
+                            <c:out value="${otherUser.fullName}">name</c:out>    
                             <i class="flaticon2-correct"></i>                       
                         </a>
 
                         <div class="kt-widget__action">
-                            <button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>&nbsp;
-                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='Final.jsp'">Go Back to the Main Page</button>
+                        	<c:if test="${ (currentUser.userID == otherUser.userID) }">
+                            	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
+                        	</c:if>
+                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='HomePage.jsp'">Go Back to the Main Page</button>
                         </div>
                     </div>
 
                     <div class="kt-widget__subhead">
-                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${currentUser.email}">email</c:out></a>
-                        <a href="#"><i class="flaticon2-calendar-3"></i> <c:out value="${currentUser.academicTitle}">academicTitle</c:out> </a>
+                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${otherUser.email}">email</c:out></a>
+                        <a href="#"><i class="flaticon2-calendar-3"></i> <c:out value="${otherUser.academicTitle}">academicTitle</c:out> </a>
                         <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
-                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${currentUser.officeNumber}">officeNumber</c:out> </a>
+                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${otherUser.officeNumber}">officeNumber</c:out> </a>
                     </div>
 
                     <div class="kt-widget__info">
                         <div class="kt-widget__desc">
-                            <c:out value="${currentUser.bio}">bio</c:out>
+                            <c:out value="${otherUser.bio}">bio</c:out>
 						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
 							<div class="kt-portlet__head">
 								<div class="kt-portlet__head-label">
@@ -355,7 +366,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line" >
-											${ currentUser.professionalHistory }
+											${ otherUser.professionalHistory }
 										</div>						
 									</div>	 
 						
@@ -367,7 +378,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line">
-											${ currentUser.researchHistory }
+											${ otherUser.researchHistory }
 										</div>						 
 									</div>
 						
@@ -379,7 +390,7 @@
 										</div>
 										&nbsp
 										<div class="kt-widget4__info" style="white-space: pre-line;">
-											${currentUser.proficiencies}		 
+											${otherUser.proficiencies}		 
 										</div>				
 									</div>	
 								</div>			 
@@ -451,6 +462,105 @@
 </div>
 <!--end:: Widgets/Applications/User/Profile3-->    </div>
 </div>
+
+<c:forEach items="${otherUser.authorOf}" var="post">
+<!--Begin::Section-->
+<div class="row" >
+    <div class="col-xl-12">
+        <!--begin:: Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <!--begin::Widget -->
+                <div class="kt-widget kt-widget--project-1">
+                
+                    <div class="kt-widget__head">
+                        <div class="kt-widget__label">
+                            <div class="kt-widget__media">
+                            	
+                            	<form action="UserController" method="POST">
+                                <span class="kt-media--circle">                                     
+                                    <input type="image" src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+                                    <input type="hidden" name="userID" value="${otherUser.userID }">                                	
+                                </span>
+                            	</form>
+                            	
+                            </div>
+                            <div class="kt-widget__info kt-margin-t-5">
+                                <a href="#" class="kt-widget__title">
+                                ${ post.title }
+                                                                        
+                                </a>
+                                
+                                <span class="kt-widget__desc">
+                                ${otherUser.fullName}
+                                <br>
+                                ${post.dateFormat}
+                                </span>
+                            </div>
+                        </div>
+                        
+                         <!-- DELETE POST ENABLE OR DISABLE -->
+                        <c:if test="${currentUser.userID ==  entry.getValue().userID}">
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
+                                <i class="flaticon-more-1"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
+                                <form action = "PostController" method = "POST">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
+                                            <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
+                                        </button>
+                                        <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
+                                        <input type = "hidden" name = "delPost" value = ${String.valueOf(post.postID) }>
+                                        
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+                        </div>
+                        </c:if>
+                    </div>
+
+                    <div class="kt-widget__body">
+                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
+                    		${post.messageText}
+                    	</span>	
+                    </div>
+
+                    <div class="kt-widget__footer">
+                        <div class="kt-widget__wrapper">
+                           	<div class="kt-widget__section">
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
+                           		</div>
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${post.commentCount} Comments</a>
+                           		</div>
+                           	</div>
+                           	<div class="kt-widget__section">
+                           		<button class="btn btn-outline-dark" type="button">Details</button>
+                           	</div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Widget -->
+            </div>
+        </div>
+        <!--end:: Portlet-->
+    </div>
+      
+</div>
+<!--End::Section-->
+	</c:forEach>
+
+
+
+<!-- end of rows -->
 </div>
 </div>
 </div>

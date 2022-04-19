@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,8 @@ import com.mysql.cj.Constants;
 
 import Interfaces.IService;
 import Model.Academician;
+import Model.Post;
+import Model.PostCreator;
 import Model.SystemService;
 import Model.User;
 import general.MyConstants;
@@ -53,7 +56,8 @@ public class UserController extends HttpServlet {
 					session.setAttribute("status","success");
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
-					response.sendRedirect("Final.jsp");
+					response.sendRedirect("HomePage.jsp");
+					
 					//dispatcher.include(request, response);
 				}
 				else {
@@ -100,9 +104,31 @@ public class UserController extends HttpServlet {
 				response.sendRedirect("Profile.jsp");
 				
 				break;
+			case MyConstants.OPP_VIEW_PROFILE:
 				
+				//  userID of the user whose profile page we want to see
+				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
+								
+				// get the posts of the otherUser  
+				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
+				//otherUser.setAuthorOf(getUserPosts(otherUser));
+				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
+				
+				session.setAttribute("otherUser",otherUser);
+				response.sendRedirect("Profile.jsp");
+				break;
 		}
 		
+	}
+		
+	private User getUserFromID(int userID) {
+		List<User> allUsers = service.fetchAllUsers();
+		for (User user : allUsers) {
+			if(user.getUserID() == userID) {
+				return user;
+			}
+		}
+		return null;
 	}
 	
 	protected boolean checkUserLoginInfo(String email,String password) {
@@ -111,6 +137,7 @@ public class UserController extends HttpServlet {
 		{
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
 				session.setAttribute("currentUser", u);
+				session.setAttribute("otherUser", u);				
 				return true;
 			}
 		}

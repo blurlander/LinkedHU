@@ -5,6 +5,7 @@ import java.util.List;
 import Interfaces.IService;
 import general.MyConstants;
 import Interfaces.IDao;
+import Interfaces.IPostDao;
 import DAO.UserDao;
 import DAO.AcademicianDao;
 import DAO.GraduateDao;
@@ -24,24 +25,21 @@ public class SystemService implements IService{
 	private IDao nonAdminUserDao = new NonAdminUserDao();
 	private IDao commentDao = new CommentDao();
 	private IDao messageDao = new MessageDao();
-	private IDao postDao = new PostDao();
+	private IPostDao postDao = new PostDao();
 	
 	@Override
 	public List<User> fetchAllUsers() {
-		// TODO Auto-generated method stub
 		return userDao.fetchAll();
 	}
 
 	@Override
 	public List<Post> fetchAllPosts() {
-		// TODO Auto-generated method stub
 		return postDao.fetchAll();
 	}
 
 	@Override
 	public List<Post> fetchUserPosts(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+		return postDao.fetchAllUserPosts(userID);
 	}
 
 	@Override
@@ -70,7 +68,6 @@ public class SystemService implements IService{
 			boolean userTableUpdate = userDao.update(user);
 			return academicanTableUpdate && userTableUpdate;
 		}
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -82,13 +79,12 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createPost(Post post) {
-		// TODO Auto-generated method stub
 		return postDao.create(post);
 	}
 
 	@Override
 	public boolean deletePost(Post post) {
-		// TODO Auto-generated method stub
+
 		postDao.delete(post);
 		return false;
 	}
