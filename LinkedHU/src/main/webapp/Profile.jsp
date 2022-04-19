@@ -174,7 +174,7 @@
 					<c:out value="${currentUser.username }"></c:out>
 				</span>
 				
-				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
+				<img alt="Pic" src="${currentUser.profilePictureSrc}"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 			</div>
@@ -183,7 +183,7 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="./assets/media/project-logos/8.png" />
+		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" />
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
@@ -318,7 +318,8 @@
         <div class="kt-widget kt-widget--user-profile-3">
             <div class="kt-widget__top">
                 <div class="kt-widget__media kt-hidden-">
-                    <img src="./assets/media/project-logos/8.png" alt="image">
+                    <img src="${otherUser.profilePictureSrc}" alt="image">
+                    
                 </div>
                 <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
                     JM
@@ -331,10 +332,16 @@
                         </a>
 
                         <div class="kt-widget__action">
-                        	<c:if test="${ (currentUser.userID == otherUser.userID) }">
+                        	
+                        	<form action="PostController" method="POST" id="backToHome"  >
+                        		<c:if test="${ currentUser.userID == otherUser.userID }">
                             	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
-                        	</c:if>
-                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='HomePage.jsp'">Go Back to the Main Page</button>
+                        		</c:if>
+                        		<button type="submit" class="btn btn-brand btn-sm btn-upper">Go Back to the Main Page</button>
+                        		<input type="hidden" name="operation" value="${MyConstants.OPP_BACK_TO_HOME }">
+                        	
+                        	</form>
+                            	
                         </div>
                     </div>
 
@@ -479,7 +486,7 @@
                             	
                             	<form action="UserController" method="POST">
                                 <span class="kt-media--circle">                                     
-                                    <input type="image" src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                    <input type="image" src="${otherUser.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;">
                                     <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
                                     <input type="hidden" name="userID" value="${otherUser.userID }">                                	
                                 </span>
@@ -501,7 +508,7 @@
                         </div>
                         
                          <!-- DELETE POST ENABLE OR DISABLE -->
-                        <c:if test="${currentUser.userID ==  entry.getValue().userID}">
+                        <c:if test="${currentUser.userID ==  otherUser.userID}">
                         <div class="kt-portlet__head-toolbar">
                             <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
                                 <i class="flaticon-more-1"></i>
@@ -511,11 +518,10 @@
                                 <ul class="kt-nav">
                                     <li class="kt-nav__item">
                                         <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
-                                            <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
+                                        	<span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
                                         </button>
                                         <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
                                         <input type = "hidden" name = "delPost" value = ${String.valueOf(post.postID) }>
-                                        
                                     </li>
                                 </ul>
                                 </form>

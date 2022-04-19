@@ -174,7 +174,7 @@
 					<c:out value="${currentUser.username }"></c:out>
 				</span>
 				
-				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
+				<img alt="Pic" src="${currentUser.profilePictureSrc}"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 			</div>
@@ -183,7 +183,7 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="./assets/media/project-logos/8.png" />
+		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" />
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
@@ -335,7 +335,7 @@
 				</div>
 			</div>
 			<div class="kt-portlet__body">
-				<form class="kt-form" action = "UserController" method = "POST" id= "blablabla">
+				<form class="kt-form" action = "UserController" method = "POST" id= "blablabla" enctype="multipart/form-data">
 				
 					<div class="row">
 						<div class="col-xl-2"></div>

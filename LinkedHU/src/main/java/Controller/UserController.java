@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,11 +9,13 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.mysql.cj.Constants;
 
@@ -25,6 +28,9 @@ import Model.User;
 import general.MyConstants;
 
 @WebServlet("/UserController")
+@MultipartConfig(
+		  fileSizeThreshold = 1024 * 1024 * 1, 
+		  maxRequestSize = 1024 * 1024 * 100 )
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	RequestDispatcher dispatcher = null;
@@ -86,6 +92,16 @@ public class UserController extends HttpServlet {
 				String password1 = request.getParameter("password");
 				String email1 = request.getParameter("email");
 				
+				Part filePart = request.getPart("profilePicture");
+				System.out.println(filePart.getSubmittedFileName());
+				String fileName = filePart.getSubmittedFileName();
+				
+				String destSRC = "C:\\Users\\dyavu\\Desktop\\Proje\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures\\"+username+fileName;
+				//filePart.write(destSRC);
+				String profilePictureSrc = "./ProfilePictures/"+fileName;
+				//System.out.println(destSRC);
+				
+				
 				List<String> infoList = new ArrayList<String>();
 				
 				infoList.add(username);
@@ -98,8 +114,10 @@ public class UserController extends HttpServlet {
 				infoList.add(researchHistory);
 				infoList.add(proficiencies);
 				infoList.add(officeNumber);
+				infoList.add(profilePictureSrc);
 
 				updateAccountInfo(infoList);
+			
 				
 				response.sendRedirect("Profile.jsp");
 				
@@ -111,7 +129,6 @@ public class UserController extends HttpServlet {
 								
 				// get the posts of the otherUser  
 				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
-				//otherUser.setAuthorOf(getUserPosts(otherUser));
 				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
 				
 				session.setAttribute("otherUser",otherUser);
@@ -161,10 +178,12 @@ public class UserController extends HttpServlet {
 			a.setResearchHistory(infoList.get(7));
 			a.setProficiencies(infoList.get(8));
 			a.setOfficeNumber(infoList.get(9));
-			
+			a.setProfilePictureSrc(infoList.get(10));
 			
 			if(service.updateUser(a)) {
 				session.setAttribute("currentUser", a);
+				session.setAttribute("otherUser", a);
+				((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
 			}
 		}
 		
