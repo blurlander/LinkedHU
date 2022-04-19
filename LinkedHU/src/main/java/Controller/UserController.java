@@ -93,9 +93,13 @@ public class UserController extends HttpServlet {
 				String email1 = request.getParameter("email");
 				
 				Part filePart = request.getPart("profilePicture");
-				System.out.println(filePart.getSubmittedFileName());
+				System.out.println("filename is :"+filePart.getSubmittedFileName());
 				String fileName = filePart.getSubmittedFileName();
 				
+				// for a default image in the first login
+				if(fileName.equals("")) {
+					fileName = "345.jpg";
+				}
 				String destSRC = "C:\\Users\\dyavu\\Desktop\\Proje\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures\\"+username+fileName;
 				//filePart.write(destSRC);
 				String profilePictureSrc = "./ProfilePictures/"+fileName;
@@ -180,15 +184,15 @@ public class UserController extends HttpServlet {
 			a.setOfficeNumber(infoList.get(9));
 			a.setProfilePictureSrc(infoList.get(10));
 			
+			// All session attributes which is affected in any update process should be pulled from the database again.
+			// and get the proper data for session attributes
 			if(service.updateUser(a)) {
 				session.setAttribute("currentUser", a);
 				session.setAttribute("otherUser", a);
 				((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
 			}
 		}
-		
-		
-		
+
 		return true;
 	}
 	
