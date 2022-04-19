@@ -52,7 +52,7 @@ public class PostController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// When login is success load main page
-		if(session.getAttribute("operation").equals("getPostsForDiscoverPage")) {
+		if(session.getAttribute("operation").equals("getPostsForDiscoverPage") ) {
 			
 			User currentUser = (User)session.getAttribute("currentUser");
 			List<Post> allPosts = service.fetchAllPosts();
@@ -111,6 +111,17 @@ public class PostController extends HttpServlet {
 			session.setAttribute("map", map1);
 			response.sendRedirect("PostController");
 			
+		}else if( request.getParameter("operation").equals(MyConstants.OPP_BACK_TO_HOME)  ) {
+			
+			List<Post> allPosts = service.fetchAllPosts();
+			List<User> allUsers = service.fetchAllUsers();
+			TreeMap<Post,User> map = new TreeMap<>();
+			for(Post p:allPosts) {
+				map.put(p,getPostInfo(p,allUsers));
+				
+			}
+			session.setAttribute("map",map);
+			response.sendRedirect("HomePage.jsp");
 		}
 	}
 	
