@@ -171,7 +171,7 @@
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
 				
 				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${otherUser.username }"></c:out>
+					<c:out value="${currentUser.username }"></c:out>
 				</span>
 				
 				<img alt="Pic" src="./assets/media/project-logos/8.png"/>
@@ -188,7 +188,7 @@
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${otherUser.fullName }"></c:out>
+		        	<c:out value="${currentUser.fullName }"></c:out>
 		        </div>
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
@@ -198,19 +198,28 @@
 		
 		<!--begin: Navigation -->
 		<div class="kt-notification">
-		    <a href="Profile.jsp" class="kt-notification__item">
+		
+			<!-- GO TO MY PROFILE -->
+			<form id="myProfileClick" action="UserController" method="POST">
+			
+		    <a href="javascript:{}" class="kt-notification__item" onclick="document.getElementById('myProfileClick').submit();">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-calendar-3 kt-font-success"></i>
 		        </div>
 		        <div class="kt-notification__item-details">
 		            <div class="kt-notification__item-title kt-font-bold">
 		                My Profile
+		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
+		                <input type="hidden" name="userID" value="${currentUser.userID }">      
 		            </div>
 		            <div class="kt-notification__item-time">
 		                Account settings and more
 		            </div>
 		        </div>
 		    </a>
+		 
+			</form>
+			
 		    <a href="#" class="kt-notification__item">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-mail kt-font-warning"></i>
@@ -322,8 +331,10 @@
                         </a>
 
                         <div class="kt-widget__action">
-                            <button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>&nbsp;
-                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='Final.jsp'">Go Back to the Main Page</button>
+                        	<c:if test="${ (currentUser.userID == otherUser.userID) }">
+                            	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
+                        	</c:if>
+                            <button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location ='HomePage.jsp'">Go Back to the Main Page</button>
                         </div>
                     </div>
 
@@ -451,6 +462,105 @@
 </div>
 <!--end:: Widgets/Applications/User/Profile3-->    </div>
 </div>
+
+<c:forEach items="${otherUser.authorOf}" var="post">
+<!--Begin::Section-->
+<div class="row" >
+    <div class="col-xl-12">
+        <!--begin:: Portlet-->
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <!--begin::Widget -->
+                <div class="kt-widget kt-widget--project-1">
+                
+                    <div class="kt-widget__head">
+                        <div class="kt-widget__label">
+                            <div class="kt-widget__media">
+                            	
+                            	<form action="UserController" method="POST">
+                                <span class="kt-media--circle">                                     
+                                    <input type="image" src="./assets/media/project-logos/8.png" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+                                    <input type="hidden" name="userID" value="${otherUser.userID }">                                	
+                                </span>
+                            	</form>
+                            	
+                            </div>
+                            <div class="kt-widget__info kt-margin-t-5">
+                                <a href="#" class="kt-widget__title">
+                                ${ post.title }
+                                                                        
+                                </a>
+                                
+                                <span class="kt-widget__desc">
+                                ${otherUser.fullName}
+                                <br>
+                                ${post.dateFormat}
+                                </span>
+                            </div>
+                        </div>
+                        
+                         <!-- DELETE POST ENABLE OR DISABLE -->
+                        <c:if test="${currentUser.userID ==  entry.getValue().userID}">
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
+                                <i class="flaticon-more-1"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
+                                <form action = "PostController" method = "POST">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
+                                            <span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
+                                        </button>
+                                        <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
+                                        <input type = "hidden" name = "delPost" value = ${String.valueOf(post.postID) }>
+                                        
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+                        </div>
+                        </c:if>
+                    </div>
+
+                    <div class="kt-widget__body">
+                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
+                    		${post.messageText}
+                    	</span>	
+                    </div>
+
+                    <div class="kt-widget__footer">
+                        <div class="kt-widget__wrapper">
+                           	<div class="kt-widget__section">
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
+                           		</div>
+                           		<div class="kt-demo-icon__preview">
+                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
+                           			<a href="#" style="font-size: 15px; color: black;">${post.commentCount} Comments</a>
+                           		</div>
+                           	</div>
+                           	<div class="kt-widget__section">
+                           		<button class="btn btn-outline-dark" type="button">Details</button>
+                           	</div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Widget -->
+            </div>
+        </div>
+        <!--end:: Portlet-->
+    </div>
+      
+</div>
+<!--End::Section-->
+	</c:forEach>
+
+
+
+<!-- end of rows -->
 </div>
 </div>
 </div>

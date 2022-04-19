@@ -18,6 +18,8 @@ import com.mysql.cj.Constants;
 
 import Interfaces.IService;
 import Model.Academician;
+import Model.Post;
+import Model.PostCreator;
 import Model.SystemService;
 import Model.User;
 import general.MyConstants;
@@ -54,7 +56,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("status","success");
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
-					response.sendRedirect("Final.jsp");
+					response.sendRedirect("HomePage.jsp");
 					
 					//dispatcher.include(request, response);
 				}
@@ -106,31 +108,19 @@ public class UserController extends HttpServlet {
 				
 				//  userID of the user whose profile page we want to see
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
-				
-				User currentUser = (User)session.getAttribute("currentUser");
-				
-				// if we want to see our profile
-				if(incomeUserID == currentUser.getUserID()) {
-					session.setAttribute("otherUser", currentUser);
-					response.sendRedirect("Profile.jsp");
-					break;
-				}
-				
-				// if we want to see other users profiles
-				Academician otherUser =  (Academician)getUserFromID(incomeUserID);
-				
-				//List<Post> userPosts = service.fetchAllPosts();
-				
-				otherUser.setAuthorOf(null);
+								
+				// get the posts of the otherUser  
+				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
+				//otherUser.setAuthorOf(getUserPosts(otherUser));
+				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
 				
 				session.setAttribute("otherUser",otherUser);
-				
 				response.sendRedirect("Profile.jsp");
 				break;
 		}
 		
 	}
-	
+		
 	private User getUserFromID(int userID) {
 		List<User> allUsers = service.fetchAllUsers();
 		for (User user : allUsers) {
@@ -147,7 +137,7 @@ public class UserController extends HttpServlet {
 		{
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
 				session.setAttribute("currentUser", u);
-				session.setAttribute("otherUser", u);
+				session.setAttribute("otherUser", u);				
 				return true;
 			}
 		}

@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.IDao;
+import Interfaces.IPostDao;
 import Model.Post;
 
-public class PostDao implements IDao<Post>{
+public class PostDao implements IPostDao{
 	private String userName = "root";
 	private String password = "";
 	private String host = "127.0.0.1";
@@ -46,6 +47,38 @@ public class PostDao implements IDao<Post>{
 
 	}
 
+	@Override
+	public List<Post> fetchAllUserPosts(int userID){
+		List<Post>  allUserPosts = new ArrayList<Post>();
+		String query = "Select * from Post WHERE authorID = ? order by createdAt desc";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, userID);
+			ResultSet rSet = preparedStatement.executeQuery();
+			
+			while(rSet.next()) {
+				Post post = new Post();
+				post.setPostID(rSet.getInt("postID"));
+				post.setTitle(rSet.getString("title"));
+				post.setMessageText(rSet.getString("messageText"));
+				Date date = new Date(rSet.getTimestamp(4).getTime());
+				
+				post.setCreatedAt(date);
+				post.setCommentCount(rSet.getInt("commentCount"));
+				post.setLikeCount(rSet.getInt("likeCount"));
+				post.setPostType(rSet.getString("postType"));
+				post.setAuthorID(rSet.getInt("authorID"));
+				allUserPosts.add(post);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allUserPosts;
+		
+	}
+	
 	@Override
 	public List<Post> fetchAll() {
 		List<Post>  allPosts = new ArrayList<Post>();

@@ -5,6 +5,7 @@ import java.util.List;
 import Interfaces.IService;
 import general.MyConstants;
 import Interfaces.IDao;
+import Interfaces.IPostDao;
 import DAO.UserDao;
 import DAO.AcademicianDao;
 import DAO.GraduateDao;
@@ -24,7 +25,7 @@ public class SystemService implements IService{
 	private IDao nonAdminUserDao = new NonAdminUserDao();
 	private IDao commentDao = new CommentDao();
 	private IDao messageDao = new MessageDao();
-	private IDao postDao = new PostDao();
+	private IPostDao postDao = new PostDao();
 	
 	@Override
 	public List<User> fetchAllUsers() {
@@ -38,8 +39,7 @@ public class SystemService implements IService{
 
 	@Override
 	public List<Post> fetchUserPosts(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+		return postDao.fetchAllUserPosts(userID);
 	}
 
 	@Override

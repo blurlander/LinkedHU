@@ -200,20 +200,30 @@
 		<!--end: Head -->
 		
 		<!--begin: Navigation -->
+		
 		<div class="kt-notification">
-		    <a href="Profile.jsp" class="kt-notification__item">
+		
+			<!-- GO TO MY PROFILE -->
+			<form id="myProfileClick" action="UserController" method="POST">
+			
+		    <a href="javascript:{}" class="kt-notification__item" onclick="document.getElementById('myProfileClick').submit();">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-calendar-3 kt-font-success"></i>
 		        </div>
 		        <div class="kt-notification__item-details">
 		            <div class="kt-notification__item-title kt-font-bold">
 		                My Profile
+		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
+		                <input type="hidden" name="userID" value="${currentUser.userID }">      
 		            </div>
 		            <div class="kt-notification__item-time">
 		                Account settings and more
 		            </div>
 		        </div>
 		    </a>
+		 
+			</form>
+			
 		    <a href="#" class="kt-notification__item">
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-mail kt-font-warning"></i>
@@ -486,6 +496,9 @@
                                 </span>
                             </div>
                         </div>
+                        
+                        <!-- DELETE POST ENABLE OR DISABLE -->
+                        <c:if test="${currentUser.userID ==  entry.getValue().userID}">
                         <div class="kt-portlet__head-toolbar">
                             <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
                                 <i class="flaticon-more-1"></i>
@@ -505,6 +518,8 @@
                                 </form>
                             </div>
                         </div>
+                        </c:if>
+                        
                     </div>
 
                     <div class="kt-widget__body">
