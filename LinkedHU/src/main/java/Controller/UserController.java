@@ -139,7 +139,7 @@ public class UserController extends HttpServlet {
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
 								
 				// get the posts of the otherUser
-				// read ile yapýlacak.
+				// read ile yapï¿½lacak.
 				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
 				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
 				otherUser.setLikes(service.getLikes(incomeUserID));
@@ -220,6 +220,8 @@ public class UserController extends HttpServlet {
 			a.setOfficeNumber(infoList.get(9));
 			a.setProfilePictureSrc(infoList.get(10));
 			
+			// All session attributes which is affected in any update process should be pulled from the database again.
+			// and get the proper data for session attributes
 			if(service.updateUser(a)) {
 				session.setAttribute("currentUser", a);
 				session.setAttribute("otherUser", a);
@@ -233,9 +235,7 @@ public class UserController extends HttpServlet {
 				//((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
 			}
 		}
-		
-		
-		
+
 		return true;
 	}
 	
