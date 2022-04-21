@@ -71,7 +71,7 @@ public class PostController extends HttpServlet {
 		else if(request.getParameter("operation").equals(MyConstants.OPP_CREATE_POST)) {
 			
 			List<User> allUsers = service.fetchAllUsers();
-			TreeMap<Post,User> map = new TreeMap<>();
+			//TreeMap<Post,User> map = new TreeMap<>();
 			Random random = new Random();
 			PrintWriter out = response.getWriter();
 			int upperbound = 1000000;
@@ -95,7 +95,7 @@ public class PostController extends HttpServlet {
 			session.setAttribute("map",map1);
 			createNewPost(post);
 			response.sendRedirect("PostController");
-			
+			// to merge
 		}
 		// Delete Post
 		else if(request.getParameter("operation").equals(MyConstants.OPP_DELETE_POST)) {
