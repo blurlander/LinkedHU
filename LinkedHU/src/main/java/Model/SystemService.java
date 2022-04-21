@@ -3,6 +3,7 @@ package Model;
 import java.util.List;
 
 import Interfaces.IService;
+import Interfaces.IUserDao;
 import general.MyConstants;
 import Interfaces.IDao;
 import Interfaces.IPostDao;
@@ -17,7 +18,7 @@ import DAO.StudentDao;
 import DAO.PostDao;
 
 public class SystemService implements IService{
-	private IDao userDao = new UserDao();
+	private IUserDao userDao = new UserDao();
 	private IDao studentDao = new StudentDao();
 	private IDao academicianDao = new AcademicianDao() ;
 	private IDao graduateDao = new GraduateDao();
@@ -49,9 +50,8 @@ public class SystemService implements IService{
 	}
 
 	@Override
-	public List<Integer> getLikes() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> getLikes(int userID) {
+		return userDao.fetchAllUserLikes(userID);
 	}
 
 	@Override
@@ -113,9 +113,28 @@ public class SystemService implements IService{
 		return false;
 	}
 	
-	public Post readPost(int t) {
-		return (Post) postDao.read(t);
+	@Override
+	public Post readPost(int postID) {
+		return postDao.read(postID);
 	}
+
+	@Override
+	public boolean likePost(int userID, int postID) {
+		return userDao.likePost(userID, postID);
+	}
+	
+	@Override
+	public boolean dislikePost(int userID, int postID) {
+		// TODO Auto-generated method stub
+		return userDao.dislikePost(userID, postID);
+	}
+
+	@Override
+	public boolean updatePost(Post post) {
+		return postDao.update(post);
+	}
+
+	
 		
 
 }

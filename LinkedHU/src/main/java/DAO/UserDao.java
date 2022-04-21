@@ -17,8 +17,9 @@ import java.util.Collection;
 import java.util.List;
 
 import Interfaces.IDao;
+import Interfaces.IUserDao;
 
-public class UserDao implements IDao<User> {
+public class UserDao implements IUserDao {
 	private String userName = "root";
 	private String password = "";
 	private String host = "127.0.0.1";
@@ -93,8 +94,6 @@ public class UserDao implements IDao<User> {
 
 	@Override
 	public boolean update(User user) {
-		// TODO Auto-generated method stub
-		
 		String query = "UPDATE user SET "
 				+ "username=?, email=?, password=?, "
 				+ "fullName=? WHERE userID = ? ";
@@ -118,6 +117,7 @@ public class UserDao implements IDao<User> {
 	
 
 	}
+
 
 	@Override
 	public boolean delete(User user) {
@@ -179,5 +179,61 @@ public class UserDao implements IDao<User> {
 		}
 		
 	}
-	
+
+	@Override
+	public List<Integer> fetchAllUserLikes(int userID) {
+		String query = "Select postID from likes where userID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setInt(1,userID);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			List<Integer> likes = new ArrayList<Integer>();
+			while(rs.next()) {
+				likes.add(rs.getInt("postID"));
+			}
+			
+			return likes;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}	
+	}
+
+	@Override
+	public boolean likePost(int userID,int postID) {
+		String query = "Insert into likes values(?,?)";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1,userID);
+			preparedStatement.setInt(2,postID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	@Override
+	public boolean dislikePost(int userID, int postID) {
+		String query = "Delete from likes where userID = ? and postID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1,userID);
+			preparedStatement.setInt(2,postID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

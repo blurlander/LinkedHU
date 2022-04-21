@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import Interfaces.IService;
 import Model.Post;
+import Model.PostCreator;
 import Model.User;
 import general.MyConstants;
 import Model.SystemService;
@@ -111,17 +112,40 @@ public class PostController extends HttpServlet {
 			session.setAttribute("map", map1);
 			response.sendRedirect("PostController");
 			
-		}else if( request.getParameter("operation").equals(MyConstants.OPP_BACK_TO_HOME)  ) {
-			
-			List<Post> allPosts = service.fetchAllPosts();
-			List<User> allUsers = service.fetchAllUsers();
-			TreeMap<Post,User> map = new TreeMap<>();
-			for(Post p:allPosts) {
-				map.put(p,getPostInfo(p,allUsers));
-				
+		}
+		
+		else if(request.getParameter("operation").equals(MyConstants.OPP_LIKE_POST)) {
+			int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
+			//Post post likedPostID; 
+			Post p = service.readPost(likedPostID);
+			p.setLikeCount(p.getLikeCount()+1);
+			service.updatePost(p);
+			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
+			for (Post post :  map1.keySet()) {
+				if (post.getPostID() == likedPostID) {
+					post.setLikeCount(post.getLikeCount()+1);
+					break;
+				}
 			}
-			session.setAttribute("map",map);
-			response.sendRedirect("HomePage.jsp");
+			session.setAttribute("map", map1);
+					
+		}
+		else if(request.getParameter("operation").equals(MyConstants.OPP_DISLIKE_POST)) {
+			int dislikedPostID = Integer.parseInt(request.getParameter("dislikedPost"));
+			//Post post likedPostID; 
+			Post p = service.readPost(dislikedPostID);
+			p.setLikeCount(p.getLikeCount()-1);
+			service.updatePost(p);
+			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
+			for (Post post :  map1.keySet()) {
+				if (post.getPostID() == dislikedPostID) {
+					post.setLikeCount(post.getLikeCount()-1);
+					break;
+				}
+			}
+			session.setAttribute("map", map1);
+			
+	
 		}
 	}
 	

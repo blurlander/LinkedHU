@@ -60,7 +60,7 @@
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Theme Styles -->
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     </head>
     <!-- end::Head -->
 
@@ -174,7 +174,7 @@
 				 	<c:out value="${currentUser.username }"></c:out> 
 				 </span>
 				 
-				<img alt="Pic" src="${currentUser.profilePictureSrc}"/>
+				<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 			</div>
@@ -183,7 +183,7 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style="border-radius:%65" />
+		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;" />
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
@@ -475,8 +475,8 @@
                             <div class="kt-widget__media">
                             	
                             	<form action="UserController" method="POST">
-                                <span class="kt-media--circle">                                     
-                                    <input type="image" src="${entry.getValue().profilePictureSrc}" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                <span>                                     
+                                    <input type="image" src="${entry.getValue().profilePictureSrc}" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
                                     <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
                                     <input type="hidden" name="userID" value="${entry.getValue().userID }">                                	
                                 </span>
@@ -527,13 +527,83 @@
                     		${entry.getKey().messageText}
                     	</span>	
                     </div>
-
+						<!--  
+                         <c:if test="${currentUser.likes.contains(entry.getKey().postID)}">
+                          <button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(212, 2, 65) " onclick = "like()"></button>
+                          </c:if>
+                         <c:if test="${currentUser.likes.contains(entry.getKey().postID) == false}">
+                          <button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220,220,220);" onclick = "decreaseLike()"></button>
+                          </c:if>-->
                     <div class="kt-widget__footer">
                         <div class="kt-widget__wrapper">
                            	<div class="kt-widget__section">
                            		<div class="kt-demo-icon__preview">
-                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
-                           			<a href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
+                           			 <c:if test="${currentUser.likes.contains(entry.getKey().postID)}">
+                           		
+                          				<button id="${entry.getKey().postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: red;" onclick = "change(this)"></button>
+                                    	<a id="${entry.getKey().postID}" href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
+                           			
+                           			</c:if>
+                           			
+                           			<c:if test="${currentUser.likes.contains(entry.getKey().postID) == false}">
+                           			
+                          				<button id="${entry.getKey().postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: gray;" onclick = "change(this)"></button>
+                                    	<a id="${entry.getKey().postID}" href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
+                           			
+                           			</c:if>
+                           			
+									<script type="text/javascript">
+										function change(e){
+											// Fetching the necessary tag(a) to update at the end of function.
+											var elements = document.getElementsByTagName("a");
+											if(e.style.color == "gray"){
+												e.style.color = "red"; // Post is liked.
+												for(var i=0;i<elements.length;i++){
+													if(elements[i].getAttribute('id') == e.getAttribute('id')){
+														// Updating the text content of the corresponding area.
+														elements[i].textContent = ""+ (parseInt(elements[i].textContent.split(" ")[0])+1)+" likes";	
+													}
+												}
+												// Changing the value of input tag at line 614.
+												document.getElementById('likedPost').value = e.getAttribute('id');
+												// Calling necessary ajax funtion to interact with UserController silently(Without refreshing the page).
+												callJqueryAjax(0);
+											}
+											else if(e.style.color == "red"){
+												e.style.color = "gray"; // Post is disliked.
+												for(var i=0;i<elements.length;i++){
+													if(elements[i].getAttribute('id') == e.getAttribute('id')){
+														// Updating the text content of the corresponding area.
+														elements[i].textContent = ""+ (parseInt(elements[i].textContent.split(" ")[0])-1)+ " likes";	
+													}
+												}
+												document.getElementById('dislikedPost').value = e.getAttribute('id');
+												callJqueryAjax(1);
+											}
+										};
+										function callJqueryAjax(selector){
+											//Converting the input values in the form with id=likeForm to the string.
+											if(selector == 0){
+												var dataString = $("#likeForm").serialize();	
+											}
+											else if(selector == 1){
+												var dataString = $("#dislikeForm").serialize();
+											}
+											$.ajax({
+											url     : 'UserController', //Target servlet
+											method     : 'POST',        // Method(always POST)
+											data     : dataString,      // The data that will be sent to the servlet.
+											success    : function(data)
+											{
+												console.log(dataString); // If servlet successfully responses,this block will be executed.
+												//alert('Success!');
+											},
+											error : function(jqXHR, exception){
+											console.log('Error occured!!');
+											}
+											});
+										}
+									</script>
                            		</div>
                            		<div class="kt-demo-icon__preview">
                            			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
@@ -555,9 +625,15 @@
 </div>
 <!--End::Section-->
 	</c:forEach>
+	<form id="likeForm">
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST }" >
+		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
+	</form>
+	<form id="dislikeForm">
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST }" >
+		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
+	</form>
 	
-
-
 </div>	
 	
 <!-- end:: Content -->					
@@ -610,7 +686,6 @@
 <script src="./assets/vendors/general/sticky-js/dist/sticky.min.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/wnumb/wNumb.js" type="text/javascript"></script>
 <!--end:: Global Mandatory Vendors -->
-
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/block-ui/jquery.blockUI.js" type="text/javascript"></script>

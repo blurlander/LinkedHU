@@ -13,12 +13,16 @@ public interface IService {
 	List<Post> fetchAllPosts();
 	List<Post> fetchUserPosts(int userID);
 	List<Comment> fetchAllComments(int postID);
-	List<Integer> getLikes();
+	List<Integer> getLikes(int userID);
+	boolean likePost(int userID,int postID);
+	boolean dislikePost(int userID,int postID);
 	boolean createUser(User user);
 	boolean updateUser(User user);
 	boolean deleteUser(User user);
+	Post readPost(int postID);
 	boolean createPost(Post post);
 	boolean deletePost(Post post);
+	boolean updatePost(Post post);
 	boolean createComment(Comment comment);
 	boolean deleteComment(Comment comment);
 	boolean createMessage(Message message);

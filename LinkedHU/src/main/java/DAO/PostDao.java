@@ -169,8 +169,24 @@ public class PostDao implements IPostDao{
 
 	@Override
 	public boolean update(Post t) {
-		// TODO Auto-generated method stub
-		return false;
+		String query = "UPDATE post SET "
+				+ "commentCount=?, "
+				+ "likeCount=? WHERE postID = ? ";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setInt(1,t.getCommentCount());
+			preparedStatement.setInt(2,t.getLikeCount());
+			preparedStatement.setInt(3,t.getPostID());
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class NonAdminUser extends User{
 	public List<Integer> getLikes() {
 		return likes;
 	}
-	public void setLikes(List<Integer> likes) {
+	public void setLikes(List<Integer> likes){
 		this.likes = likes;
 	}
 	public String getBio() {

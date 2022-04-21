@@ -16,6 +16,8 @@ public class MyConstants {
 	public static final String OPP_UPDATE_PROFILE = "10";
 	public static final String OPP_VIEW_PROFILE = "11";
 	public static final String OPP_BACK_TO_HOME = "12";
+	public static final String OPP_LIKE_POST = "13";
+	public static final String OPP_DISLIKE_POST = "14";
 	
 	
 	

@@ -174,7 +174,7 @@
 					<c:out value="${currentUser.username }"></c:out>
 				</span>
 				
-				<img alt="Pic" src="${currentUser.profilePictureSrc}"/>
+				<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 			</div>
@@ -183,12 +183,12 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" />
+		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currenntUser.fullName }"></c:out>
+		        	<c:out value="${currentUser.fullName }"></c:out>
 		        </div>		        
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
@@ -348,7 +348,7 @@
                                         <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
                                         <div class="col-lg-9 col-xl-6">
                                             <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
-                                                <div class="kt-avatar__holder" style="background-image: url(&quot;http://keenthemes.com/metronic/preview/default/custom/user/assets/media/users/100_1.jpg&quot;);"></div>
+                                                <img class="kt-avatar__holder" src="${currentUser.profilePictureSrc}">
                                                 <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
                                                     <i class="fa fa-pen"></i>
                                                     <input type="file" name="profilePicture" accept=".png, .jpg, .jpeg">

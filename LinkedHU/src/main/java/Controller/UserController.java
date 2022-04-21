@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,7 @@ import Model.Post;
 import Model.PostCreator;
 import Model.SystemService;
 import Model.User;
+import Model.NonAdminUser;
 import general.MyConstants;
 
 @WebServlet("/UserController")
@@ -63,7 +65,6 @@ public class UserController extends HttpServlet {
 					session.setAttribute("operation","getPostsForDiscoverPage");
 					request.getRequestDispatcher("PostController").include(request, response);
 					response.sendRedirect("HomePage.jsp");
-					
 					//dispatcher.include(request, response);
 				}
 				else {
@@ -93,12 +94,22 @@ public class UserController extends HttpServlet {
 				String email1 = request.getParameter("email");
 				
 				Part filePart = request.getPart("profilePicture");
-				System.out.println(filePart.getSubmittedFileName());
 				String fileName = filePart.getSubmittedFileName();
+				String profilePictureSrc ="";
 				
-				String destSRC = "C:\\Users\\dyavu\\Desktop\\Proje\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures\\"+username+fileName;
+				//After register operation,a default profile picture will be set to the user and this code piece will always work.
+				// If no path is selected to update the profile picture,the last one will be selected.
+				if(fileName.equals("")) {
+					profilePictureSrc +=((NonAdminUser)session.getAttribute("currentUser")).getProfilePictureSrc();
+				}
+				else {
+					profilePictureSrc += "./ProfilePictures/"+fileName;
+				}
+				
+				// The lines below must be alive until the delivery!!! Don't forget Bahar HOCAAAAA
+				//String destSRC = "C:\\Users\\dyavu\\Desktop\\Proje\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures\\"+username+fileName;
 				//filePart.write(destSRC);
-				String profilePictureSrc = "./ProfilePictures/"+fileName;
+				//String profilePictureSrc = "./ProfilePictures/"+fileName;
 				//System.out.println(destSRC);
 				
 				
@@ -127,12 +138,32 @@ public class UserController extends HttpServlet {
 				//  userID of the user whose profile page we want to see
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
 								
-				// get the posts of the otherUser  
+				// get the posts of the otherUser
+				// read ile yapýlacak.
 				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
 				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
+				otherUser.setLikes(service.getLikes(incomeUserID));
 				
 				session.setAttribute("otherUser",otherUser);
 				response.sendRedirect("Profile.jsp");
+				break;
+			case MyConstants.OPP_LIKE_POST:
+				int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
+				NonAdminUser user = ((NonAdminUser)session.getAttribute("currentUser"));
+				user.getLikes().add(likedPostID);
+				session.setAttribute("currentUser", user);
+				session.setAttribute("otherUser", user);
+				service.likePost(user.getUserID(), likedPostID);
+				request.getRequestDispatcher("PostController").include(request, response);
+				break;
+			case MyConstants.OPP_DISLIKE_POST:
+				int dislikedPostID = Integer.parseInt(request.getParameter("dislikedPost"));
+				NonAdminUser userDisliked = ((NonAdminUser)session.getAttribute("currentUser"));
+				userDisliked.getLikes().remove((Integer)dislikedPostID);
+				session.setAttribute("currentUser", userDisliked);
+				session.setAttribute("otherUser", userDisliked);
+				service.dislikePost(userDisliked.getUserID(),dislikedPostID);
+				request.getRequestDispatcher("PostController").include(request, response);	
 				break;
 		}
 		
@@ -151,8 +182,17 @@ public class UserController extends HttpServlet {
 	protected boolean checkUserLoginInfo(String email,String password) {
 		List<User> allUsers = service.fetchAllUsers();
 		for(User u : allUsers) 
-		{
+		{	
+			// Fetching all user posts.
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
+				if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN || u.getUserType() == MyConstants.TYPE_GRADUATE ) {
+					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
+					// Comments will be inserted too . Coming soon.
+				}
+				if(u.getUserType() != MyConstants.TYPE_ADMIN ) {
+					((NonAdminUser)u).setLikes(service.getLikes(u.getUserID()));
+				}
+						
 				session.setAttribute("currentUser", u);
 				session.setAttribute("otherUser", u);				
 				return true;
@@ -183,7 +223,14 @@ public class UserController extends HttpServlet {
 			if(service.updateUser(a)) {
 				session.setAttribute("currentUser", a);
 				session.setAttribute("otherUser", a);
-				((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
+				TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+				for (Post p :  map.keySet()) {
+					if (p.getAuthorID() == a.getUserID()) {
+						map.replace(p, a);
+					}
+				}
+				session.setAttribute("map",map);
+				//((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
 			}
 		}
 		

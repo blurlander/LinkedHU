@@ -174,7 +174,7 @@
 					<c:out value="${currentUser.username }"></c:out>
 				</span>
 				
-				<img alt="Pic" src="${currentUser.profilePictureSrc}"/>
+				<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 			</div>
@@ -183,7 +183,7 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" />
+		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style = "border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
@@ -333,14 +333,12 @@
 
                         <div class="kt-widget__action">
                         	
-                        	<form action="PostController" method="POST" id="backToHome"  >
                         		<c:if test="${ currentUser.userID == otherUser.userID }">
                             	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
                         		</c:if>
-                        		<button type="submit" class="btn btn-brand btn-sm btn-upper">Go Back to the Main Page</button>
-                        		<input type="hidden" name="operation" value="${MyConstants.OPP_BACK_TO_HOME }">
+                        		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
                         	
-                        	</form>
+                     
                             	
                         </div>
                     </div>
@@ -426,8 +424,23 @@
                         <i class="flaticon-chat-1"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">648 Posts</span>
-                        <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                        <span class="kt-widget__title">${otherUser.authorOf.size()} Posts</span>
+                        
+                        <a href="#" class="kt-widget__value kt-font-brand" onclick = "togglePostView()" id="viewControl">View</a>
+                        <script type="text/javascript">
+                        	function togglePostView(){
+                        		var x = document.getElementById('postProfileDiv');
+                        		if (x.style.display === 'none') {
+                        		    x.style.display = 'block';
+                        		    document.getElementById('viewControl').textContent = "Hide";
+                        		}else 
+                        		{
+                        		   x.style.display = 'none';
+                        		   document.getElementById('viewControl').textContent = "View";
+                        		}
+                        	}
+
+                        </script>
                     </div>
                 </div>
 				<!-- 
@@ -470,9 +483,10 @@
 <!--end:: Widgets/Applications/User/Profile3-->    </div>
 </div>
 
+<div id="postProfileDiv" style="display:none">
 <c:forEach items="${otherUser.authorOf}" var="post">
 <!--Begin::Section-->
-<div class="row" >
+<div class="row">
     <div class="col-xl-12">
         <!--begin:: Portlet-->
         <div class="kt-portlet kt-portlet--height-fluid">
@@ -486,7 +500,7 @@
                             	
                             	<form action="UserController" method="POST">
                                 <span class="kt-media--circle">                                     
-                                    <input type="image" src="${otherUser.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;">
+                                    <input type="image" src="${otherUser.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
                                     <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
                                     <input type="hidden" name="userID" value="${otherUser.userID }">                                	
                                 </span>
@@ -540,8 +554,72 @@
                         <div class="kt-widget__wrapper">
                            	<div class="kt-widget__section">
                            		<div class="kt-demo-icon__preview">
-                           			<button type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: rgb(220, 220, 220);"></button>
-                           			<a href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
+                           			<c:if test="${otherUser.likes.contains(post.postID)}">
+                           		
+                          				<button id="${post.postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: red;" onclick = "change(this)"></button>
+                                    	<a id="${post.postID}" href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
+                           			
+                           			</c:if>
+                           			
+                           			<c:if test="${otherUser.likes.contains(post.postID) == false}">
+                           			
+                          				<button id="${post.postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: gray;" onclick = "change(this)"></button>
+                                    	<a id="${post.postID}" href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
+                           			
+                           			</c:if>
+                           			
+									<script type="text/javascript">
+										function change(e){
+											// Fetching the necessary tag(a) to update at the end of function.
+											var elements = document.getElementsByTagName("a");
+											if(e.style.color == "gray"){
+												e.style.color = "red"; // Post is liked.
+												for(var i=0;i<elements.length;i++){
+													if(elements[i].getAttribute('id') == e.getAttribute('id')){
+														// Updating the text content of the corresponding area.
+														elements[i].textContent = ""+ (parseInt(elements[i].textContent.split(" ")[0])+1)+" likes";	
+													}
+												}
+												// Changing the value of input tag at line 614.
+												document.getElementById('likedPost').value = e.getAttribute('id');
+												// Calling necessary ajax funtion to interact with UserController silently(Without refreshing the page).
+												callJqueryAjax(0);
+											}
+											else if(e.style.color == "red"){
+												e.style.color = "gray"; // Post is disliked.
+												for(var i=0;i<elements.length;i++){
+													if(elements[i].getAttribute('id') == e.getAttribute('id')){
+														// Updating the text content of the corresponding area.
+														elements[i].textContent = ""+ (parseInt(elements[i].textContent.split(" ")[0])-1)+ " likes";	
+													}
+												}
+												document.getElementById('dislikedPost').value = e.getAttribute('id');
+												callJqueryAjax(1);
+											}
+										};
+										function callJqueryAjax(selector){
+											//Converting the input values in the form with id=likeForm to the string.
+											if(selector == 0){
+												var dataString = $("#likeForm").serialize();	
+											}
+											else if(selector == 1){
+												var dataString = $("#dislikeForm").serialize();
+											}
+											$.ajax({
+											url     : 'UserController', //Target servlet
+											method     : 'POST',        // Method(always POST)
+											data     : dataString,      // The data that will be sent to the servlet.
+											success    : function(data)
+											{
+												console.log(dataString); // If servlet successfully responses,this block will be executed.
+												//alert('Success!');
+											},
+											error : function(jqXHR, exception){
+											console.log('Error occured!!');
+											}
+											});
+										}
+									</script>
                            		</div>
                            		<div class="kt-demo-icon__preview">
                            			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
@@ -563,7 +641,15 @@
 </div>
 <!--End::Section-->
 	</c:forEach>
-
+	<form id="likeForm">
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST }" >
+		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
+	</form>
+	<form id="dislikeForm">
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST }" >
+		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
+	</form>
+</div>
 
 
 <!-- end of rows -->
