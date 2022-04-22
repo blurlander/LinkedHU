@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Interfaces.IService;
+import Model.NonAdminUser;
 import Model.Post;
 import Model.PostCreator;
 import Model.User;
@@ -128,7 +129,14 @@ public class PostController extends HttpServlet {
 				}
 			}
 			session.setAttribute("map", map1);
-					
+			
+			PostCreator user = (PostCreator)session.getAttribute("otherUser");
+			for(Post post : user.getAuthorOf()) {
+				if(post.getPostID() == likedPostID) {
+					post.setLikeCount(post.getLikeCount()+1);
+				}
+			}
+			session.setAttribute("otherUser", user);
 		}
 		else if(request.getParameter("operation").equals(MyConstants.OPP_DISLIKE_POST)) {
 			int dislikedPostID = Integer.parseInt(request.getParameter("dislikedPost"));
@@ -144,6 +152,14 @@ public class PostController extends HttpServlet {
 				}
 			}
 			session.setAttribute("map", map1);
+			
+			PostCreator user = (PostCreator)session.getAttribute("otherUser");
+			for(Post post : user.getAuthorOf()) {
+				if(post.getPostID() == dislikedPostID) {
+					post.setLikeCount(post.getLikeCount()-1);
+				}
+			}
+			session.setAttribute("otherUser", user);
 			
 	
 		}

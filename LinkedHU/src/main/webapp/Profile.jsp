@@ -554,14 +554,14 @@
                         <div class="kt-widget__wrapper">
                            	<div class="kt-widget__section">
                            		<div class="kt-demo-icon__preview">
-                           			<c:if test="${otherUser.likes.contains(post.postID)}">
+                           			<c:if test="${currentUser.likes.contains(post.postID)}">
                            		
                           				<button id="${post.postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: red;" onclick = "change(this)"></button>
                                     	<a id="${post.postID}" href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>
                            			
                            			</c:if>
                            			
-                           			<c:if test="${otherUser.likes.contains(post.postID) == false}">
+                           			<c:if test="${currentUser.likes.contains(post.postID) == false}">
                            			
                           				<button id="${post.postID}" type="button" class="flaticon-black" style="border: none; background-color: white; font-size: 25px; color: gray;" onclick = "change(this)"></button>
                                     	<a id="${post.postID}" href="#" style="font-size: 15px; color: black;">${post.likeCount} Likes</a>

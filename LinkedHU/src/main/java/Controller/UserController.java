@@ -152,7 +152,6 @@ public class UserController extends HttpServlet {
 				NonAdminUser user = ((NonAdminUser)session.getAttribute("currentUser"));
 				user.getLikes().add(likedPostID);
 				session.setAttribute("currentUser", user);
-				session.setAttribute("otherUser", user);
 				service.likePost(user.getUserID(), likedPostID);
 				request.getRequestDispatcher("PostController").include(request, response);
 				break;
@@ -161,7 +160,6 @@ public class UserController extends HttpServlet {
 				NonAdminUser userDisliked = ((NonAdminUser)session.getAttribute("currentUser"));
 				userDisliked.getLikes().remove((Integer)dislikedPostID);
 				session.setAttribute("currentUser", userDisliked);
-				session.setAttribute("otherUser", userDisliked);
 				service.dislikePost(userDisliked.getUserID(),dislikedPostID);
 				request.getRequestDispatcher("PostController").include(request, response);	
 				break;

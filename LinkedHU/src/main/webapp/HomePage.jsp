@@ -604,6 +604,12 @@
 											});
 										}
 									</script>
+									<script type="text/javascript">
+										// If user clicks back button to open homepage again,the page will be refreshed to prevent database problems.
+										if(performance.navigation.type == 2){
+											   location.reload(true);
+										}
+									</script>
                            		</div>
                            		<div class="kt-demo-icon__preview">
                            			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
