@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Interfaces.IService;
+import Model.Comment;
 import Model.NonAdminUser;
 import Model.Post;
 import Model.PostCreator;
@@ -160,9 +162,44 @@ public class PostController extends HttpServlet {
 				}
 			}
 			session.setAttribute("otherUser", user);
-			
-	
 		}
+		else if(request.getParameter("operation").equals(MyConstants.OPP_POST_DETAILS)) {
+			int postID = Integer.parseInt( request.getParameter("postID") );
+		
+			Post p = service.readPost(postID);
+			p.setComments(service.fetchAllComments(postID));
+			
+			session.setAttribute("allUsers", service.fetchAllUsers());
+			
+			session.setAttribute("currentPost", p);
+			response.sendRedirect("DetailPage.jsp");
+		}else if( request.getParameter("operation").equals(MyConstants.OPP_SHARE_COMMENT)) {
+			
+			Post p = (Post)session.getAttribute("currentPost");
+			p.setCommentCount(p.getCommentCount()+1);
+			List<Comment> comments = p.getComments();
+			comments.add(0,((Comment)request.getAttribute("newComment")));
+			p.setComments(comments);
+			service.updatePost(p);
+			
+			session.setAttribute("currentPost", p);
+			
+			// update tree for post
+			TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+			for (Post post :  map.keySet()) {
+				if (post.getPostID() == p.getPostID()) {
+					post.setCommentCount(post.getCommentCount()+1);
+					break;
+				}
+			}
+			session.setAttribute("map", map);
+
+			
+			request.getRequestDispatcher("UserController").include(request, response);
+			
+			
+		}
+		
 	}
 	
 	public User getPostInfo(Post p,List<User> users) {

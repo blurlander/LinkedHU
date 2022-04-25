@@ -2,10 +2,9 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
@@ -18,15 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.mysql.cj.Constants;
-
 import Interfaces.IService;
 import Model.Academician;
+import Model.Comment;
+import Model.NonAdminUser;
 import Model.Post;
 import Model.PostCreator;
 import Model.SystemService;
 import Model.User;
-import Model.NonAdminUser;
 import general.MyConstants;
 
 @WebServlet("/UserController")
@@ -77,7 +75,6 @@ public class UserController extends HttpServlet {
 				break;
 				
 			case MyConstants.OPP_UPDATE_PROFILE:
-				
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String fullName = firstName.concat(" ").concat(lastName);
@@ -95,24 +92,21 @@ public class UserController extends HttpServlet {
 				
 				Part filePart = request.getPart("profilePicture");
 				String fileName = filePart.getSubmittedFileName();
+				String destinationFolderSrc = request.getServletContext().getRealPath("ProfilePictures");
+				Random random = new Random();
+				String uploadedFileName = username+random.nextInt(10000)+".jpg";
+				filePart.write(destinationFolderSrc+ File.separator + uploadedFileName);
 				String profilePictureSrc ="";
-				
 				//After register operation,a default profile picture will be set to the user and this code piece will always work.
 				// If no path is selected to update the profile picture,the last one will be selected.
+				
 				if(fileName.equals("")) {
 					profilePictureSrc +=((NonAdminUser)session.getAttribute("currentUser")).getProfilePictureSrc();
 				}
 				else {
-					profilePictureSrc += "./ProfilePictures/"+fileName;
+					profilePictureSrc += "./ProfilePictures/"+uploadedFileName;
 				}
-				
-				// The lines below must be alive until the delivery!!! Don't forget Bahar HOCAAAAA
-				//String destSRC = "C:\\Users\\dyavu\\Desktop\\Proje\\bbm384-2022-demo-final-hello-world-inc\\LinkedHU\\src\\main\\webapp\\ProfilePictures\\"+username+fileName;
-				//filePart.write(destSRC);
-				//String profilePictureSrc = "./ProfilePictures/"+fileName;
-				//System.out.println(destSRC);
-				
-				
+
 				List<String> infoList = new ArrayList<String>();
 				
 				infoList.add(username);
@@ -128,11 +122,10 @@ public class UserController extends HttpServlet {
 				infoList.add(profilePictureSrc);
 
 				updateAccountInfo(infoList);
-			
-				
 				response.sendRedirect("Profile.jsp");
 				
 				break;
+				
 			case MyConstants.OPP_VIEW_PROFILE:
 				
 				//  userID of the user whose profile page we want to see
@@ -141,13 +134,18 @@ public class UserController extends HttpServlet {
 				// get the posts of the otherUser
 				// read ile yap�lacak.
 				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
+				
+				// fill post of the other user
 				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
+				
+				
+				// fill likes of the other user
 				otherUser.setLikes(service.getLikes(incomeUserID));
 				
 				session.setAttribute("otherUser",otherUser);
 				response.sendRedirect("Profile.jsp");
 				break;
-			case MyConstants.OPP_LIKE_POST:
+			case MyConstants.OPP_LIKE_POST:				
 				int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
 				NonAdminUser user = ((NonAdminUser)session.getAttribute("currentUser"));
 				user.getLikes().add(likedPostID);
@@ -163,6 +161,32 @@ public class UserController extends HttpServlet {
 				service.dislikePost(userDisliked.getUserID(),dislikedPostID);
 				request.getRequestDispatcher("PostController").include(request, response);	
 				break;
+				
+			case MyConstants.OPP_SHARE_COMMENT:
+				
+				//increment the comment count of the post of current user.
+				PostCreator pc = (PostCreator)session.getAttribute("currentUser");
+				Post p = (Post)session.getAttribute("currentPost");
+				
+				// fill currentUser's Posts
+				pc.setAuthorOf(service.fetchUserPosts(pc.getUserID()));
+				
+				
+				for (Post post : pc.getAuthorOf()) {
+					if(post.getPostID() == p.getPostID()) {
+						post.setCommentCount(post.getCommentCount()+1);
+						break;
+					}
+				}
+				
+				/*
+				ArrayList<Comment> pcComments = pc.getComments();
+				pcComments.add(0,(Comment)request.getAttribute("newComment"));
+				
+				pc.setComments(pcComments);
+				
+				 */
+				session.setAttribute("currentUser", pc);
 		}
 		
 	}

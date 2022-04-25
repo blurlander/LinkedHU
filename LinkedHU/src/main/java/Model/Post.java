@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Post implements Comparable<Post>{
 	private int postID;
@@ -17,7 +18,7 @@ public class Post implements Comparable<Post>{
 	private String postType;
 	private ArrayList<File> uploadedFiles = null; // List attributes will not be used in demo.
 	private ArrayList<String> links = null;
-	private ArrayList<Comment> comments = null;
+	private List<Comment> comments = null;
 	private int authorID;
 	private String dateFormat;
 
@@ -79,10 +80,10 @@ public class Post implements Comparable<Post>{
 	public void setLinks(ArrayList<String> links) {
 		this.links = links;
 	}
-	public ArrayList<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
-	public void setComments(ArrayList<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 	public int getAuthorID() {

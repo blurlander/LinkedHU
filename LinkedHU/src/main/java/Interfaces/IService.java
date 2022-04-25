@@ -23,7 +23,9 @@ public interface IService {
 	boolean createPost(Post post);
 	boolean deletePost(Post post);
 	boolean updatePost(Post post);
+	int getNextInt();
 	boolean createComment(Comment comment);
+	Comment readComment(int commentID);
 	boolean deleteComment(Comment comment);
 	boolean createMessage(Message message);
 	boolean deleteMessage(Message message);

@@ -5,6 +5,7 @@ import java.util.List;
 import Interfaces.IService;
 import Interfaces.IUserDao;
 import general.MyConstants;
+import Interfaces.ICommentDao;
 import Interfaces.IDao;
 import Interfaces.IPostDao;
 import DAO.UserDao;
@@ -24,7 +25,7 @@ public class SystemService implements IService{
 	private IDao graduateDao = new GraduateDao();
 	private IDao postCreatorDao = new PostCreatorDao();
 	private IDao nonAdminUserDao = new NonAdminUserDao();
-	private IDao commentDao = new CommentDao();
+	private ICommentDao commentDao = new CommentDao();
 	private IDao messageDao = new MessageDao();
 	private IPostDao postDao = new PostDao();
 	
@@ -44,9 +45,8 @@ public class SystemService implements IService{
 	}
 
 	@Override
-	public List<Comment> fetchAllComments(int postID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> fetchAllComments(int postID) {	
+		return commentDao.fetchAllPostComment(postID);
 	}
 
 	@Override
@@ -91,14 +91,21 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return false;
+		return commentDao.create(comment);
 	}
 
 	@Override
+	public Comment readComment(int commentID) {
+		return commentDao.read(commentID);
+	}
+	
+	@Override
 	public boolean deleteComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return false;
+		return commentDao.delete(comment);
+	}
+	@Override
+	public int getNextInt() {
+		return commentDao.getNextInt();
 	}
 
 	@Override

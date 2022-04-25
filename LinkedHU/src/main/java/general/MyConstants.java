@@ -18,6 +18,9 @@ public class MyConstants {
 	public static final String OPP_BACK_TO_HOME = "12";
 	public static final String OPP_LIKE_POST = "13";
 	public static final String OPP_DISLIKE_POST = "14";
+	public static final String OPP_POST_DETAILS = "15";
+	public static final String OPP_SHARE_COMMENT = "16";
+	public static final String OPP_DELETE_COMMENT = "17"; // DON'T change
 	
 	
 	
