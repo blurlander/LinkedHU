@@ -38,10 +38,13 @@ public class CommentController extends HttpServlet {
 		
 		String operation = request.getParameter("operation");
 		
-		switch (operation) {
+		switch (operation) 
+		{
 		case MyConstants.OPP_SHARE_COMMENT:
 			// Creating a new comment and send it to the database
-			Comment comment = createNewComment( Integer.parseInt( request.getParameter("postID") ),request.getParameter("commentText"));
+			Comment comment = createNewComment(Integer.parseInt( request.getParameter("postID") ),request.getParameter("commentText"));
+			// After auto increment value is assigned to the newly added comment,it is fetched and set our comment object here.
+			comment.setCommentID(service.getLastCommentID());
 			request.setAttribute("newComment",comment);
 			request.getRequestDispatcher("PostController").include(request, response);
 			
@@ -55,7 +58,8 @@ public class CommentController extends HttpServlet {
 	        JsonElement secondElement = gson.toJsonTree(commentAuthor);
 	        jsonObject.add("commentInfo",firstElement);
 	        jsonObject.add("authorInfo",secondElement);
-	        
+	        System.out.println(jsonObject.toString());
+	        request.removeAttribute("newComment");
 	        response.setContentType("text/html");
 	        response.setHeader("Cache-control", "no-cache, no-store");
 	        response.setHeader("Pragma", "no-cache");
@@ -72,30 +76,21 @@ public class CommentController extends HttpServlet {
 		case MyConstants.OPP_DELETE_COMMENT:
 			
 			int commentID =  Integer.parseInt( request.getParameter("commentID"));
-			
 			Comment deletedComment = deleteComment(commentID);
-			service.deleteComment(deletedComment);
-			
-		
+			request.setAttribute("deletedComment",deletedComment);
+			request.getRequestDispatcher("PostController").include(request, response);
 		}
 		
 	}
 	
-	private Comment createNewComment(int postID, String text){
-		
-		Comment com = new Comment();
-		CommentDao cd = new CommentDao();
-		int nextCommentID = service.getNextInt();
-		System.out.println("nextcomid : "+nextCommentID);
-		com.setCommentID(nextCommentID);
-		com.setPostID(postID);
-		com.setText(text);
-		com.setUserID( ((User)session.getAttribute("currentUser")).getUserID());
-		
-		service.createComment(com);
-		
-		
-		return com;
+	private Comment createNewComment(int postID, String text)
+	{
+		Comment comment = new Comment();
+		comment.setPostID(postID);
+		comment.setText(text);
+		comment.setUserID(((User)session.getAttribute("currentUser")).getUserID());
+		service.createComment(comment);
+		return comment;
 	}
 	
 	private Comment deleteComment(int commentID) {

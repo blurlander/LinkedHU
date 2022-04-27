@@ -165,28 +165,20 @@ public class UserController extends HttpServlet {
 			case MyConstants.OPP_SHARE_COMMENT:
 				
 				//increment the comment count of the post of current user.
-				PostCreator pc = (PostCreator)session.getAttribute("currentUser");
-				Post p = (Post)session.getAttribute("currentPost");
+				PostCreator pc = (PostCreator)session.getAttribute("otherUser");
 				
 				// fill currentUser's Posts
 				pc.setAuthorOf(service.fetchUserPosts(pc.getUserID()));
+				session.setAttribute("otherUser", pc);
+				break;
+			 case MyConstants.OPP_DELETE_COMMENT:
+				 PostCreator postCreator = (PostCreator)session.getAttribute("otherUser");
+					
+				 // fill currentUser's Posts
+				 postCreator.setAuthorOf(service.fetchUserPosts(postCreator.getUserID()));
+				 session.setAttribute("otherUser", postCreator);
+				 break;
 				
-				
-				for (Post post : pc.getAuthorOf()) {
-					if(post.getPostID() == p.getPostID()) {
-						post.setCommentCount(post.getCommentCount()+1);
-						break;
-					}
-				}
-				
-				/*
-				ArrayList<Comment> pcComments = pc.getComments();
-				pcComments.add(0,(Comment)request.getAttribute("newComment"));
-				
-				pc.setComments(pcComments);
-				
-				 */
-				session.setAttribute("currentUser", pc);
 		}
 		
 	}

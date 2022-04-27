@@ -104,8 +104,8 @@ public class SystemService implements IService{
 		return commentDao.delete(comment);
 	}
 	@Override
-	public int getNextInt() {
-		return commentDao.getNextInt();
+	public int getLastCommentID() {
+		return commentDao.getLastCreatedCommentID();
 	}
 
 	@Override

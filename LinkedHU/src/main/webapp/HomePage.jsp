@@ -585,10 +585,12 @@
 	<form id="likeForm">
 		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST }" >
 		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
+		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_HOMEPAGE}">
 	</form>
 	<form id="dislikeForm">
 		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST }" >
 		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
+		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_HOMEPAGE}">
 	</form>
 	
 </div>	

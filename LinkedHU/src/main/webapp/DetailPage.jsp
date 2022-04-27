@@ -436,12 +436,14 @@
 
 	
 	<form id="likeForm">
-		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST }" >
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST}" >
 		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
+		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
 	</form>
 	<form id="dislikeForm">
-		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST }" >
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST}" >
 		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
+		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
 	</form>
 
 <!-- end of rows -->
@@ -505,6 +507,7 @@
 
                        		List<User> users = (ArrayList<User>)session.getAttribute("allUsers");
                        		for(User u: users){
+                       			// Finding the author of currentComment before display it.
                        			if(u.getUserID() == ((Comment)request.getAttribute("currComment")).getUserID() ) {
                        				request.setAttribute("commentAuthor", u);
                        				break;
@@ -512,8 +515,8 @@
                        		}
                        		
                        	%>
-
-                        <div class="kt-notes__item ${String.valueOf(comment.commentID)}_key"> 
+						<!-- Start of comment -->
+                        <div class="kt-notes__item" id="${comment.commentID}-div"> 
                             <div class="kt-notes__media">
                                 <img class="kt-hidden-" src="${commentAuthor.profilePictureSrc}" alt="image">
                                 <span class="kt-notes__icon kt-font-boldest kt-hidden">
@@ -554,7 +557,7 @@
                                         <a href="#" class="btn btn-sm btn-icon-md btn-icon" data-toggle="dropdown">
                                             <i class="flaticon-more-1 kt-font-brand"></i>
                                         </a>
-                                        <form class="delete-comment-form">
+                                        <form class="delete-comment-form" id="${comment.commentID}-form">
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="kt-nav">
 											    <li class="kt-nav__item">
@@ -563,11 +566,11 @@
 											         	
 											         	<!-- Do not add anything between the spans below  -->
 											            <span class="kt-nav__link-text delete-comment" >Delete</span>
-											            <span class="${comment.commentID }"></span>
+											            <span class="${comment.commentID}"></span>
 											            <!-- next comment :) -->
 											            
 											            <input type="hidden" name="operation" value="${MyConstants.OPP_DELETE_COMMENT }">
-											            <input type="hidden" name="commentID" value="${comment.commentID }">
+											            <input type="hidden" name="commentID" value="${comment.commentID}">
 											            
 											        </a>
 											    </li>
@@ -584,6 +587,12 @@
                             </div>                                             
                         </div> 
                         </c:forEach>
+                        <script type="text/javascript">
+							if(performance.navigation.type == 2){
+								console.log("xx");
+								location.reload(true);
+							}
+						</script>
                         
                     </div>
                     <!-- notes item end -->

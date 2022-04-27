@@ -23,7 +23,7 @@ public interface IService {
 	boolean createPost(Post post);
 	boolean deletePost(Post post);
 	boolean updatePost(Post post);
-	int getNextInt();
+	int getLastCommentID();
 	boolean createComment(Comment comment);
 	Comment readComment(int commentID);
 	boolean deleteComment(Comment comment);

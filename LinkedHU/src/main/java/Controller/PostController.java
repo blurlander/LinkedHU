@@ -139,6 +139,13 @@ public class PostController extends HttpServlet {
 				}
 			}
 			session.setAttribute("otherUser", user);
+			if(Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_DETAILPAGE) {
+				Post currentPost = ((Post)session.getAttribute("currentPost"));
+				currentPost.setLikeCount(currentPost.getLikeCount()+1);
+				session.setAttribute("currentPost", currentPost);
+			}
+			
+			
 		}
 		else if(request.getParameter("operation").equals(MyConstants.OPP_DISLIKE_POST)) {
 			int dislikedPostID = Integer.parseInt(request.getParameter("dislikedPost"));
@@ -162,15 +169,20 @@ public class PostController extends HttpServlet {
 				}
 			}
 			session.setAttribute("otherUser", user);
+			if(Integer.parseInt(request.getParameter("pageCode")) ==MyConstants.CODE_DETAILPAGE) {
+				Post currentPost = ((Post)session.getAttribute("currentPost"));
+				currentPost.setLikeCount(currentPost.getLikeCount()-1);
+				session.setAttribute("currentPost", currentPost);
+			}
 		}
 		else if(request.getParameter("operation").equals(MyConstants.OPP_POST_DETAILS)) {
 			int postID = Integer.parseInt( request.getParameter("postID") );
-		
+			
+			// Creating the necessary post object and fetch its comments to display user
 			Post p = service.readPost(postID);
 			p.setComments(service.fetchAllComments(postID));
 			
 			session.setAttribute("allUsers", service.fetchAllUsers());
-			
 			session.setAttribute("currentPost", p);
 			response.sendRedirect("DetailPage.jsp");
 		}else if( request.getParameter("operation").equals(MyConstants.OPP_SHARE_COMMENT)) {
@@ -181,10 +193,9 @@ public class PostController extends HttpServlet {
 			comments.add(0,((Comment)request.getAttribute("newComment")));
 			p.setComments(comments);
 			service.updatePost(p);
-			
 			session.setAttribute("currentPost", p);
 			
-			// update tree for post
+			// Updating tree map to show updates in home page after comment is shared.
 			TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
 			for (Post post :  map.keySet()) {
 				if (post.getPostID() == p.getPostID()) {
@@ -199,7 +210,41 @@ public class PostController extends HttpServlet {
 			
 			
 		}
-		
+		else if( request.getParameter("operation").equals(MyConstants.OPP_DELETE_COMMENT)) {
+					
+			Post p = (Post)session.getAttribute("currentPost");
+			p.setCommentCount(p.getCommentCount()-1);
+			List<Comment> comments = p.getComments();
+			int commentIndex = -1;
+			for(Comment comment : comments) {
+				if(comment.getCommentID() == ((Comment)request.getAttribute("deletedComment")).getCommentID()) {
+					commentIndex = comments.indexOf(comment);
+					break;
+				}
+			}
+			
+			
+			comments.remove(commentIndex);
+			p.setComments(comments);
+			service.updatePost(p);
+			session.setAttribute("currentPost", p);
+			
+			// Updating tree map to show updates in home page after comment is shared.
+			TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+			for (Post post :  map.keySet()) {
+				if (post.getPostID() == p.getPostID()) {
+					post.setCommentCount(post.getCommentCount()-1);
+					break;
+				}
+			}
+			session.setAttribute("map", map);
+
+			
+			request.getRequestDispatcher("UserController").include(request, response);
+			
+			
+		}
+			
 	}
 	
 	public User getPostInfo(Post p,List<User> users) {

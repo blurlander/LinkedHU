@@ -24,7 +24,6 @@ $(document).ready(function(){
 			dataType : 'json',
 			success    : function(data,textStatus, jqXHR)
 			{
-				console.log(dataString);
 				addComment(data);
 			
 			},
@@ -35,23 +34,17 @@ $(document).ready(function(){
 		
 	});
 	
-	
-	// delete comment
-	$(".delete-comment").click(function(){
-		
-		console.log("enter delete coment");
-		
-		let dataString = $(".delete-comment-form").serialize();
-		
-		let deleteSpanCommentID = $(this).next();
-		
+	$(".kt-notes__items").on('click','.delete-comment', function() {
+		let commentID = $(this).next().attr("class");
+		let dataString = $("#"+commentID+"-form").serialize();	
 		$.ajax({
 			url     : 'CommentController', //Target servlet
 			method     : 'POST',        // Method(always POST)
 			data     : dataString,      // The data that will be sent to the servlet.
 			success    : function(data)
 			{
-				deleteComment(deleteSpanCommentID);
+				console.log(commentID);
+				deleteComment(commentID);
 				
 			
 			},
@@ -60,23 +53,13 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
-
-	
-	
-	
 });
 
-function deleteComment(deleteSpanCommentID){
-	console.log(deleteSpanCommentID);
-	
-	let commentID = deleteSpanCommentID.attr("class");
-	console.log("commentıd in deletecommnet: "+commentID);
-	let deletedCommentClass = commentID+"_key";
-	console.log("xx: "+ deletedCommentClass);
-	$("."+deletedCommentClass).hide(500);
-	//document.getElementsByClassName(deletedCommentClass)[0].style.display = "none";
-	
+function deleteComment(commentID){
+	$("#"+commentID+"-div").hide(500);
+	let commentCount = parseInt($(".comment-count").text());
+	commentCount--;
+	$(".comment-count").text(commentCount);
 }
 
 function addComment(data){
@@ -84,15 +67,14 @@ function addComment(data){
 	// comment count increment 
 	let commentCount = parseInt($(".comment-count").text());
 	commentCount++;
-	$(".comment-count").text( commentCount);
+	$(".comment-count").text(commentCount);
 	
 	let commentAuthor = data.authorInfo.fullName;
 	let authorPictureSrc = data.authorInfo.profilePictureSrc;
 	let commentText = data.commentInfo.text;
 	let commentID = data.commentInfo.commentID;
-	console.log(commentID);
 	
-	let itemText =`<div class="kt-notes__item ${commentID}_key"> 
+	let itemText =`<div class="kt-notes__item " id="${commentID}-div"> 
                             <div class="kt-notes__media">
                                 <img class="kt-hidden-" src="${authorPictureSrc}" alt="image">
                                 <span class="kt-notes__icon kt-font-boldest kt-hidden">
@@ -131,18 +113,18 @@ function addComment(data){
                                             <i class="flaticon-more-1 kt-font-brand"></i>
                                         </a>
                                         
-                                       <form class="delete-comment-form">
+                                       <form class="delete-comment-form" id="${commentID}-form">
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="kt-nav">
 											    <li class="kt-nav__item">
 											        <a class="kt-nav__link">
 											            <i class="kt-nav__link-icon flaticon2-line-chart"></i>
 											         
-											            <span class="kt-nav__link-text delete-comment" >Delete</span>
-											            <span class="${commentID }"></span>
+											            <span class="kt-nav__link-text delete-comment">Delete</span>
+											            <span class="${commentID}"></span>
 											            
 											            <input type="hidden" name="operation" value="17">
-											            <input type="hidden" name="commentID" value="${commentID }">
+											            <input type="hidden" name="commentID" value="${commentID}">
 											            
 											        </a>
 											    </li>

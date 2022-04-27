@@ -46,8 +46,24 @@ public class CommentDao implements ICommentDao {
 	}
 	
 	@Override
-	public int getNextInt() {
-		String sql = "SHOW TABLE STATUS LIKE 'comment'";
+	public int getLastCreatedCommentID() {
+		String newCommentIDQuery = "Select commentID from comment order by createdAt desc";
+		int commentID = -1;
+		try {
+			preparedStatement = connection.prepareStatement(newCommentIDQuery);
+			ResultSet rSet = preparedStatement.executeQuery();
+			if(rSet.next()) {
+				commentID = rSet.getInt("commentID");
+			}
+			System.out.println(commentID);
+			return commentID;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return commentID;
+		}
+		/*String sql = "SHOW TABLE STATUS LIKE 'comment'";
 		
 		int auto_id = 0;
 		
@@ -55,7 +71,7 @@ public class CommentDao implements ICommentDao {
 			preparedStatement = connection.prepareStatement(sql);
 			ResultSet rs = preparedStatement.executeQuery();
 			
-			while(rs.next()) {				
+			if(rs.next()) {				
 				auto_id = rs.getInt("Auto_increment");
 			}
 			
@@ -66,31 +82,9 @@ public class CommentDao implements ICommentDao {
 			return -1;
 		}
 
-		return auto_id;
+		return auto_id;*/
 		
 	}
-	
-	/*
-	 * String sql = "INSERT INTO table (commentID, postID) values(?, ?)";
-		
-
-		int auto_id = 0;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
-		   rs.next();
-		   auto_id = rs.getInt(1);
-				
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			return -1;
-		}
-
-		return auto_id;
-	 */
 	
 	@Override 
 	public List<Comment> fetchAllPostComment(int postID){
@@ -133,6 +127,7 @@ public class CommentDao implements ICommentDao {
 	@Override
 	public boolean create(Comment com) {
 		String query = "Insert into comment(postID,userID,text) values(?,?,?)";
+		String newCommentIDQuery = "Select commentID from comment order by createdAt desc";
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1,com.getPostID());

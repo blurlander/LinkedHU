@@ -22,6 +22,10 @@ public class MyConstants {
 	public static final String OPP_SHARE_COMMENT = "16";
 	public static final String OPP_DELETE_COMMENT = "17"; // DON'T change
 	
+	public static final int CODE_HOMEPAGE = 100;
+	public static final int CODE_DETAILPAGE = 101;
+	public static final int CODE_PROFILEPAGE = 102;
+	
 	
 	
 }

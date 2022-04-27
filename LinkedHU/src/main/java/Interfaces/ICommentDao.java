@@ -6,5 +6,5 @@ import Model.Comment;
 
 public interface ICommentDao extends IDao<Comment> {
 	List<Comment> fetchAllPostComment(int postID);
-	int getNextInt();
+	int getLastCreatedCommentID();
 }
