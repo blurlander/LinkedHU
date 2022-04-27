@@ -75,7 +75,7 @@
 		<!-- begin:: Header Mobile -->
 		<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed " >
 			<div class="kt-header-mobile__logo">
-				<a href="demo9/index.html">
+				<a href="#">
 					<img alt="Logo" src="./assets/media/logos/4060logos.png"/>
 				</a>
 			</div>
@@ -107,7 +107,7 @@
 		<!-- begin:: Brand -->
 <div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
 
-	<a class="kt-header__brand-logo" href="demo9/index.html">
+	<a class="kt-header__brand-logo" href="#">
 		<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
 
 	</a>		
