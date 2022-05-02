@@ -148,17 +148,17 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="kt-login__form">
                                 <form class="kt-form" method = "POST" action="UserController">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Fullname" name="fullname">
-                                    </div>
+                                        <input class="form-control" type="text" placeholder="Username" name="username">
+                                    </div>                                    
                                     <div class="form-group">
                                         <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" type="password" placeholder="Password" name="password">
-                                        <input type="hidden" id = "2" name="operation" value="${MyConstants.OPP_REGISTER }">
+                                        <input type="hidden" name="operation" value="${MyConstants.OPP_REGISTER }">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control form-control-last" type="password" placeholder="Confirm Password" name="rpassword">
+                                        <input class="form-control form-control-last" type="password" placeholder="Confirm Password" name="cpassword">
                                     </div>
                                     <div class="kt-login__extra">
                                         <label class="kt-checkbox">
@@ -166,9 +166,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span></span>
                                         </label>
                                     </div>
-                                    <div class="kt-login__actions">
-                                        <button id="kt_login_signup_submit" class="btn btn-brand btn-pill btn-elevate">Sign Up</button>
+                                    <div class="kt-login__actions">                                        
+                                         
+                                        <button id="kt_login_signup_submitogluit" class="btn btn-brand btn-pill btn-elevate">Sign Up</button>
                                         <button id="kt_login_signup_cancel" class="btn btn-outline-brand btn-pill">Cancel</button>
+                                       
+                                        
                                     </div>
                                 </form>
                             </div>

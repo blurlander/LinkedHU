@@ -18,13 +18,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import Interfaces.IService;
-import Model.Academician;
-import Model.Comment;
-import Model.NonAdminUser;
-import Model.Post;
-import Model.PostCreator;
-import Model.SystemService;
-import Model.User;
+import Model.*;
 import general.MyConstants;
 
 @WebServlet("/UserController")
@@ -178,11 +172,49 @@ public class UserController extends HttpServlet {
 				 postCreator.setAuthorOf(service.fetchUserPosts(postCreator.getUserID()));
 				 session.setAttribute("otherUser", postCreator);
 				 break;
+				 
+			 case MyConstants.OPP_REGISTER:
+				 	
+				 	email = request.getParameter("email");
+					password = request.getParameter("password");
+					String confPassword = request.getParameter("cpassword");
+					username = request.getParameter("username");
+					boolean check = (password.equals(confPassword));
+					
+					Student student = new Student();
+					student.setEmail(email);
+					student.setProfilePictureSrc("");
+					student.setPassword(password);
+					student.setUserType(MyConstants.TYPE_STUDENT);
+					student.setUsername(username);
+					//student.setProfilePictureSrc(".\\.\\webapp\\assets\\media\\users\\default.jpg");
+					
+					
+					
+					
+					// if check = false, sendredirect login
+					System.out.println(student.getUsername());
+					
+					if(check) {
+						service.createUser(student);
+						session.setAttribute("currentUser",student);
+						//session.setAttribute("otherUser", student);
+						session.setAttribute("status", "registerContinue");
+						response.sendRedirect("UpdateProfile.jsp");
+					}
+					else {
+						session.setAttribute("status", "registerFail");
+						response.sendRedirect("LoginPage.jsp");
+					}				 
+				 break;
 				
 		}
 		
 	}
-		
+	
+	
+	
+	
 	private User getUserFromID(int userID) {
 		List<User> allUsers = service.fetchAllUsers();
 		for (User user : allUsers) {
@@ -203,7 +235,7 @@ public class UserController extends HttpServlet {
 					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
 					// Comments will be inserted too . Coming soon.
 				}
-				if(u.getUserType() != MyConstants.TYPE_ADMIN ) {
+				if(u.getUserType() != MyConstants.TYPE_ADMIN && u.getUserType() != MyConstants.TYPE_STUDENT) {
 					((NonAdminUser)u).setLikes(service.getLikes(u.getUserID()));
 				}
 						

@@ -82,8 +82,28 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public boolean create(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean key = false;	   
+	    String query = "INSERT INTO user(username,email,password,userType) VALUES (?,?,?,?)";
+	    
+	    System.out.println(user.getUsername());
+	    
+	    try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setString(1,user.getUsername());
+			this.preparedStatement.setString(2,user.getEmail());
+			this.preparedStatement.setString(3,user.getPassword());			
+			this.preparedStatement.setInt(4,user.getUserType());
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
 	}
 
 	@Override

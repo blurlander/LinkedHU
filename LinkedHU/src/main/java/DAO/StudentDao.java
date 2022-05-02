@@ -14,7 +14,7 @@ public class StudentDao implements IDao<Student> {
 	@Override
 	public boolean create(Student t) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

@@ -56,8 +56,9 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		return userDao.create(user) && studentDao.create(user);
+		
+		// if user type == student ,  
 	}
 
 	@Override
