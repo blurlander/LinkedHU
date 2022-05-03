@@ -388,7 +388,10 @@
 	            <div class="kt-subheader__wrapper">
 	                           <!-- Create post iÃ§in buton -->
 	                           <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
-	                
+	                			<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+	                			<a class="button btn btn-success" href="AdminPanel.jsp" type="submit">Admin Panel</a>
+	                			</c:if>
+	                			
 	                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
 	                    <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">

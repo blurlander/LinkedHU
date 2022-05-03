@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import DAO.PostCreatorDao;
 import Interfaces.IService;
 import Model.*;
 import general.MyConstants;
@@ -372,7 +371,8 @@ public class UserController extends HttpServlet {
 				}
 						
 				session.setAttribute("currentUser", u);
-				session.setAttribute("otherUser", u);				
+				session.setAttribute("otherUser", u);
+				session.setAttribute("userList", allUsers);
 				return true;
 			}
 		}

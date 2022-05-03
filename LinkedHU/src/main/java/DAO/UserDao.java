@@ -1,5 +1,6 @@
 package DAO;
 import Model.Academician;
+import Model.Admin;
 import Model.Graduate;
 import Model.Student;
 import Model.User;
@@ -57,23 +58,42 @@ public class UserDao implements IUserDao {
 		try {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
+			boolean breakAdmin = false;
+			boolean breakAcademician = false;
+			boolean breakGraduate = false;
+			boolean breakStudent = false;
 			while(rs.next()) {
 				switch(rs.getInt("userType")) 
 				{
 					case MyConstants.TYPE_ADMIN : 
-						break;
+					breakAdmin = true;
 					case MyConstants.TYPE_ACADEMICIAN :
-						addAcademician(allUsers);
-						break;
+					breakAcademician = true;
 					case MyConstants.TYPE_GRADUATE:  
-						break;
-					case MyConstants.TYPE_STUDENT:
-						addStudent(allUsers);
-						break;
+					breakGraduate = true;
+					case MyConstants.TYPE_STUDENT: 
+					breakStudent = true;	
+					
 				}
 				//allUsers.add(user);
 				
+					
 			}
+			if(breakAdmin) {
+				addAdmin(allUsers);
+			}
+			if(breakAcademician) {
+				addAcademician(allUsers);
+			}
+			if(breakGraduate) {
+				
+			}
+			if(breakStudent) {
+				addStudent(allUsers);
+			}
+			
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -289,4 +309,29 @@ public class UserDao implements IUserDao {
 			return false;
 		}
 	}
+	
+	private void addAdmin(List<User> allUsers) {
+		String query = "Select * from User where userType=0";
+		ResultSet rs;
+		
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Admin admin = new Admin();
+				admin.setUserID(rs.getInt("userID"));
+				admin.setUsername(rs.getString("username"));
+				admin.setEmail(rs.getString("email"));
+				admin.setPassword(rs.getString("password"));
+				admin.setFullName(rs.getString("fullName"));
+				admin.setUserType(rs.getInt("userType"));
+				allUsers.add(admin);		
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+	}	
+	
 }
