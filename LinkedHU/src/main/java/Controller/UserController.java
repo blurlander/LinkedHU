@@ -127,6 +127,8 @@ public class UserController extends HttpServlet {
 				infoList.add(email1);
 				infoList.add(password1);
 				infoList.add(fullName);
+				infoList.add(profilePictureSrc);
+				infoList.add(bio);
 				
 				if(typecheck) {				
 				infoList.add(acadTitle);
@@ -141,10 +143,10 @@ public class UserController extends HttpServlet {
 				infoList.add(graduation);
 				}
 				
-				infoList.add(bio);
 				
 				
-				infoList.add(profilePictureSrc);
+				
+				
 				updateAccountInfo(infoList);
 				response.sendRedirect("Profile.jsp");
 				
@@ -297,7 +299,10 @@ public class UserController extends HttpServlet {
 					infoList.add(email1);
 					infoList.add(password1);
 					infoList.add(fullName);
+					infoList.add(profilePictureSrc);
 					infoList.add(bio);
+					
+					
 					
 					if(typecheck) {				
 					infoList.add(acadTitle);
@@ -315,7 +320,7 @@ public class UserController extends HttpServlet {
 					
 					
 					
-					infoList.add(profilePictureSrc);
+					
 					updateAccountInfo(infoList);
 					response.sendRedirect("Profile.jsp");
 				 
@@ -374,13 +379,14 @@ public class UserController extends HttpServlet {
 			a.setEmail(infoList.get(1));
 			a.setPassword(infoList.get(2));
 			a.setFullName(infoList.get(3));
-			a.setBio(infoList.get(4));
-			a.setAcademicTitle(infoList.get(5));
-			a.setProfessionalHistory(infoList.get(6));
-			a.setResearchHistory(infoList.get(7));
-			a.setProficiencies(infoList.get(8));
-			a.setOfficeNumber(infoList.get(9));
-			a.setProfilePictureSrc(infoList.get(10));
+			a.setProfilePictureSrc(infoList.get(4));
+			a.setBio(infoList.get(5));	
+			a.setAcademicTitle(infoList.get(6));
+			a.setProfessionalHistory(infoList.get(7));
+			a.setResearchHistory(infoList.get(8));
+			a.setProficiencies(infoList.get(9));
+			a.setOfficeNumber(infoList.get(10));
+			
 			
 			// All session attributes which is affected in any update process should be pulled from the database again.
 			// and get the proper data for session attributes
@@ -402,11 +408,12 @@ public class UserController extends HttpServlet {
 			s.setEmail(infoList.get(1));
 			s.setPassword(infoList.get(2));
 			s.setFullName(infoList.get(3));
-			s.setBio(infoList.get(4));
-			s.setSkills(infoList.get(5));
-			s.setGpa(Double.parseDouble(infoList.get(6)));
-			s.setGraduation(infoList.get(7));
-			s.setProfilePictureSrc(infoList.get(8));
+			s.setProfilePictureSrc(infoList.get(4));
+			s.setBio(infoList.get(5));
+			s.setSkills(infoList.get(6));
+			s.setGpa(Double.parseDouble(infoList.get(7)));
+			s.setGraduation(infoList.get(8));
+			
 			
 			String stat = (String)session.getAttribute("status");			
 			boolean isStillRegister = stat.equals("registerContinue");			
