@@ -404,7 +404,7 @@
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle }">
+											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle}">
 
 										</div>
 									</div>
@@ -530,7 +530,16 @@
 
 												<input required type="text" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
+												
+												<c:if test = "${!status.equals(\"RegisterContinue\")}">
 												<input type = "hidden" value = "${MyConstants.OPP_UPDATE_PROFILE }" name = "operation">
+												</c:if>
+												
+												<c:if test="${status.equals(\"RegisterContinue\")}"> 
+												<!-- Checking if we are here after register -->
+												<input type = "hidden" value = "${MyConstants.OPP_FINISH_REGISTER }" name = "operation">
+												</c:if>
+												
 											</div>
 											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
 										</div>

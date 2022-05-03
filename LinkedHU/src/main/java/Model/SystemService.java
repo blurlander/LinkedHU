@@ -56,7 +56,12 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createUser(User user) {
-		return userDao.create(user) && studentDao.create(user);
+		if(user.getUserType() == MyConstants.TYPE_STUDENT) {
+			return userDao.create(user) && studentDao.create(((Student)user));
+		}
+		return userDao.create(user) ;
+		
+		
 		
 		// if user type == student ,  
 	}
@@ -68,7 +73,13 @@ public class SystemService implements IService{
 			boolean academicanTableUpdate = academicianDao.update((Academician)user); 
 			boolean userTableUpdate = userDao.update(user);
 			return academicanTableUpdate && userTableUpdate;
+		}else if(user.getUserType() == MyConstants.TYPE_STUDENT) {
+			boolean studentUpdate = studentDao.update((Student)user);
+			boolean userUpdate = userDao.update(user);
+			return studentUpdate && userUpdate;
+			
 		}
+		
 		return false;
 	}
 
