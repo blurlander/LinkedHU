@@ -1,6 +1,7 @@
 package DAO;
 import Model.Academician;
 import Model.Graduate;
+import Model.Student;
 import Model.User;
 import general.MyConstants;
 
@@ -66,7 +67,8 @@ public class UserDao implements IUserDao {
 						break;
 					case MyConstants.TYPE_GRADUATE:  
 						break;
-					case MyConstants.TYPE_STUDENT: 
+					case MyConstants.TYPE_STUDENT:
+						addStudent(allUsers);
 						break;
 				}
 				//allUsers.add(user);
@@ -199,6 +201,37 @@ public class UserDao implements IUserDao {
 		}
 		
 	}
+	
+	private void addStudent(List<User> allUsers) {
+		String query = "Select * from student";
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Student student = new Student();
+				student.setUserID(rs.getInt("userID"));
+				student.setUsername(rs.getString("username"));
+				student.setEmail(rs.getString("email"));
+				student.setPassword(rs.getString("password"));
+				student.setFullName(rs.getString("fullName"));
+				student.setUserType(rs.getInt("userType"));
+				student.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				student.setStatus(rs.getString("status"));
+				student.setBio(rs.getString("bio"));
+				student.setSkills(rs.getString("skills"));
+				student.setGpa(rs.getDouble("gpa"));
+				student.setGraduation(rs.getString("graduation"));
+				student.setType(rs.getInt("type"));
+				allUsers.add(student);		
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+	}
+	
 
 	@Override
 	public List<Integer> fetchAllUserLikes(int userID) {

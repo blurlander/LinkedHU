@@ -349,10 +349,11 @@ public class UserController extends HttpServlet {
 	
 	protected boolean checkUserLoginInfo(String email,String password) {
 		List<User> allUsers = service.fetchAllUsers();
+		
 		for(User u : allUsers) 
 		{	
 			// Fetching all user posts.
-			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
+			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {			
 				if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN || u.getUserType() == MyConstants.TYPE_GRADUATE ) {
 					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
 					// Comments will be inserted too . Coming soon.
