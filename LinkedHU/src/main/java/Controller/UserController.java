@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import DAO.PostCreatorDao;
 import Interfaces.IService;
 import Model.*;
 import general.MyConstants;
@@ -153,23 +154,31 @@ public class UserController extends HttpServlet {
 				break;
 				
 			case MyConstants.OPP_VIEW_PROFILE:
-				
+
 				//  userID of the user whose profile page we want to see
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
 								
 				// get the posts of the otherUser
 				// read ile yap�lacak.
-				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
+				User user1 = getUserFromID(incomeUserID);
+				PostCreator otherUser;
+				if(user1.getUserType() == MyConstants.TYPE_GRADUATE || user1.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+					 otherUser =  (PostCreator)user1;
+					
+					// fill post of the other user
+					otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
+					
+					// fill likes of the other user
+					otherUser.setLikes(service.getLikes(incomeUserID));
+					
+					session.setAttribute("otherUser",otherUser);
+					response.sendRedirect("Profile.jsp");
+				}
 				
-				// fill post of the other user
-				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
+				if(user1.getUserType() == MyConstants.TYPE_STUDENT) {
+					response.sendRedirect("Profile.jsp");
+				}
 				
-				
-				// fill likes of the other user
-				otherUser.setLikes(service.getLikes(incomeUserID));
-				
-				session.setAttribute("otherUser",otherUser);
-				response.sendRedirect("Profile.jsp");
 				break;
 			case MyConstants.OPP_LIKE_POST:				
 				int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
