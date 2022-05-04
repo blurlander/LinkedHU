@@ -258,10 +258,25 @@ public class UserDao implements IUserDao {
 			}
 			//connection.close();
 			//sql.close();
-		}
+		}		
 		catch (SQLException e) {
 		e.printStackTrace();
 		}
+		
+		try {
+			String delete = "DELETE FROM user WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+			//connection.close();
+			//sql.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			}
 		
 		
 		return flag;
