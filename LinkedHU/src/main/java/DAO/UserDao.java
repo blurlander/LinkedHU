@@ -66,7 +66,6 @@ public class UserDao implements IUserDao {
 				switch(rs.getInt("userType")) 
 				{
 					case MyConstants.TYPE_ADMIN : 
-
 					breakAdmin = true;
 					case MyConstants.TYPE_ACADEMICIAN :
 					breakAcademician = true;
@@ -171,10 +170,102 @@ public class UserDao implements IUserDao {
 
 
 	@Override
-	public boolean delete(User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean delete(User user){
+		boolean flag = true;
+		
+		if (user.getUserType() == 1)
+		{
+			try {
+				String delete = "DELETE FROM academician WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		if (user.getUserType() == 2)
+		{
+			try {
+				String delete = "DELETE FROM student WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		if (user.getUserType() == 3)
+		{
+			try {
+				String delete = "DELETE FROM graduate WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		
+		try {
+			String delete = "DELETE FROM comment WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+		}
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		try {
+			String delete = "DELETE FROM likes WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+		}
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		try {
+			String delete = "DELETE FROM post WHERE authorID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+			//connection.close();
+			//sql.close();
+		}
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		
+		return flag;
+	}//END OF DELETE 
 	
 	private void addAcademician(List<User> allUsers) {
 		String query = "Select * from Academician";

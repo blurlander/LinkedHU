@@ -458,14 +458,21 @@
                 </button>
             </div>
             <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
-                <form>
-                <button type="button" class="btn btn-primary">Remove User</button>
+                <form action="UserController" method="Post">
+                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(user.userID) } </button>
+                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
+                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(user.userID) }>
                 </form>
             </div>
 
         </div>
     </div>
 </div>
+
+
+
+
+
 				  	</c:if>
 				  	</c:forEach>	
 				  						

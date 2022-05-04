@@ -90,8 +90,8 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean deleteUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean key = userDao.delete(user);
+		return key;
 	}
 
 	@Override

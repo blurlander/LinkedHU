@@ -334,16 +334,37 @@ public class UserController extends HttpServlet {
 					
 					updateAccountInfo(infoList);
 					response.sendRedirect("Profile.jsp");
+					break;
 				 
 				 
-				 
-				 break;
+			 	case MyConstants.OPP_DELETE_USER:
+					int deleteThisID = Integer.valueOf(request.getParameter("deleteID"));
+					boolean isSuccessful = deleteUser(deleteThisID);
+					List<User> allUsers = service.fetchAllUsers();
+								 
+					if (isSuccessful == false)
+					{
+						session.setAttribute("userList", allUsers);
+						response.sendRedirect("AdminPanel.jsp");
+					}
+					else
+					{
+					response.sendRedirect("AdminPanel.jsp");
+					}
+					break;	 
 				 
 				 
 				 
 		}
 		
 	}
+	
+	
+	public boolean deleteUser(int ID) //this function will take deleteThisID as parameter in case MyConstants.OPP_DELETE_USER
+	{
+		boolean chk = service.deleteUser(getUserFromID(ID));			
+		return chk;
+	}//if key = true delete process is successfull
 	
 	
 	
