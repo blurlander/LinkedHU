@@ -60,13 +60,34 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createUser(User user) {
+		boolean control1 = userDao.create(user);
+		
 		if(user.getUserType() == MyConstants.TYPE_STUDENT) {
-			boolean control1 = userDao.create(user);
-			boolean control2 = studentDao.create(((Student)user));
+			Student s = (Student)user;
+			
+			boolean control2 = studentDao.create(s);
 			
 			return control1 && control2;
 		}
-		return userDao.create(user) ;
+		else if(user.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+			
+			boolean control2 = academicianDao.create(((Academician)user));
+			return control1 && control2;
+		}
+		else if(user.getUserType() == MyConstants.TYPE_GRADUATE) {
+			
+			boolean control2 = graduateDao.create(((Graduate)user));
+			return control1 && control2;
+		}else {
+			return control1 ;
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

@@ -496,23 +496,23 @@
             <div class="modal-body">
                 <form method="POST" action="UserController" id = "add-user-form">
                     <div class="form-group">
-                        <label for="fullname" class="form-control-label">Fullname:</label>
-                        <input type="text" class="form-control" name="fullname">
+                    	<label for="firstname" class="form-control-label">First Name:</label>
+                        <input type="text" required class="form-control" name="firstname">
+                        <label for="lastname" class="form-control-label">Last Name:</label>
+                        <input type="text" required class="form-control" name="lastname">
                         <label for="username" class="form-control-label">Username:</label>
-                        <input type="text" class="form-control" name="fullname">
+                        <input type="text" required class="form-control" name="username">
                         <label for="email" class="form-control-label">Email:</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" required class="form-control" name="email">
                         <label for="password" class="form-control-label">Password:</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" required class="form-control" name="password">
                         <label for="type" class="form-control-label">User Type:</label>
-                        <select type="text" class="form-control" name="type">
-							<option value="student">Student</option>
-						    <option value="academician">Academician</option>
-						    <option value="graduate">Graduate</option>
-						    <option value="admin">Admin</option>
-						</select>
-                        
-						<input type="hidden" id = "9" name = "operation" value="0">
+                        <select class="form-control" name="type">
+							<option value="${MyConstants.TYPE_STUDENT}">Student</option>
+						    <option value="${MyConstants.TYPE_ACADEMICIAN}">Academician</option>
+						    <option value="${MyConstants.TYPE_GRADUATE}">Graduate</option>						    
+						</select>                        
+						<input type="hidden" id = "31" name = "operation" value="${MyConstants.OPP_CREATED_BY_ADMIN}" >
                     </div>
                 </form>
             </div>

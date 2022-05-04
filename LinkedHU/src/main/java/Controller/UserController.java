@@ -408,10 +408,59 @@ public class UserController extends HttpServlet {
 			 		deleteUser(tbdID);
 			 		response.sendRedirect("LoginPage.jsp");
 			 		
-			 		
+			 	case MyConstants.OPP_CREATED_BY_ADMIN:
+			 		email = request.getParameter("email");
+					password = request.getParameter("password");
+					firstName = request.getParameter("firstname");
+					lastName = request.getParameter("lastname");
+					username = request.getParameter("username");
+					int userType = Integer.parseInt(request.getParameter("type"));					
+					String fullname = firstName +" " +lastName;
+					
+					/*User us = new User();			
+					
+					us.setEmail(email);
+					us.setUsername(username);
+					us.setPassword(password);
+					us.setFullName(fullname);
+					us.setUserType(userType);
+					
+					addUser(us);*/
+					switch(userType) {
+						case MyConstants.TYPE_ACADEMICIAN:
+							Academician aa = new Academician();
+							aa.setEmail(email);
+							aa.setUsername(username);
+							aa.setPassword(password);
+							aa.setFullName(fullname);
+							aa.setUserType(userType);
+							addUser(aa);
+							break;
+						case MyConstants.TYPE_GRADUATE:
+							break;
+						case MyConstants.TYPE_STUDENT:
+							Student ss = new Student();
+							ss.setEmail(email);
+							ss.setUsername(username);
+							ss.setPassword(password);
+							ss.setFullName(fullname);
+							ss.setUserType(userType);
+							addUser(ss);
+							
+							break;
+					}
+					
+					allUsers = service.fetchAllUsers();
+					session.setAttribute("userList", allUsers);
+					response.sendRedirect("AdminPanel.jsp");
+			 		break;
 			 		
 		}		
 		
+	}
+	
+	public boolean addUser(User u) {
+		return service.createUser(u);
 	}
 	
 	

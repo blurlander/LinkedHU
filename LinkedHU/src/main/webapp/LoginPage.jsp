@@ -155,21 +155,21 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="kt-login__form">
                                 <form class="kt-form" method = "POST" action="UserController">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Username" name="username">
+                                        <input class="form-control" type="text" required placeholder="Username" name="username">
                                     </div>                                    
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
+                                        <input class="form-control" type="text" required placeholder="Email" name="email" autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="password" placeholder="Password" name="password">
+                                        <input class="form-control" type="password" required placeholder="Password" name="password">
                                         <input type="hidden" name="operation" value="${MyConstants.OPP_REGISTER }">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control form-control-last" type="password" placeholder="Confirm Password" name="cpassword">
+                                        <input class="form-control form-control-last" required type="password" placeholder="Confirm Password" name="cpassword">
                                     </div>
                                     <div class="kt-login__extra">
                                         <label class="kt-checkbox">
-                                            <input type="checkbox" name="agree"> I Agree the <a href="#">terms and conditions</a>.
+                                            <input type="checkbox" name="agree" required> I Agree the <a href="#">terms and conditions</a>.
                                             <span></span>
                                         </label>
                                     </div>

@@ -1,11 +1,48 @@
 package DAO;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import Interfaces.IDao;
 import Model.Graduate;
+import Model.Student;
 
 public class GraduateDao implements IDao<Graduate>{
+	private String userName = "root";
+	private String password = "";
+	private String host = "127.0.0.1";
+	private String dbName = "hello";
+	private int port = 3306;
+	private Connection connection = null;	
+	private Statement statement = null;
+	private PreparedStatement preparedStatement = null;
+	
+	public GraduateDao() {
+		connectDatabase();
+	}
+	
+	public void connectDatabase() {
+		String url = "jdbc:mysql://"+host+":"+port+"/"+dbName;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			connection = DriverManager.getConnection(url,userName,password);
+			System.out.println("Online!!!");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+	
+	
+	
+	
 	@Override
 	public List<Graduate> fetchAll() {
 		// TODO Auto-generated method stub
@@ -13,9 +50,38 @@ public class GraduateDao implements IDao<Graduate>{
 	}
 
 	@Override
-	public boolean create(Graduate t) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Graduate g) {
+		boolean key = false;	   
+	    String query = "INSERT INTO graduate(userID,username,email,password,fullName,userType,profilePictureSrc,bio,skills,gpa,graduation,type) VALUES (?,?,?,?,?,?,?,?)";
+	    
+	    //System.out.println(g.getUsername());
+	    
+	    try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	
+	    	this.preparedStatement.setInt(1,g.getUserID());
+		    this.preparedStatement.setString(2,g.getUsername());
+			this.preparedStatement.setString(3,g.getEmail());
+			this.preparedStatement.setString(4,g.getPassword());
+			this.preparedStatement.setString(5,g.getFullName());
+			this.preparedStatement.setInt(6,g.getUserType());
+			this.preparedStatement.setString(7,g.getProfilePictureSrc());			
+			this.preparedStatement.setString(8,g.getBio());
+			//this.preparedStatement.setString(9,g.getSkills());
+			//this.preparedStatement.setDouble(10,g.getGpa());
+			//this.preparedStatement.setString(11,g.getGraduation());
+			//this.preparedStatement.setInt(12,g.getType());			
+			
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
 	}
 
 	@Override
