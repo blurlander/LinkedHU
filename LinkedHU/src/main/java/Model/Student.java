@@ -1,12 +1,30 @@
 package Model;
 
+import java.sql.Timestamp;
+
 public class Student extends NonAdminUser {
 	private String skills;
 	private double gpa;
 	private String graduation;
 	private int type;
+	private Timestamp bannedUntil;
+	private String status;
 	
 	
+	
+	
+	public Timestamp getBannedUntil() {
+		return bannedUntil;
+	}
+	public void setBannedUntil(Timestamp bannedUntil) {
+		this.bannedUntil = bannedUntil;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getSkills() {
 		return skills;
 	}

@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import Model.Comment;
@@ -29,4 +31,6 @@ public interface IService {
 	boolean deleteComment(Comment comment);
 	boolean createMessage(Message message);
 	boolean deleteMessage(Message message);
+	boolean banUser(int ID, Date ts,int type);
+	int getTypefromid(int ID);
 }

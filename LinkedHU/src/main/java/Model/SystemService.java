@@ -1,5 +1,7 @@
 package Model;
 
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import Interfaces.IService;
@@ -156,6 +158,15 @@ public class SystemService implements IService{
 	@Override
 	public boolean updatePost(Post post) {
 		return postDao.update(post);
+	}
+	
+	public boolean banUser(int ID, Date ts, int type) {
+		return userDao.ban(ID,ts,type);
+		
+	}
+	
+	public int getTypefromid(int ID) {
+		return userDao.getTypefromID(ID);
 	}
 
 	

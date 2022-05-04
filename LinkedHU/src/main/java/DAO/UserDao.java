@@ -305,6 +305,13 @@ public class UserDao implements IUserDao {
 				academician.setResearchHistory(rs.getString("researchHistory"));
 				academician.setProficiencies(rs.getString("proficiencies"));
 				academician.setOfficeNumber(rs.getString("officeNumber"));
+				if(rs.getTimestamp("bannedUntil") != null) {
+					academician.setBannedUntil(rs.getTimestamp("bannedUntil"));
+				}
+				else {
+					academician.setBannedUntil(null);
+				}
+				
 			
 				allUsers.add(academician);		
 			}
@@ -330,6 +337,15 @@ public class UserDao implements IUserDao {
 				graduate.setProfilePictureSrc(rs.getString("profilePictureSrc"));
 				graduate.setStatus(rs.getString("status"));
 				graduate.setBio(rs.getString("bio"));
+				
+				if(rs.getTimestamp("bannedUntil") != null) {
+					graduate.setBannedUntil(rs.getTimestamp("bannedUntil"));
+				}
+				else {
+					graduate.setBannedUntil(null);
+				}
+				
+				
 				allUsers.add(graduate);		
 			}
 		}
@@ -390,6 +406,16 @@ public class UserDao implements IUserDao {
 				student.setGpa(rs.getDouble("gpa"));
 				student.setGraduation(rs.getString("graduation"));
 				student.setType(rs.getInt("type"));
+				
+				
+				if(rs.getTimestamp("bannedUntil") != null) {
+					student.setBannedUntil(rs.getTimestamp("bannedUntil"));
+				}
+				else {
+					student.setBannedUntil(null);
+				}
+				
+				
 				allUsers.add(student);				
 
 			}
@@ -484,6 +510,72 @@ public class UserDao implements IUserDao {
 			e.printStackTrace();		
 		}
 		
-	}	
+	}
+	@Override
+	public int getTypefromID(int ID){
+		String query = "Select * from user where userID = ?";
+		int ans = -1;
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, ID);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ans = rs.getInt("userType");
+			}
+			return ans;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return ans;
+	}
+	
+	
+	
+	
+	
+
+	@Override
+	public boolean ban(int ID, Date ts, int type) {
+		String add = "";
+		
+		switch(type){
+		case MyConstants.TYPE_ACADEMICIAN:
+			add = "academician";
+			break;
+		case MyConstants.TYPE_GRADUATE:
+			add = "graduate";
+			break;
+		case MyConstants.TYPE_STUDENT:
+			add = "student";
+			break;
+	}			
+		String query = "Update "+add+" set bannedUntil = ? where userID = ? ";
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setDate(1,ts);
+			preparedStatement.setInt(2,ID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	
+	}
+
+	
+
+	
+	
+	
 	
 }

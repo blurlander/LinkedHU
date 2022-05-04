@@ -1,12 +1,13 @@
 package Model;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 public class NonAdminUser extends User{
 	private String profilePictureSrc;
 	private String status;
-	private Date bannedUntil;
+	private Timestamp bannedUntil;
 	private List<Integer> likes;
 	private String bio;
 	
@@ -22,10 +23,10 @@ public class NonAdminUser extends User{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Date getBannedUntil() {
+	public Timestamp getBannedUntil() {
 		return bannedUntil;
 	}
-	public void setBannedUntil(Date bannedUntil) {
+	public void setBannedUntil(Timestamp bannedUntil) {
 		this.bannedUntil = bannedUntil;
 	}
 	public List<Integer> getLikes() {

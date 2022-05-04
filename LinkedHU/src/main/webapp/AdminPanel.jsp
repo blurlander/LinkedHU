@@ -430,21 +430,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="UserController" method="Post">
                     <div class="form-group">
                         <label for="ban-date" class="form-control-label">Ban User Until:</label>
-                        <input type="date" class="form-control" id="ban-date">
+                        <input type="date" class="form-control" id="ban-date" name = "banDate">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="form-control-label">Message:</label>
                         <textarea class="form-control" id="message-text"></textarea>
                     </div>
+                     <input type ="hidden" name ="banID" value = ${ String.valueOf(user.userID) }>
+                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
+                     <div class="modal-footer">
+                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                	<button type="submit" class="btn btn-primary">Ban User</button>               
+            </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Ban User</button>
-            </div>
+            
         </div>
     </div>
 </div>

@@ -3,9 +3,14 @@ package Controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,6 +35,7 @@ public class UserController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	public HttpSession session;
 	private IService service = new SystemService();
+	public boolean fromBan = false;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
@@ -62,8 +68,16 @@ public class UserController extends HttpServlet {
 				else {
 					// To prevent re-submission of forms,this pattern is used here.
 					// POST-REDIRECT-GET
-					session.setAttribute("status","fail");
-					response.sendRedirect("UserController");
+					if(!fromBan) {
+						session.setAttribute("status","fail");
+						response.sendRedirect("UserController");
+					}
+					if(fromBan) {
+						session.setAttribute("status","banned");
+						response.sendRedirect("UserController");
+						fromBan = false;
+					}
+					
 				}
 				
 				break;
@@ -353,11 +367,54 @@ public class UserController extends HttpServlet {
 					}
 					break;	 
 				 
-				 
+			 	case MyConstants.OPP_BAN_USER:
+			 		int banID = Integer.valueOf(request.getParameter("banID"));
+			 		
+			 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			 		Date sqlDate = null;
+			 		
+			 		//
+			 		try {
+			 			java.util.Date utilDate = format.parse(request.getParameter("banDate"));
+			 			sqlDate = new Date(utilDate.getTime());
+			 		} catch (ParseException e) {
+			 			// TODO Auto-generated catch block
+			 			e.printStackTrace();
+			 		}
+			 		
+			 		
+			 		
+			 		int utype = 0;
+			 		utype = service.getTypefromid(banID);
+			 		
+			 		boolean ccc = banUser(banID , sqlDate,utype);
+			 		
+			 		if(ccc) {
+			 			response.sendRedirect("AdminPanel.jsp");
+			 		}
+			 		
+			 		break;
 				 
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public boolean banUser(int ID, Date until,int type) {
+		return service.banUser(ID, until,type);
+		
+		
+	}
+	
+	
 	
 	
 	public boolean deleteUser(int ID) //this function will take deleteThisID as parameter in case MyConstants.OPP_DELETE_USER
@@ -380,13 +437,50 @@ public class UserController extends HttpServlet {
 	}
 	
 	protected boolean checkUserLoginInfo(String email,String password) {
-		List<User> allUsers = service.fetchAllUsers();
+		List<User> allUsers = service.fetchAllUsers();		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
-		for(User u : allUsers) 
-		{	
+		// zaman kontrolü
+		
+		for(User u : allUsers){	
+			Student s = null;
+			Academician a = null;
+			Graduate g = null;
+			
+			switch(u.getUserType()){
+				case MyConstants.TYPE_STUDENT:
+					s = (Student)u;					
+					break;
+				case MyConstants.TYPE_ACADEMICIAN:
+					a = (Academician)u;
+					break;
+				case MyConstants.TYPE_GRADUATE:
+					g = (Graduate)u;
+					break;
+			}		
+					
 			// Fetching all user posts.
-
-			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {			
+			
+			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
+				if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+					if(a.getBannedUntil() != null && a.getBannedUntil().compareTo(timestamp) > 0){
+						fromBan = true;
+						return false;
+					}
+				}
+				if(u.getUserType() == MyConstants.TYPE_STUDENT) {
+					if(s.getBannedUntil() != null && s.getBannedUntil().compareTo(timestamp) > 0){
+						fromBan = true;
+						return false;
+					}
+				}
+				if(u.getUserType() == MyConstants.TYPE_GRADUATE) {
+					if(g.getBannedUntil() != null && g.getBannedUntil().compareTo(timestamp) > 0){
+						fromBan = true;
+						return false;
+					}
+				}
+				
 
 				if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN || u.getUserType() == MyConstants.TYPE_GRADUATE ) {
 					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
@@ -403,6 +497,10 @@ public class UserController extends HttpServlet {
 				session.setAttribute("userList", allUsers);
 				return true;
 			}
+			
+			
+		
+			
 		}
 		return false;
 	}
