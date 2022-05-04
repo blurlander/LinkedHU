@@ -332,12 +332,17 @@
 				<i class="kt-font-brand flaticon2-line-chart"></i>
 			</span>
 			<h3 class="kt-portlet__head-title">
+<<<<<<< Updated upstream
 				All Users
+=======
+				HTML(DOM) Sourced Data
+>>>>>>> Stashed changes
 			</h3>
 		</div>
 		<div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-wrapper">
 	<div class="kt-portlet__head-actions">
+<<<<<<< Updated upstream
 		<div class="dropdown dropdown-inline">
 			<button type="button" class="btn btn-default btn-icon-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="la la-download"></i> Export  	
@@ -385,6 +390,13 @@
 			<i class="la la-plus"></i>
 			New Record
 		</a>
+=======
+		&nbsp;
+		<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#add_user_modal">
+			<i class="la la-plus"></i>
+			Add User
+		</button>
+>>>>>>> Stashed changes
 	</div>	
 </div>		</div>
 	</div>
@@ -512,6 +524,48 @@
 			
 					</table>
 		<!--end: Datatable -->
+<<<<<<< Updated upstream
+=======
+		<div class="modal fade show" id="add_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="UserController" id = "add-user-form">
+                    <div class="form-group">
+                        <label for="fullname" class="form-control-label">Fullname:</label>
+                        <input type="text" class="form-control" name="fullname">
+                        <label for="username" class="form-control-label">Username:</label>
+                        <input type="text" class="form-control" name="fullname">
+                        <label for="email" class="form-control-label">Email:</label>
+                        <input type="text" class="form-control" name="email">
+                        <label for="password" class="form-control-label">Password:</label>
+                        <input type="text" class="form-control" name="password">
+                        <label for="type" class="form-control-label">User Type:</label>
+                        <select type="text" class="form-control" name="type">
+							<option value="student">Student</option>
+						    <option value="academician">Academician</option>
+						    <option value="graduate">Graduate</option>
+						    <option value="admin">Admin</option>
+						</select>
+                        
+						<input type="hidden" id = "9" name = "operation" value="0">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="submit" form="add-user-form" value="submit" class="btn btn-primary">Add User</button>
+                
+            </div>
+        </div>
+    </div>
+</div>  
+>>>>>>> Stashed changes
 	</div>
 </div>	</div>
 <!-- end:: Content -->					

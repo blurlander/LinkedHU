@@ -66,6 +66,7 @@ public class UserDao implements IUserDao {
 				switch(rs.getInt("userType")) 
 				{
 					case MyConstants.TYPE_ADMIN : 
+<<<<<<< Updated upstream
 					breakAdmin = true;
 					case MyConstants.TYPE_ACADEMICIAN :
 					breakAcademician = true;
@@ -74,6 +75,15 @@ public class UserDao implements IUserDao {
 					case MyConstants.TYPE_STUDENT: 
 					breakStudent = true;	
 					
+=======
+						breakAdmin = true;
+					case MyConstants.TYPE_ACADEMICIAN :
+						breakAcademician = true;
+					case MyConstants.TYPE_GRADUATE:  
+						breakGraduate = true;
+					case MyConstants.TYPE_STUDENT: 
+						breakStudent = true;
+>>>>>>> Stashed changes
 				}
 				//allUsers.add(user);
 				
@@ -89,11 +99,16 @@ public class UserDao implements IUserDao {
 				
 			}
 			if(breakStudent) {
+<<<<<<< Updated upstream
 				addStudent(allUsers);
 			}
 			
 			
 			
+=======
+
+			}
+>>>>>>> Stashed changes
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,6 +188,7 @@ public class UserDao implements IUserDao {
 	
 	private void addAcademician(List<User> allUsers) {
 		String query = "Select * from Academician";
+		
 		ResultSet rs;
 		try {
 			statement = connection.createStatement();
@@ -193,6 +209,7 @@ public class UserDao implements IUserDao {
 				academician.setResearchHistory(rs.getString("researchHistory"));
 				academician.setProficiencies(rs.getString("proficiencies"));
 				academician.setOfficeNumber(rs.getString("officeNumber"));
+			
 				allUsers.add(academician);		
 			}
 		}
@@ -226,6 +243,7 @@ public class UserDao implements IUserDao {
 		
 	}
 	
+<<<<<<< Updated upstream
 	private int getIDfromUsername(String username) {
 		String query = "Select * from user where username = ?";
 		int answer = -1;
@@ -257,10 +275,17 @@ public class UserDao implements IUserDao {
 	private void addStudent(List<User> allUsers) {
 		String query = "Select * from student";
 		ResultSet rs;
+=======
+	private void addAdmin(List<User> allUsers) {
+		String query = "Select * from User where userType=0";
+		ResultSet rs;
+		
+>>>>>>> Stashed changes
 		try {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
 			while(rs.next()) {
+<<<<<<< Updated upstream
 				Student student = new Student();
 				student.setUserID(rs.getInt("userID"));
 				student.setUsername(rs.getString("username"));
@@ -276,6 +301,16 @@ public class UserDao implements IUserDao {
 				student.setGraduation(rs.getString("graduation"));
 				student.setType(rs.getInt("type"));
 				allUsers.add(student);		
+=======
+				Admin admin = new Admin();
+				admin.setUserID(rs.getInt("userID"));
+				admin.setUsername(rs.getString("username"));
+				admin.setEmail(rs.getString("email"));
+				admin.setPassword(rs.getString("password"));
+				admin.setFullName(rs.getString("fullName"));
+				admin.setUserType(rs.getInt("userType"));
+				allUsers.add(admin);		
+>>>>>>> Stashed changes
 			}
 		}
 		catch(Exception e) {
@@ -283,7 +318,11 @@ public class UserDao implements IUserDao {
 		}
 		
 	}
+<<<<<<< Updated upstream
 	
+=======
+
+>>>>>>> Stashed changes
 
 	@Override
 	public List<Integer> fetchAllUserLikes(int userID) {

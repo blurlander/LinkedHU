@@ -365,7 +365,12 @@ public class UserController extends HttpServlet {
 		for(User u : allUsers) 
 		{	
 			// Fetching all user posts.
+<<<<<<< Updated upstream
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {			
+=======
+			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
+				
+>>>>>>> Stashed changes
 				if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN || u.getUserType() == MyConstants.TYPE_GRADUATE ) {
 					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
 					// Comments will be inserted too . Coming soon.
@@ -375,7 +380,11 @@ public class UserController extends HttpServlet {
 				}
 						
 				session.setAttribute("currentUser", u);
+<<<<<<< Updated upstream
 				session.setAttribute("otherUser", u);
+=======
+				session.setAttribute("otherUser", u);	
+>>>>>>> Stashed changes
 				session.setAttribute("userList", allUsers);
 				return true;
 			}

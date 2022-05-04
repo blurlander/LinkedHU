@@ -57,8 +57,8 @@ public class PostController extends HttpServlet {
 		
 		// When login is success load main page
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage") ) {
-			
 			User currentUser = (User)session.getAttribute("currentUser");
+			
 			List<Post> allPosts = service.fetchAllPosts();
 			List<User> allUsers = service.fetchAllUsers();
 			TreeMap<Post,User> map = new TreeMap<>();
