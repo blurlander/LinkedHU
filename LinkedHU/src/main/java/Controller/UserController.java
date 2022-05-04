@@ -401,7 +401,16 @@ public class UserController extends HttpServlet {
 			 		
 			 		
 			 		break;
-		}
+			 	case MyConstants.OPP_DELETE_SELF:
+			 		User u = (User)session.getAttribute("currentUser");
+			 		int tbdID = u.getUserID();
+			 		
+			 		deleteUser(tbdID);
+			 		response.sendRedirect("LoginPage.jsp");
+			 		
+			 		
+			 		
+		}		
 		
 	}
 	

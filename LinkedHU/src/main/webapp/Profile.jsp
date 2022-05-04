@@ -317,6 +317,39 @@
         <!--begin:: Widgets/Applications/User/Profile3-->
 <div class="kt-portlet kt-portlet--height-fluid">
     <div class="kt-portlet__body">
+    
+    <div class="modal fade show" id="del-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+               <div  style="display:flex; justify-content: center; align-content: space-between; margin-top:2rem;">
+           
+                        <p>Warning! This operation cannot be undone!</p>
+               </div>           
+           <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
+                <form method="POST" action="UserController">
+                    <div class="form-group">
+         
+                		<button type="submit" value="submit" class="btn btn-primary">Delete This Account</button>
+                		<input type="hidden" id = "31" name = "operation" value="${MyConstants.OPP_DELETE_SELF}">
+                    </div>
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                
+                
+            </div>
+        </div>
+    </div>
+</div>  
+    
+    
+    
         <div class="kt-widget kt-widget--user-profile-3">
             <div class="kt-widget__top">
                 <div class="kt-widget__media kt-hidden-">
@@ -334,11 +367,14 @@
                         </a>
 
                         <div class="kt-widget__action">
-                        	
+                        		<c:if test="${ currentUser.userID == otherUser.userID }">
+                            	<button type="button" class="btn btn-label-danger btn-sm btn-upper"  data-toggle="modal" data-target="#del-modal">Delete Account</button>
+                        		</c:if>
                         		<c:if test="${ currentUser.userID == otherUser.userID }">
                             	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
                         		</c:if>
                         		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
+                        		
                         	
                      
                             	
