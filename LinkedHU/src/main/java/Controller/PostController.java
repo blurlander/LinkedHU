@@ -185,6 +185,20 @@ public class PostController extends HttpServlet {
 			session.setAttribute("allUsers", service.fetchAllUsers());
 			session.setAttribute("currentPost", p);
 			response.sendRedirect("DetailPage.jsp");
+			
+			PostCreator postCreator = new PostCreator();
+			
+			TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+			for (Post post :  map.keySet()) {
+				if (post.getPostID() == p.getPostID()) {
+					postCreator = (PostCreator) map.get(post);
+					break;
+				}
+			}			
+			session.setAttribute("otherUser", postCreator);
+			
+			
+			
 		}else if( request.getParameter("operation").equals(MyConstants.OPP_SHARE_COMMENT)) {
 			
 			Post p = (Post)session.getAttribute("currentPost");

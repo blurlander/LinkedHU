@@ -17,6 +17,7 @@ import DAO.NonAdminUserDao;
 import DAO.PostCreatorDao;
 import DAO.StudentDao;
 import DAO.PostDao;
+import DAO.AdminDao;
 
 public class SystemService implements IService{
 	private IUserDao userDao = new UserDao();
@@ -28,6 +29,7 @@ public class SystemService implements IService{
 	private ICommentDao commentDao = new CommentDao();
 	private IDao messageDao = new MessageDao();
 	private IPostDao postDao = new PostDao();
+	private IDao adminDao = new AdminDao();
 	
 	@Override
 	public List<User> fetchAllUsers() {
@@ -57,7 +59,10 @@ public class SystemService implements IService{
 	@Override
 	public boolean createUser(User user) {
 		if(user.getUserType() == MyConstants.TYPE_STUDENT) {
-			return userDao.create(user) && studentDao.create(((Student)user));
+			boolean control1 = userDao.create(user);
+			boolean control2 = studentDao.create(((Student)user));
+			
+			return control1 && control2;
 		}
 		return userDao.create(user) ;
 		

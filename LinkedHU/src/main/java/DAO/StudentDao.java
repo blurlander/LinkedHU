@@ -48,23 +48,24 @@ public class StudentDao implements IDao<Student> {
 	@Override
 	public boolean create(Student t) {
 		boolean key = false;	   
-	    String query = "INSERT INTO student(username,email,password,fullName,userType,profilePictureSrc,bio,skills,gpa,graduation,type) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	    String query = "INSERT INTO student(userID,username,email,password,fullName,userType,profilePictureSrc,bio,skills,gpa,graduation,type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 	    
 	    System.out.println(t.getUsername());
 	    
 	    try {
-	    	this.preparedStatement = this.connection.prepareStatement(query);	    
-		    this.preparedStatement.setString(1,t.getUsername());
-			this.preparedStatement.setString(2,t.getEmail());
-			this.preparedStatement.setString(3,t.getPassword());
-			this.preparedStatement.setString(4,t.getFullName());
-			this.preparedStatement.setInt(5,t.getUserType());
-			this.preparedStatement.setString(6,t.getProfilePictureSrc());			
-			this.preparedStatement.setString(7,t.getBio());
-			this.preparedStatement.setString(8,t.getSkills());
-			this.preparedStatement.setDouble(9,t.getGpa());
-			this.preparedStatement.setString(10,t.getGraduation());
-			this.preparedStatement.setInt(11,t.getType());			
+	    	this.preparedStatement = this.connection.prepareStatement(query);	
+	    	this.preparedStatement.setInt(1,t.getUserID());
+		    this.preparedStatement.setString(2,t.getUsername());
+			this.preparedStatement.setString(3,t.getEmail());
+			this.preparedStatement.setString(4,t.getPassword());
+			this.preparedStatement.setString(5,t.getFullName());
+			this.preparedStatement.setInt(6,t.getUserType());
+			this.preparedStatement.setString(7,t.getProfilePictureSrc());			
+			this.preparedStatement.setString(8,t.getBio());
+			this.preparedStatement.setString(9,t.getSkills());
+			this.preparedStatement.setDouble(10,t.getGpa());
+			this.preparedStatement.setString(11,t.getGraduation());
+			this.preparedStatement.setInt(12,t.getType());			
 			
 			
 			if(this.preparedStatement.executeUpdate() > 0){

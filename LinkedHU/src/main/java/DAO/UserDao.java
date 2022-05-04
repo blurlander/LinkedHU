@@ -120,6 +120,10 @@ public class UserDao implements IUserDao {
 		        key = true;
 		    }			
 		    this.preparedStatement.close();
+		    
+		    int a = getIDfromUsername(user.getUsername());
+		    user.setUserID(a);
+		    
 		    return key;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -221,6 +225,34 @@ public class UserDao implements IUserDao {
 		}
 		
 	}
+	
+	private int getIDfromUsername(String username) {
+		String query = "Select * from user where username = ?";
+		int answer = -1;
+		try {			
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1,username);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				answer = rs.getInt("userID");
+			}
+			System.out.println(answer);
+			return answer;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return -1;
+	}
+	
+	
+	
 	
 	private void addStudent(List<User> allUsers) {
 		String query = "Select * from student";
