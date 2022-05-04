@@ -161,8 +161,7 @@ public class UserController extends HttpServlet {
 				// read ile yap�lacak.
 				User user1 = getUserFromID(incomeUserID);
 				PostCreator otherUser;
-				
-				System.out.println("bu ben : " + incomeUserID);
+								
 				
 				if(user1.getUserType() == MyConstants.TYPE_GRADUATE || user1.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
 					 otherUser =  (PostCreator)user1;

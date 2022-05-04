@@ -112,7 +112,7 @@ public class UserDao implements IUserDao {
 		boolean key = false;	   
 	    String query = "INSERT INTO user(username,email,password,userType) VALUES (?,?,?,?)";
 	    
-	    System.out.println(user.getUsername());
+	    //System.out.println(user.getUsername());
 	    
 	    try {
 	    	this.preparedStatement = this.connection.prepareStatement(query);	    
@@ -246,7 +246,7 @@ public class UserDao implements IUserDao {
 			while(rs.next()) {
 				answer = rs.getInt("userID");
 			}
-			System.out.println(answer);
+			//System.out.println(answer);
 			return answer;
 			
 		} catch (SQLException e) {
