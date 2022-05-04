@@ -332,71 +332,21 @@
 				<i class="kt-font-brand flaticon2-line-chart"></i>
 			</span>
 			<h3 class="kt-portlet__head-title">
-<<<<<<< Updated upstream
+
 				All Users
-=======
-				HTML(DOM) Sourced Data
->>>>>>> Stashed changes
+
 			</h3>
 		</div>
 		<div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-wrapper">
 	<div class="kt-portlet__head-actions">
-<<<<<<< Updated upstream
-		<div class="dropdown dropdown-inline">
-			<button type="button" class="btn btn-default btn-icon-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="la la-download"></i> Export  	
-			</button>
-			<div class="dropdown-menu dropdown-menu-right">
-				<ul class="kt-nav">
-					<li class="kt-nav__section kt-nav__section--first">
-						<span class="kt-nav__section-text">Choose an option</span>
-					</li>
-					<li class="kt-nav__item">
-						<a href="#" class="kt-nav__link">
-							<i class="kt-nav__link-icon la la-print"></i>
-							<span class="kt-nav__link-text">Print</span>
-						</a>
-					</li>
-					<li class="kt-nav__item">
-						<a href="#" class="kt-nav__link">
-							<i class="kt-nav__link-icon la la-copy"></i>
-							<span class="kt-nav__link-text">Copy</span>
-						</a>
-					</li>
-					<li class="kt-nav__item">
-						<a href="#" class="kt-nav__link">
-							<i class="kt-nav__link-icon la la-file-excel-o"></i>
-							<span class="kt-nav__link-text">Excel</span>
-						</a>
-					</li>
-					<li class="kt-nav__item">
-						<a href="#" class="kt-nav__link">
-							<i class="kt-nav__link-icon la la-file-text-o"></i>
-							<span class="kt-nav__link-text">CSV</span>
-						</a>
-					</li>
-					<li class="kt-nav__item">
-						<a href="#" class="kt-nav__link">
-							<i class="kt-nav__link-icon la la-file-pdf-o"></i>
-							<span class="kt-nav__link-text">PDF</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		&nbsp;
-		<a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
-			<i class="la la-plus"></i>
-			New Record
-		</a>
-=======
+
 		&nbsp;
 		<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#add_user_modal">
 			<i class="la la-plus"></i>
 			Add User
 		</button>
->>>>>>> Stashed changes
+
 	</div>	
 </div>		</div>
 	</div>
@@ -524,8 +474,7 @@
 			
 					</table>
 		<!--end: Datatable -->
-<<<<<<< Updated upstream
-=======
+
 		<div class="modal fade show" id="add_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -565,7 +514,7 @@
         </div>
     </div>
 </div>  
->>>>>>> Stashed changes
+
 	</div>
 </div>	</div>
 <!-- end:: Content -->					
