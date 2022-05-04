@@ -340,11 +340,7 @@ public class UserController extends HttpServlet {
 					infoList.add(skills);
 					infoList.add(gpa);
 					infoList.add(graduation);
-					}
-					
-					
-					
-					
+					}				
 					
 					updateAccountInfo(infoList);
 					response.sendRedirect("Profile.jsp");
@@ -395,6 +391,16 @@ public class UserController extends HttpServlet {
 			 		
 			 		break;
 				 
+			 	case MyConstants.OPP_LIFT_BAN:
+			 		int liftID = Integer.valueOf(request.getParameter("liftID"));
+			 		int ltype = service.getTypefromid(liftID);
+			 		boolean ddd = liftBan(liftID,ltype);
+			 		if(ddd) {
+			 			response.sendRedirect("AdminPanel.jsp");
+			 		}
+			 		
+			 		
+			 		break;
 		}
 		
 	}
@@ -402,16 +408,16 @@ public class UserController extends HttpServlet {
 	
 	
 	
-	
+	public boolean liftBan(int ID, int type) {
+		return service.liftBan(ID, type);
+	}
 	
 	
 	
 	
 	
 	public boolean banUser(int ID, Date until,int type) {
-		return service.banUser(ID, until,type);
-		
-		
+		return service.banUser(ID, until,type);		
 	}
 	
 	
@@ -467,17 +473,27 @@ public class UserController extends HttpServlet {
 						fromBan = true;
 						return false;
 					}
+					if(a.getBannedUntil() != null) {
+						liftBan(a.getUserID(),MyConstants.TYPE_ACADEMICIAN);
+					}
 				}
 				if(u.getUserType() == MyConstants.TYPE_STUDENT) {
 					if(s.getBannedUntil() != null && s.getBannedUntil().compareTo(timestamp) > 0){
 						fromBan = true;
 						return false;
 					}
+					if(s.getBannedUntil() != null) {
+						liftBan(s.getUserID(),MyConstants.TYPE_STUDENT);
+					}
+					
 				}
 				if(u.getUserType() == MyConstants.TYPE_GRADUATE) {
 					if(g.getBannedUntil() != null && g.getBannedUntil().compareTo(timestamp) > 0){
 						fromBan = true;
 						return false;
+					}
+					if(g.getBannedUntil() != null) {
+						liftBan(g.getUserID(),MyConstants.TYPE_STUDENT);
 					}
 				}
 				

@@ -33,4 +33,5 @@ public interface IService {
 	boolean deleteMessage(Message message);
 	boolean banUser(int ID, Date ts,int type);
 	int getTypefromid(int ID);
+	boolean liftBan(int ID, int type);
 }

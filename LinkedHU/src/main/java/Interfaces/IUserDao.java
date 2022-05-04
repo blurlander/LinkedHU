@@ -14,6 +14,7 @@ public interface IUserDao extends IDao<User>{
 	//boolean ban(int userID, Date ts, int type);
 	int getTypefromID(int id);
 	boolean ban(int ID, Date ts, int type);
+	boolean liftBan(int ID,int type);
 	
 }
 

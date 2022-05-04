@@ -24,6 +24,7 @@ public class MyConstants {
 	public static final String OPP_FINISH_REGISTER = "18";
 	public static final String OPP_DELETE_USER = "19";
 	public static final String OPP_BAN_USER = "20";
+	public static final String OPP_LIFT_BAN = "21";
 	
 	public static final int CODE_HOMEPAGE = 100;
 	public static final int CODE_DETAILPAGE = 101;

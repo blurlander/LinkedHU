@@ -169,6 +169,11 @@ public class SystemService implements IService{
 		return userDao.getTypefromID(ID);
 	}
 
+	@Override
+	public boolean liftBan(int ID, int type) {
+		return userDao.liftBan(ID, type);
+	}
+
 	
 		
 

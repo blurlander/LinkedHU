@@ -105,7 +105,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-login__signin">
 
                             
-                            <div class="kt-login__form">
+                            <div class="kt-login__form" >
                             <div class="kt-login__head">
                                 <h3 class="kt-login__title">Sign In</h3>
                             </div>
@@ -134,7 +134,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                     	<p style = "color:#ff0000; font-size:15px; position:relative; left:85px; top:30px;" id="p12345" >
                                     		<c:out value="Invalid username or password"/>
                                     	</p>
-                                    </c:if>                                                    	
+                                    </c:if> 
+                                    <c:if test="${status == 'banned'}">
+                                    	<div class="flex">
+                                    		<p style = "color:#ff0000; font-size:15px " id="p12345" >
+                                    		<c:out value="You have been banned from the system. Please try again later."/>
+                                    		</p>                            		
+                                    	</div>
+                                    </c:if>                                                           	
                                     <% session.removeAttribute("status"); %>
                                     
                                 </form>
@@ -301,12 +308,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Global Theme Bundle(used by all pages) -->
     	    	   
-		    	   <script src="./assets/js/demo12/scripts.bundle.js" type="text/javascript"></script>
+		    	   <script src="./assets/js/demo9/scripts.bundle.js" type="text/javascript"></script>
 				<!--end::Global Theme Bundle -->
 
         
                     <!--begin::Page Scripts(used by this page) -->
-                            <script src="./assets/js/demo12/pages/login/login-general.js" type="text/javascript"></script>
+                            <script src="./assets/js/demo9/pages/login/login-general.js" type="text/javascript"></script>
                         <!--end::Page Scripts -->
             </body>
     <!-- end::Body -->

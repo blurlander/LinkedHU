@@ -572,6 +572,44 @@ public class UserDao implements IUserDao {
 		}	
 	}
 
+	@Override
+	public boolean liftBan(int ID,int type) {
+		String add = "";
+		
+		switch(type){
+		case MyConstants.TYPE_ACADEMICIAN:
+			add = "academician";
+			break;
+		case MyConstants.TYPE_GRADUATE:
+			add = "graduate";
+			break;
+		case MyConstants.TYPE_STUDENT:
+			add = "student";
+			break;
+		}			
+		
+		String query = "Update "+add+" set bannedUntil = NULL where userID = ? ";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			
+			preparedStatement.setInt(1,ID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	
+		
+		
+		
+		
+	}
+	
+	
+	
 	
 
 	
