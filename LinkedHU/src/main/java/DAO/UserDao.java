@@ -306,7 +306,7 @@ public class UserDao implements IUserDao {
 				academician.setProficiencies(rs.getString("proficiencies"));
 				academician.setOfficeNumber(rs.getString("officeNumber"));
 				if(rs.getTimestamp("bannedUntil") != null) {
-					academician.setBannedUntil(rs.getTimestamp("bannedUntil"));
+					academician.setBannedUntil(rs.getDate("bannedUntil"));
 				}
 				else {
 					academician.setBannedUntil(null);
@@ -339,7 +339,7 @@ public class UserDao implements IUserDao {
 				graduate.setBio(rs.getString("bio"));
 				
 				if(rs.getTimestamp("bannedUntil") != null) {
-					graduate.setBannedUntil(rs.getTimestamp("bannedUntil"));
+					graduate.setBannedUntil(rs.getDate("bannedUntil"));
 				}
 				else {
 					graduate.setBannedUntil(null);
@@ -409,7 +409,7 @@ public class UserDao implements IUserDao {
 				
 				
 				if(rs.getTimestamp("bannedUntil") != null) {
-					student.setBannedUntil(rs.getTimestamp("bannedUntil"));
+					student.setBannedUntil(rs.getDate("bannedUntil"));
 				}
 				else {
 					student.setBannedUntil(null);

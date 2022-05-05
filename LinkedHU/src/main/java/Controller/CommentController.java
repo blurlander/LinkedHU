@@ -54,7 +54,7 @@ public class CommentController extends HttpServlet {
 			//Parsing as json
 			Gson gson = new Gson(); 
 	        JsonObject jsonObject = new JsonObject();
-	        JsonElement firstElement = gson.toJsonTree(comment);
+	        JsonElement firstElement = gson.toJsonTree(comment);	        
 	        JsonElement secondElement = gson.toJsonTree(commentAuthor);
 	        jsonObject.add("commentInfo",firstElement);
 	        jsonObject.add("authorInfo",secondElement);

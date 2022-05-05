@@ -7,6 +7,8 @@ public class PostCreator extends NonAdminUser{
 	private List<Post> authorOf;
 	private List<File> uploads;
 	
+	
+	
 	public List<Post> getAuthorOf() {
 		return authorOf;
 	}

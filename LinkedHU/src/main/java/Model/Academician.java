@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Academician extends PostCreator{
@@ -8,17 +9,17 @@ public class Academician extends PostCreator{
 	private String researchHistory;
 	private String proficiencies;
 	private String officeNumber;
-	private Timestamp bannedUntil;
+	private Date bannedUntil;
 	private String status;
 	
 	
 	
 	
 	
-	public Timestamp getBannedUntil() {
+	public Date getBannedUntil() {
 		return bannedUntil;
 	}
-	public void setBannedUntil(Timestamp bannedUntil) {
+	public void setBannedUntil(Date bannedUntil) {
 		this.bannedUntil = bannedUntil;
 	}
 	public String getStatus() {

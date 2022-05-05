@@ -367,6 +367,9 @@
                         </a>
 
                         <div class="kt-widget__action">
+                        		<c:if test="${ currentUser.userID != otherUser.userID }">
+                            	<button type="button" class="btn btn-label-warning btn-sm btn-upper follow-btn" >Follow User</button>
+                        		</c:if>
                         		<c:if test="${ currentUser.userID == otherUser.userID }">
                             	<button type="button" class="btn btn-label-danger btn-sm btn-upper"  data-toggle="modal" data-target="#del-modal">Delete Account</button>
                         		</c:if>
