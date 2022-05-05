@@ -284,7 +284,7 @@
             	</li>
             	
             	<li class="kt-menu__item " aria-haspopup="true" >
-            		<a  href="#" class="kt-menu__link ">
+            		<a  href="HomePage.jsp" class="kt-menu__link ">
             			<i class="kt-menu__link-icon fa fa-home"></i>
             			<span class="kt-menu__link-text">Home Page</span>
             		</a>
@@ -316,15 +316,7 @@
 
 <!-- begin:: Content -->
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-		<div class="alert alert-light alert-elevate" role="alert">
-	<div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-	<div class="alert-text">
-		The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add searching, ordering and paging to your HTML table by simply
-		running DataTables on it.
-		See official documentation <a class="kt-link kt-font-bold" href="https://datatables.net/examples/data_sources/dom.html" target="_blank">here</a>.
-	</div>
-</div>
-
+	
 <div class="kt-portlet kt-portlet--mobile">
 	<div class="kt-portlet__head kt-portlet__head--lg">
 		<div class="kt-portlet__head-label">
@@ -356,14 +348,14 @@
 		<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 									<thead>
 			  						<tr>
-				  									<th>Record ID</th>
-				  									<th>Order ID</th>
-				  									<th>Country</th>
-				  									<th>Ship City</th>
-				  									<th>Ship Address</th>
-				  									<th>Company Agent</th>
-				  									<th>Company Name</th>
-				  									<th>Ship Date</th>
+				  									<th>User ID</th>
+				  									<th>Username</th>
+				  									<th>Email</th>
+				  									<th>Full Name</th>
+				  									<th>Academic Title</th>
+				  									<th>Office Number</th>
+				  									<th>Graduate Year</th>
+				  									<th>Banned Until</th>
 				  									<th>Status</th>
 				  									<th>Type</th>
 				  									<th>Actions</th>
@@ -371,29 +363,19 @@
 						</thead>
 			
 								<tbody>
-<c:forEach items="${userList}" var="user">		
-					<c:if test="${user.userType != MyConstants.TYPE_ADMIN}">
-				<tr>
-				  									
-				  									<td>${ String.valueOf(user.userID) }</td>
-				  									<td>${ user.username }</td>
-				  									<td>${ user.email }</td>
-				  									<td>Ship City</td>
-				  									<td>Ship Address</td>
-				  									<td>Company Agent</td>
-				  									<td>Company Name</td>
-				  									<td>2/12/2018</td>
+<c:forEach items="${studList}" var="stud">		
+				<tr>			
+				  									<td>${ String.valueOf(stud.userID) }</td>
+				  									<td>${ stud.username }</td>
+				  									<td>${ stud.email }</td>
+				  									<td>${ stud.fullName }</td>
+				  									<td></td>
+				  									<td></td>
+				  									<td></td>
+				  									<td>${ stud.bannedUntil }</td>
 				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
 				  									<td>
-				  									<c:if test="${user.userType == MyConstants.TYPE_ACADEMICIAN}">
-				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Academician</span>
-				  									</c:if>
-				  									<c:if test="${user.userType == MyConstants.TYPE_STUDENT}">
 				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Student</span>
-				  									</c:if>
-				  									<c:if test="${user.userType == MyConstants.TYPE_GRADUATE}">
-				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Graduate</span>
-				  									</c:if>
 				  									</td>
 				  									<td nowrap>
                         <span class="dropdown">
@@ -401,31 +383,34 @@
                               <i class="la la-ellipsis-h"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                            <form method="POST" action="UserController" id = "${String.valueOf(user.userID)}-profile">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(user.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
-                            	<input type="hidden" name="userID" value="${user.userID }">   
+                            <form method="POST" action="UserController" id = "${String.valueOf(stud.userID)}-profile">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(stud.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
+                            	<input type="hidden" name="userID" value="${stud.userID }">   
                             	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
-                            </form>    
-                            <form method="POST" action="UserController" id = "${String.valueOf(user.userID)}-export">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(user.userID)}-export" value="submit"><i class="flaticon-download"></i> Download User Info</button>
-                            	<input type = "hidden" value = "${MyConstants.OPP_LOGOUT}" name = "operation"> 
                             </form>
                             <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(user.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
+                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(stud.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
                             </form>
                             <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(user.userID)}"><i class="flaticon-delete"></i> Remove User</button>
+                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(stud.userID)}"><i class="flaticon-delete"></i> Remove User</button>
                             </form>
+                            <c:if test="${stud.bannedUntil != null}">
+                            <form method="POST" action="UserController" id = "${String.valueOf(stud.userID)}-liftban">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(stud.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
+                            	<input type="hidden" name="liftID" value="${stud.userID }"> 
+                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
+                            </form>
+                            </c:if>
                             </div>
                         </span>
                         </td>
                        
              
 				  						</tr>
-				  			<div class="modal fade show" id="ban_modal_${String.valueOf(user.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+				  			<div class="modal fade show" id="ban_modal_${String.valueOf(stud.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">Ban User ${String.valueOf(user.userID)} </h5>
+            <div class="modal-header">Ban User ${String.valueOf(stud.userID)}
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -439,7 +424,7 @@
                         <label for="message-text" class="form-control-label">Message:</label>
                         <textarea class="form-control" id="message-text"></textarea>
                     </div>
-                     <input type ="hidden" name ="banID" value = ${ String.valueOf(user.userID) }>
+                     <input type ="hidden" name ="banID" value = ${ String.valueOf(stud.userID) }>
                      <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
                      <div class="modal-footer">
                 	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -452,7 +437,7 @@
     </div>
 </div>
 
-<div class="modal fade show" id="delete_modal_${String.valueOf(user.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+<div class="modal fade show" id="delete_modal_${String.valueOf(stud.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -462,9 +447,9 @@
             </div>
             <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
                 <form action="UserController" method="Post">
-                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(user.userID) } </button>
+                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(stud.userID) } </button>
                 <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
-                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(user.userID) }>
+                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(stud.userID) }>
                 </form>
             </div>
 
@@ -472,12 +457,205 @@
     </div>
 </div>
 
+				  	</c:forEach>
+				  	
+				  	
+				  	<c:forEach items="${acadList}" var="acad">		
+				<tr>			
+				  									<td>${ String.valueOf(acad.userID) }</td>
+				  									<td>${ acad.username }</td>
+				  									<td>${ acad.email }</td>
+				  									<td>${ acad.fullName }</td>
+				  									<td>${ acad.academicTitle }</td>
+				  									<td>${ acad.officeNumber }</td>
+				  									<td></td>
+				  									<td>${ acad.bannedUntil }</td>
+				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
+				  									<td>
+				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Academician</span>
+				  									</td>
+				  									<td nowrap>
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            <form method="POST" action="UserController" id = "${String.valueOf(acad.userID)}-profile">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(acad.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
+                            	<input type="hidden" name="userID" value="${acad.userID }">   
+                            	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
+                            </form>
+                            <form onsubmit="return false">
+                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(acad.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
+                            </form>
+                            <form onsubmit="return false">
+                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(acad.userID)}"><i class="flaticon-delete"></i> Remove User</button>
+                            </form>
+                            <c:if test="${acad.bannedUntil != null}">
+                            <form method="POST" action="UserController" id = "${String.valueOf(acad.userID)}-liftban">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(acad.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
+                            	<input type="hidden" name="liftID" value="${acad.userID }"> 
+                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
+                            </form>
+                            </c:if>
+                            </div>
+                        </span>
+                        </td>
+                       
+             
+				  						</tr>
+				  			<div class="modal fade show" id="ban_modal_${String.valueOf(acad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">Ban User ${String.valueOf(acad.userID)}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="UserController" method="Post">
+                    <div class="form-group">
+                        <label for="ban-date" class="form-control-label">Ban User Until:</label>
+                        <input type="date" class="form-control" id="ban-date" name = "banDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="form-control-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                     <input type ="hidden" name ="banID" value = ${ String.valueOf(acad.userID) }>
+                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
+                     <div class="modal-footer">
+                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                	<button type="submit" class="btn btn-primary">Ban User</button>               
+            </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
+<div class="modal fade show" id="delete_modal_${String.valueOf(acad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
+                <form action="UserController" method="Post">
+                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(acad.userID) } </button>
+                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
+                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(acad.userID) }>
+                </form>
+            </div>
 
+        </div>
+    </div>
+</div>
 
-
-				  	</c:if>
 				  	</c:forEach>	
+			
+			<c:forEach items="${gradList}" var="stud">		
+				<tr>			
+				  									<td>${ String.valueOf(grad.userID) }</td>
+				  									<td>${ grad.username }</td>
+				  									<td>${ grad.email }</td>
+				  									<td>${ grad.fullName }</td>
+				  									<td></td>
+				  									<td></td>
+				  									<td>${ grad.graduationYear }</td>
+				  									<td>${ grad.bannedUntil }</td>
+				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
+				  									<td>
+				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Graduate</span>
+				  									</td>
+				  									<td nowrap>
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            <form method="POST" action="UserController" id = "${String.valueOf(grad.userID)}-profile">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(grad.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
+                            	<input type="hidden" name="userID" value="${grad.userID }">   
+                            	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
+                            </form>  
+                            <form onsubmit="return false">
+                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(grad.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
+                            </form>
+                            <form onsubmit="return false">
+                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(grad.userID)}"><i class="flaticon-delete"></i> Remove User</button>
+                            </form>
+                            <c:if test="${grad.bannedUntil != null}">
+                            <form method="POST" action="UserController" id = "${String.valueOf(grad.userID)}-liftban">
+                                <button class="dropdown-item" type="submit" form="${String.valueOf(grad.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
+                            	<input type="hidden" name="liftID" value="${grad.userID }"> 
+                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
+                            </form>
+                            </c:if>
+                            </div>
+                        </span>
+                        </td>
+                       
+             
+				  						</tr>
+				  			<div class="modal fade show" id="ban_modal_${String.valueOf(grad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">Ban User ${String.valueOf(grad.userID)}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="UserController" method="Post">
+                    <div class="form-group">
+                        <label for="ban-date" class="form-control-label">Ban User Until:</label>
+                        <input type="date" class="form-control" id="ban-date" name = "banDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="form-control-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                     <input type ="hidden" name ="banID" value = ${ String.valueOf(grad.userID) }>
+                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
+                     <div class="modal-footer">
+                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                	<button type="submit" class="btn btn-primary">Ban User</button>               
+            </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="delete_modal_${String.valueOf(grad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
+                <form action="UserController" method="Post">
+                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(grad.userID) } </button>
+                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
+                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(grad.userID) }>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+				  	</c:forEach>
+				  	
+			
+				  	
+				  	
+				  		
 				  						
 								
 								</tbody>

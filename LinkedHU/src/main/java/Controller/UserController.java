@@ -351,10 +351,33 @@ public class UserController extends HttpServlet {
 					int deleteThisID = Integer.valueOf(request.getParameter("deleteID"));
 					boolean isSuccessful = deleteUser(deleteThisID);
 					List<User> allUsers = service.fetchAllUsers();
-								 
+					List<Student> allStudents = new ArrayList<>();
+					List<Academician> allAcads = new ArrayList<>();	
+					List<Graduate> allGrads = new ArrayList<>();	
+					Student s = null;
+					Academician a = null;
+					Graduate g = null;
+					for(User uu : allUsers){	
+						if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+								s = (Student)uu;
+								allStudents.add(s);
+							}
+						if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+								a = (Academician)uu;
+								allAcads.add(a);
+						}	
+						if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+								g = (Graduate)uu;
+								allGrads.add(g);
+						}	
+					}			 
 					if (isSuccessful == false)
 					{
 						session.setAttribute("userList", allUsers);
+						session.setAttribute("studList", allStudents);
+						session.setAttribute("gradList", allGrads);
+						session.setAttribute("acadList", allAcads);
+						
 						response.sendRedirect("AdminPanel.jsp");
 					}
 					else
@@ -386,6 +409,30 @@ public class UserController extends HttpServlet {
 			 		boolean ccc = banUser(banID , sqlDate,utype);
 			 		
 			 		if(ccc) {
+			 			allUsers = service.fetchAllUsers();
+						allStudents = new ArrayList<>();
+						allAcads = new ArrayList<>();	
+						allGrads = new ArrayList<>();	
+						
+						for(User uu : allUsers){	
+							if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+									s = (Student)uu;
+									allStudents.add(s);
+								}
+							if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+									a = (Academician)uu;
+									allAcads.add(a);
+							}	
+							if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+									g = (Graduate)uu;
+									allGrads.add(g);
+							}	
+						}
+						session.setAttribute("userList", allUsers);
+						session.setAttribute("studList", allStudents);
+						session.setAttribute("gradList", allGrads);
+						session.setAttribute("acadList", allAcads);
+						
 			 			response.sendRedirect("AdminPanel.jsp");
 			 		}
 			 		
@@ -396,6 +443,31 @@ public class UserController extends HttpServlet {
 			 		int ltype = service.getTypefromid(liftID);
 			 		boolean ddd = liftBan(liftID,ltype);
 			 		if(ddd) {
+			 			allUsers = service.fetchAllUsers();
+						allStudents = new ArrayList<>();
+						allAcads = new ArrayList<>();	
+						allGrads = new ArrayList<>();	
+						
+						for(User uu : allUsers){	
+							if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+									s = (Student)uu;
+									allStudents.add(s);
+								}
+							if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+									a = (Academician)uu;
+									allAcads.add(a);
+							}	
+							if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+									g = (Graduate)uu;
+									allGrads.add(g);
+							}	
+						}
+						session.setAttribute("userList", allUsers);
+						session.setAttribute("studList", allStudents);
+						session.setAttribute("gradList", allGrads);
+						session.setAttribute("acadList", allAcads);
+						
+			 			
 			 			response.sendRedirect("AdminPanel.jsp");
 			 		}
 			 		
@@ -451,7 +523,29 @@ public class UserController extends HttpServlet {
 					}
 					
 					allUsers = service.fetchAllUsers();
+					allStudents = new ArrayList<>();
+					allAcads = new ArrayList<>();	
+					allGrads = new ArrayList<>();	
+					
+					for(User uu : allUsers){	
+						if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+								s = (Student)uu;
+								allStudents.add(s);
+							}
+						if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+								a = (Academician)uu;
+								allAcads.add(a);
+						}	
+						if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+								g = (Graduate)uu;
+								allGrads.add(g);
+						}	
+					}
 					session.setAttribute("userList", allUsers);
+					session.setAttribute("studList", allStudents);
+					session.setAttribute("gradList", allGrads);
+					session.setAttribute("acadList", allAcads);
+					
 					response.sendRedirect("AdminPanel.jsp");
 			 		break;
 			 		
@@ -502,27 +596,37 @@ public class UserController extends HttpServlet {
 	
 	protected boolean checkUserLoginInfo(String email,String password) {
 		List<User> allUsers = service.fetchAllUsers();		
+		List<Student> allStudents = new ArrayList<>();
+		List<Academician> allAcads = new ArrayList<>();	
+		List<Graduate> allGrads = new ArrayList<>();	
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		
 		// zaman kontrolü
 		
+		
+		Student s = null;
+		Academician a = null;
+		Graduate g = null;
+		for(User uu : allUsers){	
+			if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+					s = (Student)uu;
+					allStudents.add(s);
+				}
+			if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+					a = (Academician)uu;
+					allAcads.add(a);
+			}	
+			if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+					g = (Graduate)uu;
+					allGrads.add(g);
+			}	
+		}
+		
+		
+		
+		
 		for(User u : allUsers){	
-			Student s = null;
-			Academician a = null;
-			Graduate g = null;
-			
-			switch(u.getUserType()){
-				case MyConstants.TYPE_STUDENT:
-					s = (Student)u;					
-					break;
-				case MyConstants.TYPE_ACADEMICIAN:
-					a = (Academician)u;
-					break;
-				case MyConstants.TYPE_GRADUATE:
-					g = (Graduate)u;
-					break;
-			}		
-					
+						
 			// Fetching all user posts.
 			
 			if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
@@ -567,8 +671,12 @@ public class UserController extends HttpServlet {
 				session.setAttribute("currentUser", u);
 
 				session.setAttribute("otherUser", u);
-
+	
 				session.setAttribute("userList", allUsers);
+				session.setAttribute("studList", allStudents);
+				session.setAttribute("gradList", allGrads);
+				session.setAttribute("acadList", allAcads);
+				
 				return true;
 			}
 			
