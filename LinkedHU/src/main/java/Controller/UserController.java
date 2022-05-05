@@ -97,7 +97,7 @@ public class UserController extends HttpServlet {
 				String gpa = "";
 				String graduation = "";
 				
-				if(((NonAdminUser)session.getAttribute("currentUser")).getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+				if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_ACADEMICIAN) {
 					typecheck = true;
 					acadTitle = request.getParameter("acadTitle");
 					officeNumber = request.getParameter("officeNumber");
@@ -105,7 +105,7 @@ public class UserController extends HttpServlet {
 					researchHistory = request.getParameter("researchHistory");
 					proficiencies = request.getParameter("proficiencies");
 				}
-				else if(((NonAdminUser)session.getAttribute("currentUser")).getUserType() == MyConstants.TYPE_STUDENT) {
+				else if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_STUDENT) {
 					skills = request.getParameter("skills");
 					gpa = request.getParameter("gpa");
 					graduation = request.getParameter("graduation");
@@ -129,7 +129,7 @@ public class UserController extends HttpServlet {
 				// If no path is selected to update the profile picture,the last one will be selected.
 				
 				if(fileName.equals("")) {
-					profilePictureSrc +=((NonAdminUser)session.getAttribute("currentUser")).getProfilePictureSrc();
+					profilePictureSrc +=((NonAdminUser)session.getAttribute("otherUser")).getProfilePictureSrc();
 				}
 				else {
 					profilePictureSrc += "./ProfilePictures/"+uploadedFileName;
@@ -170,15 +170,22 @@ public class UserController extends HttpServlet {
 
 				//  userID of the user whose profile page we want to see
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
-								
+				
+				
+				int gf = getFollowCount(incomeUserID);
+				
+				
+				
+				session.setAttribute("followerCount", gf);
+				
 				// get the posts of the otherUser
 				// read ile yap�lacak.
 				User user1 = getUserFromID(incomeUserID);
-				PostCreator otherUser;
+				
 								
 				
 				if(user1.getUserType() == MyConstants.TYPE_GRADUATE || user1.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
-					 otherUser =  (PostCreator)user1;
+					PostCreator otherUser =  (PostCreator)user1;
 					
 					// fill post of the other user
 					otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
@@ -186,14 +193,23 @@ public class UserController extends HttpServlet {
 					// fill likes of the other user
 					otherUser.setLikes(service.getLikes(incomeUserID));
 					
+					
 					session.setAttribute("otherUser",otherUser);
 					response.sendRedirect("Profile.jsp");
 				}
 				
 				if(user1.getUserType() == MyConstants.TYPE_STUDENT) {
-					
+					NonAdminUser otherUser1 = (NonAdminUser)user1;
+					session.setAttribute("otherUser",otherUser1);
 					response.sendRedirect("Profile.jsp");
 				}
+				
+				if(user1.getUserType() == MyConstants.TYPE_ADMIN) {
+					User otheradmin = user1;
+					session.setAttribute("otherUser",otheradmin);
+					response.sendRedirect("Profile.jsp");
+				}
+				
 				
 				break;
 			case MyConstants.OPP_LIKE_POST:				
@@ -549,9 +565,96 @@ public class UserController extends HttpServlet {
 					response.sendRedirect("AdminPanel.jsp");
 			 		break;
 			 		
+			 		
+			 	case MyConstants.OPP_FOLLOW:	
+			 		int otherID = Integer.parseInt(request.getParameter("otherID"));
+			 		int fuserID = Integer.parseInt(request.getParameter("userID"));
+			 		
+			 		boolean checkfollow = followUser(fuserID,otherID);
+			 		
+			 		List<Student> sstudlist = (List<Student>) session.getAttribute("studList");
+			 		
+			 		for(Student ss: sstudlist) {
+			 			if(ss.getUserID() == fuserID) {
+			 				List<Integer> flw = ss.getFollows();
+			 				flw.add(otherID);
+			 				ss.setFollows(flw);
+			 				break;			 				
+			 			}
+			 		}
+			 					 		
+			 		
+			 		if(checkfollow) {
+			 			session.setAttribute("studList",sstudlist);
+			 			
+			 		}
+			 		
+			 		break;
+			 		
+			 		
+			 	case MyConstants.OPP_UNFOLLOW:
+			 		int anotherID = Integer.parseInt(request.getParameter("otherID"));
+			 		int unfuserID = Integer.parseInt(request.getParameter("userID"));
+			 		
+			 		boolean checkfo1llow = unfollowUser(unfuserID,anotherID);
+			 		
+			 		List<Student> studlist = (List<Student>) session.getAttribute("studList");
+			 		
+			 		for(Student ss: studlist) {
+			 			if(ss.getUserID() == unfuserID) {
+			 				if(ss.getFollows().contains(anotherID)) {
+			 					List<Integer> flw = ss.getFollows();
+			 					for(int z = 0; z<flw.size();z++) {
+			 						if(flw.get(z) == anotherID) {
+			 							flw.remove(z);
+			 							break;
+			 						}
+			 					} 					
+			 					
+			 					ss.setFollows(flw);
+			 					break;
+			 				}
+			 			}
+			 		}
+			 		
+			 		
+			 		if(checkfo1llow) {
+			 			session.setAttribute("studList",studlist);
+			 			
+			 		}
+			 		
+			 		break;
+			 		
 		}		
 		
 	}
+	
+	
+	public boolean followUser(int follower, int user) {
+		return service.followUser(follower, user);
+		
+		
+	}
+	
+	public boolean unfollowUser(int unfollower, int user) {
+		return service.unfollowUser(unfollower, user);
+		
+		
+	}
+	
+	public int getFollowCount(int ID) {
+		return service.getFollowCount(ID);
+		
+	
+	}
+	
+	public List<Integer> getFollowedUserID(int studentID) {
+		
+		return service.getFollowedUserID(studentID);
+	}
+	
+	
+	
 	
 	public boolean addUser(User u) {
 		return service.createUser(u);
@@ -610,7 +713,13 @@ public class UserController extends HttpServlet {
 		for(User uu : allUsers){	
 			if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
 					s = (Student)uu;
+					List<Integer> follows = getFollowedUserID(s.getUserID());
+					s.setFollows(follows);					
 					allStudents.add(s);
+					
+					
+					
+					
 				}
 			if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
 					a = (Academician)uu;
@@ -664,7 +773,7 @@ public class UserController extends HttpServlet {
 					((PostCreator)u).setAuthorOf(service.fetchUserPosts(u.getUserID()));
 					// Comments will be inserted too . Coming soon.
 				}
-				if(u.getUserType() != MyConstants.TYPE_ADMIN && u.getUserType() != MyConstants.TYPE_STUDENT) {
+				if(u.getUserType() != MyConstants.TYPE_ADMIN) {
 					((NonAdminUser)u).setLikes(service.getLikes(u.getUserID()));
 				}
 						
@@ -688,8 +797,8 @@ public class UserController extends HttpServlet {
 	}
 	
 	public boolean updateAccountInfo(List<String> infoList) {
-		
-		User u = (User)session.getAttribute("currentUser");
+		User cond = (User)session.getAttribute("currentUser");
+		User u = (User)session.getAttribute("otherUser");
 		if(u.getUserType() == MyConstants.TYPE_ACADEMICIAN) {			
 			Academician a = (Academician)u;
 			
@@ -709,7 +818,9 @@ public class UserController extends HttpServlet {
 			// All session attributes which is affected in any update process should be pulled from the database again.
 			// and get the proper data for session attributes
 			if(service.updateUser(a)) {
-				session.setAttribute("currentUser", a);
+				if(cond.getUserType() != MyConstants.TYPE_ADMIN) {
+					session.setAttribute("currentUser", a);
+				}				
 				session.setAttribute("otherUser", a);
 				TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
 				for (Post p :  map.keySet()) {
@@ -746,7 +857,9 @@ public class UserController extends HttpServlet {
 				}
 			}else {
 				if(service.updateUser(s)) {
-					session.setAttribute("currentUser", s);
+					if(cond.getUserType() != MyConstants.TYPE_ADMIN) {
+						session.setAttribute("currentUser", s);
+					}		
 					session.setAttribute("otherUser", s);
 				}
 			}

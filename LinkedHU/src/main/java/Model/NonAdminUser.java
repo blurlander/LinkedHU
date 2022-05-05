@@ -9,7 +9,7 @@ public class NonAdminUser extends User{
 	private String profilePictureSrc;
 	//private String status;
 	//private Date bannedUntil;
-	private List<Integer> likes;
+	private List<Integer> likes = null;
 	private String bio;
 	
 	public String getProfilePictureSrc() {

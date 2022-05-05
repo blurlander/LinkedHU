@@ -194,8 +194,33 @@ public class SystemService implements IService{
 	public boolean liftBan(int ID, int type) {
 		return userDao.liftBan(ID, type);
 	}
-
 	
+	@Override
+	public boolean followUser(int follower, int userID) {
+		return userDao.follow(follower,userID);
 		
+	}
+		
+	@Override
+	public boolean unfollowUser(int unfollower, int userID) {
+		return userDao.unfollow(unfollower,userID);
+		
+	}
+
+	@Override
+	public List<Integer> getFollowedUserID(int studentID) {
+		
+		return userDao.getFollowedUserID(studentID);
+	}
+
+	@Override
+	public int getFollowCount(int ID) {
+		
+		return userDao.getFollowCount(ID);
+	}
+	
+	
+	
+	
 
 }

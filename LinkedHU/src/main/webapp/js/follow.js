@@ -18,55 +18,64 @@
  $(document).ready(function(){
 		
 							
-	$(".like-btn").click(function(){
+	$(".follow-btn").click(function(){
 
-		// if button is red then DISLKE
-		if($(this).css("color") === 'rgb(255, 0, 0)'){
+		let content = $(this).text();
+		
+		console.log("button click");
+		
+		if(content == "Unfollow User"){
 			
-			// next next is input of the post id			
-			$("#dislikedPost").attr("value", $(this).next().next().attr("value")) ;
-			callJqueryAjax(1,this)	
+			$(this).css("display","none");
+			$(this).prev().css("display","inline");
 			
-		// if button is gray then LIKE
-		}else if($(this).css("color") === 'rgb(128, 128, 128)'){
-			
-			// next next is input of the post id	
-			$("#likedPost").attr("value", $(this).next().next().attr("value") ) ;
+			console.log("unfoollow");
 			callJqueryAjax(0,this);
+			
+		}else if(content == "Follow User"){
+			
+			$(this).css("display","none");
+			$(this).next().css("display","inline");
+			
+			callJqueryAjax(1,this);
 		}
 		
+
 	});
+	
+	
 });
 
-function likePost(btn){
-	$(btn).css("color","red");
+function followUser(btn){	
 		
-	let likeCountText = $(btn).next().text();
-	let likeCount = parseInt(likeCountText.split(" ")[0]);
-	likeCount++;
+	let followCountText = $("#followercount").text();
+	let followCount = parseInt(followCountText);
+	followCount++;
 	
-	$(btn).next().text(likeCount + " Likes");
+	console.log(followCount);
+	$("#followercount").text(followCount);
 	
 }
 
-function dislikePost(btn){
-	$(btn).css("color","gray");
+function unfollowUser(btn){	
 	
-	let likeCountText = $(btn).next().text();
-	let likeCount = parseInt(likeCountText.split(" ")[0]);
-	likeCount--;
+	let followCountText = $("#followercount").text();
+	let followCount = parseInt(followCountText);
+	followCount--;
 	
-	$(btn).next().text(likeCount + " Likes");
+	console.log(followCount);
+	
+	$("#followercount").text(followCount);
 		
 }
 
 function callJqueryAjax(selector,btn){
 	//Converting the input values in the form with id=likeForm to the string.
 	if(selector == 0){
-		var dataString = $("#likeForm").serialize();	
+		var dataString = $("#unfollowform").serialize();	
 	}
 	else if(selector == 1){
-		var dataString = $("#dislikeForm").serialize();
+		var dataString = $("#followform").serialize();
 	}
 	$.ajax({
 		url     : 'UserController', //Target servlet
@@ -75,9 +84,10 @@ function callJqueryAjax(selector,btn){
 		success    : function(data)
 		{
 			if(selector == 0){
-				likePost(btn);
+				unfollowUser(btn);
 			}else if(selector == 1){ 	// If servlet successfully responses,this block will be executed.
-				dislikePost(btn);
+				followUser(btn);
+				
 			}
 			
 			console.log(data);

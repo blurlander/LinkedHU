@@ -34,4 +34,8 @@ public interface IService {
 	boolean banUser(int ID, Date ts,int type);
 	int getTypefromid(int ID);
 	boolean liftBan(int ID, int type);
+	boolean followUser(int follower, int userID);
+	boolean unfollowUser(int unfollower, int userID);
+	List<Integer> getFollowedUserID(int studentID);
+	int getFollowCount(int ID);
 }

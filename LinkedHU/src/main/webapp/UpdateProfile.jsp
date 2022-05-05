@@ -171,14 +171,14 @@
 				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
 				
 				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${currentUser.username }"></c:out>
+					<c:out value="${otherUser.username }"></c:out>
 				</span>
 				
-				<c:if test="${currentUser.userType == MyConstants.TYPE_ACADEMICIAN}">                                	
-					<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
+				<c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}">                                	
+					<img alt="Pic" src="${otherUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 				</c:if>
 				
-               	<!--<c:if test="${currentUser.profilePictureSrc == null }">
+               	<!--<c:if test="${otherUser.profilePictureSrc == null }">
                		<img alt="Pic" src="assets/media/users/default.jpg" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
                	</c:if>-->
                	
@@ -190,18 +190,16 @@
 			<!--begin: Head -->
 		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
 		        <div class="kt-user-card__avatar">
-		            <c:if test="${currentUser.userType == MyConstants.TYPE_ACADEMICIAN}">                                	
-						<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
+		            <c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}">                                	
+						<img alt="Pic" src="${otherUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
 					</c:if>
 				
-               		<c:if test="${currentUser.profilePictureSrc == \"\"}">
-               			<img alt="Pic" src="assets/media/users/default.jpg" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
-               		</c:if>
+               		
 		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
 		        </div>
 		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currentUser.fullName }"></c:out>
+		        	<c:out value="${otherUser.fullName }"></c:out>
 		        </div>		        
 		        <div class="kt-user-card__badge">
 		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
@@ -223,7 +221,7 @@
 		            <div class="kt-notification__item-title kt-font-bold">
 		                My Profile
 		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
-		                <input type="hidden" name="userID" value="${currentUser.userID }">      
+		                <input type="hidden" name="userID" value="${otherUser.userID }">      
 		            </div>
 		            <div class="kt-notification__item-time">
 		                Account settings and more
@@ -362,12 +360,10 @@
                                         <div class="col-lg-9 col-xl-6">
                                             <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
                                             	
-                                            	<c:if test="${currentUser.userType == MyConstants.TYPE_ACADEMICIAN}">
-                                                	<img class="kt-avatar__holder" src="${currentUser.profilePictureSrc}">
-                                            	</c:if>
-                                            	<c:if test="${currentUser.profilePictureSrc == \"\"}">
-                                            		<img class="kt-avatar__holder" src="assets/media/users/default.jpg">
-                                            	</c:if>
+                                            	
+                                                	<img class="kt-avatar__holder" src="${otherUser.profilePictureSrc}">
+                                            	
+                                            	
                                                 <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
                                                     <i class="fa fa-pen"></i>
                                                     <input type="file" name="profilePicture" accept=".png, .jpg, .jpeg">
@@ -380,7 +376,7 @@
                                     </div>
                                     
 
-                                    <c:set var="dateParts" value="${fn:split(currentUser.fullName, ' ')}" />
+                                    <c:set var="dateParts" value="${fn:split(otherUser.fullName, ' ')}" />
 									<div class="form-group row">
 										<label class="col-3 col-form-label">First Name</label>
 										<div class="col-9">
@@ -397,14 +393,14 @@
 										</div>
 									</div>
 									
-									<c:if test="${(currentUser.userType == MyConstants.TYPE_GRADUATE) || (currentUser.userType == MyConstants.TYPE_ACADEMICIAN)}"> 
+									<c:if test="${(otherUser.userType == MyConstants.TYPE_GRADUATE) || (otherUser.userType == MyConstants.TYPE_ACADEMICIAN)}"> 
 									<!-- Graduate icin ayrı yapılacak  -->
 									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle}">
+											<input required class="form-control" name ="acadTitle" type="text" value="${otherUser.academicTitle}">
 
 										</div>
 									</div>
@@ -413,7 +409,7 @@
 										<label class="col-3 col-form-label">Office Number </label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="officeNumber" type="text" value="${currentUser.officeNumber }">
+											<input required class="form-control" name ="officeNumber" type="text" value="${otherUser.officeNumber }">
 
 										</div>
 									</div>
@@ -423,7 +419,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="professionalHistory" rows="5" cols="100" >${currentUser.professionalHistory }</textarea>
+												<textarea required class="form-control" name="professionalHistory" rows="5" cols="100" >${otherUser.professionalHistory }</textarea>
 
 											</div>
 										</div>
@@ -434,7 +430,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="researchHistory" rows="5" cols="100" >${currentUser.researchHistory }</textarea>
+												<textarea required class="form-control" name="researchHistory" rows="5" cols="100" >${otherUser.researchHistory }</textarea>
 
 											</div>
 										</div>
@@ -445,20 +441,20 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${currentUser.proficiencies }</textarea>
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
 
 											</div>
 										</div>
 									</div>
 									</c:if>
 									
-									<c:if test = "${currentUser.userType == MyConstants.TYPE_STUDENT}">
+									<c:if test = "${otherUser.userType == MyConstants.TYPE_STUDENT}">
 									<div class="form-group form-group-last row" style="margin-bottom:20px">
 										<label class="col-3 col-form-label">Skills</label>
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="skills" rows="5" cols="100">${currentUser.skills}</textarea>
+												<textarea required class="form-control" name="skills" rows="5" cols="100">${otherUser.skills}</textarea>
 
 											</div>
 										</div>
@@ -469,7 +465,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<input required class="form-control" name ="gpa" type="text" value="${currentUser.gpa }">	
+												<input required class="form-control" name ="gpa" type="text" value="${otherUser.gpa }">	
 
 											</div>
 										</div>
@@ -480,7 +476,7 @@
 										<div class="col-9">
 											<div class="input-group">
 												
-												<input required class="form-control" name ="graduation" type="text" value="${currentUser.graduation }">
+												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduation }">
 
 											</div>
 										</div>
@@ -493,7 +489,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="bio" class="form-control" rows="5" cols="100">${currentUser.bio }</textarea>
+												<textarea required name="bio" class="form-control" rows="5" cols="100">${otherUser.bio }</textarea>
 
 											</div>
 										</div>
@@ -510,7 +506,7 @@
 										<label class="col-3 col-form-label">Username</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="userName" type="text" value="${currentUser.username }">				
+												<input required class="form-control" name ="userName" type="text" value="${otherUser.username }">				
 
 										</div>
 									</div>
@@ -518,7 +514,7 @@
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="password" type="password" value="${currentUser.password }">				
+												<input required class="form-control" name ="password" type="password" value="${otherUser.password }">				
 
 										</div>
 									</div>
@@ -528,7 +524,7 @@
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
 
-												<input required type="text" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
+												<input required type="text" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
 												
 												<c:if test = "${!status.equals(\"RegisterContinue\")}">

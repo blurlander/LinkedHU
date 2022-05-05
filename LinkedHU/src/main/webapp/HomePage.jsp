@@ -548,7 +548,7 @@
                           				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: gray;" ></button>
                                     	<a href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
                            				<input type="hidden" value=${entry.getKey().postID }>
-                           			
+                           				
                            			</c:if>
                            			
                            		</div>

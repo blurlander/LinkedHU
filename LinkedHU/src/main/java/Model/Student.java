@@ -1,7 +1,8 @@
 package Model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
+import java.util.List;
 
 public class Student extends NonAdminUser {
 	private String skills;
@@ -11,9 +12,18 @@ public class Student extends NonAdminUser {
 	private Date bannedUntil;
 	private String status;
 	
+	private List<Integer> follows;
 	
 	
 	
+	
+	
+	public List<Integer> getFollows() {
+		return follows;
+	}
+	public void setFollows(List<Integer> follows) {
+		this.follows = follows;
+	}
 	public Date getBannedUntil() {
 		return bannedUntil;
 	}

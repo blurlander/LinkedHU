@@ -15,6 +15,10 @@ public interface IUserDao extends IDao<User>{
 	int getTypefromID(int id);
 	boolean ban(int ID, Date ts, int type);
 	boolean liftBan(int ID,int type);
+	boolean follow(int follower, int userID);
+	int getFollowCount(int ID);
+	boolean unfollow(int unfollower, int userID);
+	List<Integer> getFollowedUserID(int studentID);
 	
 }
 

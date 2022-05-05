@@ -607,9 +607,113 @@ public class UserDao implements IUserDao {
 		
 		
 	}
+
+	@Override
+	public boolean follow(int follower, int userID) {
+		String query = "Insert into follows values(?,?)";
+		boolean key  = false;
+		try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setInt(1,userID);
+			this.preparedStatement.setInt(2,follower);
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    
+		  
+		    
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
+		
+		
+	
+	}
+	@Override
+	public boolean unfollow(int unfollower, int userID) {
+		String query = "Delete from follows where userID = ? AND followerID = ?";
+		boolean key  = false;
+		try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setInt(1,userID);
+			this.preparedStatement.setInt(2,unfollower);
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    
+		  
+		    
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
+		
+		
+		
+				
+	}
+	
+	@Override
+	public List<Integer> getFollowedUserID(int studentID){		
+		List<Integer> followedList = new ArrayList<Integer>();
+		String query = "SELECT * FROM follows WHERE followerID = " + studentID;
+		ResultSet rs;
+		
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				int i = rs.getInt("userID");
+				followedList.add(i);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+		
+		
+		
+		
+		return followedList;
+		
+	}
 	
 	
 	
+	@Override
+	public int getFollowCount(int ID) {
+		String query = "SELECT COUNT(*) FROM follows where userID = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setInt(1, ID);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt(1);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}
 	
 
 	

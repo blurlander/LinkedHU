@@ -14,6 +14,7 @@ public class MyConstants {
 	public static final String OPP_DELETE_POST = "6";
 	public static final String OPP_LOGOUT = "7";
 	public static final String OPP_FOLLOW = "8";
+	public static final String OPP_UNFOLLOW ="9";
 	public static final String OPP_UPDATE_PROFILE = "10";
 	public static final String OPP_VIEW_PROFILE = "11";
 	public static final String OPP_BACK_TO_HOME = "12";
@@ -28,6 +29,7 @@ public class MyConstants {
 	public static final String OPP_LIFT_BAN = "21";
 	public static final String OPP_DELETE_SELF = "22";
 	public static final String OPP_CREATED_BY_ADMIN = "23";
+	
 	
 	public static final int CODE_HOMEPAGE = 100;
 	public static final int CODE_DETAILPAGE = 101;
