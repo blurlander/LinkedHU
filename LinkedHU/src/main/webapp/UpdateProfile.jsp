@@ -346,6 +346,31 @@
 				</div>
 			</div>
 			<div class="kt-portlet__body">
+			
+									<c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This username is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This email is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+			
+			
 				<form class="kt-form" action = "UserController" method = "POST" id= "blablabla" enctype="multipart/form-data">
 				
 					<div class="row">
@@ -514,7 +539,7 @@
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="password" type="password" value="${otherUser.password }">				
+												<input required class="form-control" name ="password" type="password" pattern=".{8,}"   required title="8 characters minimum" value="${otherUser.password }">				
 
 										</div>
 									</div>
@@ -524,7 +549,7 @@
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
 
-												<input required type="text" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
+												<input required type="email" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
 												
 												<c:if test = "${status != MyConstants.CONTINUE_REGISTER}">
@@ -584,7 +609,7 @@
 	</div>
 	
 <!-- end:: Page -->
-
+<% session.removeAttribute("userexists"); %>
 
     
 

@@ -118,6 +118,33 @@ public class UserController extends HttpServlet {
 				String password1 = request.getParameter("password");
 				String email1 = request.getParameter("email");
 				
+				boolean changeEmail = !(((User)session.getAttribute("otherUser")).getEmail().equals(email1));
+				boolean changeUsername = !(((User)session.getAttribute("otherUser")).getUsername().equals(username));
+				
+				int checkUserName1 = service.checkUserNameExists(username);
+				int checkEmail1 = service.checkEmailExists(email1);
+				boolean tryagain1 = false;
+				if(changeUsername) {
+					if(checkUserName1 > 0) {
+						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
+						tryagain1 = true;
+					}
+				}
+				if(changeEmail) {
+					if(checkEmail1 > 0) {
+						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+						tryagain1 = true;
+					}
+				}
+				if(tryagain1) {
+					response.sendRedirect("UpdateProfile.jsp");
+					break;
+				}
+				
+				
+				
+				
+				
 				Part filePart = request.getPart("profilePicture");
 				String fileName = filePart.getSubmittedFileName();
 				String destinationFolderSrc = request.getServletContext().getRealPath("ProfilePictures");
@@ -262,12 +289,26 @@ public class UserController extends HttpServlet {
 				 break;
 				 
 			 case MyConstants.OPP_REGISTER:
-				 	
 				 	email = request.getParameter("email");
 					password = request.getParameter("password");
 					String confPassword = request.getParameter("cpassword");
 					username = request.getParameter("username");
 					boolean check = (password.equals(confPassword));
+					int checkUserName = service.checkUserNameExists(username);
+					int checkEmail = service.checkEmailExists(email);
+					boolean tryagain = false;
+					if(checkUserName > 0) {
+						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
+						tryagain = true;
+					}
+					if(checkEmail > 0) {
+						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+						tryagain = true;
+					}
+					if(tryagain) {
+						response.sendRedirect("LoginPage.jsp");
+						break;
+					}
 					
 					Student student = new Student();
 					student.setEmail(email);

@@ -87,6 +87,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- begin::Body -->
     <body  class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading"  >
 		    	<!-- begin:: Page -->
+		    	
+
+
+		    	
+		    	
 	<div class="kt-grid kt-grid--ver kt-grid--root kt-page">
 		<div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v6 kt-login--signin" id="kt_login">
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
@@ -142,7 +147,36 @@ License: You must have a valid license purchased only from themeforest(the above
                                     		</p>                            		
                                     	</div>
                                     </c:if>                                                           	
-                                    <% session.removeAttribute("status"); %>
+                                    
+                                    
+                                   
+                                        <c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This username is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This email is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                
+                                    
+                               
+
+                                    
                                     
                                 </form>
                             </div>
@@ -153,15 +187,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="kt-login__desc">Enter your details to create your account:</div>
                             </div>
                             <div class="kt-login__form">
-                                <form class="kt-form" method = "POST" action="UserController">
+                                <form class="kt-form" method = "POST" action="UserController" >
                                     <div class="form-group">
                                         <input class="form-control" type="text" required placeholder="Username" name="username">
                                     </div>                                    
                                     <div class="form-group">
-                                        <input class="form-control" type="text" required placeholder="Email" name="email" autocomplete="off">
+                                        <input class="form-control" type="email" required placeholder="Email" name="email" autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="password" required placeholder="Password" name="password">
+                                        <input class="form-control" type="password" pattern=".{8,}"   required title="8 characters minimum" required placeholder="Password" name="password">
                                         <input type="hidden" name="operation" value="${MyConstants.OPP_REGISTER }">
                                     </div>
                                     <div class="form-group">
@@ -228,6 +262,11 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
 </div>         	</div>
 <!-- end:: Page -->
+                                    <% session.removeAttribute("userexists"); %>
+                                    <% session.removeAttribute("status"); %>
+
+
+
 
 
         <!-- begin::Global Config(global config for global JS sciprts) -->

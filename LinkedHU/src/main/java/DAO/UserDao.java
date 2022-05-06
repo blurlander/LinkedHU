@@ -715,6 +715,55 @@ public class UserDao implements IUserDao {
 		return answer;
 	}
 	
+	@Override
+	public int checkUserNameExists(String name) {
+		String query = "SELECT COUNT(*) AS count FROM user where username = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setString(1, name);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt("count");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}	
+	
+	@Override
+	public int checkEmailExists(String email) {
+		String query = "SELECT COUNT(*) AS count FROM user where email = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setString(1, email);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt("count");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}	
 
 	
 	

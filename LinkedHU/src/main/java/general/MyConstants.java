@@ -35,6 +35,8 @@ public class MyConstants {
 	public static final String TARGET_TYPE_STUDENT = "777";
 	public static final String CONTINUE_REGISTER = "888";
 	
+	public static final String USERNAME_EXISTS = "123";
+	public static final String EMAIL_EXISTS = "321";
 	
 	
 	public static final int CODE_HOMEPAGE = 100;

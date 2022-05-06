@@ -38,4 +38,6 @@ public interface IService {
 	boolean unfollowUser(int unfollower, int userID);
 	List<Integer> getFollowedUserID(int studentID);
 	int getFollowCount(int ID);
+	int checkUserNameExists(String name);
+	int checkEmailExists(String email);
 }

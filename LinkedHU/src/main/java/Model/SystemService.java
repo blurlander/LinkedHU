@@ -219,7 +219,17 @@ public class SystemService implements IService{
 		return userDao.getFollowCount(ID);
 	}
 	
+	@Override
+	public int checkUserNameExists(String name) {
+		int key = userDao.checkUserNameExists(name);
+		return key;
+	}
 	
+	@Override
+	public int checkEmailExists(String email) {
+		int key = userDao.checkEmailExists(email);
+		return key;
+	}
 	
 	
 

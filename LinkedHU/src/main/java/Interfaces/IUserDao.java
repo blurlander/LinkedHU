@@ -19,6 +19,8 @@ public interface IUserDao extends IDao<User>{
 	int getFollowCount(int ID);
 	boolean unfollow(int unfollower, int userID);
 	List<Integer> getFollowedUserID(int studentID);
+	int checkUserNameExists(String name);
+	int checkEmailExists(String email);
 	
 }
 
