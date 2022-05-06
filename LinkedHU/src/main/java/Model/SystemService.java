@@ -106,6 +106,10 @@ public class SystemService implements IService{
 			boolean userUpdate = userDao.update(user);
 			return studentUpdate && userUpdate;
 			
+		}else if(user.getUserType() == MyConstants.TYPE_GRADUATE) {
+			boolean graduateUpdate = graduateDao.update((Graduate)user);
+			boolean userUpdate = userDao.update(user);
+			return graduateUpdate && userUpdate;
 		}
 		
 		return false;

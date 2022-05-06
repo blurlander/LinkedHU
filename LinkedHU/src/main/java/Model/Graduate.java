@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Graduate extends PostCreator{
 	
-	private int graduationYear;
+	private String graduationYear;
 	private String proficiencies;
 	private Date bannedUntil;
 	private String status;
@@ -21,10 +21,10 @@ public class Graduate extends PostCreator{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getGraduationYear() {
+	public String getGraduationYear() {
 		return graduationYear;
 	}
-	public void setGraduationYear(int graduationYear) {
+	public void setGraduationYear(String graduationYear) {
 		this.graduationYear = graduationYear;
 	}
 	public String getProficiencies() {

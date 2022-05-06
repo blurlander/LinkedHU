@@ -310,7 +310,230 @@
 <div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
-<c:if test="${(otherUser.userType == MyConstants.TYPE_ACADEMICIAN) || (otherUser.userType == MyConstants.TYPE_GRADUATE)}">
+
+
+<c:if test="${otherUser.userType == MyConstants.TYPE_GRADUATE}">
+<div class="row">
+<div class="col-xl-12">
+        <!--begin:: Widgets/Applications/User/Profile3-->
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-portlet__body">
+    
+    <div class="modal fade show" id="del-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+               <div  style="display:flex; justify-content: center; align-content: space-between; margin-top:2rem;">
+           
+                        <p>Warning! This operation cannot be undone!</p>
+               </div>           
+           <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
+                <form method="POST" action="UserController">
+                    <div class="form-group">
+         
+                		<button type="submit" value="submit" class="btn btn-primary">Delete This Account</button>
+                		<input type="hidden" id = "31" name = "operation" value="${MyConstants.OPP_DELETE_SELF}">
+                    </div>
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                
+                
+            </div>
+        </div>
+    </div>
+</div>  
+    
+    
+    
+        <div class="kt-widget kt-widget--user-profile-3">
+            <div class="kt-widget__top">
+                <div class="kt-widget__media kt-hidden-">
+                    <img src="${otherUser.profilePictureSrc}" alt="image">
+                    
+                </div>
+                <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+                    JM
+                </div>
+                <div class="kt-widget__content">
+                    <div class="kt-widget__head">
+                        <a href="#" class="kt-widget__username">
+                            <c:out value="${otherUser.fullName}">name</c:out>    
+                            <i class="flaticon2-correct"></i>                       
+                        </a>
+
+                        <div class="kt-widget__action">
+                        		<c:if test="${ (currentUser.userID != otherUser.userID) && (currentUser.userType == MyConstants.TYPE_STUDENT)}">
+                        		<form id = "followform">                        			
+                        			<input type="hidden" name="operation" value="${MyConstants.OPP_FOLLOW }">
+                                    <input type="hidden" name="userID" value="${currentUser.userID }"> 
+                                    <input type="hidden" name="otherID" value="${otherUser.userID }">                 			
+                        		</form>
+                        		<form id = "unfollowform">                        			
+                        			<input type="hidden" name="operation" value="${MyConstants.OPP_UNFOLLOW }">
+                                    <input type="hidden" name="userID" value="${currentUser.userID }"> 
+                                    <input type="hidden" name="otherID" value="${otherUser.userID }">                 			
+                        		</form>
+                        		
+                        		<!-- bir buton daha koy c if e al rengine göre -->
+                        		<c:if test = "${!currentUser.follows.contains(otherUser.userID)}">
+                        		<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn">Follow User</button>
+                        		<button type="button" class="btn btn-label-danger btn-sm btn-upper follow-btn" style="display: none;" >Unfollow User</button>
+                        		</c:if>
+                            	
+                            	<c:if test = "${currentUser.follows.contains(otherUser.userID)}">                            	
+                            	<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" style="display: none;">Follow User</button>
+                            	<button type="button" class="btn btn-label-danger btn-sm btn-upper follow-btn">Unfollow User</button>
+                            	</c:if>
+                            	
+                        		</c:if>
+                        		
+                        		<c:if test="${ currentUser.userID == otherUser.userID }">
+                            	<button type="button" class="btn btn-label-danger btn-sm btn-upper"  data-toggle="modal" data-target="#del-modal">Delete Account</button>
+                        		</c:if>
+                        		<c:if test="${ currentUser.userID == otherUser.userID || currentUser.userType == MyConstants.TYPE_ADMIN}">
+                            	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
+                        		</c:if>
+                        		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
+                        		
+                        	
+                     
+                            	
+                        </div>
+                    </div>
+
+                    <div class="kt-widget__subhead">
+                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${otherUser.email}">email</c:out></a>
+                        
+                        
+                        
+                        <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
+                        <a href="#"><i class="flaticon-home"></i> Office Number: <c:out value="${otherUser.graduationYear}">Graduation: </c:out> </a>
+                        
+                    </div>
+
+                    <div class="kt-widget__info">
+                        <div class="kt-widget__desc">
+                            <c:out value="${otherUser.bio}">bio</c:out>
+						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
+							<div class="kt-portlet__head">
+								<div class="kt-portlet__head-label">
+									<h3 class="kt-portlet__head-title">
+										Profile
+									</h3>
+								</div>
+							</div>
+							<div class="kt-portlet__body">
+								<div class="kt-widget4" >
+									
+						
+									
+						
+									<div class="kt-widget4__item">
+										<div class="kt-portlet__head-label" style="min-width:200px !important">
+											<h4 class="kt-portlet__head-title" style="right-margin=14px">
+												Proficiencies
+											</h4>
+										</div>
+										&nbsp
+										<div class="kt-widget4__info" style="white-space: pre-line;">
+											${otherUser.proficiencies}		 
+										</div>				
+									</div>	
+								</div>			 
+							</div>
+						</div>
+                            
+                        </div>
+   
+                    </div>
+                </div>
+            </div>
+            <div class="kt-widget__bottom">
+            
+                <div class="kt-widget__item">
+                    <div class="kt-widget__icon">
+                        <i class="flaticon-users"></i>
+                    </div>
+                    <div class="kt-widget__details">
+                        <span class="kt-widget__title">Followers</span>
+                        <span id="followercount" class="kt-widget__value">${followerCount}</span>
+                    </div>
+                </div>
+
+                <div class="kt-widget__item">
+                    <div class="kt-widget__icon">
+                        <i class="flaticon-chat-1"></i>
+                    </div>
+                    <div class="kt-widget__details">
+                        <span class="kt-widget__title">${otherUser.authorOf.size()} Posts</span>
+                        
+                        <a href="#" class="kt-widget__value kt-font-brand" onclick = "togglePostView()" id="viewControl">View</a>
+                        <script type="text/javascript">
+                        	function togglePostView(){
+                        		var x = document.getElementById('postProfileDiv');
+                        		if (x.style.display === 'none') {
+                        		    x.style.display = 'block';
+                        		    document.getElementById('viewControl').textContent = "Hide";
+                        		}else 
+                        		{
+                        		   x.style.display = 'none';
+                        		   document.getElementById('viewControl').textContent = "View";
+                        		}
+                        	}
+
+                        </script>
+                    </div>
+                </div>
+				<!-- 
+				
+                <div class="kt-widget__item">
+                    <div class="kt-widget__icon">
+                        <i class="flaticon-network"></i>
+                    </div>
+                    <div class="kt-widget__details">
+                        <div class="kt-section__content kt-section__content--solid">
+                            <div class="kt-media-group">
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
+                                    <img src="./assets/media/users/100_1.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
+                                    <img src="./assets/media/users/100_10.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
+                                    <img src="./assets/media/users/100_11.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Luke Walls">
+                                    <img src="./assets/media/users/100_2.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                    <img src="./assets/media/users/100_3.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                    <span>+3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--end:: Widgets/Applications/User/Profile3-->    </div>
+</div>
+
+</c:if>
+
+
+<c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}">
 <div class="row">
 <div class="col-xl-12">
         <!--begin:: Widgets/Applications/User/Profile3-->
@@ -551,7 +774,7 @@
 </c:if>
  
  
- <c:if test="${otherUser.userType == MyConstants.TYPE_STUDENT }">
+<c:if test="${otherUser.userType == MyConstants.TYPE_STUDENT }">
  <div class="row">
 <div class="col-xl-12">
         <!--begin:: Widgets/Applications/User/Profile3-->
@@ -710,7 +933,163 @@
 </div>
 </c:if>
  
+<c:if test="${otherUser.userType == MyConstants.TYPE_ADMIN }">
+ <div class="row">
+<div class="col-xl-12">
+        <!--begin:: Widgets/Applications/User/Profile3-->
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-portlet__body">
+        <div class="kt-widget kt-widget--user-profile-3">
+            <div class="kt-widget__top">
+                <div class="kt-widget__media kt-hidden-">
+                    <img src="./ProfilePictures/amdin.jpg" alt="image">
+                    
+                </div>
+                <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+                    JM
+                </div>
+                <div class="kt-widget__content">
+                    <div class="kt-widget__head">
+                        <a href="#" class="kt-widget__username">
+                            <c:out value="${otherUser.fullName}">name</c:out>    
+                            <i class="flaticon2-correct"></i>                       
+                        </a>
+
+                        <div class="kt-widget__action">
+                        	
+                        		<c:if test="${ currentUser.userID == otherUser.userID || currentUser.userType == MyConstants.TYPE_ADMIN}">
+                            	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
+                        		</c:if>
+                        		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
+                        	
+                     
+                            	
+                        </div>
+                    </div>
+
+                    <div class="kt-widget__subhead">
+                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${otherUser.email}">email</c:out></a>
+                        
+                        
+                        
+                        <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
+                        
+                        
+                    </div>
+
+                    <div class="kt-widget__info">
+                        <div class="kt-widget__desc">
+                        
+						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
+							<div class="kt-portlet__head">
+								<div class="kt-portlet__head-label">
+									<h3 class="kt-portlet__head-title">
+										Profile
+									</h3>
+								</div>
+							</div>
+							<div class="kt-portlet__body">
+								<div class="kt-widget4" >
+									
+									
+									<div class="kt-widget4__item">
+										<div class="kt-portlet__head-label" style="min-width:200px !important">
+											<h4 class="kt-portlet__head-title" style="right-margin=14px">
+												Bio
+											</h4>
+										</div>
+										&nbsp
+										<div class="kt-widget4__info" style="white-space: pre-line;">
+											${otherUser.bio}		 
+										</div>				
+									</div>	
+										
+								</div>			 
+							</div>
+						</div>
+                            
+                        </div>
+   
+                    </div>
+                </div>
+            </div>
+            <div class="kt-widget__bottom">
+            
+                
+
+                <div class="kt-widget__item">
+                    <div class="kt-widget__icon">
+                        <i class="flaticon-chat-1"></i>
+                    </div>
+                    <div class="kt-widget__details">
+<%--                         <span class="kt-widget__title">${otherUser.authorOf.size()} Posts</span> --%>
+                        
+                        <a href="#" class="kt-widget__value kt-font-brand" onclick = "togglePostViewW()" id="viewControl">View</a>
+                        <script type="text/javascript">
+                        	function togglePostViewW(){
+                        		var x = document.getElementById('postProfileDiv');
+                        		if (x.style.display === 'none') {
+                        		    x.style.display = 'block';
+                        		    document.getElementById('viewControl').textContent = "Hide";
+                        		}else 
+                        		{
+                        		   x.style.display = 'none';
+                        		   document.getElementById('viewControl').textContent = "View";
+                        		}
+                        	}
+
+                        </script>
+                    </div>
+                </div>
+				<!-- 
+				
+                <div class="kt-widget__item">
+                    <div class="kt-widget__icon">
+                        <i class="flaticon-network"></i>
+                    </div>
+                    <div class="kt-widget__details">
+                        <div class="kt-section__content kt-section__content--solid">
+                            <div class="kt-media-group">
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
+                                    <img src="./assets/media/users/100_1.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
+                                    <img src="./assets/media/users/100_10.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
+                                    <img src="./assets/media/users/100_11.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Luke Walls">
+                                    <img src="./assets/media/users/100_2.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                    <img src="./assets/media/users/100_3.jpg" alt="image">
+                                </a>
+                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+                                    <span>+3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 -->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--end:: Widgets/Applications/User/Profile3-->    </div>
+</div>
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </c:if>
  
  
  
@@ -971,171 +1350,9 @@
 
  
  
+  
  
  
- 
- 
- 
- 
- 
- 
- <c:if test="${otherUser.userType == MyConstants.TYPE_ADMIN }">
- <div class="row">
-<div class="col-xl-12">
-        <!--begin:: Widgets/Applications/User/Profile3-->
-<div class="kt-portlet kt-portlet--height-fluid">
-    <div class="kt-portlet__body">
-        <div class="kt-widget kt-widget--user-profile-3">
-            <div class="kt-widget__top">
-                <div class="kt-widget__media kt-hidden-">
-                    <img src="./ProfilePictures/amdin.jpg" alt="image">
-                    
-                </div>
-                <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
-                    JM
-                </div>
-                <div class="kt-widget__content">
-                    <div class="kt-widget__head">
-                        <a href="#" class="kt-widget__username">
-                            <c:out value="${otherUser.fullName}">name</c:out>    
-                            <i class="flaticon2-correct"></i>                       
-                        </a>
-
-                        <div class="kt-widget__action">
-                        	
-                        		<c:if test="${ currentUser.userID == otherUser.userID || currentUser.userType == MyConstants.TYPE_ADMIN}">
-                            	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
-                        		</c:if>
-                        		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
-                        	
-                     
-                            	
-                        </div>
-                    </div>
-
-                    <div class="kt-widget__subhead">
-                        <a href="#"><i class="flaticon2-new-email"></i>  <c:out value="${otherUser.email}">email</c:out></a>
-                        
-                        
-                        
-                        <a href="https://cs.hacettepe.edu.tr/index_tr.html"><i class="flaticon2-placeholder"></i> Hacettepe University CS</a>
-                        
-                        
-                    </div>
-
-                    <div class="kt-widget__info">
-                        <div class="kt-widget__desc">
-                        
-						<div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
-							<div class="kt-portlet__head">
-								<div class="kt-portlet__head-label">
-									<h3 class="kt-portlet__head-title">
-										Profile
-									</h3>
-								</div>
-							</div>
-							<div class="kt-portlet__body">
-								<div class="kt-widget4" >
-									
-									
-									<div class="kt-widget4__item">
-										<div class="kt-portlet__head-label" style="min-width:200px !important">
-											<h4 class="kt-portlet__head-title" style="right-margin=14px">
-												Bio
-											</h4>
-										</div>
-										&nbsp
-										<div class="kt-widget4__info" style="white-space: pre-line;">
-											${otherUser.bio}		 
-										</div>				
-									</div>	
-										
-								</div>			 
-							</div>
-						</div>
-                            
-                        </div>
-   
-                    </div>
-                </div>
-            </div>
-            <div class="kt-widget__bottom">
-            
-                
-
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-chat-1"></i>
-                    </div>
-                    <div class="kt-widget__details">
-<%--                         <span class="kt-widget__title">${otherUser.authorOf.size()} Posts</span> --%>
-                        
-                        <a href="#" class="kt-widget__value kt-font-brand" onclick = "togglePostViewW()" id="viewControl">View</a>
-                        <script type="text/javascript">
-                        	function togglePostViewW(){
-                        		var x = document.getElementById('postProfileDiv');
-                        		if (x.style.display === 'none') {
-                        		    x.style.display = 'block';
-                        		    document.getElementById('viewControl').textContent = "Hide";
-                        		}else 
-                        		{
-                        		   x.style.display = 'none';
-                        		   document.getElementById('viewControl').textContent = "View";
-                        		}
-                        	}
-
-                        </script>
-                    </div>
-                </div>
-				<!-- 
-				
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-network"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <div class="kt-section__content kt-section__content--solid">
-                            <div class="kt-media-group">
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
-                                    <img src="./assets/media/users/100_1.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
-                                    <img src="./assets/media/users/100_10.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
-                                    <img src="./assets/media/users/100_11.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Luke Walls">
-                                    <img src="./assets/media/users/100_2.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
-                                    <img src="./assets/media/users/100_3.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
-                                    <span>+3</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 -->
-                
-            </div>
-        </div>
-    </div>
-</div>
-<!--end:: Widgets/Applications/User/Profile3-->    </div>
-</div>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- </c:if>
  
  
  

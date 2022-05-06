@@ -478,8 +478,16 @@
                             <div class="kt-widget__media">
                             	
                             	<form action="UserController" method="POST">
-                                <span>                                     
+                                <span>   
+                                    
+                                    <c:if test ="${entry.getValue().fullName.contains('admin')}">                              
+                                    <input type="image" src="ProfilePictures/amdin.jpg" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+                                    </c:if>
+                                    <c:if test ="${!entry.getValue().fullName.contains('admin')}">                              
                                     <input type="image" src="${entry.getValue().profilePictureSrc}" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+                                    </c:if>
+                                    
+                                    
                                     <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
                                     <input type="hidden" name="userID" value="${entry.getValue().userID }">                                	
                                 </span>

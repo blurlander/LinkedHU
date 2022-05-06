@@ -87,7 +87,7 @@ public class UserController extends HttpServlet {
 				String lastName = request.getParameter("lastName");
 				String fullName = firstName.concat(" ").concat(lastName);
 				
-				boolean typecheck = false; // False if student , true if Academician
+				int typecheck = 0; // False if student , true if Academician
 				String acadTitle = "";
 				String officeNumber = ""; 
 				String professionalHistory = "";
@@ -98,7 +98,7 @@ public class UserController extends HttpServlet {
 				String graduation = "";
 				
 				if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_ACADEMICIAN) {
-					typecheck = true;
+					typecheck = 1;
 					acadTitle = request.getParameter("acadTitle");
 					officeNumber = request.getParameter("officeNumber");
 					professionalHistory = request.getParameter("professionalHistory");
@@ -106,11 +106,19 @@ public class UserController extends HttpServlet {
 					proficiencies = request.getParameter("proficiencies");
 				}
 				else if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_STUDENT) {
+					typecheck = 2;
 					skills = request.getParameter("skills");
 					gpa = request.getParameter("gpa");
 					graduation = request.getParameter("graduation");
 					
 				}
+				else if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_GRADUATE) {
+					typecheck = 3;
+					proficiencies = request.getParameter("proficiencies");
+					graduation = request.getParameter("graduation");
+					
+				}
+				
 									
 				String bio = request.getParameter("bio");
 				
@@ -171,17 +179,21 @@ public class UserController extends HttpServlet {
 				infoList.add(profilePictureSrc);
 				infoList.add(bio);
 				
-				if(typecheck) {				
+				if(typecheck == 1) {				
 				infoList.add(acadTitle);
 				infoList.add(professionalHistory);
 				infoList.add(researchHistory);
 				infoList.add(proficiencies);
 				infoList.add(officeNumber);				
 				}
-				else {
+				else if(typecheck == 2) {
 				infoList.add(skills);
 				infoList.add(gpa);
 				infoList.add(graduation);
+				}
+				else if(typecheck == 3) {				
+				infoList.add(graduation);
+				infoList.add(proficiencies);
 				}
 				
 				
@@ -211,7 +223,7 @@ public class UserController extends HttpServlet {
 				
 								
 				
-				if(user1.getUserType() == MyConstants.TYPE_GRADUATE || user1.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+				if(user1.getUserType() == MyConstants.TYPE_GRADUATE || user1.getUserType() == MyConstants.TYPE_ACADEMICIAN || user1.getUserType() == MyConstants.TYPE_ADMIN) {
 					PostCreator otherUser =  (PostCreator)user1;
 					
 					// fill post of the other user
@@ -223,6 +235,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("targetType", MyConstants.TARGET_TYPE_CREATOR);
 					session.setAttribute("otherUser",otherUser);
 					response.sendRedirect("Profile.jsp");
+					break;
 				}
 				
 				if(user1.getUserType() == MyConstants.TYPE_STUDENT) {
@@ -236,24 +249,23 @@ public class UserController extends HttpServlet {
 					System.out.println(followeds);
 					if (followeds != null ) {
 					for (int i :followeds ) {
-						studentPosts.addAll(service.fetchUserPosts(i));
-						
-					}
+						studentPosts.addAll(service.fetchUserPosts(i));						
+						}
 					}
 					session.setAttribute("followedPosts", studentPosts);
 					session.setAttribute("targetType", MyConstants.TARGET_TYPE_STUDENT);
 					response.sendRedirect("Profile.jsp");
-			
+					
 				}
 				
-				if(user1.getUserType() == MyConstants.TYPE_ADMIN) {
+				/*if(user1.getUserType() == MyConstants.TYPE_ADMIN) {
 					User otheradmin = user1;
 					session.setAttribute("otherUser",otheradmin);
 					response.sendRedirect("Profile.jsp");
-				}
-				
-				
+				}*/
+								
 				break;
+				
 			case MyConstants.OPP_LIKE_POST:				
 				int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
 				NonAdminUser user = ((NonAdminUser)session.getAttribute("currentUser"));
@@ -343,7 +355,7 @@ public class UserController extends HttpServlet {
 				 	lastName = request.getParameter("lastName");
 					fullName = firstName.concat(" ").concat(lastName);
 					
-					typecheck = false; // False if student , true if Academician
+					typecheck = 0; // False if student , true if Academician
 					acadTitle = "";
 					officeNumber = ""; 
 					professionalHistory = "";
@@ -354,7 +366,7 @@ public class UserController extends HttpServlet {
 					graduation = "";
 					
 					if(((NonAdminUser)session.getAttribute("currentUser")).getUserType() == MyConstants.TYPE_ACADEMICIAN) {
-						typecheck = true;
+						typecheck = 1;
 						acadTitle = request.getParameter("acadTitle");
 						officeNumber = request.getParameter("officeNumber");
 						professionalHistory = request.getParameter("professionalHistory");
@@ -362,6 +374,7 @@ public class UserController extends HttpServlet {
 						proficiencies = request.getParameter("proficiencies");
 					}
 					else if(((NonAdminUser)session.getAttribute("currentUser")).getUserType() == MyConstants.TYPE_STUDENT) {
+						typecheck = 2;
 						skills = request.getParameter("skills");
 						gpa = request.getParameter("gpa");
 						graduation = request.getParameter("graduation");
@@ -402,14 +415,14 @@ public class UserController extends HttpServlet {
 					
 					
 					
-					if(typecheck) {				
+					if(typecheck == 1) {				
 					infoList.add(acadTitle);
 					infoList.add(professionalHistory);
 					infoList.add(researchHistory);
 					infoList.add(proficiencies);
 					infoList.add(officeNumber);				
 					}
-					else {
+					else if(typecheck == 2) {
 					infoList.add(skills);
 					infoList.add(gpa);
 					infoList.add(graduation);
@@ -565,6 +578,49 @@ public class UserController extends HttpServlet {
 					int userType = Integer.parseInt(request.getParameter("type"));					
 					String fullname = firstName +" " +lastName;
 					
+					int checkUserName2 = service.checkUserNameExists(username);
+					int checkEmail2 = service.checkEmailExists(email);
+					boolean tryagain2 = false;
+					if(checkUserName2 > 0) {
+						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
+						tryagain2 = true;
+					}
+					if(checkEmail2 > 0) {
+						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+						tryagain2 = true;
+					}
+					if(tryagain2) {
+						allUsers = service.fetchAllUsers();
+						allStudents = new ArrayList<>();
+						allAcads = new ArrayList<>();	
+						allGrads = new ArrayList<>();	
+						
+						for(User uu : allUsers){	
+							if(uu.getUserType() == MyConstants.TYPE_STUDENT) {
+									s = (Student)uu;
+									allStudents.add(s);
+								}
+							if(uu.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+									a = (Academician)uu;
+									allAcads.add(a);
+							}	
+							if(uu.getUserType() == MyConstants.TYPE_GRADUATE) {
+									g = (Graduate)uu;
+									allGrads.add(g);
+							}	
+						}
+						session.setAttribute("userList", allUsers);
+						session.setAttribute("studList", allStudents);
+						session.setAttribute("gradList", allGrads);
+						session.setAttribute("acadList", allAcads);
+						
+						response.sendRedirect("AdminPanel.jsp");
+						
+						break;
+					}
+					
+					
+					
 					/*User us = new User();			
 					
 					us.setEmail(email);
@@ -585,6 +641,13 @@ public class UserController extends HttpServlet {
 							addUser(aa);
 							break;
 						case MyConstants.TYPE_GRADUATE:
+							Graduate gg = new Graduate();
+							gg.setEmail(email);
+							gg.setUsername(username);
+							gg.setPassword(password);
+							gg.setFullName(fullname);
+							gg.setUserType(userType);
+							addUser(gg);
 							break;
 						case MyConstants.TYPE_STUDENT:
 							Student ss = new Student();
@@ -824,7 +887,7 @@ public class UserController extends HttpServlet {
 						return false;
 					}
 					if(g.getBannedUntil() != null) {
-						liftBan(g.getUserID(),MyConstants.TYPE_STUDENT);
+						liftBan(g.getUserID(),MyConstants.TYPE_GRADUATE);
 					}
 				}
 				
@@ -925,8 +988,41 @@ public class UserController extends HttpServlet {
 			}
 			
 			
+		}else if(u.getUserType() == MyConstants.TYPE_GRADUATE) {			
+			Graduate g = (Graduate)u;
+			
+			g.setUsername(infoList.get(0));
+			g.setEmail(infoList.get(1));
+			g.setPassword(infoList.get(2));
+			g.setFullName(infoList.get(3));
+			g.setProfilePictureSrc(infoList.get(4));
+			g.setBio(infoList.get(5));	
+			g.setGraduationYear(infoList.get(6));
+			g.setProficiencies(infoList.get(7));
+			
+			
+			
+			// All session attributes which is affected in any update process should be pulled from the database again.
+			// and get the proper data for session attributes
+			if(service.updateUser(g)) {
+				if(cond.getUserType() != MyConstants.TYPE_ADMIN) {
+					session.setAttribute("currentUser", g);
+				}				
+				session.setAttribute("otherUser", g);
+				TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+				for (Post p :  map.keySet()) {
+					if (p.getAuthorID() == g.getUserID()) {
+						map.replace(p, g);
+					}
+				}
+				session.setAttribute("map",map);
+				//((PostCreator)session.getAttribute("otherUser")).setAuthorOf(service.fetchUserPosts(((PostCreator)session.getAttribute("currentUser")).getUserID()));
+			}
 		}
-
+		
+		
+		
+		
 		return true;
 	}
 	

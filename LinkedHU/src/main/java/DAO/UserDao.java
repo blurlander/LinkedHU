@@ -87,7 +87,7 @@ public class UserDao implements IUserDao {
 				addAcademician(allUsers);
 			}
 			if(breakGraduate) {
-				
+				addGraduate(allUsers);
 			}
 			if(breakStudent) {
 
@@ -337,7 +337,8 @@ public class UserDao implements IUserDao {
 				graduate.setProfilePictureSrc(rs.getString("profilePictureSrc"));
 				graduate.setStatus(rs.getString("status"));
 				graduate.setBio(rs.getString("bio"));
-				
+				graduate.setProficiencies(rs.getString("proficiencies"));
+				graduate.setGraduationYear(rs.getString("graduation"));
 				if(rs.getTimestamp("bannedUntil") != null) {
 					graduate.setBannedUntil(rs.getDate("bannedUntil"));
 				}

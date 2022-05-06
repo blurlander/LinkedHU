@@ -132,13 +132,16 @@ public class PostController extends HttpServlet {
 			}
 			session.setAttribute("map", map1);
 			
-			PostCreator user = (PostCreator)session.getAttribute("otherUser");
+			/*PostCreator user = (PostCreator)session.getAttribute("otherUser");
 			for(Post post : user.getAuthorOf()) {
 				if(post.getPostID() == likedPostID) {
 					post.setLikeCount(post.getLikeCount()+1);
 				}
 			}
 			session.setAttribute("otherUser", user);
+			*/
+			
+			
 			if(Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_DETAILPAGE) {
 				Post currentPost = ((Post)session.getAttribute("currentPost"));
 				currentPost.setLikeCount(currentPost.getLikeCount()+1);
@@ -162,13 +165,13 @@ public class PostController extends HttpServlet {
 			}
 			session.setAttribute("map", map1);
 			
-			PostCreator user = (PostCreator)session.getAttribute("otherUser");
+			/*PostCreator user = (PostCreator)session.getAttribute("otherUser");
 			for(Post post : user.getAuthorOf()) {
 				if(post.getPostID() == dislikedPostID) {
 					post.setLikeCount(post.getLikeCount()-1);
 				}
 			}
-			session.setAttribute("otherUser", user);
+			session.setAttribute("otherUser", user);*/
 			if(Integer.parseInt(request.getParameter("pageCode")) ==MyConstants.CODE_DETAILPAGE) {
 				Post currentPost = ((Post)session.getAttribute("currentPost"));
 				currentPost.setLikeCount(currentPost.getLikeCount()-1);

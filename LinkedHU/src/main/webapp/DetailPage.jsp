@@ -562,7 +562,7 @@
                                             <ul class="kt-nav">
 											    <li class="kt-nav__item">
 											        <a class="kt-nav__link">
-											            <i class="kt-nav__link-icon flaticon2-line-chart"></i>
+											            <i style="margin-right:1rem; font-size:1.5rem; color:tomato;" class="flaticon-delete"></i>
 											         	
 											         	<!-- Do not add anything between the spans below  -->
 											            <span class="kt-nav__link-text delete-comment" >Delete</span>

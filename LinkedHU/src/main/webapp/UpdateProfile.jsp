@@ -418,7 +418,7 @@
 										</div>
 									</div>
 									
-									<c:if test="${(otherUser.userType == MyConstants.TYPE_GRADUATE) || (otherUser.userType == MyConstants.TYPE_ACADEMICIAN)}"> 
+									<c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}"> 
 									<!-- Graduate icin ayrı yapılacak  -->
 									
 									<div class="form-group row">
@@ -507,6 +507,38 @@
 										</div>
 									</div>
 									</c:if>
+									
+									<c:if test = "${otherUser.userType == MyConstants.TYPE_GRADUATE}">
+									
+									
+									
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Graduation</label>
+										<div class="col-9">
+											<div class="input-group">
+												
+												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduationYear }">
+
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Proficiencies</label>
+										<div class="col-9">
+											<div class="input-group">
+
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
+
+											</div>
+										</div>
+									</div>
+									
+									
+									</c:if>
+									
+									
 									
 									
 									<div class="form-group form-group-last row" style="margin-bottom:20px">

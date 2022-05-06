@@ -316,7 +316,28 @@
 
 <!-- begin:: Content -->
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-	
+<c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This username is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This email is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 	
 <div class="kt-portlet kt-portlet--mobile">
 	<div class="kt-portlet__head kt-portlet__head--lg">
 		<div class="kt-portlet__head-label">
@@ -342,7 +363,7 @@
 	</div>	
 </div>		</div>
 	</div>
-
+	
 	<div class="kt-portlet__body">
 		<!--begin: Datatable -->
 		<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
@@ -556,7 +577,7 @@
 
 				  	</c:forEach>	
 			
-			<c:forEach items="${gradList}" var="stud">		
+			<c:forEach items="${gradList}" var="grad">		
 				<tr>			
 				  									<td>${ String.valueOf(grad.userID) }</td>
 				  									<td>${ grad.username }</td>
@@ -681,9 +702,9 @@
                         <label for="username" class="form-control-label">Username:</label>
                         <input type="text" required class="form-control" name="username">
                         <label for="email" class="form-control-label">Email:</label>
-                        <input type="text" required class="form-control" name="email">
+                        <input type="email" required class="form-control" name="email">
                         <label for="password" class="form-control-label">Password:</label>
-                        <input type="text" required class="form-control" name="password">
+                        <input class="form-control" type="text" pattern=".{8,}"   required title="8 characters minimum" required placeholder="Password" name="password">
                         <label for="type" class="form-control-label">User Type:</label>
                         <select class="form-control" name="type">
 							<option value="${MyConstants.TYPE_STUDENT}">Student</option>
@@ -741,7 +762,7 @@
      var KTAppOptions = {"colors":{"state":{"brand":"#591df1","light":"#ffffff","dark":"#282a3c","primary":"#5867dd","success":"#34bfa3","info":"#36a3f7","warning":"#ffb822","danger":"#fd3995"},"base":{"label":["#c5cbe3","#a1a8c3","#3d4465","#3e4466"],"shape":["#f0f3ff","#d9dffa","#afb4d4","#646c9a"]}}};
  </script>
  <!-- end::Global Config -->
-
+<% session.removeAttribute("userexists"); %>
 
     	<!--begin:: Global Mandatory Vendors -->
 <script src="./assets/vendors/general/jquery/dist/jquery.js" type="text/javascript"></script>
