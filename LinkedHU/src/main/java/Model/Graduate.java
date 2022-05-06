@@ -33,5 +33,5 @@ public class Graduate extends PostCreator{
 	public void setProficiencies(String proficiencies) {
 		this.proficiencies = proficiencies;
 	}
-
+	// :)
 }

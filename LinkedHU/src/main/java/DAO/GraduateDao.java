@@ -42,7 +42,7 @@ public class GraduateDao implements IDao<Graduate>{
 	}
 	
 	
-	
+	// :)
 	
 	@Override
 	public List<Graduate> fetchAll() {
