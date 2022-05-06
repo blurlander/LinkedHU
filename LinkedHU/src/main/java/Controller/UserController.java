@@ -193,7 +193,7 @@ public class UserController extends HttpServlet {
 					// fill likes of the other user
 					otherUser.setLikes(service.getLikes(incomeUserID));
 					
-					
+					session.setAttribute("targetType", MyConstants.TARGET_TYPE_CREATOR);
 					session.setAttribute("otherUser",otherUser);
 					response.sendRedirect("Profile.jsp");
 				}
@@ -201,7 +201,22 @@ public class UserController extends HttpServlet {
 				if(user1.getUserType() == MyConstants.TYPE_STUDENT) {
 					NonAdminUser otherUser1 = (NonAdminUser)user1;
 					session.setAttribute("otherUser",otherUser1);
+					List<Post> studentPosts = new ArrayList<Post>();
+					Student student1 = (Student)user1;
+					List<Integer> followeds = new ArrayList<Integer>();
+					followeds = getFollowedUserID(student1.getUserID());
+					student1.setFollows(followeds);
+					System.out.println(followeds);
+					if (followeds != null ) {
+					for (int i :followeds ) {
+						studentPosts.addAll(service.fetchUserPosts(i));
+						
+					}
+					}
+					session.setAttribute("followedPosts", studentPosts);
+					session.setAttribute("targetType", MyConstants.TARGET_TYPE_STUDENT);
 					response.sendRedirect("Profile.jsp");
+			
 				}
 				
 				if(user1.getUserType() == MyConstants.TYPE_ADMIN) {
@@ -271,8 +286,9 @@ public class UserController extends HttpServlet {
 					if(check) {
 						//service.createUser(student);
 						session.setAttribute("currentUser",student);
+						session.setAttribute("otherUser",student);
 						//session.setAttribute("otherUser", student);
-						session.setAttribute("status", "registerContinue");
+						session.setAttribute("status", MyConstants.CONTINUE_REGISTER);
 						response.sendRedirect("UpdateProfile.jsp");
 					}
 					else {
@@ -359,7 +375,9 @@ public class UserController extends HttpServlet {
 					}				
 					
 					updateAccountInfo(infoList);
-					response.sendRedirect("Profile.jsp");
+					session.setAttribute("operation","getPostsForDiscoverPage");
+					request.getRequestDispatcher("PostController").include(request, response);
+					response.sendRedirect("HomePage.jsp");
 					break;
 				 
 				 
@@ -495,6 +513,7 @@ public class UserController extends HttpServlet {
 			 		
 			 		deleteUser(tbdID);
 			 		response.sendRedirect("LoginPage.jsp");
+			 		break;
 			 		
 			 	case MyConstants.OPP_CREATED_BY_ADMIN:
 			 		email = request.getParameter("email");
@@ -845,7 +864,7 @@ public class UserController extends HttpServlet {
 			
 			
 			String stat = (String)session.getAttribute("status");			
-			boolean isStillRegister = stat.equals("registerContinue");			
+			boolean isStillRegister = stat.equals(MyConstants.CONTINUE_REGISTER);			
 			
 			if(isStillRegister) {
 				

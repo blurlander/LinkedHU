@@ -527,11 +527,11 @@
 												<input required type="text" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
 												
-												<c:if test = "${!status.equals(\"RegisterContinue\")}">
+												<c:if test = "${status != MyConstants.CONTINUE_REGISTER}">
 												<input type = "hidden" value = "${MyConstants.OPP_UPDATE_PROFILE }" name = "operation">
 												</c:if>
 												
-												<c:if test="${status.equals(\"RegisterContinue\")}"> 
+												<c:if test="${status == MyConstants.CONTINUE_REGISTER}"> 
 												<!-- Checking if we are here after register -->
 												<input type = "hidden" value = "${MyConstants.OPP_FINISH_REGISTER }" name = "operation">
 												</c:if>

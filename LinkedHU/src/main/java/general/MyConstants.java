@@ -31,6 +31,12 @@ public class MyConstants {
 	public static final String OPP_CREATED_BY_ADMIN = "23";
 	
 	
+	public static final String TARGET_TYPE_CREATOR = "666";
+	public static final String TARGET_TYPE_STUDENT = "777";
+	public static final String CONTINUE_REGISTER = "888";
+	
+	
+	
 	public static final int CODE_HOMEPAGE = 100;
 	public static final int CODE_DETAILPAGE = 101;
 	public static final int CODE_PROFILEPAGE = 102;
