@@ -134,11 +134,16 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<form action="MessageController" method="POST" id="form_viewMessages">
+								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
+							
+							<a href="#" onclick='this.parentNode.submit(); return false;'>
 								<i class="fa fa-comments"></i>
 								<!-- <i class="fa fa-envelope"></i> -->
 								<span class="links_name">Messages</span>
 							</a>
+	
+							</form>
 						</li>
 						<li>
 							<a href="#">
