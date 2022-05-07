@@ -32,7 +32,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         
                     <!--begin::Page Custom Styles(used by this page) -->
-                             <link href="./assets/css/demo12/pages/login/login-6.css" rel="stylesheet" type="text/css" />
+                             <link href="./assets/css/demo9/pages/login/login-6.css" rel="stylesheet" type="text/css" />
                         <!--end::Page Custom Styles -->
         
         <!--begin:: Global Mandatory Vendors -->
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Global Theme Styles(used by all pages) -->
                     
-                    <link href="./assets/css/demo12/style.bundle.css" rel="stylesheet" type="text/css" />
+                    <link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
                 <!--end::Global Theme Styles -->
 
         <!--begin::Layout Skins(used by all pages) -->
@@ -87,6 +87,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- begin::Body -->
     <body  class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading"  >
 		    	<!-- begin:: Page -->
+		    	
+
+
+		    	
+		    	
 	<div class="kt-grid kt-grid--ver kt-grid--root kt-page">
 		<div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v6 kt-login--signin" id="kt_login">
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
@@ -105,7 +110,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-login__signin">
 
                             
-                            <div class="kt-login__form">
+                            <div class="kt-login__form" >
                             <div class="kt-login__head">
                                 <h3 class="kt-login__title">Sign In</h3>
                             </div>
@@ -134,8 +139,44 @@ License: You must have a valid license purchased only from themeforest(the above
                                     	<p style = "color:#ff0000; font-size:15px; position:relative; left:85px; top:30px;" id="p12345" >
                                     		<c:out value="Invalid username or password"/>
                                     	</p>
-                                    </c:if>                                                    	
-                                    <% session.removeAttribute("status"); %>
+                                    </c:if> 
+                                    <c:if test="${status == 'banned'}">
+                                    	<div class="flex">
+                                    		<p style = "color:#ff0000; font-size:15px " id="p12345" >
+                                    		<c:out value="You have been banned from the system. Please try again later."/>
+                                    		</p>                            		
+                                    	</div>
+                                    </c:if>                                                           	
+                                    
+                                    
+                                   
+                                        <c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This username is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This email is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                
+                                    
+                               
+
+                                    
                                     
                                 </form>
                             </div>
@@ -146,29 +187,32 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="kt-login__desc">Enter your details to create your account:</div>
                             </div>
                             <div class="kt-login__form">
-                                <form class="kt-form" method = "POST" action="UserController">
+                                <form class="kt-form" method = "POST" action="UserController" >
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Fullname" name="fullname">
+                                        <input class="form-control" type="text" required placeholder="Username" name="username">
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" required placeholder="Email" name="email" autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
+                                        <input class="form-control" type="password" pattern=".{8,}"   required title="8 characters minimum" required placeholder="Password" name="password">
+                                        <input type="hidden" name="operation" value="${MyConstants.OPP_REGISTER }">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="password" placeholder="Password" name="password">
-                                        <input type="hidden" id = "2" name="operation" value="${MyConstants.OPP_REGISTER }">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control form-control-last" type="password" placeholder="Confirm Password" name="rpassword">
+                                        <input class="form-control form-control-last" required type="password" placeholder="Confirm Password" name="cpassword">
                                     </div>
                                     <div class="kt-login__extra">
                                         <label class="kt-checkbox">
-                                            <input type="checkbox" name="agree"> I Agree the <a href="#">terms and conditions</a>.
+                                            <input type="checkbox" name="agree" required> I Agree the <a href="#">terms and conditions</a>.
                                             <span></span>
                                         </label>
                                     </div>
-                                    <div class="kt-login__actions">
-                                        <button id="kt_login_signup_submit" class="btn btn-brand btn-pill btn-elevate">Sign Up</button>
+                                    <div class="kt-login__actions">                                        
+                                         
+                                        <button id="kt_login_signup_submitogluit" class="btn btn-brand btn-pill btn-elevate">Sign Up</button>
                                         <button id="kt_login_signup_cancel" class="btn btn-outline-brand btn-pill">Cancel</button>
+                                       
+                                        
                                     </div>
                                 </form>
                             </div>
@@ -218,6 +262,11 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
 </div>         	</div>
 <!-- end:: Page -->
+                                    <% session.removeAttribute("userexists"); %>
+                                    <% session.removeAttribute("status"); %>
+
+
+
 
 
         <!-- begin::Global Config(global config for global JS sciprts) -->
@@ -298,12 +347,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Global Theme Bundle(used by all pages) -->
     	    	   
-		    	   <script src="./assets/js/demo12/scripts.bundle.js" type="text/javascript"></script>
+		    	   <script src="./assets/js/demo9/scripts.bundle.js" type="text/javascript"></script>
 				<!--end::Global Theme Bundle -->
 
         
                     <!--begin::Page Scripts(used by this page) -->
-                            <script src="./assets/js/demo12/pages/login/login-general.js" type="text/javascript"></script>
+                            <script src="./assets/js/demo9/pages/login/login-general.js" type="text/javascript"></script>
                         <!--end::Page Scripts -->
             </body>
     <!-- end::Body -->

@@ -1,12 +1,33 @@
 package Model;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Academician extends PostCreator{
 	private String academicTitle;
 	private String professionalHistory;
 	private String researchHistory;
 	private String proficiencies;
 	private String officeNumber;
+	private Date bannedUntil;
+	private String status;
 	
+	
+	
+	
+	
+	public Date getBannedUntil() {
+		return bannedUntil;
+	}
+	public void setBannedUntil(Date bannedUntil) {
+		this.bannedUntil = bannedUntil;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getAcademicTitle() {
 		return academicTitle;
 	}

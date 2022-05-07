@@ -5,7 +5,6 @@
     
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
- 
 <!DOCTYPE html>
 
 <html lang="en" >
@@ -388,7 +387,10 @@
 	            <div class="kt-subheader__wrapper">
 	                           <!-- Create post iÃ§in buton -->
 	                           <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
-	                
+	                			<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+	                			<a class="button btn btn-success" href="AdminPanel.jsp" type="submit">Admin Panel</a>
+	                			</c:if>
+	                			
 	                <div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
 	                    <a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
@@ -432,7 +434,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">New post</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -476,8 +478,16 @@
                             <div class="kt-widget__media">
                             	
                             	<form action="UserController" method="POST">
-                                <span>                                     
+                                <span>   
+                                    
+                                    <c:if test ="${entry.getValue().fullName.contains('admin')}">                              
+                                    <input type="image" src="ProfilePictures/amdin.jpg" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+                                    </c:if>
+                                    <c:if test ="${!entry.getValue().fullName.contains('admin')}">                              
                                     <input type="image" src="${entry.getValue().profilePictureSrc}" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+                                    </c:if>
+                                    
+                                    
                                     <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
                                     <input type="hidden" name="userID" value="${entry.getValue().userID }">                                	
                                 </span>
@@ -546,7 +556,7 @@
                           				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: gray;" ></button>
                                     	<a href="#" style="font-size: 15px; color: black;">${entry.getKey().likeCount} Likes</a>
                            				<input type="hidden" value=${entry.getKey().postID }>
-                           			
+                           				
                            			</c:if>
                            			
                            		</div>

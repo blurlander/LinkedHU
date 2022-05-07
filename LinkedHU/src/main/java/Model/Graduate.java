@@ -1,14 +1,30 @@
 package Model;
 
+import java.sql.Date;
+
 public class Graduate extends PostCreator{
 	
-	private int graduationYear;
+	private String graduationYear;
 	private String proficiencies;
+	private Date bannedUntil;
+	private String status;
 	
-	public int getGraduationYear() {
+	public Date getBannedUntil() {
+		return bannedUntil;
+	}
+	public void setBannedUntil(Date bannedUntil) {
+		this.bannedUntil = bannedUntil;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getGraduationYear() {
 		return graduationYear;
 	}
-	public void setGraduationYear(int graduationYear) {
+	public void setGraduationYear(String graduationYear) {
 		this.graduationYear = graduationYear;
 	}
 	public String getProficiencies() {
@@ -17,5 +33,5 @@ public class Graduate extends PostCreator{
 	public void setProficiencies(String proficiencies) {
 		this.proficiencies = proficiencies;
 	}
-
+	// :)
 }
