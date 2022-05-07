@@ -228,13 +228,16 @@
 		        <div class="kt-notification__item-icon">
 		            <i class="flaticon2-mail kt-font-warning"></i>
 		        </div>
-		        <div class="kt-notification__item-details">
+		        <div class="kt-notification__item-details" id="btn_myMessages">
 		            <div class="kt-notification__item-title kt-font-bold">
 		                My Messages
 		            </div>
 		            <div class="kt-notification__item-time">
 		                Inbox and tasks
 		            </div>
+		            <form action="MessageController" method="POST" id="form_viewMessages">
+		            	<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
+		            </form>
 		        </div>
 		    </a>
 			
@@ -650,6 +653,7 @@
 
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
+<script src="./js/Message.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

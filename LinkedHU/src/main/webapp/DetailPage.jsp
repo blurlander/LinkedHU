@@ -440,7 +440,7 @@
 		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
 		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
 	</form>
-	<form id="dislikeForm">
+	<form id="disForm">
 		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST}" >
 		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
 		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">

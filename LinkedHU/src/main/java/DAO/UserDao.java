@@ -56,22 +56,46 @@ public class UserDao implements IUserDao {
 		try {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
+			boolean breakAdmin = false;
+			boolean breakAcademician = false;
+			boolean breakGraduate = false;
+			boolean breakStudent = false;
 			while(rs.next()) {
 				switch(rs.getInt("userType")) 
 				{
 					case MyConstants.TYPE_ADMIN : 
-						break;
+					breakAdmin = true;
 					case MyConstants.TYPE_ACADEMICIAN :
-						addAcademician(allUsers);
-						break;
+					breakAcademician = true;
 					case MyConstants.TYPE_GRADUATE:  
-						break;
+					breakGraduate = true;
 					case MyConstants.TYPE_STUDENT: 
-						break;
+					breakStudent = true;	
+					
+
 				}
 				//allUsers.add(user);
 				
+					
 			}
+			if(breakAdmin) {
+				//addAdmin(allUsers);
+			}
+			if(breakAcademician) {
+				addAcademician(allUsers);
+			}
+			if(breakGraduate) {
+				//addGraduate(allUsers);
+			}
+			if(breakStudent) {
+
+				//addStudent(allUsers);
+			}
+			
+			
+
+
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,8 +112,29 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public User read(int userID) {
-		// TODO Auto-generated method stub
+		String query = "Select * from User where userID ="+userID;
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				User user = new User();
+				user.setUserID(rs.getInt("userID"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setFullName(rs.getString("fullName"));
+				user.setUserType(rs.getInt("userType"));
+				
+				return user;	
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
+		
 	}
 
 	@Override

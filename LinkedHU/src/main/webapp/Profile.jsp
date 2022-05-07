@@ -21,11 +21,10 @@
 		<!--begin::Fonts -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">       
 		 <!--end::Fonts -->
-		         
+		 <link href="./assets/css/demo9/pages/inbox/inbox.css" rel="stylesheet" type="text/css" />         
 		<!--begin:: Global Mandatory Vendors -->
 		<link href="./assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
 		<!--end:: Global Mandatory Vendors -->
-		
 		<!--begin:: Global Optional Vendors -->
 		<link href="./assets/vendors/general/tether/dist/css/tether.css" rel="stylesheet" type="text/css" />
 		<link href="./assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" type="text/css" />
@@ -330,17 +329,19 @@
                             <c:out value="${otherUser.fullName}">name</c:out>    
                             <i class="flaticon2-correct"></i>                       
                         </a>
-
                         <div class="kt-widget__action">
-                        	
                         		<c:if test="${ currentUser.userID == otherUser.userID }">
                             	<button type="button" class="btn btn-label-success btn-sm btn-upper" onclick = "window.location = 'UpdateProfile.jsp'">Update Profile</button>
                         		</c:if>
+                        		<c:if test="${ currentUser.userID != otherUser.userID }">
+                        		
+									      <button type="button" class="btn btn-outline-info btn-elevate btn-circle btn-icon" id="msgModalBtnOtherUser">									      		
+									      	<i class="flaticon-multimedia-2"></i> 
+									      </button>
+                        		</c:if>
                         		<button type="button" class="btn btn-brand btn-sm btn-upper" onclick = "window.location = 'HomePage.jsp'" >Go Back to the Main Page</button>
-                        	
-                     
-                            	
                         </div>
+                        
                     </div>
 
                     <div class="kt-widget__subhead">
@@ -443,38 +444,6 @@
                         </script>
                     </div>
                 </div>
-				<!-- 
-				
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-network"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <div class="kt-section__content kt-section__content--solid">
-                            <div class="kt-media-group">
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
-                                    <img src="./assets/media/users/100_1.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
-                                    <img src="./assets/media/users/100_10.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
-                                    <img src="./assets/media/users/100_11.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Luke Walls">
-                                    <img src="./assets/media/users/100_2.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
-                                    <img src="./assets/media/users/100_3.jpg" alt="image">
-                                </a>
-                                <a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
-                                    <span>+3</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 -->
                 
             </div>
         </div>
@@ -619,10 +588,115 @@
 </div>
 </div>
 </div>
-
+<div class="modal modal-sticky-bottom-right modal-sticky-lg show" id="kt_inbox_compose" role="dialog" data-backdrop="false" aria-modal="true" style="padding-right: 17px; display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content kt-inbox">
+            <div class="kt-inbox__form" id="kt_inbox_compose_form">
+                <div class="kt-inbox__head">
+                    <div class="kt-inbox__title">New Message</div>
+                    <div class="kt-inbox__actions">
+                        <button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light" id="msgModelCloseBtn">
+                            <i class="flaticon2-cross"></i>
+                        </button>
+                    </div>
+                </div>
+                <form id="msgInfoFormProfile">
+	                <div class="kt-inbox__body">
+	                    <div class="kt-inbox__to">
+	                        <div class="kt-inbox__wrapper">
+	                            <div class="kt-inbox__field kt-inbox__field--to">
+	                                <div class="kt-inbox__label">
+	                                    To:
+	                                </div>
+	                                 <input class = "form-control" type="text" name="receiverName" value="${otherUser.fullName}" style="border: 1px solid #F0F8FF; border-radius: 5px; background-color:#F0F8FF;width:300px;height:30px">
+	                                 <input type="hidden" name="receiverID" value="${otherUser.userID}">
+	                            </div>
+	                        </div>
+	                    </div>
 	
-<!-- end:: Content -->					
+	                    <div class="kt-inbox__subject" style="border-bottom:1px inset">
+	                        <input id="msgsbjct" class="form-control msgSubjectArea" name="messageSubject" placeholder="Subject" ><hr>
+	                       
+	                    </div>
+	                    
+						<textarea name="messageText" class="form-control msgTextArea" placeholder="Type your message here" style="height: 300px;width:%100;border:none"></textarea>
+						<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
+	
+	                    <div class="kt-inbox__attachments">
+	                        <div class="dropzone dropzone-multi" id="kt_inbox_compose_attachments">
+	                            <div class="dropzone-items">
+	                                
+	                            </div>
+	                        <div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
+	                    </div>
+	                </div>
+                </form>
+               
+                <div class="kt-inbox__foot">
+                    <div class="kt-inbox__primary">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-brand btn-bold msg-PushButton">
+                                Send
+                            </button>
+                            <input type="hidden" value="msgInfoFormProfile">
+                            <div class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-writing"></i>
+                                            <span class="kt-nav__link-text">Schedule Send</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-medical-records"></i>
+                                            <span class="kt-nav__link-text">Save &amp; archive</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+                                            <span class="kt-nav__link-text">Cancel</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="kt-inbox__panel">
+                            <label class="kt-inbox__icon kt-inbox__icon--light dz-clickable" id="kt_inbox_compose_attachments_select">
+                                <i class="flaticon2-clip-symbol"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="kt-inbox__secondary">
+                        <button class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light" data-toggle="kt-tooltip" title="" data-original-title="Dismiss reply">
+                            <i class="flaticon2-rubbish-bin-delete-button"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- Form to send message -->
+	<form id="msgSendForm">
+		<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
+		<input type="hidden" name="receiverID" value="${otherUser.userID}">
+		<input type="hidden" id="msgSubject" name="subject" value="">
+		<input type="hidden" id="msgText" name="messageText" value="">
+	</form>
+
+
+
+
+<!-- End of the form -->
+
+
+
+
+
 </div>
 
 				<!-- begin:: Footer -->
@@ -673,6 +747,7 @@
 
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
+<script src="./js/Message.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>
@@ -724,8 +799,6 @@
 <script src="./assets/vendors/general/waypoints/lib/jquery.waypoints.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/counterup/jquery.counterup.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/es6-promise-polyfill/promise.min.js" type="text/javascript"></script>
-<script src="./assets/vendors/general/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
-<script src="./assets/vendors/custom/js/vendors/sweetalert2.init.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/jquery.repeater/src/lib.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/jquery.repeater/src/jquery.input.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/jquery.repeater/src/repeater.js" type="text/javascript"></script>
@@ -736,8 +809,20 @@
     	    	   
 		    	   <script src="./assets/js/demo9/scripts.bundle.js" type="text/javascript"></script>
 				<!--end::Global Theme Bundle -->
-
-        
+				<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+				
+				<script type="text/javascript">
+					function messageSentSucces()
+					{
+						swal({
+							  title: "Success!",
+							  text: "Your message has been sent successfully !",
+							  icon: "success",
+							  button: "Ok",
+							});
+					}
+				</script>
+				
             </body>
     <!-- end::Body -->
 </html>

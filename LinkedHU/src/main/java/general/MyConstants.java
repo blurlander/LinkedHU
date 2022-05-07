@@ -21,10 +21,20 @@ public class MyConstants {
 	public static final String OPP_POST_DETAILS = "15";
 	public static final String OPP_SHARE_COMMENT = "16";
 	public static final String OPP_DELETE_COMMENT = "17"; // DON'T change
+	public static final String OPP_SEND_MESSAGE = "30";
+	public static final String OPP_VIEW_INBOX = "31";
+	public static final String OPP_DELETE_MESSAGE = "32";
 	
 	public static final int CODE_HOMEPAGE = 100;
 	public static final int CODE_DETAILPAGE = 101;
 	public static final int CODE_PROFILEPAGE = 102;
+	public static final int CODE_OTHERUSERPROFILE = 103;
+	
+	public static final int CODE_UNDELETED_MESSAGE = 0;
+	public static final int CODE_DELETEDMESSAGE_BY_SENDER = 1;
+	public static final int CODE_DELETEDMESSAGE_BY_RECEIVER = 2;
+	public static final int CODE_DELETEDMESSAGE_BY_BOTH_USER = 3;
+	
 	
 	
 	

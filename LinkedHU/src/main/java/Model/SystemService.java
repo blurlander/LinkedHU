@@ -7,6 +7,7 @@ import Interfaces.IUserDao;
 import general.MyConstants;
 import Interfaces.ICommentDao;
 import Interfaces.IDao;
+import Interfaces.IMessageDao;
 import Interfaces.IPostDao;
 import DAO.UserDao;
 import DAO.AcademicianDao;
@@ -26,9 +27,8 @@ public class SystemService implements IService{
 	private IDao postCreatorDao = new PostCreatorDao();
 	private IDao nonAdminUserDao = new NonAdminUserDao();
 	private ICommentDao commentDao = new CommentDao();
-	private IDao messageDao = new MessageDao();
+	private IMessageDao messageDao = new MessageDao();
 	private IPostDao postDao = new PostDao();
-	
 	@Override
 	public List<User> fetchAllUsers() {
 		return userDao.fetchAll();
@@ -46,7 +46,7 @@ public class SystemService implements IService{
 
 	@Override
 	public List<Comment> fetchAllComments(int postID) {	
-		return commentDao.fetchAllPostComment(postID);
+		return commentDao.fetchAllPostComments(postID);
 	}
 
 	@Override
@@ -110,14 +110,13 @@ public class SystemService implements IService{
 
 	@Override
 	public boolean createMessage(Message message) {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("Buraya geldi");
+		return messageDao.create(message);
 	}
 
 	@Override
 	public boolean deleteMessage(Message message) {
-		// TODO Auto-generated method stub
-		return false;
+		return messageDao.delete(message);
 	}
 	
 	@Override
@@ -139,6 +138,36 @@ public class SystemService implements IService{
 	@Override
 	public boolean updatePost(Post post) {
 		return postDao.update(post);
+	}
+
+	@Override
+	public List<Message> fetchUserMessages(int userID) {
+		return messageDao.fetchByUserID(userID);
+	}
+
+	@Override
+	public User readUser(int userID) {
+		User user = userDao.read(userID);
+		if(user.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+			user = (Academician)academicianDao.read(userID);	
+		}
+		return user;
+		
+	}
+
+	@Override
+	public Message readMessage(int messageID) {
+		return messageDao.read(messageID);
+	}
+
+	@Override
+	public boolean updateMessage(Message message) {
+		return messageDao.update(message);
+	}
+
+	@Override
+	public int getLastMessageID() {
+		return messageDao.getLastCreatedMessageID();
 	}
 
 	

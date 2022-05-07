@@ -2,6 +2,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -54,7 +55,34 @@ public class AcademicianDao implements IDao<Academician>{
 
 	@Override
 	public Academician read(int id) {
-		// TODO Auto-generated method stub
+		String query = "Select * from Academician where userID ="+id;
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Academician academician = new Academician();
+				academician.setUserID(rs.getInt("userID"));
+				academician.setUsername(rs.getString("username"));
+				academician.setEmail(rs.getString("email"));
+				academician.setPassword(rs.getString("password"));
+				academician.setFullName(rs.getString("fullName"));
+				academician.setUserType(rs.getInt("userType"));
+				academician.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				academician.setStatus(rs.getString("status"));
+				academician.setBio(rs.getString("bio"));
+				academician.setAcademicTitle(rs.getString("academicTitle"));
+				academician.setProfessionalHistory(rs.getString("professionalHistory"));
+				academician.setResearchHistory(rs.getString("researchHistory"));
+				academician.setProficiencies(rs.getString("proficiencies"));
+				academician.setOfficeNumber(rs.getString("officeNumber"));
+				return academician;	
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 

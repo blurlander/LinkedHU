@@ -130,18 +130,9 @@ public class UserController extends HttpServlet {
 				
 				//  userID of the user whose profile page we want to see
 				int incomeUserID = Integer.parseInt(request.getParameter("userID"));
-								
-				// get the posts of the otherUser
-				// read ile yap�lacak.
 				PostCreator otherUser =  (PostCreator)getUserFromID(incomeUserID);
-				
-				// fill post of the other user
 				otherUser.setAuthorOf(service.fetchUserPosts(incomeUserID));
-				
-				
-				// fill likes of the other user
 				otherUser.setLikes(service.getLikes(incomeUserID));
-				
 				session.setAttribute("otherUser",otherUser);
 				response.sendRedirect("Profile.jsp");
 				break;
@@ -252,56 +243,6 @@ public class UserController extends HttpServlet {
 
 		return true;
 	}
-	
-	/*
-	public boolean updateAccountInfo(String firstName, String lastName,String acadTitle, String phone, String mail, 
-			String address, String username, String password, String email) {
-			User u = new User();
-			String fullname = firstName + " " + lastName;
-			u.setFullName(fullname);
-			u.setEmail(email);
-			u.setPassword(password);
-			if(service.updateUser(u)) {
-				return true;
-			};	
-		
-		return false;
-	}
-	*/
-	
-	
-	/*protected boolean registerUser(String fullName,String email,String password) {
-		class PasswordController
-		{
-			private String candidatePassword;
-			public PasswordController(String candidatePassword) {
-				this.candidatePassword = candidatePassword; 
-			}
-			public boolean controlPassword() {
-				if(this.candidatePassword.length() < 5) {
-					return false;
-				}
-				boolean control = this.candidatePassword.matches("[A-Z]+");
-				boolean control1 = this.candidatePassword.matches("[a-z]+");
-				boolean control2 = this.candidatePassword.matches("[0-9]+");
-
-				boolean control3 = this.candidatePassword.matches("[<|>|�|#|$|@|+|-|?|!]+");
-
-				return control&&control1&&control2&&control3;		
-			}	
-		}
-		PasswordController passwordController = new PasswordController(password);
-		if(passwordController.controlPassword()) {
-			User newUser = new User();
-			newUser.setFullName(fullName);
-			newUser.setEmail(email);
-			newUser.setPassword(password);
-			
-		}
-		
-		return false;
-	}*/
-	
 	
 	
 	

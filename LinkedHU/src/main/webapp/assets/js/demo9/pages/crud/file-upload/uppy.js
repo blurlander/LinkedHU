@@ -288,7 +288,7 @@ var KTUppy = function () {
 				minNumberOfFiles: 1
 			}
 		});
-
+		
 		uppyDashboard.use(Dashboard, options);  
 		uppyDashboard.use(Tus, { endpoint: 'https://master.tus.io/files/' });
 		uppyDashboard.use(GoogleDrive, { target: Dashboard, companionUrl: 'https://companion.uppy.io' });
