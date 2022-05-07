@@ -251,9 +251,12 @@
 																class="flaticon2-correct"></i>
 															</a>
 
-															<div class="kt-widget__action">
+															<div class="kt-widget__action" style="display:flex">
 																
 																<!-- fallow button -->
+																<c:if test="${currentUser.userID != otherUser.userID}">
+																<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
+																</c:if>
 																<c:if
 																	test="${ (currentUser.userID != otherUser.userID) && (currentUser.userType == MyConstants.TYPE_STUDENT)}">
 																	<form id="followform">
@@ -277,21 +280,23 @@
 																	<c:if
 																		test="${!currentUser.follows.contains(otherUser.userID)}">
 																		<button type="button"
-																			class="btn btn-label-success btn-sm btn-upper follow-btn">Follow
-																			User</button>
+																			class="btn btn-label-success btn-sm btn-upper follow-btn">Follow User</button>
 																		<button type="button"
 																			class="btn btn-label-danger btn-sm btn-upper follow-btn"
 																			style="display: none;">Unfollow User</button>
 																	</c:if>
-
+																	
+																	
+																	
+																	
+																	
 																	<c:if
 																		test="${currentUser.follows.contains(otherUser.userID)}">
 																		<button type="button"
 																			class="btn btn-label-success btn-sm btn-upper follow-btn"
 																			style="display: none;">Follow User</button>
 																		<button type="button"
-																			class="btn btn-label-danger btn-sm btn-upper follow-btn">Unfollow
-																			User</button>
+																			class="btn btn-label-danger btn-sm btn-upper follow-btn">Unfollow User</button>
 																	</c:if>
 
 																</c:if>
