@@ -63,31 +63,10 @@ public class CommentDao implements ICommentDao {
 			e.printStackTrace();
 			return commentID;
 		}
-		/*String sql = "SHOW TABLE STATUS LIKE 'comment'";
-		
-		int auto_id = 0;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			if(rs.next()) {				
-				auto_id = rs.getInt("Auto_increment");
-			}
-			
-				
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			return -1;
-		}
-
-		return auto_id;*/
-		
 	}
 	
 	@Override 
-	public List<Comment> fetchAllPostComment(int postID){
+	public List<Comment> fetchAllPostComments(int postID){
 		List<Comment>  allPostComment = new ArrayList<Comment>();
 		String query = "Select * from Comment WHERE postID = ? order by createdAt desc";
 		try {

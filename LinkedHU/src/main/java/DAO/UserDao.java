@@ -196,8 +196,29 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public User read(int userID) {
-		// TODO Auto-generated method stub
+		String query = "Select * from User where userID ="+userID;
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				User user = new User();
+				user.setUserID(rs.getInt("userID"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setFullName(rs.getString("fullName"));
+				user.setUserType(rs.getInt("userType"));
+				
+				return user;	
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
+		
 	}
 
 	@Override

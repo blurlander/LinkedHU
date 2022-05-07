@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class User {
 	private int userID;
@@ -10,7 +11,7 @@ public class User {
 	private String fullName;
 	private int userType;
 	private ArrayList<Comment> comments = null;
-	private ArrayList<Message> messages = null;
+	private TreeMap<Message,User> messages = new TreeMap<Message,User>();
 	
 	public int getUserID() {
 		return userID;
@@ -54,12 +55,13 @@ public class User {
 	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
-	public ArrayList<Message> getMessages() {
+	public TreeMap<Message, User> getMessages() {
 		return messages;
 	}
-	public void setMessages(ArrayList<Message> messages) {
+	public void setMessages(TreeMap<Message, User> messages) {
 		this.messages = messages;
 	}
+
 	
 	
 

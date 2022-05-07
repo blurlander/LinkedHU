@@ -57,7 +57,6 @@ public class PostController extends HttpServlet {
 		
 		// When login is success load main page
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage") ) {
-			User currentUser = (User)session.getAttribute("currentUser");
 			
 			List<Post> allPosts = service.fetchAllPosts();
 			List<User> allUsers = service.fetchAllUsers();
@@ -68,6 +67,7 @@ public class PostController extends HttpServlet {
 			}
 			session.setAttribute("map",map);
 			session.setAttribute("operation", "failgetPostsForDiscoverPage");
+			request.getRequestDispatcher("MessageController").include(request, response);
 		}
 		
 		// Create Post
