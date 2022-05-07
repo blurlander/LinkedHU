@@ -194,6 +194,31 @@
 				</div>
 			</div>
 			<div class="kt-portlet__body">
+			
+									<c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This username is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+                                    	<div class="alert alert-outline-warning fade show" role="alert">
+			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+			                            <div class="alert-text">This email is already used.</div>
+			                            <div class="alert-close">
+			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
+			                                </button>
+			                            </div>
+                        				</div>
+                                    </c:if> 
+			
+			
 				<form class="kt-form" action = "UserController" method = "POST" id= "blablabla" enctype="multipart/form-data">
 				
 					<div class="row">
@@ -207,7 +232,11 @@
                                         <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
                                         <div class="col-lg-9 col-xl-6">
                                             <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
-                                                <img class="kt-avatar__holder" src="${currentUser.profilePictureSrc}">
+                                            	
+                                            	
+                                                	<img class="kt-avatar__holder" src="${otherUser.profilePictureSrc}">
+                                            	
+                                            	
                                                 <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
                                                     <i class="fa fa-pen"></i>
                                                     <input type="file" name="profilePicture" accept=".png, .jpg, .jpeg">
@@ -220,7 +249,7 @@
                                     </div>
                                     
 
-                                    <c:set var="dateParts" value="${fn:split(currentUser.fullName, ' ')}" />
+                                    <c:set var="dateParts" value="${fn:split(otherUser.fullName, ' ')}" />
 									<div class="form-group row">
 										<label class="col-3 col-form-label">First Name</label>
 										<div class="col-9">
@@ -237,11 +266,14 @@
 										</div>
 									</div>
 									
+									<c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}"> 
+									<!-- Graduate icin ayrı yapılacak  -->
+									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle }">
+											<input required class="form-control" name ="acadTitle" type="text" value="${otherUser.academicTitle}">
 
 										</div>
 									</div>
@@ -250,7 +282,7 @@
 										<label class="col-3 col-form-label">Office Number </label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="officeNumber" type="text" value="${currentUser.officeNumber }">
+											<input required class="form-control" name ="officeNumber" type="text" value="${otherUser.officeNumber }">
 
 										</div>
 									</div>
@@ -260,7 +292,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="professionalHistory" rows="5" cols="100" >${currentUser.professionalHistory }</textarea>
+												<textarea required class="form-control" name="professionalHistory" rows="5" cols="100" >${otherUser.professionalHistory }</textarea>
 
 											</div>
 										</div>
@@ -271,7 +303,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="researchHistory" rows="5" cols="100" >${currentUser.researchHistory }</textarea>
+												<textarea required class="form-control" name="researchHistory" rows="5" cols="100" >${otherUser.researchHistory }</textarea>
 
 											</div>
 										</div>
@@ -282,18 +314,87 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="proficiencies" rows="5" cols="100">${currentUser.proficiencies }</textarea>
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
+
+											</div>
+										</div>
+									</div>
+									</c:if>
+									
+									<c:if test = "${otherUser.userType == MyConstants.TYPE_STUDENT}">
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Skills</label>
+										<div class="col-9">
+											<div class="input-group">
+
+												<textarea required class="form-control" name="skills" rows="5" cols="100">${otherUser.skills}</textarea>
 
 											</div>
 										</div>
 									</div>
 									
 									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">GPA</label>
+										<div class="col-9">
+											<div class="input-group">
+
+												<input required class="form-control" name ="gpa" type="text" value="${otherUser.gpa }">	
+
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Graduation</label>
+										<div class="col-9">
+											<div class="input-group">
+												
+												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduation }">
+
+											</div>
+										</div>
+									</div>
+									</c:if>
+									
+									<c:if test = "${otherUser.userType == MyConstants.TYPE_GRADUATE}">
+									
+									
+									
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Graduation</label>
+										<div class="col-9">
+											<div class="input-group">
+												
+												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduationYear }">
+
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
+										<label class="col-3 col-form-label">Proficiencies</label>
+										<div class="col-9">
+											<div class="input-group">
+
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
+
+											</div>
+										</div>
+									</div>
+									
+									
+									</c:if>
+									
+									
+									
+									
+									<div class="form-group form-group-last row" style="margin-bottom:20px">
 										<label class="col-3 col-form-label"> Bio</label>
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="bio" rows="5" cols="100">${currentUser.bio }</textarea>
+												<textarea required name="bio" class="form-control" rows="5" cols="100">${otherUser.bio }</textarea>
 
 											</div>
 										</div>
@@ -310,7 +411,7 @@
 										<label class="col-3 col-form-label">Username</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="userName" type="text" value="${currentUser.username }">				
+												<input required class="form-control" name ="userName" type="text" value="${otherUser.username }">				
 
 										</div>
 									</div>
@@ -318,7 +419,7 @@
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="password" type="password" value="${currentUser.password }">				
+												<input required class="form-control" name ="password" type="password" pattern=".{8,}"   required title="8 characters minimum" value="${otherUser.password }">				
 
 										</div>
 									</div>
@@ -328,9 +429,18 @@
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
 
-												<input required type="text" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
+												<input required type="email" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
+												
+												<c:if test = "${status != MyConstants.CONTINUE_REGISTER}">
 												<input type = "hidden" value = "${MyConstants.OPP_UPDATE_PROFILE }" name = "operation">
+												</c:if>
+												
+												<c:if test="${status == MyConstants.CONTINUE_REGISTER}"> 
+												<!-- Checking if we are here after register -->
+												<input type = "hidden" value = "${MyConstants.OPP_FINISH_REGISTER }" name = "operation">
+												</c:if>
+												
 											</div>
 											<span class="form-text text-muted">Email will not be publicly displayed. <a href="#" class="kt-link">Learn more</a>.</span>
 										</div>
@@ -381,6 +491,9 @@
 			</div>
 		</div><!-- root end -->
 <!-- end:: Page -->
+<% session.removeAttribute("userexists"); %>
+
+    
 
  <!-- begin::Global Config(global config for global JS sciprts) -->
  <script>

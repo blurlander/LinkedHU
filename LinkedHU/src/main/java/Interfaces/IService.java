@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import Model.*;
@@ -29,4 +31,13 @@ public interface IService {
 	boolean deleteComment(Comment comment);
 	boolean createMessage(Message message);
 	boolean deleteMessage(Message message);
+	boolean banUser(int ID, Date ts,int type);
+	int getTypefromid(int ID);
+	boolean liftBan(int ID, int type);
+	boolean followUser(int follower, int userID);
+	boolean unfollowUser(int unfollower, int userID);
+	List<Integer> getFollowedUserID(int studentID);
+	int getFollowCount(int ID);
+	int checkUserNameExists(String name);
+	int checkEmailExists(String email);
 }

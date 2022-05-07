@@ -1,8 +1,6 @@
 package DAO;
-import Model.Academician;
-import Model.Graduate;
-import Model.UploadedFile;
-import Model.User;
+
+import Model.*;
 import general.MyConstants;
 
 import java.sql.Connection;
@@ -118,22 +116,46 @@ public class UserDao implements IUserDao {
 		try {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
+			boolean breakAdmin = false;
+			boolean breakAcademician = false;
+			boolean breakGraduate = false;
+			boolean breakStudent = false;
 			while(rs.next()) {
 				switch(rs.getInt("userType")) 
 				{
 					case MyConstants.TYPE_ADMIN : 
-						break;
+					breakAdmin = true;
 					case MyConstants.TYPE_ACADEMICIAN :
-						addAcademician(allUsers);
-						break;
+					breakAcademician = true;
 					case MyConstants.TYPE_GRADUATE:  
-						break;
+					breakGraduate = true;
 					case MyConstants.TYPE_STUDENT: 
-						break;
+					breakStudent = true;	
+					
+
 				}
 				//allUsers.add(user);
 				
+					
 			}
+			if(breakAdmin) {
+				addAdmin(allUsers);
+			}
+			if(breakAcademician) {
+				addAcademician(allUsers);
+			}
+			if(breakGraduate) {
+				addGraduate(allUsers);
+			}
+			if(breakStudent) {
+
+				addStudent(allUsers);
+			}
+			
+			
+
+
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,8 +166,32 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public boolean create(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean key = false;	   
+	    String query = "INSERT INTO user(username,email,password,userType) VALUES (?,?,?,?)";
+	    
+	    //System.out.println(user.getUsername());
+	    
+	    try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setString(1,user.getUsername());
+			this.preparedStatement.setString(2,user.getEmail());
+			this.preparedStatement.setString(3,user.getPassword());			
+			this.preparedStatement.setInt(4,user.getUserType());
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    
+		    int a = getIDfromUsername(user.getUsername());
+		    user.setUserID(a);
+		    
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
 	}
 
 	@Override
@@ -182,13 +228,121 @@ public class UserDao implements IUserDao {
 
 
 	@Override
-	public boolean delete(User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean delete(User user){
+		boolean flag = true;
+		
+		if (user.getUserType() == 1)
+		{
+			try {
+				String delete = "DELETE FROM academician WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		if (user.getUserType() == 2)
+		{
+			try {
+				String delete = "DELETE FROM student WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		if (user.getUserType() == 3)
+		{
+			try {
+				String delete = "DELETE FROM graduate WHERE userID = ?";
+				PreparedStatement sql = connection.prepareStatement(delete);
+				sql.setInt(1,user.getUserID());
+				if(!(sql.executeUpdate() > 0))
+				{
+					flag = false;
+				}
+			}
+			catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+		
+		
+		try {
+			String delete = "DELETE FROM comment WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+		}
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		try {
+			String delete = "DELETE FROM likes WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+		}
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		try {
+			String delete = "DELETE FROM post WHERE authorID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+			//connection.close();
+			//sql.close();
+		}		
+		catch (SQLException e) {
+		e.printStackTrace();
+		}
+		
+		try {
+			String delete = "DELETE FROM user WHERE userID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,user.getUserID());
+			if(!(sql.executeUpdate() > 0))
+			{
+				flag = false;
+			}
+			//connection.close();
+			//sql.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			}
+		
+		
+		return flag;
+	}//END OF DELETE 
 	
 	private void addAcademician(List<User> allUsers) {
 		String query = "Select * from Academician";
+		
 		ResultSet rs;
 		try {
 			statement = connection.createStatement();
@@ -209,6 +363,14 @@ public class UserDao implements IUserDao {
 				academician.setResearchHistory(rs.getString("researchHistory"));
 				academician.setProficiencies(rs.getString("proficiencies"));
 				academician.setOfficeNumber(rs.getString("officeNumber"));
+				if(rs.getTimestamp("bannedUntil") != null) {
+					academician.setBannedUntil(rs.getDate("bannedUntil"));
+				}
+				else {
+					academician.setBannedUntil(null);
+				}
+				
+			
 				allUsers.add(academician);		
 			}
 		}
@@ -233,6 +395,16 @@ public class UserDao implements IUserDao {
 				graduate.setProfilePictureSrc(rs.getString("profilePictureSrc"));
 				graduate.setStatus(rs.getString("status"));
 				graduate.setBio(rs.getString("bio"));
+				graduate.setProficiencies(rs.getString("proficiencies"));
+				graduate.setGraduationYear(rs.getString("graduation"));
+				if(rs.getTimestamp("bannedUntil") != null) {
+					graduate.setBannedUntil(rs.getDate("bannedUntil"));
+				}
+				else {
+					graduate.setBannedUntil(null);
+				}
+				
+				
 				allUsers.add(graduate);		
 			}
 		}
@@ -241,6 +413,82 @@ public class UserDao implements IUserDao {
 		}
 		
 	}
+	
+
+	private int getIDfromUsername(String username) {
+		String query = "Select * from user where username = ?";
+		int answer = -1;
+		try {			
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1,username);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				answer = rs.getInt("userID");
+			}
+			//System.out.println(answer);
+			return answer;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return -1;
+	}
+	
+	
+	
+	
+	private void addStudent(List<User> allUsers) {
+		String query = "Select * from student";
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+
+				Student student = new Student();
+				student.setUserID(rs.getInt("userID"));
+				student.setUsername(rs.getString("username"));
+				student.setEmail(rs.getString("email"));
+				student.setPassword(rs.getString("password"));
+				student.setFullName(rs.getString("fullName"));
+				student.setUserType(rs.getInt("userType"));
+				student.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				student.setStatus(rs.getString("status"));
+				student.setBio(rs.getString("bio"));
+				student.setSkills(rs.getString("skills"));
+				student.setGpa(rs.getDouble("gpa"));
+				student.setGraduation(rs.getString("graduation"));
+				student.setType(rs.getInt("type"));
+				
+				
+				if(rs.getTimestamp("bannedUntil") != null) {
+					student.setBannedUntil(rs.getDate("bannedUntil"));
+				}
+				else {
+					student.setBannedUntil(null);
+				}
+				
+				
+				allUsers.add(student);				
+
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+		
+	}	
+		
+
+	
+
 
 	@Override
 	public List<Integer> fetchAllUserLikes(int userID) {
@@ -298,4 +546,286 @@ public class UserDao implements IUserDao {
 			return false;
 		}
 	}
+	
+	private void addAdmin(List<User> allUsers) {
+		String query = "Select * from User where userType=0";
+		ResultSet rs;
+		
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Admin admin = new Admin();
+				admin.setUserID(rs.getInt("userID"));
+				admin.setUsername(rs.getString("username"));
+				admin.setEmail(rs.getString("email"));
+				admin.setPassword(rs.getString("password"));
+				admin.setFullName(rs.getString("fullName"));
+				admin.setUserType(rs.getInt("userType"));
+				allUsers.add(admin);		
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+	}
+	@Override
+	public int getTypefromID(int ID){
+		String query = "Select * from user where userID = ?";
+		int ans = -1;
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, ID);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ans = rs.getInt("userType");
+			}
+			return ans;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return ans;
+	}
+	
+	
+	
+	
+	
+
+	@Override
+	public boolean ban(int ID, Date ts, int type) {
+		String add = "";
+		
+		switch(type){
+		case MyConstants.TYPE_ACADEMICIAN:
+			add = "academician";
+			break;
+		case MyConstants.TYPE_GRADUATE:
+			add = "graduate";
+			break;
+		case MyConstants.TYPE_STUDENT:
+			add = "student";
+			break;
+	}			
+		String query = "Update "+add+" set bannedUntil = ? where userID = ? ";
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setDate(1,ts);
+			preparedStatement.setInt(2,ID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	
+	}
+
+	@Override
+	public boolean liftBan(int ID,int type) {
+		String add = "";
+		
+		switch(type){
+		case MyConstants.TYPE_ACADEMICIAN:
+			add = "academician";
+			break;
+		case MyConstants.TYPE_GRADUATE:
+			add = "graduate";
+			break;
+		case MyConstants.TYPE_STUDENT:
+			add = "student";
+			break;
+		}			
+		
+		String query = "Update "+add+" set bannedUntil = NULL where userID = ? ";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			
+			
+			preparedStatement.setInt(1,ID);
+			preparedStatement.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	
+		
+		
+		
+		
+	}
+
+	@Override
+	public boolean follow(int follower, int userID) {
+		String query = "Insert into follows values(?,?)";
+		boolean key  = false;
+		try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setInt(1,userID);
+			this.preparedStatement.setInt(2,follower);
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    
+		  
+		    
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
+		
+		
+	
+	}
+	@Override
+	public boolean unfollow(int unfollower, int userID) {
+		String query = "Delete from follows where userID = ? AND followerID = ?";
+		boolean key  = false;
+		try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	    
+		    this.preparedStatement.setInt(1,userID);
+			this.preparedStatement.setInt(2,unfollower);
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    
+		  
+		    
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
+		
+		
+		
+				
+	}
+	
+	@Override
+	public List<Integer> getFollowedUserID(int studentID){		
+		List<Integer> followedList = new ArrayList<Integer>();
+		String query = "SELECT * FROM follows WHERE followerID = " + studentID;
+		ResultSet rs;
+		
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				int i = rs.getInt("userID");
+				followedList.add(i);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+		
+		
+		
+		
+		return followedList;
+		
+	}
+	
+	
+	
+	@Override
+	public int getFollowCount(int ID) {
+		String query = "SELECT COUNT(*) FROM follows where userID = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setInt(1, ID);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt(1);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}
+	
+	@Override
+	public int checkUserNameExists(String name) {
+		String query = "SELECT COUNT(*) AS count FROM user where username = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setString(1, name);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt("count");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}	
+	
+	@Override
+	public int checkEmailExists(String email) {
+		String query = "SELECT COUNT(*) AS count FROM user where email = ?";
+		ResultSet rs;
+		int answer = -1;
+		try {
+			this.preparedStatement = this.connection.prepareStatement(query);
+			this.preparedStatement.setString(1, email);
+			rs = this.preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				answer = rs.getInt("count");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return answer;
+	}	
+
+	
+	
+	
+	
 }

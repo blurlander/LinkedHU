@@ -48,8 +48,39 @@ public class AcademicianDao implements IDao<Academician>{
 
 	@Override
 	public boolean create(Academician t) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean key = false;	   
+	    String query = "INSERT INTO academician(userID,username,email,password,fullName,userType,profilePictureSrc,bio,academicTitle,professionalHistory,researchHistory,proficiencies,officeNumber) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	    
+	    System.out.println(t.getUsername());
+	    
+	    try {
+	    	this.preparedStatement = this.connection.prepareStatement(query);	
+	    	this.preparedStatement.setInt(1,t.getUserID());
+		    this.preparedStatement.setString(2,t.getUsername());
+			this.preparedStatement.setString(3,t.getEmail());
+			this.preparedStatement.setString(4,t.getPassword());
+			this.preparedStatement.setString(5,t.getFullName());
+			this.preparedStatement.setInt(6,t.getUserType());
+			this.preparedStatement.setString(7,t.getProfilePictureSrc());			
+			this.preparedStatement.setString(8,t.getBio());
+			this.preparedStatement.setString(9,t.getAcademicTitle());
+			this.preparedStatement.setString(10,t.getProfessionalHistory());
+			this.preparedStatement.setString(11,t.getResearchHistory());
+			this.preparedStatement.setString(12,t.getProficiencies());
+			this.preparedStatement.setString(13,t.getOfficeNumber());
+			
+			
+			
+			if(this.preparedStatement.executeUpdate() > 0){
+		        key = true;
+		    }			
+		    this.preparedStatement.close();
+		    return key;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return false;
 	}
 
 	@Override
