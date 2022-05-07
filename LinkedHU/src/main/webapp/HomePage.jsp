@@ -90,10 +90,10 @@
 							<div class="sb_profile"> 
 								<div class="sb_profile_details">
 								 
-									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/123.jpg" />
+									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
 									
 									<div class="sb_fullname " style="display: none">
-										Ali fuat ozturk
+										<c:out value="${currentUser.username }"></c:out>
 									</div>
 										
 							        <form action="UserController" method="POST">
@@ -145,18 +145,25 @@
 									<span class="links_name">Change Password</span>
 								</a>
 							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-info"></i>
-									<span class="links_name">Administrator</span>
-								</a>
-							</li>
-							<li>
-								<a href="#" onclick = "window.location = 'FileUpload.jsp'">
-									<i class="fa fa-upload"></i>
-									<span class="links_name">Update Profile</span>
-								</a>
-							</li>
+							
+							<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
+								<li>
+	
+									<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
+										<i class="fa fa-info"></i>
+										<span class="links_name">Administrator</span>
+									</a>
+	
+								</li>
+							</c:if>
+							<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+								<li>
+									<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+										<i class="fa fa-upload"></i>
+										<span class="links_name">Upload File</span>
+									</a>
+								</li>
+							</c:if>
 						</ul>
 						<!-- side bar:: navigation list end-->
 						
@@ -165,6 +172,7 @@
 				<!-- end:: side bar -->
 			
 				<!-- begin:: 3 wrapper classes for content-->
+				
 				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding: 0px !important">
 					<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
 						<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
@@ -199,53 +207,19 @@
 		</div>
 		<!-- sub-header main end-->
 		
-		<!-- begin:: right buttons (create post and plus sign)-->
-		<div class="kt-subheader__toolbar">
-           <div class="kt-subheader__wrapper">
-           
-				<!-- Create post iÃ§in buton -->
-				<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
+		<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+			<!-- begin:: right buttons (create post and plus sign)-->
+			<div class="kt-subheader__toolbar">
+	           <div class="kt-subheader__wrapper">
+	           
+					<!-- Create post iÃ§in buton -->
+					<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
+					
 				
-				<!-- plus sign on the right -->			                
-				<div class="dropdown dropdown-inline" data-toggle="kt-tooltip"  data-placement="left">
-					
-					<!-- plus sign icon-->
-					<a href="#" class="btn btn-icon"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-							<polygon id="Shape" points="0 0 24 0 24 24 0 24"/>
-							<path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-							<path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000"/>
-							</g>
-						</svg>
-					<!-- <i class="flaticon2-plus"></i> -->
-					</a>
-					
-					<!-- plus sign drop down -->
-					<div class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-right">
-						<!--begin::Nav-->
-                      	<ul class="kt-nav">
-                          	<li class="kt-nav__head">
-                              	Upload File:
-                              	<i class="flaticon2-information" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more..."></i>
-                          	</li>
-
-                          	<li class="kt-nav__separator"></li>
-                          	<li class="kt-nav__foot">
-                              	<a class="btn btn-label-brand btn-bold btn-sm" href="#">Share as a post</a>
-                              	<a class="btn btn-clean btn-bold btn-sm" href="#"  data-placement="right" >To resources</a>
-                              	
-                          	</li>
-                      	</ul>
-                      <!--end::Nav-->
-                   </div>
-                   <!-- plus sign drop down end-->
-                   
-                </div>
-                
-            </div>
-        </div>
-		<!-- end:: right buttons (create post and plus sign)-->
+	            </div>
+	        </div>
+			<!-- end:: right buttons (create post and plus sign)-->
+		</c:if>
                          
     </div><!-- container div -->
 </div>
@@ -259,7 +233,7 @@
    		<div class="modal-dialog modal-lg" role="document">
        		<div class="modal-content">
            		<div class="modal-header">
-               		<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+               		<h5 class="modal-title" id="exampleModalLabel">New Post</h5>
               			 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
            		</div>
            		<div class="modal-body">

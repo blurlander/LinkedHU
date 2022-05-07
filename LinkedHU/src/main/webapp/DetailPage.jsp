@@ -75,6 +75,7 @@
 		<div class="kt-grid kt-grid--hor kt-grid--root">
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 		
+			
 				<!-- begin:: side bar -->
 				<div class="sb_sidebar ">
 					<div class="sb_top_content">
@@ -94,10 +95,10 @@
 							<div class="sb_profile"> 
 								<div class="sb_profile_details">
 								 
-									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/123.jpg" />
+									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
 									
 									<div class="sb_fullname " style="display: none">
-										Ali fuat ozturk
+										<c:out value="${currentUser.username }"></c:out>
 									</div>
 										
 							        <form action="UserController" method="POST">
@@ -149,19 +150,32 @@
 									<span class="links_name">Change Password</span>
 								</a>
 							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-info"></i>
-									<span class="links_name">Administrator</span>
-								</a>
-							</li>
+							
+							<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
+								<li>
+	
+									<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
+										<i class="fa fa-info"></i>
+										<span class="links_name">Administrator</span>
+									</a>
+	
+								</li>
+							</c:if>
+							<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+								<li>
+									<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+										<i class="fa fa-upload"></i>
+										<span class="links_name">Upload File</span>
+									</a>
+								</li>
+							</c:if>
 						</ul>
 						<!-- side bar:: navigation list end-->
 						
 					</div>
 				</div>
 				<!-- end:: side bar -->
-			
+				
 				<!-- begin:: 3 wrapper classes for content-->
 				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding:0px !important">
 					<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">

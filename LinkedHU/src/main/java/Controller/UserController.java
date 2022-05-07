@@ -339,7 +339,7 @@ public class UserController extends HttpServlet {
 				} catch (JSONException err) {
 					System.out.println("Error" + err.toString());
 				}
-
+				
 				response.sendRedirect("FileUpload.jsp");
 				break;
 				 

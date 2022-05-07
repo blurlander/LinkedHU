@@ -13,9 +13,6 @@ public class Academician extends PostCreator{
 	private String status;
 	
 	
-	
-	
-	
 	public Date getBannedUntil() {
 		return bannedUntil;
 	}

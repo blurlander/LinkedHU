@@ -66,6 +66,7 @@
 
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="./css/sidenavbar.css" rel="stylesheet" type="text/css" />
 		
 		<!--end::Global Theme Styles -->
 
@@ -96,659 +97,665 @@
 
 	<div class="kt-grid kt-grid--hor kt-grid--root">
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
-			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-				<!-- begin:: Header -->
-<div id="kt_header" class="kt-header  kt-header--fixed "  data-ktheader-minimize="on" >
-	<div class="kt-container  kt-container--fluid ">
-		<!-- begin: Header Menu -->
-<button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
-<div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
-    
-    	    <button class="kt-aside-toggler kt-aside-toggler--left" id="kt_aside_toggler"><span></span></button>
-
-
-</div>
-<!-- end: Header Menu -->		
-		<!-- begin:: Brand -->
-<div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
-
-	<a class="kt-header__brand-logo" href="#">
-		<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
-
-	</a>		
-</div>
-<!-- end:: Brand -->		<!-- begin:: Header Topbar -->
-<div class="kt-header__topbar kt-grid__item">
-	<!--begin: Search -->
-			<div class="kt-header__topbar-item kt-header__topbar-item--search dropdown" id="kt_quick_search_toggle">
-			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-				<span class="kt-header__topbar-icon" ><i class="flaticon2-search-1"></i></span>
-			</div>
-			<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
-				<div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact" id="kt_quick_search_dropdown">
-    <form method="get" class="kt-quick-search__form">
-        <div class="input-group">
-            <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
-            <input type="text" class="form-control kt-quick-search__input" placeholder="Search...">
-            <div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close"></i></span></div>
-       	</div>
-    </form>
-    <div class="kt-quick-search__wrapper kt-scroll" data-scroll="true" data-height="325" data-mobile-height="200">
-
-    </div>
-</div>
-			</div>
-		</div>
-		<!--end: Search -->
-
-	<!--begin: Notifications -->
-	<div class="kt-header__topbar-item dropdown">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-			<span class="kt-header__topbar-icon"><i class="flaticon2-bell-alarm-symbol"></i></span>
-
-			<!-- <span class="kt-badge kt-badge--danger"></span>  -->
-		</div>
 		
-
-	</div>
-	<!--end: Notifications -->
-
-	<!--begin: Quick actions -->
-	<div class="kt-header__topbar-item dropdown">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-			<span class="kt-header__topbar-icon"><i class="flaticon2-gear"></i></span>
-		</div>
-
-
-	</div>
-	<!--end: Quick actions -->
-
-	<!--begin: Cart -->
-
-	<!--end: Cart -->
-
-	<!--begin: Language bar -->
-	
-	<!--end: Language bar -->
-
-
-	<!--begin: User bar -->
-	<div class="kt-header__topbar-item kt-header__topbar-item--user">
-
-			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
+		
+			
+		<!-- begin:: side bar -->
+		<div class="sb_sidebar ">
+			<div class="sb_top_content">
 				
-				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${currentUser.username }"></c:out>
-				</span>
+				<!-- side bar:: brand-->
+				<div class="sb_logo_content">
+					<div class="sb_logo">
+						<a class="kt-header__brand-logo" href="#">
+							<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
+						</a>	
+					</div>
+				</div>
+				<!-- side bar:: brand end-->
 				
-				<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
-				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
+				<!-- side bar:: profile picture -->
+				<div class="sb_profile_content">
+					<div class="sb_profile"> 
+						<div class="sb_profile_details">
+						 
+							<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
+							
+							<div class="sb_fullname " style="display: none">
+								<c:out value="${currentUser.username }"></c:out>
+							</div>
+								
+					        <form action="UserController" method="POST">
+						        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+						        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
+					        </form>
+							
+						</div>
+					</div>
+				</div>
+				<!-- side bar:: profile picture end-->
+				
+				<!-- side bar:: navigation list -->
+				<ul class="sb_nav_list">
+					<li>
+						<form action="UserController" method="POST">
+							<a href="#" onclick = "window.location = 'HomePage.jsp'">
+								<i class="fa fa-home"></i>
+								<span class="links_name">Home Page</span>
+							</a>
+						</form>
+					</li>
+					<li>
+						<form action="UserController" method="POST">
+							<a href="#" onclick='this.parentNode.submit(); return false;'>					
+								<i class="fa fa-user-alt"></i>
+								<span class="links_name">Profile</span>
+							</a>
+							<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+							<input type="hidden" name="userID" value="${currentUser.userID }">
+						</form>
+					</li>
+					<li>
+						<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+							<i class="fa fa-user-edit"></i>
+							<span class="links_name">Update Profile</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-comments"></i>
+							<!-- <i class="fa fa-envelope"></i> -->
+							<span class="links_name">Messages</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-key"></i>
+							<span class="links_name">Change Password</span>
+						</a>
+					</li>
+					<li>
+
+						<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
+							<i class="fa fa-info"></i>
+							<span class="links_name">Administrator</span>
+						</a>
+
+					</li>
+					<li>
+						<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+							<i class="fa fa-upload"></i>
+							<span class="links_name">Update Profile</span>
+						</a>
+					</li>
+				</ul>
+				<!-- side bar:: navigation list end-->
+				
 			</div>
+		</div>
+		<!-- end:: side bar -->
 			
-		<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
-			<!--begin: Head -->
-		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
-		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style = "border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
-		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
-		        </div>
-		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currentUser.fullName }"></c:out>
-		        </div>
-		        <div class="kt-user-card__badge">
-		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
-		        </div>
-		    </div>
-		<!--end: Head -->
 		
-		<!--begin: Navigation -->
-		<div class="kt-notification">
-		
-			<!-- GO TO MY PROFILE -->
-			<form id="myProfileClick" action="UserController" method="POST">
-			
-		    <a href="javascript:{}" class="kt-notification__item" onclick="document.getElementById('myProfileClick').submit();">
-		        <div class="kt-notification__item-icon">
-		            <i class="flaticon2-calendar-3 kt-font-success"></i>
-		        </div>
-		        <div class="kt-notification__item-details">
-		            <div class="kt-notification__item-title kt-font-bold">
-		                My Profile
-		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
-		                <input type="hidden" name="userID" value="${currentUser.userID }">      
-		            </div>
-		            <div class="kt-notification__item-time">
-		                Account settings and more
-		            </div>
-		        </div>
-		    </a>
-		 
-			</form>
-			
-		    <a href="#" class="kt-notification__item">
-		        <div class="kt-notification__item-icon">
-		            <i class="flaticon2-mail kt-font-warning"></i>
-		        </div>
-		        <div class="kt-notification__item-details">
-		            <div class="kt-notification__item-title kt-font-bold">
-		                My Messages
-		            </div>
-		            <div class="kt-notification__item-time">
-		                Inbox and tasks
-		            </div>
-		        </div>
-		    </a>
-			
-		    <div class="kt-notification__custom kt-space-between">
-		        <form action="UserController" method="POST">
-		        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-		        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
-		        </form>
-		    </div>
-		</div>
-		<!--end: Navigation -->
-		</div>
-	</div>
-<!--end: User bar -->
-
-</div>
-<!-- end:: Header Topbar -->
-</div>
-</div>
-<!-- end:: Header -->
-									
-<!-- begin:: Aside -->
-
-<button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
-
-<div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
-	<!-- begin:: Aside Menu -->
-	<div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
-		<div 
-			id="kt_aside_menu"
-			class="kt-aside-menu "
-			data-ktmenu-vertical="1"
-			 data-ktmenu-scroll="1"  
-			>		
-			
-			<ul class="kt-menu__nav ">
-
-				
-				
-				<li class="kt-menu__section ">
-                	<h4 class="kt-menu__section-text">Pages</h4>
-                	<i class="kt-menu__section-icon flaticon-more-v2"></i>
-            	</li>
-            	
-            	<li class="kt-menu__item " aria-haspopup="true" >
-            		<a  href="HomePage.jsp" class="kt-menu__link ">
-            			<i class="kt-menu__link-icon fa fa-home"></i>
-            			<span class="kt-menu__link-text">Home Page</span>
-            		</a>
-            	</li>
-            	
-            	<li class="kt-menu__item " aria-haspopup="true" >
-            		<a  href="#" class="kt-menu__link ">
-            			<i class="kt-menu__link-icon fa fa-user"></i>
-            			<span class="kt-menu__link-text">Profile</span>
-            		</a>
-            	</li>
-			</ul>
-
-		</div>
-	</div>
-	<!-- end:: Aside Menu -->
-</div>
-<!-- end:: Aside -->				
-
-<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
-<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-
-<!-- begin:: Content Head -->
-
-
-
-	
-<!-- end:: Content Head -->
+		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding: 0px !important">
+			<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+				<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
 <!-- begin:: Content -->
-<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-<c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
-                                    	<div class="alert alert-outline-warning fade show" role="alert">
-			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-			                            <div class="alert-text">This username is already used.</div>
-			                            <div class="alert-close">
-			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
-			                                </button>
-			                            </div>
-                        				</div>
-                                    </c:if> 
-                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
-                                    	<div class="alert alert-outline-warning fade show" role="alert">
-			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-			                            <div class="alert-text">This email is already used.</div>
-			                            <div class="alert-close">
-			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
-			                                </button>
-			                            </div>
-                        				</div>
-                                    </c:if> 	
-<div class="kt-portlet kt-portlet--mobile">
-	<div class="kt-portlet__head kt-portlet__head--lg">
-		<div class="kt-portlet__head-label">
-			<span class="kt-portlet__head-icon">
-				<i class="kt-font-brand flaticon2-line-chart"></i>
-			</span>
-			<h3 class="kt-portlet__head-title">
-
-				All Users
-
-			</h3>
-		</div>
-		<div class="kt-portlet__head-toolbar">
-            <div class="kt-portlet__head-wrapper">
-	<div class="kt-portlet__head-actions">
-
-		&nbsp;
-		<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#add_user_modal">
-			<i class="la la-plus"></i>
-			Add User
-		</button>
-
-	</div>	
-</div>		</div>
-	</div>
-	
-	<div class="kt-portlet__body">
-		<!--begin: Datatable -->
-		<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
-									<thead>
-			  						<tr>
-				  									<th>User ID</th>
-				  									<th>Username</th>
-				  									<th>Email</th>
-				  									<th>Full Name</th>
-				  									<th>Academic Title</th>
-				  									<th>Office Number</th>
-				  									<th>Graduate Year</th>
-				  									<th>Banned Until</th>
-				  									<th>Status</th>
-				  									<th>Type</th>
-				  									<th>Actions</th>
-				  						</tr>
-						</thead>
-			
-								<tbody>
-<c:forEach items="${studList}" var="stud">		
-				<tr>			
-				  									<td>${ String.valueOf(stud.userID) }</td>
-				  									<td>${ stud.username }</td>
-				  									<td>${ stud.email }</td>
-				  									<td>${ stud.fullName }</td>
-				  									<td></td>
-				  									<td></td>
-				  									<td></td>
-				  									<td>${ stud.bannedUntil }</td>
-				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
-				  									<td>
-				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Student</span>
-				  									</td>
-				  									<td nowrap>
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                            <form method="POST" action="UserController" id = "${String.valueOf(stud.userID)}-profile">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(stud.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
-                            	<input type="hidden" name="userID" value="${stud.userID }">   
-                            	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
-                            </form>
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(stud.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
-                            </form>
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(stud.userID)}"><i class="flaticon-delete"></i> Remove User</button>
-                            </form>
-                            <c:if test="${stud.bannedUntil != null}">
-                            <form method="POST" action="UserController" id = "${String.valueOf(stud.userID)}-liftban">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(stud.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
-                            	<input type="hidden" name="liftID" value="${stud.userID }"> 
-                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
-                            </form>
-                            </c:if>
-                            </div>
-                        </span>
-                        </td>
-                       
-             
-				  						</tr>
-				  			<div class="modal fade show" id="ban_modal_${String.valueOf(stud.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">Ban User ${String.valueOf(stud.userID)}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="UserController" method="Post">
-                    <div class="form-group">
-                        <label for="ban-date" class="form-control-label">Ban User Until:</label>
-                        <input type="date" class="form-control" id="ban-date" name = "banDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="form-control-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                     <input type ="hidden" name ="banID" value = ${ String.valueOf(stud.userID) }>
-                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
-                     <div class="modal-footer">
-                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                	<button type="submit" class="btn btn-primary">Ban User</button>               
-            </div>
-                </form>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
-<div class="modal fade show" id="delete_modal_${String.valueOf(stud.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
-                <form action="UserController" method="Post">
-                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(stud.userID) } </button>
-                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
-                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(stud.userID) }>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-				  	</c:forEach>
-				  	
-				  	
-				  	<c:forEach items="${acadList}" var="acad">		
-				<tr>			
-				  									<td>${ String.valueOf(acad.userID) }</td>
-				  									<td>${ acad.username }</td>
-				  									<td>${ acad.email }</td>
-				  									<td>${ acad.fullName }</td>
-				  									<td>${ acad.academicTitle }</td>
-				  									<td>${ acad.officeNumber }</td>
-				  									<td></td>
-				  									<td>${ acad.bannedUntil }</td>
-				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
-				  									<td>
-				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Academician</span>
-				  									</td>
-				  									<td nowrap>
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                            <form method="POST" action="UserController" id = "${String.valueOf(acad.userID)}-profile">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(acad.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
-                            	<input type="hidden" name="userID" value="${acad.userID }">   
-                            	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
-                            </form>
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(acad.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
-                            </form>
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(acad.userID)}"><i class="flaticon-delete"></i> Remove User</button>
-                            </form>
-                            <c:if test="${acad.bannedUntil != null}">
-                            <form method="POST" action="UserController" id = "${String.valueOf(acad.userID)}-liftban">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(acad.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
-                            	<input type="hidden" name="liftID" value="${acad.userID }"> 
-                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
-                            </form>
-                            </c:if>
-                            </div>
-                        </span>
-                        </td>
-                       
-             
-				  						</tr>
-				  			<div class="modal fade show" id="ban_modal_${String.valueOf(acad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">Ban User ${String.valueOf(acad.userID)}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="UserController" method="Post">
-                    <div class="form-group">
-                        <label for="ban-date" class="form-control-label">Ban User Until:</label>
-                        <input type="date" class="form-control" id="ban-date" name = "banDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="form-control-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                     <input type ="hidden" name ="banID" value = ${ String.valueOf(acad.userID) }>
-                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
-                     <div class="modal-footer">
-                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                	<button type="submit" class="btn btn-primary">Ban User</button>               
-            </div>
-                </form>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
-<div class="modal fade show" id="delete_modal_${String.valueOf(acad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
-                <form action="UserController" method="Post">
-                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(acad.userID) } </button>
-                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
-                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(acad.userID) }>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-				  	</c:forEach>	
-			
-			<c:forEach items="${gradList}" var="grad">		
-				<tr>			
-				  									<td>${ String.valueOf(grad.userID) }</td>
-				  									<td>${ grad.username }</td>
-				  									<td>${ grad.email }</td>
-				  									<td>${ grad.fullName }</td>
-				  									<td></td>
-				  									<td></td>
-				  									<td>${ grad.graduationYear }</td>
-				  									<td>${ grad.bannedUntil }</td>
-				  									<td><span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
-				  									<td>
-				  									<span class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span class="kt-font-bold kt-font-primary">Graduate</span>
-				  									</td>
-				  									<td nowrap>
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                            <form method="POST" action="UserController" id = "${String.valueOf(grad.userID)}-profile">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(grad.userID)}-profile" value="submit"><i class="flaticon-user"></i> Go to Profile</button>
-                            	<input type="hidden" name="userID" value="${grad.userID }">   
-                            	<input type = "hidden" value = "${MyConstants.OPP_VIEW_PROFILE}" name = "operation"> 
-                            </form>  
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#ban_modal_${String.valueOf(grad.userID)}" ><i class="flaticon-cancel"></i> Ban User</button> 
-                            </form>
-                            <form onsubmit="return false">
-                                <button class="dropdown-item" data-toggle="modal" data-target="#delete_modal_${String.valueOf(grad.userID)}"><i class="flaticon-delete"></i> Remove User</button>
-                            </form>
-                            <c:if test="${grad.bannedUntil != null}">
-                            <form method="POST" action="UserController" id = "${String.valueOf(grad.userID)}-liftban">
-                                <button class="dropdown-item" type="submit" form="${String.valueOf(grad.userID)}-liftban" value="submit"><i class="flaticon2-checkmark"></i>Lift Ban</button>
-                            	<input type="hidden" name="liftID" value="${grad.userID }"> 
-                            	<input type = "hidden" value = "${MyConstants.OPP_LIFT_BAN}" name = "operation"> 
-                            </form>
-                            </c:if>
-                            </div>
-                        </span>
-                        </td>
-                       
-             
-				  						</tr>
-				  			<div class="modal fade show" id="ban_modal_${String.valueOf(grad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">Ban User ${String.valueOf(grad.userID)}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="UserController" method="Post">
-                    <div class="form-group">
-                        <label for="ban-date" class="form-control-label">Ban User Until:</label>
-                        <input type="date" class="form-control" id="ban-date" name = "banDate">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="form-control-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                     <input type ="hidden" name ="banID" value = ${ String.valueOf(grad.userID) }>
-                     <input type = "hidden" value = "${MyConstants.OPP_BAN_USER}" name = "operation">
-                     <div class="modal-footer">
-                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                	<button type="submit" class="btn btn-primary">Ban User</button>               
-            </div>
-                </form>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
-<div class="modal fade show" id="delete_modal_${String.valueOf(grad.userID)}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body" style="display:flex; justify-content: center; align-content: space-between;">
-                <form action="UserController" method="Post">
-                <button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(grad.userID) } </button>
-                <input type = "hidden" value = "${MyConstants.OPP_DELETE_USER }" name = "operation">
-                <input type ="hidden" name ="deleteID" value = ${ String.valueOf(grad.userID) }>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-				  	</c:forEach>
-				  	
-			
-				  	
-				  	
-				  		
-				  						
-								
-								</tbody>
-			
-					</table>
-		<!--end: Datatable -->
-
-		<div class="modal fade show" id="add_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="UserController" id = "add-user-form">
-                    <div class="form-group">
-                    	<label for="firstname" class="form-control-label">First Name:</label>
-                        <input type="text" required class="form-control" name="firstname">
-                        <label for="lastname" class="form-control-label">Last Name:</label>
-                        <input type="text" required class="form-control" name="lastname">
-                        <label for="username" class="form-control-label">Username:</label>
-                        <input type="text" required class="form-control" name="username">
-                        <label for="email" class="form-control-label">Email:</label>
-                        <input type="email" required class="form-control" name="email">
-                        <label for="password" class="form-control-label">Password:</label>
-                        <input class="form-control" type="text" pattern=".{8,}"   required title="8 characters minimum" required placeholder="Password" name="password">
-                        <label for="type" class="form-control-label">User Type:</label>
-                        <select class="form-control" name="type">
-							<option value="${MyConstants.TYPE_STUDENT}">Student</option>
-						    <option value="${MyConstants.TYPE_ACADEMICIAN}">Academician</option>
-						    <option value="${MyConstants.TYPE_GRADUATE}">Graduate</option>						    
-						</select>                        
-						<input type="hidden" id = "31" name = "operation" value="${MyConstants.OPP_CREATED_BY_ADMIN}" >
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                <button type="submit" form="add-user-form" value="submit" class="btn btn-primary">Add User</button>
-                
-            </div>
-        </div>
-    </div>
-</div>  
-
-	</div>
-</div>	</div>
-<!-- end:: Content -->					
-</div>
-</div>
-
-				<!-- begin:: Footer -->
-
-<div class="kt-footer kt-grid__item" id="kt_footer">
-	<div class="kt-container ">
-		<div class="kt-footer__wrapper">
-			<div class="kt-footer__copyright">
-
-				2022&nbsp;&copy;&nbsp;<a href="#" target="_blank" class="kt-link">HelloWorld Inc.</a>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" style="padding: 30px !important">
+	<c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
+		<div class="alert alert-outline-warning fade show" role="alert">
+			<div class="alert-icon">
+				<i class="flaticon-warning"></i>
 			</div>
-			<div class="kt-footer__menu">
-				<a href="#" target="_blank" class="kt-link">About</a>
-				<a href="#" target="_blank" class="kt-link">Team</a>
-				<a href="#" target="_blank" class="kt-link">Contact</a>
-
+			<div class="alert-text">This username is already used.</div>
+			<div class="alert-close">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true"><i class="la la-close"></i></span>
+				</button>
 			</div>
 		</div>
+	</c:if>
+	<c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
+		<div class="alert alert-outline-warning fade show" role="alert">
+			<div class="alert-icon">
+				<i class="flaticon-warning"></i>
+			</div>
+			<div class="alert-text">This email is already used.</div>
+			<div class="alert-close">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true"><i class="la la-close"></i></span>
+				</button>
+			</div>
+		</div>
+	</c:if>
+	<div class="kt-portlet kt-portlet--mobile">
+		<div class="kt-portlet__head kt-portlet__head--lg">
+			<div class="kt-portlet__head-label">
+				<span class="kt-portlet__head-icon"> <i
+					class="kt-font-brand flaticon2-line-chart"></i>
+				</span>
+				<h3 class="kt-portlet__head-title">All Users</h3>
+			</div>
+			<div class="kt-portlet__head-toolbar">
+				<div class="kt-portlet__head-wrapper">
+					<div class="kt-portlet__head-actions">
+
+						&nbsp;
+						<button type="button"
+							class="btn btn-bold btn-label-brand btn-sm"
+							data-toggle="modal" data-target="#add_user_modal">
+							<i class="la la-plus"></i> Add User
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="kt-portlet__body">
+			<!--begin: Datatable -->
+			<table
+				class="table table-striped- table-bordered table-hover table-checkable"
+				id="kt_table_1">
+				<thead>
+					<tr>
+						<th>User ID</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Full Name</th>
+						<th>Academic Title</th>
+						<th>Office Number</th>
+						<th>Graduate Year</th>
+						<th>Banned Until</th>
+						<th>Status</th>
+						<th>Type</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach items="${studList}" var="stud">
+						<tr>
+							<td>${ String.valueOf(stud.userID) }</td>
+							<td>${ stud.username }</td>
+							<td>${ stud.email }</td>
+							<td>${ stud.fullName }</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>${ stud.bannedUntil }</td>
+							<td><span
+								class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
+							<td><span
+								class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span
+								class="kt-font-bold kt-font-primary">Student</span></td>
+							<td nowrap><span class="dropdown"> <a href="#"
+									class="btn btn-sm btn-clean btn-icon btn-icon-md"
+									data-toggle="dropdown" aria-expanded="true"> <i
+										class="la la-ellipsis-h"></i>
+								</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<form method="POST" action="UserController"
+											id="${String.valueOf(stud.userID)}-profile">
+											<button class="dropdown-item" type="submit"
+												form="${String.valueOf(stud.userID)}-profile"
+												value="submit">
+												<i class="flaticon-user"></i> Go to Profile
+											</button>
+											<input type="hidden" name="userID"
+												value="${stud.userID }"> <input type="hidden"
+												value="${MyConstants.OPP_VIEW_PROFILE}"
+												name="operation">
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#ban_modal_${String.valueOf(stud.userID)}">
+												<i class="flaticon-cancel"></i> Ban User
+											</button>
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#delete_modal_${String.valueOf(stud.userID)}">
+												<i class="flaticon-delete"></i> Remove User
+											</button>
+										</form>
+										<c:if test="${stud.bannedUntil != null}">
+											<form method="POST" action="UserController"
+												id="${String.valueOf(stud.userID)}-liftban">
+												<button class="dropdown-item" type="submit"
+													form="${String.valueOf(stud.userID)}-liftban"
+													value="submit">
+													<i class="flaticon2-checkmark"></i>Lift Ban
+												</button>
+												<input type="hidden" name="liftID"
+													value="${stud.userID }"> <input type="hidden"
+													value="${MyConstants.OPP_LIFT_BAN}" name="operation">
+											</form>
+										</c:if>
+									</div>
+							</span></td>
+
+
+						</tr>
+						<div class="modal fade show"
+							id="ban_modal_${String.valueOf(stud.userID)}" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										Ban User ${String.valueOf(stud.userID)}
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form action="UserController" method="Post">
+											<div class="form-group">
+												<label for="ban-date" class="form-control-label">Ban
+													User Until:</label> <input type="date" class="form-control"
+													id="ban-date" name="banDate">
+											</div>
+											<div class="form-group">
+												<label for="message-text" class="form-control-label">Message:</label>
+												<textarea class="form-control" id="message-text"></textarea>
+											</div>
+											<input type="hidden" name="banID"
+												value=${ String.valueOf(stud.userID) }> <input
+												type="hidden" value="${MyConstants.OPP_BAN_USER}"
+												name="operation">
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Ban
+													User</button>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade show"
+							id="delete_modal_${String.valueOf(stud.userID)}"
+							tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Are
+											You Sure?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body"
+										style="display: flex; justify-content: center; align-content: space-between;">
+										<form action="UserController" method="Post">
+											<button type="submit" class="btn btn-primary">Delete
+												User With Id ${ String.valueOf(stud.userID) }</button>
+											<input type="hidden"
+												value="${MyConstants.OPP_DELETE_USER }"
+												name="operation"> <input type="hidden"
+												name="deleteID" value=${ String.valueOf(stud.userID) }>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</c:forEach>
+
+
+					<c:forEach items="${acadList}" var="acad">
+						<tr>
+							<td>${ String.valueOf(acad.userID) }</td>
+							<td>${ acad.username }</td>
+							<td>${ acad.email }</td>
+							<td>${ acad.fullName }</td>
+							<td>${ acad.academicTitle }</td>
+							<td>${ acad.officeNumber }</td>
+							<td></td>
+							<td>${ acad.bannedUntil }</td>
+							<td><span
+								class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
+							<td><span
+								class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span
+								class="kt-font-bold kt-font-primary">Academician</span></td>
+							<td nowrap><span class="dropdown"> <a href="#"
+									class="btn btn-sm btn-clean btn-icon btn-icon-md"
+									data-toggle="dropdown" aria-expanded="true"> <i
+										class="la la-ellipsis-h"></i>
+								</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<form method="POST" action="UserController"
+											id="${String.valueOf(acad.userID)}-profile">
+											<button class="dropdown-item" type="submit"
+												form="${String.valueOf(acad.userID)}-profile"
+												value="submit">
+												<i class="flaticon-user"></i> Go to Profile
+											</button>
+											<input type="hidden" name="userID"
+												value="${acad.userID }"> <input type="hidden"
+												value="${MyConstants.OPP_VIEW_PROFILE}"
+												name="operation">
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#ban_modal_${String.valueOf(acad.userID)}">
+												<i class="flaticon-cancel"></i> Ban User
+											</button>
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#delete_modal_${String.valueOf(acad.userID)}">
+												<i class="flaticon-delete"></i> Remove User
+											</button>
+										</form>
+										<c:if test="${acad.bannedUntil != null}">
+											<form method="POST" action="UserController"
+												id="${String.valueOf(acad.userID)}-liftban">
+												<button class="dropdown-item" type="submit"
+													form="${String.valueOf(acad.userID)}-liftban"
+													value="submit">
+													<i class="flaticon2-checkmark"></i>Lift Ban
+												</button>
+												<input type="hidden" name="liftID"
+													value="${acad.userID }"> <input type="hidden"
+													value="${MyConstants.OPP_LIFT_BAN}" name="operation">
+											</form>
+										</c:if>
+									</div>
+							</span></td>
+
+
+						</tr>
+						<div class="modal fade show"
+							id="ban_modal_${String.valueOf(acad.userID)}" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										Ban User ${String.valueOf(acad.userID)}
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form action="UserController" method="Post">
+											<div class="form-group">
+												<label for="ban-date" class="form-control-label">Ban
+													User Until:</label> <input type="date" class="form-control"
+													id="ban-date" name="banDate">
+											</div>
+											<div class="form-group">
+												<label for="message-text" class="form-control-label">Message:</label>
+												<textarea class="form-control" id="message-text"></textarea>
+											</div>
+											<input type="hidden" name="banID"
+												value=${ String.valueOf(acad.userID) }> <input
+												type="hidden" value="${MyConstants.OPP_BAN_USER}"
+												name="operation">
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Ban
+													User</button>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade show"
+							id="delete_modal_${String.valueOf(acad.userID)}"
+							tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Are
+											You Sure?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body"
+										style="display: flex; justify-content: center; align-content: space-between;">
+										<form action="UserController" method="Post">
+											<button type="submit" class="btn btn-primary">Delete
+												User With Id ${ String.valueOf(acad.userID) }</button>
+											<input type="hidden"
+												value="${MyConstants.OPP_DELETE_USER }"
+												name="operation"> <input type="hidden"
+												name="deleteID" value=${ String.valueOf(acad.userID) }>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</c:forEach>
+
+					<c:forEach items="${gradList}" var="grad">
+						<tr>
+							<td>${ String.valueOf(grad.userID) }</td>
+							<td>${ grad.username }</td>
+							<td>${ grad.email }</td>
+							<td>${ grad.fullName }</td>
+							<td></td>
+							<td></td>
+							<td>${ grad.graduationYear }</td>
+							<td>${ grad.bannedUntil }</td>
+							<td><span
+								class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Offline</span></td>
+							<td><span
+								class="kt-badge kt-badge--primary kt-badge--dot"></span>&nbsp;<span
+								class="kt-font-bold kt-font-primary">Graduate</span></td>
+							<td nowrap><span class="dropdown"> <a href="#"
+									class="btn btn-sm btn-clean btn-icon btn-icon-md"
+									data-toggle="dropdown" aria-expanded="true"> <i
+										class="la la-ellipsis-h"></i>
+								</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<form method="POST" action="UserController"
+											id="${String.valueOf(grad.userID)}-profile">
+											<button class="dropdown-item" type="submit"
+												form="${String.valueOf(grad.userID)}-profile"
+												value="submit">
+												<i class="flaticon-user"></i> Go to Profile
+											</button>
+											<input type="hidden" name="userID"
+												value="${grad.userID }"> <input type="hidden"
+												value="${MyConstants.OPP_VIEW_PROFILE}"
+												name="operation">
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#ban_modal_${String.valueOf(grad.userID)}">
+												<i class="flaticon-cancel"></i> Ban User
+											</button>
+										</form>
+										<form onsubmit="return false">
+											<button class="dropdown-item" data-toggle="modal"
+												data-target="#delete_modal_${String.valueOf(grad.userID)}">
+												<i class="flaticon-delete"></i> Remove User
+											</button>
+										</form>
+										<c:if test="${grad.bannedUntil != null}">
+											<form method="POST" action="UserController"
+												id="${String.valueOf(grad.userID)}-liftban">
+												<button class="dropdown-item" type="submit"
+													form="${String.valueOf(grad.userID)}-liftban"
+													value="submit">
+													<i class="flaticon2-checkmark"></i>Lift Ban
+												</button>
+												<input type="hidden" name="liftID"
+													value="${grad.userID }"> <input type="hidden"
+													value="${MyConstants.OPP_LIFT_BAN}" name="operation">
+											</form>
+										</c:if>
+									</div>
+							</span></td>
+
+
+						</tr>
+						<div class="modal fade show"
+							id="ban_modal_${String.valueOf(grad.userID)}" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										Ban User ${String.valueOf(grad.userID)}
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form action="UserController" method="Post">
+											<div class="form-group">
+												<label for="ban-date" class="form-control-label">Ban
+													User Until:</label> <input type="date" class="form-control"
+													id="ban-date" name="banDate">
+											</div>
+											<div class="form-group">
+												<label for="message-text" class="form-control-label">Message:</label>
+												<textarea class="form-control" id="message-text"></textarea>
+											</div>
+											<input type="hidden" name="banID"
+												value=${ String.valueOf(grad.userID) }> <input
+												type="hidden" value="${MyConstants.OPP_BAN_USER}"
+												name="operation">
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Ban
+													User</button>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade show"
+							id="delete_modal_${String.valueOf(grad.userID)}"
+							tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalCenterTitle"
+							style="display: none; padding-right: 16px;"
+							aria-modal="true">
+							<div class="modal-dialog modal-dialog-centered"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Are
+											You Sure?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body"
+										style="display: flex; justify-content: center; align-content: space-between;">
+										<form action="UserController" method="Post">
+											<button type="submit" class="btn btn-primary">Delete
+												User With Id ${ String.valueOf(grad.userID) }</button>
+											<input type="hidden"
+												value="${MyConstants.OPP_DELETE_USER }"
+												name="operation"> <input type="hidden"
+												name="deleteID" value=${ String.valueOf(grad.userID) }>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</c:forEach>
+				</tbody>
+
+			</table>
+			<!--end: Datatable -->
+
+			<div class="modal fade show" id="add_user_modal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLabel"
+				style="display: none; padding-right: 16px;" aria-modal="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Add
+								User</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form method="POST" action="UserController"
+								id="add-user-form">
+								<div class="form-group">
+									<label for="firstname" class="form-control-label">First
+										Name:</label> <input type="text" required class="form-control"
+										name="firstname"> <label for="lastname"
+										class="form-control-label">Last Name:</label> <input
+										type="text" required class="form-control"
+										name="lastname"> <label for="username"
+										class="form-control-label">Username:</label> <input
+										type="text" required class="form-control"
+										name="username"> <label for="email"
+										class="form-control-label">Email:</label> <input
+										type="email" required class="form-control" name="email">
+									<label for="password" class="form-control-label">Password:</label>
+									<input class="form-control" type="text" pattern=".{8,}"
+										required title="8 characters minimum" required
+										placeholder="Password" name="password"> <label
+										for="type" class="form-control-label">User Type:</label>
+									<select class="form-control" name="type">
+										<option value="${MyConstants.TYPE_STUDENT}">Student</option>
+										<option value="${MyConstants.TYPE_ACADEMICIAN}">Academician</option>
+										<option value="${MyConstants.TYPE_GRADUATE}">Graduate</option>
+									</select> <input type="hidden" id="31" name="operation"
+										value="${MyConstants.OPP_CREATED_BY_ADMIN}">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" form="add-user-form" value="submit"
+								class="btn btn-primary">Add User</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
 </div>
-<!-- end:: Footer -->			</div>
+<!-- end:: Content -->
+
+
+
+						<!-- 3 wrapper div -->					
+					</div>
+				</div>
+			</div>
+			
+			<!-- end root -->
 		</div>
 	</div>
 	
@@ -778,6 +785,7 @@
 
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
+<script src="./js/sidenavbar.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

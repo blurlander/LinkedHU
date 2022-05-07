@@ -45,8 +45,6 @@ public class FileController extends HttpServlet {
             jsonObject.add(Integer.toString(i),firstElement);
 		}
         
-        
-        
                
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
@@ -56,6 +54,9 @@ public class FileController extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Max-Age", "86400");
+        
+        session = request.getSession();
+        session.setAttribute("fileCount", uploadedFiles.size() );
         
         PrintWriter out = response.getWriter();
 		out.println(jsonObject);

@@ -128,7 +128,7 @@ var myKTDashboard = function() {
 						}
 					};
 					/*' + status[row.idInfo].class + '">' + status[row.idInfo].title + '*/
-					return `<a href="${row.uploadUrl}" class="btn btn-bold btn-sm btn-font-sm btn-label-brand">indir</a>`; 
+					return `<a href="${row.uploadUrl}" class="btn btn-bold btn-sm btn-font-sm btn-label-brand">Download</a>`; 
 				}
 			},
 			
@@ -166,41 +166,29 @@ var myKTDashboard = function() {
 				autoHide: false,
 				overflow: 'visible',
 				template: function() {
-					return '\
-                        <div class="dropdown">\
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">\
-                                <i class="flaticon-more-1"></i>\
-                            </a>\
-                            <div class="dropdown-menu dropdown-menu-right">\
-                                <ul class="kt-nav">\
-                                    <li class="kt-nav__item">\
-                                        <a href="#" class="kt-nav__link">\
-                                            <i class="kt-nav__link-icon flaticon2-expand"></i>\
-                                            <span class="kt-nav__link-text">View</span>\
-                                        </a>\
-                                    </li>\
-                                    <li class="kt-nav__item">\
-                                        <a href="#" class="kt-nav__link">\
-                                            <i class="kt-nav__link-icon flaticon2-contract"></i>\
-                                            <span class="kt-nav__link-text">Edit</span>\
-                                        </a>\
-                                    </li>\
-                                    <li class="kt-nav__item">\
-                                        <a href="#" class="kt-nav__link">\
-                                            <i class="kt-nav__link-icon flaticon2-trash"></i>\
-                                            <span class="kt-nav__link-text">Delete</span>\
-                                        </a>\
-                                    </li>\
-                                    <li class="kt-nav__item">\
-                                        <a href="#" class="kt-nav__link">\
-                                            <i class="kt-nav__link-icon flaticon2-mail-1"></i>\
-                                            <span class="kt-nav__link-text">Export</span>\
+					return `
+						<div class="dropdown">
+                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">
+                                <i class="flaticon-more-1"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-trash"></i>
+                                            <span class="kt-nav__link-text">Delete</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="${data2.uploadUrl}" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-mail-1"></i>
+                                            <span class="kt-nav__link-text">Download</span>
                                         </a>\
                                     </li>\
                                 </ul>\
                             </div>\
                         </div>\
-                    ';
+                    `;
 				}
 			}]
 		});
@@ -224,7 +212,7 @@ var myKTDashboard = function() {
 
 					console.log("ajax data:");
 					console.log(data);
-
+				
 					// datatables
 					datatableLatestOrders(data);
 

@@ -129,80 +129,104 @@
 			<!-- begin:: side bar -->
 			<div class="sb_sidebar ">
 				<div class="sb_top_content">
-
+					
 					<!-- side bar:: brand-->
 					<div class="sb_logo_content">
 						<div class="sb_logo">
-							<a class="kt-header__brand-logo" href="#"> <img alt="Logo"
-								src="./assets/media/logos/4060logos.png" />
-							</a>
+							<a class="kt-header__brand-logo" href="#">
+								<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
+							</a>	
 						</div>
 					</div>
 					<!-- side bar:: brand end-->
-
+					
 					<!-- side bar:: profile picture -->
 					<div class="sb_profile_content">
-						<div class="sb_profile">
+						<div class="sb_profile"> 
 							<div class="sb_profile_details">
-
-								<img id="sb_profile_picture" alt="Pic"
-									src="./ProfilePictures/123.jpg" />
-
-								<div class="sb_fullname " style="display: none">Ali fuat
-									ozturk</div>
-
-								<form action="UserController" method="POST">
-									<button type="submit"
-										class="btn btn-label btn-label-brand btn-sm btn-bold">Sign
-										Out</button>
-									<input type="hidden" value="${MyConstants.OPP_LOGOUT }"
-										name="operation">
-								</form>
-
+							 
+								<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+								
+								<div class="sb_fullname " style="display: none">
+									<c:out value="${currentUser.username }"></c:out>
+								</div>
+									
+						        <form action="UserController" method="POST">
+							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+							        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
+						        </form>
+								
 							</div>
 						</div>
 					</div>
 					<!-- side bar:: profile picture end-->
-
+					
 					<!-- side bar:: navigation list -->
 					<ul class="sb_nav_list">
 						<li>
 							<form action="UserController" method="POST">
-								<a href="#" onclick="window.location = 'HomePage.jsp'"> <i
-									class="fa fa-home"></i> <span class="links_name">Home
-										Page</span>
+								<a href="#" onclick = "window.location = 'HomePage.jsp'">
+									<i class="fa fa-home"></i>
+									<span class="links_name">Home Page</span>
 								</a>
 							</form>
 						</li>
 						<li>
 							<form action="UserController" method="POST">
-								<a href="#" onclick='this.parentNode.submit(); return false;'>
-									<i class="fa fa-user-alt"></i> <span class="links_name">Profile</span>
-								</a> <input type="hidden" name="operation"
-									value="${MyConstants.OPP_VIEW_PROFILE }"> <input
-									type="hidden" name="userID" value="${currentUser.userID }">
+								<a href="#" onclick='this.parentNode.submit(); return false;'>					
+									<i class="fa fa-user-alt"></i>
+									<span class="links_name">Profile</span>
+								</a>
+								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+								<input type="hidden" name="userID" value="${currentUser.userID }">
 							</form>
 						</li>
-						<li><a href="#"
-							onclick="window.location = 'UpdateProfile.jsp'"> <i
-								class="fa fa-user-edit"></i> <span class="links_name">Update
-									Profile</span>
-						</a></li>
-						<li><a href="#"> <i class="fa fa-comments"></i> <!-- <i class="fa fa-envelope"></i> -->
+						<li>
+							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+								<i class="fa fa-user-edit"></i>
+								<span class="links_name">Update Profile</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-comments"></i>
+								<!-- <i class="fa fa-envelope"></i> -->
 								<span class="links_name">Messages</span>
-						</a></li>
-						<li><a href="#"> <i class="fa fa-key"></i> <span
-								class="links_name">Change Password</span>
-						</a></li>
-						<li><a href="#"> <i class="fa fa-info"></i> <span
-								class="links_name">Administrator</span>
-						</a></li>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-key"></i>
+								<span class="links_name">Change Password</span>
+							</a>
+						</li>
+						
+						<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
+							<li>
+
+								<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
+									<i class="fa fa-info"></i>
+									<span class="links_name">Administrator</span>
+								</a>
+
+							</li>
+						</c:if>
+						<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+							<li>
+								<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+									<i class="fa fa-upload"></i>
+									<span class="links_name">Upload File</span>
+								</a>
+							</li>
+						</c:if>
 					</ul>
 					<!-- side bar:: navigation list end-->
-
+					
 				</div>
 			</div>
 			<!-- end:: side bar -->
+
+			
 
 			<!-- begin:: 3 wrapper classes for content-->
 			<div
@@ -230,9 +254,9 @@
 				class="kt-subheader__separator kt-subheader__separator--v"></span>
 
 			<div class="kt-subheader__group" id="kt_subheader_search">
-
+				
 				<span class="kt-subheader__desc" id="kt_subheader_total"><c:out
-						value="5 " /> Total</span>
+						value='${fileCount}' /> Total</span>
 
 				<!-- search form -->
 				<form class="kt-margin-l-20" id="kt_subheader_search_form">
@@ -254,7 +278,7 @@
 
 		<!-- begin:: right buttons (create post and plus sign)-->
 		<div class="kt-subheader__toolbar">
-			<div class="kt-subheader__wrapper">
+			<div class="kt-subheader__wrapper" style="display: flex;">
 
 				<!-- begin:: file upload  -->
 
@@ -264,8 +288,7 @@
 
 					<button
 						class="kt-uppy__btn btn btn-label-success btn-bold btn-sm">
-						<i class="fa fa-upload" style="margin-right: 10px"></i>Upload
-						a File
+						<i class="fa fa-upload" style="margin-right: 10px"></i>Choose Files
 					</button>
 
 					<div class="kt-uppy__dashboard"></div>
@@ -273,12 +296,12 @@
 				</div>
 
 				<form action="UserController" method="POST">
-					<button  type="submit" id="uploadFilesToServer">uploadFilesToServer</button>
+					<button  class="btn btn-label-brand btn-bold btn-sm" 
+						type="submit" id="uploadFilesToServer">Upload Files</button>
 					<input type="hidden" name="fileObject" value="">
 					<input type="hidden" name="userID" value="5">
 					<input type="hidden" name="operation" value="${MyConstants.OPP_FILE_UPLOAD }">
 				</form>
-<button  type="button" id="deneme">xx</button>
 				<!-- end:: file upload  -->
 
 			</div>
