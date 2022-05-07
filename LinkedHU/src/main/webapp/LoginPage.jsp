@@ -32,7 +32,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         
                     <!--begin::Page Custom Styles(used by this page) -->
-                             <link href="./assets/css/demo12/pages/login/login-6.css" rel="stylesheet" type="text/css" />
+                             <link href="./assets/css/demo9/pages/login/login-6.css" rel="stylesheet" type="text/css" />
                         <!--end::Page Custom Styles -->
         
         <!--begin:: Global Mandatory Vendors -->
@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Global Theme Styles(used by all pages) -->
                     
-                    <link href="./assets/css/demo12/style.bundle.css" rel="stylesheet" type="text/css" />
+                    <link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
                 <!--end::Global Theme Styles -->
 
         <!--begin::Layout Skins(used by all pages) -->
