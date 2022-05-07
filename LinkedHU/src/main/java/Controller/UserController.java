@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import Interfaces.IService;
 import Model.Academician;
 import Model.Comment;
@@ -24,6 +29,7 @@ import Model.NonAdminUser;
 import Model.Post;
 import Model.PostCreator;
 import Model.SystemService;
+import Model.UploadedFile;
 import Model.User;
 import general.MyConstants;
 
@@ -178,6 +184,44 @@ public class UserController extends HttpServlet {
 				 postCreator.setAuthorOf(service.fetchUserPosts(postCreator.getUserID()));
 				 session.setAttribute("otherUser", postCreator);
 				 break;
+			 case MyConstants.OPP_FILE_UPLOAD:
+				 
+				int uploaderUserID = Integer.parseInt(request.getParameter("userID"));
+
+				String jsonString = request.getParameter("fileObject");
+
+				List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
+				
+				
+				try {
+
+					JSONArray jsonArray = new JSONArray(jsonString);
+					for (int i = 0; i < jsonArray.length(); ++i) {
+						JSONObject jsonObject = jsonArray.getJSONObject(i);
+						System.out.println(jsonObject);
+						UploadedFile uploadedFile = new UploadedFile();
+
+						uploadedFile.setExtension((String) jsonObject.get("extension"));
+						uploadedFile.setIdInfo((String) jsonObject.get("id"));
+						uploadedFile.setName((String) jsonObject.get("name"));
+						uploadedFile.setUploaderID(uploaderUserID);
+						uploadedFile.setUploadUrl((String) jsonObject.get("uploadURL"));
+
+						uploadedFiles.add(uploadedFile);
+						
+					}
+					
+					for (int i = 0; i < uploadedFiles.size(); i++) {
+						System.out.println(uploadedFiles.get(i).getUploadUrl());
+					}
+					service.createFiles(uploadedFiles);
+
+				} catch (JSONException err) {
+					System.out.println("Error" + err.toString());
+				}
+
+				response.sendRedirect("FileUpload.jsp");
+				break;
 				
 		}
 		

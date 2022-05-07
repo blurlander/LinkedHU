@@ -140,8 +140,9 @@ function addComment(data){
                                 </span>  
                             </div>                                             
                         </div> `;
-	
-	
+
+	$(".share-comment-text-form").toggle(500);
 	$(".kt-notes__items").prepend(itemText);
+	
 }
  

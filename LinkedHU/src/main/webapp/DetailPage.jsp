@@ -16,7 +16,7 @@
     <head><!--begin::Base Path (base relative path for assets of this page) -->
         <meta charset="utf-8"/>
 
-        <title>Post Detail Page</title>
+        <title>Detail Page</title>
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -63,376 +63,237 @@
 		<!--begin::Global Theme Styles(used by all pages) -->
 		<link href="./assets/css/demo9/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Theme Styles -->
-
+		<link href="./css/sidenavbar.css" rel="stylesheet" type="text/css" />
+		
     </head>
     <!-- end::Head -->
 
     <!-- begin::Body -->
     <body  class="kt-page--loading-enabled kt-page--loading kt-app__aside--left kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--left kt-aside--fixed kt-page--loading"  >
-  
-    	<!-- begin:: Page -->
-    	
-		<!-- begin:: Header Mobile -->
-		<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed " >
-			<div class="kt-header-mobile__logo">
-				<a href="#">
-					<img alt="Logo" src="./assets/media/logos/4060logos.png"/>
-				</a>
-			</div>
-			<div class="kt-header-mobile__toolbar">
-							<button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
-				
-				<button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
-				<button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more-1"></i></button>
-			</div>
-		</div>
-		<!-- end:: Header Mobile -->
+
+	    <!-- begin:: Page -->
+		<div class="kt-grid kt-grid--hor kt-grid--root">
+			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 		
-
-	<div class="kt-grid kt-grid--hor kt-grid--root">
-		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
-			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-				<!-- begin:: Header -->
-<div id="kt_header" class="kt-header  kt-header--fixed "  data-ktheader-minimize="on" >
-	<div class="kt-container  kt-container--fluid ">
-		<!-- begin: Header Menu -->
-<button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
-<div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
-    
-    	    <button class="kt-aside-toggler kt-aside-toggler--left" id="kt_aside_toggler"><span></span></button>
-
-
-</div>
-<!-- end: Header Menu -->		
-		<!-- begin:: Brand -->
-<div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
-
-	<a class="kt-header__brand-logo" href="#">
-		<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
-
-	</a>		
-</div>
-<!-- end:: Brand -->		<!-- begin:: Header Topbar -->
-<div class="kt-header__topbar kt-grid__item">
-	<!--begin: Search -->
-			<div class="kt-header__topbar-item kt-header__topbar-item--search dropdown" id="kt_quick_search_toggle">
-			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-				<span class="kt-header__topbar-icon" ><i class="flaticon2-search-1"></i></span>
-			</div>
-			<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
-				<div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact" id="kt_quick_search_dropdown">
-    <form method="get" class="kt-quick-search__form">
-        <div class="input-group">
-            <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
-            <input type="text" class="form-control kt-quick-search__input" placeholder="Search...">
-            <div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close"></i></span></div>
-       	</div>
-    </form>
-    <div class="kt-quick-search__wrapper kt-scroll" data-scroll="true" data-height="325" data-mobile-height="200">
-
-    </div>
-</div>
-			</div>
-		</div>
-		<!--end: Search -->
-
-	<!--begin: Notifications -->
-	<div class="kt-header__topbar-item dropdown">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-			<span class="kt-header__topbar-icon"><i class="flaticon2-bell-alarm-symbol"></i></span>
-
-			<!-- <span class="kt-badge kt-badge--danger"></span>  -->
-		</div>
-		
-
-	</div>
-	<!--end: Notifications -->
-
-	<!--begin: Quick actions -->
-	<div class="kt-header__topbar-item dropdown">
-		<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-			<span class="kt-header__topbar-icon"><i class="flaticon2-gear"></i></span>
-		</div>
-
-
-	</div>
-	<!--end: Quick actions -->
-
-	<!--begin: Cart -->
-
-	<!--end: Cart -->
-
-	<!--begin: Language bar -->
-	
-	<!--end: Language bar -->
-
-
-	<!--begin: User bar -->
-	<div class="kt-header__topbar-item kt-header__topbar-item--user">
-
-			<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-				<span id="hiSpan" class="kt-header__topbar-welcome kt-visible-desktop">Hi,</span>
-				
-				<span id="hiNameSpan" class="kt-header__topbar-username kt-visible-desktop">
-					<c:out value="${currentUser.username }"></c:out>
-				</span>
-				
-				<img alt="Pic" src="${currentUser.profilePictureSrc}" style="border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
-				<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-				<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
-			</div>
-			
-		<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
-			<!--begin: Head -->
-		    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
-		        <div class="kt-user-card__avatar">
-		            <img class="kt-hidden-" alt="Pic" src="${currentUser.profilePictureSrc}" style = "border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;"/>
-		            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-		            <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
-		        </div>
-		        <div id = "profileCardName" class="kt-user-card__name">
-		        	<c:out value="${currentUser.fullName }"></c:out>
-		        </div>
-		        <div class="kt-user-card__badge">
-		            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
-		        </div>
-		    </div>
-		<!--end: Head -->
-		
-		<!--begin: Navigation -->
-		<div class="kt-notification">
-		
-			<!-- GO TO MY PROFILE -->
-			<form id="myProfileClick" action="UserController" method="POST">
-			
-		    <a href="javascript:{}" class="kt-notification__item" onclick="document.getElementById('myProfileClick').submit();">
-		        <div class="kt-notification__item-icon">
-		            <i class="flaticon2-calendar-3 kt-font-success"></i>
-		        </div>
-		        <div class="kt-notification__item-details">
-		            <div class="kt-notification__item-title kt-font-bold">
-		                My Profile
-		                <input type="hidden" value="${MyConstants.OPP_VIEW_PROFILE }" name="operation" > 
-		                <input type="hidden" name="userID" value="${currentUser.userID }">      
-		            </div>
-		            <div class="kt-notification__item-time">
-		                Account settings and more
-		            </div>
-		        </div>
-		    </a>
-		 
-			</form>
-			
-		    <a href="#" class="kt-notification__item">
-		        <div class="kt-notification__item-icon">
-		            <i class="flaticon2-mail kt-font-warning"></i>
-		        </div>
-		        <div class="kt-notification__item-details">
-		            <div class="kt-notification__item-title kt-font-bold">
-		                My Messages
-		            </div>
-		            <div class="kt-notification__item-time">
-		                Inbox and tasks
-		            </div>
-		        </div>
-		    </a>
-			
-		    <div class="kt-notification__custom kt-space-between">
-		        <form action="UserController" method="POST">
-		        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-		        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
-		        </form>
-		    </div>
-		</div>
-		<!--end: Navigation -->
-		</div>
-	</div>
-<!--end: User bar -->
-
-</div>
-<!-- end:: Header Topbar -->
-</div>
-</div>
-<!-- end:: Header -->
+				<!-- begin:: side bar -->
+				<div class="sb_sidebar ">
+					<div class="sb_top_content">
+						
+						<!-- side bar:: brand-->
+						<div class="sb_logo_content">
+							<div class="sb_logo">
+								<a class="kt-header__brand-logo" href="#">
+									<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
+								</a>	
+							</div>
+						</div>
+						<!-- side bar:: brand end-->
+						
+						<!-- side bar:: profile picture -->
+						<div class="sb_profile_content">
+							<div class="sb_profile"> 
+								<div class="sb_profile_details">
+								 
+									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/123.jpg" />
 									
-<!-- begin:: Aside -->
-
-<button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
-
-<div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
-	<!-- begin:: Aside Menu -->
-	<div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
-		<div 
-			id="kt_aside_menu"
-			class="kt-aside-menu "
-			data-ktmenu-vertical="1"
-			 data-ktmenu-scroll="1"  
-			>		
+									<div class="sb_fullname " style="display: none">
+										Ali fuat ozturk
+									</div>
+										
+							        <form action="UserController" method="POST">
+								        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+								        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
+							        </form>
+									
+								</div>
+							</div>
+						</div>
+						<!-- side bar:: profile picture end-->
+						
+						<!-- side bar:: navigation list -->
+						<ul class="sb_nav_list">
+							<li>
+								<form action="UserController" method="POST">
+									<a href="#" onclick = "window.location = 'HomePage.jsp'">
+										<i class="fa fa-home"></i>
+										<span class="links_name">Home Page</span>
+									</a>
+								</form>
+							</li>
+							<li>
+								<form action="UserController" method="POST">
+									<a href="#" onclick='this.parentNode.submit(); return false;'>					
+										<i class="fa fa-user-alt"></i>
+										<span class="links_name">Profile</span>
+									</a>
+									<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+									<input type="hidden" name="userID" value="${currentUser.userID }">
+								</form>
+							</li>
+							<li>
+								<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+									<i class="fa fa-user-edit"></i>
+									<span class="links_name">Update Profile</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-comments"></i>
+									<!-- <i class="fa fa-envelope"></i> -->
+									<span class="links_name">Messages</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-key"></i>
+									<span class="links_name">Change Password</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-info"></i>
+									<span class="links_name">Administrator</span>
+								</a>
+							</li>
+						</ul>
+						<!-- side bar:: navigation list end-->
+						
+					</div>
+				</div>
+				<!-- end:: side bar -->
 			
-			<ul class="kt-menu__nav ">
-
-				
-				
-				<li class="kt-menu__section ">
-                	<h4 class="kt-menu__section-text">Pages</h4>
-                	<i class="kt-menu__section-icon flaticon-more-v2"></i>
-            	</li>
-            	
-            	<li class="kt-menu__item " aria-haspopup="true" >
-            		<a  href="#" class="kt-menu__link ">
-            			<i class="kt-menu__link-icon fa fa-home"></i>
-            			<span class="kt-menu__link-text">Home Page</span>
-            		</a>
-            	</li>
-            	
-            	<li class="kt-menu__item " aria-haspopup="true" >
-            		<a  href="#" class="kt-menu__link ">
-            			<i class="kt-menu__link-icon fa fa-user"></i>
-            			<span class="kt-menu__link-text">Profile</span>
-            		</a>
-            	</li>
-			</ul>
-
-		</div>
-	</div>
-	<!-- end:: Aside Menu -->
-</div>
-<!-- end:: Aside -->				
-
-<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
-<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
-
-<!-- begin:: Content Head -->
+				<!-- begin:: 3 wrapper classes for content-->
+				<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding:0px !important">
+					<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+						<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
 
+<div class="kt-container  kt-grid__item kt-grid__item--fluid" style="padding-top: 30px">
 
-	
-<!-- end:: Content Head -->
-
-<!-- begin:: Content -->
-<div class="kt-container  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
-<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
-<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-
-<!--Begin::Section-->
-<div class="row">
-    <div class="col-xl-12">
-        <!--begin:: Portlet-->
-        <div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__body kt-portlet__body--fit">
-                <!--begin::Widget -->
-                <div class="kt-widget kt-widget--project-1">
-                
-                    <div class="kt-widget__head">
-                        <div class="kt-widget__label">
-                            <div class="kt-widget__media">
-                            	
-                            	<form action="UserController" method="POST">
-                                <span class="kt-media--circle">  
-                                
-                                	<%
-                                		// find post owner
-                                		Post p = (Post)session.getAttribute("currentPost");
-                                		TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
-										for (Post post :  map.keySet()) {
-											if (post.getPostID() == p.getPostID()) {
-												request.setAttribute("postAuthor", map.get(post));
-												break;
+	<!--Begin:: current Post-->
+	<div class="row">
+	    <div class="col-xl-12">
+	        <div class="kt-portlet kt-portlet--height-fluid">
+	            <div class="kt-portlet__body kt-portlet__body--fit">
+	            	<!-- begin:: post -->
+	                <div class="kt-widget kt-widget--project-1">
+	                		
+	                	<!-- post head -->
+	                    <div class="kt-widget__head">
+	                        <div class="kt-widget__label">
+	                            <div class="kt-widget__media">
+	                            	
+	                            	<form action="UserController" method="POST">
+	                                <span class="kt-media--circle">  
+	                                
+	                                	<%
+	                                		// find post owner
+	                                		Post p = (Post)session.getAttribute("currentPost");
+	                                		TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
+											for (Post post :  map.keySet()) {
+												if (post.getPostID() == p.getPostID()) {
+													request.setAttribute("postAuthor", map.get(post));
+													break;
+												}
 											}
-										}
-                                	%>               
-                                    <input type="image" src="${postAuthor.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
-                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
-                                    <input type="hidden" name="userID" value="${currentPost.authorID }">                                	
-                                </span>
-                            	</form>
-                            	
-                            </div>
-                            <div class="kt-widget__info kt-margin-t-5">
-                                <a href="#" class="kt-widget__title">
-                                ${ currentPost.title }
-                                                                        
-                                </a>
-                                
-                                <span class="kt-widget__desc">
-                                ${postAuthor.fullName}
-                                <br>
-                                ${currentPost.dateFormat}
-                                </span>
-                            </div>
-                        </div>
-                        
-                         <!-- DELETE POST ENABLE OR DISABLE -->
-                        <c:if test="${currentUser.userID ==  postAuthor.userID}">
-                        <div class="kt-portlet__head-toolbar">
-                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
-                                <i class="flaticon-more-1"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                <form action = "PostController" method = "POST">
-                                <ul class="kt-nav">
-                                    <li class="kt-nav__item">
-                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
-                                        	<span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
-                                        </button>
-                                        <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
-                                        <input type = "hidden" name = "delPost" value = ${String.valueOf(currentPost.postID) }>
-                                    </li>
-                                </ul>
-                                </form>
-                            </div>
-                        </div>
-                        </c:if>
-                    </div>
+	                                	%>               
+	                                    <input type="image" src="${postAuthor.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+	                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+	                                    <input type="hidden" name="userID" value="${currentPost.authorID }">                                	
+	                                </span>
+	                            	</form>
+	                            	
+	                            </div>
+	                            <div class="kt-widget__info kt-margin-t-5">
+	                                <a href="#" class="kt-widget__title">
+	                                ${ currentPost.title }
+	                                                                        
+	                                </a>
+	                                
+	                                <span class="kt-widget__desc">
+	                                ${postAuthor.fullName}
+	                                <br>
+	                                ${currentPost.dateFormat}
+	                                </span>
+	                            </div>
+	                        </div>
+	                        
+	                         <!-- DELETE POST ENABLE OR DISABLE -->
+	                        <c:if test="${currentUser.userID ==  postAuthor.userID}">
+	                        <div class="kt-portlet__head-toolbar">
+	                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
+	                                <i class="flaticon-more-1"></i>
+	                            </a>
+	                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
+	                                <form action = "PostController" method = "POST">
+	                                <ul class="kt-nav">
+	                                    <li class="kt-nav__item">
+	                                        <button type = "submit" class="kt-nav__link-icon flaticon2-trash" style = "color:  tomato ;border: none; background-color: white; font-size: 14px; ">
+	                                        	<span class="kt-nav__link-text" style = "color: black; margin-left: 14px">Delete Post</span>
+	                                        </button>
+	                                        <input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_POST }" >
+	                                        <input type = "hidden" name = "delPost" value = ${String.valueOf(currentPost.postID) }>
+	                                    </li>
+	                                </ul>
+	                                </form>
+	                            </div>
+	                        </div>
+	                        </c:if>
+	                    </div>
+						<!-- post head end -->
 
-                    <div class="kt-widget__body">
-                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
-                    		${currentPost.messageText}
-                    	</span>	
-                    </div>
-
-                    <div class="kt-widget__footer">
-                        <div class="kt-widget__wrapper">
-                           	<div class="kt-widget__section">
-                           		<div class="kt-demo-icon__preview">
-                           			<c:if test="${currentUser.likes.contains(currentPost.postID)}">
-                           		
-                          				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: red;"></button>
-                                    	<a href="#" style="font-size: 15px; color: black;">${currentPost.likeCount} Likes</a>
-                           				<input type="hidden" value=${currentPost.postID }>
-                           				
-                           			</c:if>
-                           			
-                           			<c:if test="${currentUser.likes.contains(currentPost.postID) == false}">
-                           			
-                          				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: gray;"></button>
-                                    	<a href="#" style="font-size: 15px; color: black;">${currentPost.likeCount} Likes</a>
-                           				<input type="hidden" value=${currentPost.postID }>
-                           				
-                           			</c:if>
-                           			
-                           		</div>
-                           		
-                           		<div class="kt-demo-icon__preview comment-btn">
-                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
-                           			<a href="#" style="font-size: 15px; color: black;"> <span class="comment-count">${currentPost.commentCount}</span>  Comments</a>
-                           		</div>
-                           	</div>
-                           	<div class="kt-widget__section">
-	                           	<button class="btn btn-outline-dark share-comment">Share a comment</button>
-                           	</div>
-
-                        </div>
-                    </div>
-                </div>
-                <!--end::Widget -->
-            </div>
-        </div>
-        <!--end:: Portlet-->
-    </div>
-      
-</div>
-<!--End::Section-->
+						<!-- post body -->					
+	                    <div class="kt-widget__body">
+	                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
+	                    		${currentPost.messageText}
+	                    	</span>	
+	                    </div>
+						<!-- post body end -->
+						
+						<!-- post footer -->
+	                    <div class="kt-widget__footer">
+	                        <div class="kt-widget__wrapper">
+	                           	<div class="kt-widget__section">
+	                           		<div class="kt-demo-icon__preview">
+	                           			<c:if test="${currentUser.likes.contains(currentPost.postID)}">
+	                           		
+	                          				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: red;"></button>
+	                                    	<a href="#" style="font-size: 15px; color: black;">${currentPost.likeCount} Likes</a>
+	                           				<input type="hidden" value=${currentPost.postID }>
+	                           				
+	                           			</c:if>
+	                           			
+	                           			<c:if test="${currentUser.likes.contains(currentPost.postID) == false}">
+	                           			
+	                          				<button type="button" class="flaticon-black like-btn" style="border: none; background-color: white; font-size: 25px; color: gray;"></button>
+	                                    	<a href="#" style="font-size: 15px; color: black;">${currentPost.likeCount} Likes</a>
+	                           				<input type="hidden" value=${currentPost.postID }>
+	                           				
+	                           			</c:if>
+	                           			
+	                           		</div>
+	                           		
+	                           		<div class="kt-demo-icon__preview comment-btn">
+	                           			<button type="button" class="flaticon2-chat-1" style="border: none; background-color: white; font-size: 25px;"></button>
+	                           			<a href="#" style="font-size: 15px; color: black;"> <span class="comment-count">${currentPost.commentCount}</span>  Comments</a>
+	                           		</div>
+	                           	</div>
+	                           	<div class="kt-widget__section">
+		                           	<button class="btn btn-outline-dark share-comment">Share a comment</button>
+	                           	</div>
+	
+	                        </div>
+	                    </div>
+	                	<!-- post footer end -->
+	                	
+	                </div>
+	                <!--end::Post -->
+				<!-- 4 wrapper div is below-->    
+	            </div>
+	        </div>
+	    </div> 
+	</div>
+	<!--End:: current Post-->
 
 	
 	<form id="likeForm">
@@ -445,203 +306,197 @@
 		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
 		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
 	</form>
-
-<!-- end of rows -->
-
-<!-- begin:: type comment -->
-<div class="kt-portlet share-comment-text-form" style="display:none">
-			<div class="kt-portlet__head">
-				<div class="kt-portlet__head-label">
-					<h3 class="kt-portlet__head-title">
-						Share a comment
-					</h3>
+	
+	<!-- begin:: type comment -->
+	<div class="kt-portlet share-comment-text-form" style="display:none">
+	
+		<div class="kt-portlet__head">
+			<div class="kt-portlet__head-label">
+				<h3 class="kt-portlet__head-title">
+					Share a comment
+				</h3>
+			</div>
+		</div>
+		<!--begin::Form-->
+		<form id="share-comment">
+			<div class="kt-portlet__body">
+				
+				<div class="form-group form-group-last">
+					<label for="exampleTextarea">Write your comment</label>
+					<textarea name="commentText" class="form-control commentTextArea" rows="3" style="height: 131px;"></textarea>
+					<input type="hidden" name="operation" value="${MyConstants.OPP_SHARE_COMMENT }">
+					<input type="hidden" name="postID" value="${currentPost.postID }">
 				</div>
 			</div>
-			<!--begin::Form-->
-			<form id="share-comment">
-				<div class="kt-portlet__body">
+			<div class="kt-portlet__foot">
+				<div class="kt-form__actions">
 					
-					<div class="form-group form-group-last">
-						<label for="exampleTextarea">Write your comment</label>
-						<textarea name="commentText" class="form-control commentTextArea" rows="3" style="height: 131px;"></textarea>
-						<input type="hidden" name="operation" value="${MyConstants.OPP_SHARE_COMMENT }">
-						<input type="hidden" name="postID" value="${currentPost.postID }">
-					</div>
+					<a class="btn btn-primary share-btn" style="color:white !important">Share</a>
+					<a class="btn btn-secondary share-comment">Cancel</a>
 				</div>
-				<div class="kt-portlet__foot">
-					<div class="kt-form__actions">
-						
-						<a class="btn btn-primary share-btn" style="color:white !important">Share</a>
-						<a class="btn btn-secondary share-comment">Cancel</a>
-					</div>
-				</div>
-			</form>
-			<!--end::Form-->			
-		</div>
-
-<!-- end:: type comment -->
-
-
-<!-- begin:: comments -->
-<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid all-comments">
-<div class="row" style="justify-content:center">
-    <div class="col-lg-10">
-        <!--Begin::Portlet-->
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">
-                        All Comments
-                    </h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">                   
-                <div class="kt-notes">
-                    <div class="kt-notes__items">
-                        
-                        <c:forEach items="${currentPost.comments }" var="comment">
-                        
-                        <!-- get comment author --> 
-                       	<c:set var="currComment" value="${comment}" scope="request"/>
-                       	<%
-
-                       		List<User> users = (ArrayList<User>)session.getAttribute("allUsers");
-                       		for(User u: users){
-                       			// Finding the author of currentComment before display it.
-                       			if(u.getUserID() == ((Comment)request.getAttribute("currComment")).getUserID() ) {
-                       				request.setAttribute("commentAuthor", u);
-                       				break;
-                       			}
-                       		}
-                       		
-                       	%>
-						<!-- Start of comment -->
-                        <div class="kt-notes__item" id="${comment.commentID}-div"> 
-                            <div class="kt-notes__media">
-                                <img class="kt-hidden-" src="${commentAuthor.profilePictureSrc}" alt="image">
-                                <span class="kt-notes__icon kt-font-boldest kt-hidden">
-                                    <i class="flaticon2-cup"></i>                                    
-                                </span> 
-                                <h3 class="kt-notes__user kt-font-boldest kt-hidden">
-                                    N S                                                       
-                                </h3>                                 
-                            </div>    
-                            <div class="kt-notes__content"> 
-                                <div class="kt-notes__section">     
-                                    <div class="kt-notes__info">
-                                    	
-                                    	
-                                    
-                                        <a href="#" class="kt-notes__title">
-                                         	<c:out value="${commentAuthor.fullName }"></c:out>                                                       
-                                        </a>
-                                        
-                                        <span class="kt-notes__desc">
-                                           	<c:out value=""></c:out>
-                                        </span>
-                                        <span class="kt-badge kt-badge--success kt-badge--inline">new</span>
-                                    </div>
-                                    
-                                    <!--
-                                    	Admin can delete all comments
-                                    	post author can delete all her/his post
-                                    	others can delete only their own comments
-                                     -->
-                                    <c:if test="${
-                                    	(currentUser.userType == MyConstants.TYPE_ADMIN)
-                                    || (currentUser.userType == MyConstants.TYPE_ACADEMICIAN && currentUser.userID == currentPost.authorID)
-                                    || (currentUser.userType == MyConstants.TYPE_GRADUATE && currentUser.userID == currentPost.authorID)
-                                    || (currentUser.userID == comment.userID)
-                                    }">
-                                    <div class="kt-notes__dropdown"> 
-                                        <a href="#" class="btn btn-sm btn-icon-md btn-icon" data-toggle="dropdown">
-                                            <i class="flaticon-more-1 kt-font-brand"></i>
-                                        </a>
-                                        <form class="delete-comment-form" id="${comment.commentID}-form">
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <ul class="kt-nav">
-											    <li class="kt-nav__item">
-											        <a class="kt-nav__link">
-											            <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-											         	
-											         	<!-- Do not add anything between the spans below  -->
-											            <span class="kt-nav__link-text delete-comment" >Delete</span>
-											            <span class="${comment.commentID}"></span>
-											            <!-- next comment :) -->
-											            
-											            <input type="hidden" name="operation" value="${MyConstants.OPP_DELETE_COMMENT }">
-											            <input type="hidden" name="commentID" value="${comment.commentID}">
-											            
-											        </a>
-											    </li>
-											</ul>                                        
-										</div>
-                                        </form>
-										
-                                    </div>
-									</c:if>
-                                </div>
-                                <span class="kt-notes__body">                                        
-                                    <c:out value="${comment.text }"></c:out>
-                                </span>  
-                            </div>                                             
-                        </div> 
-                        </c:forEach>
-                        <script type="text/javascript">
-							if(performance.navigation.type == 2){
-								console.log("xx");
-								location.reload(true);
-							}
-						</script>
-                        
-                    </div>
-                    <!-- notes item end -->
-                </div>
-            </div>
-        </div>
-        <!--End::Portlet-->
-    </div>
-</div>	
-</div>
-<!-- end:: comments -->
-
-
-
-</div>
-</div>
-</div>
-
-	
-<!-- end:: Content -->					
-</div>
-</div>
-
-				<!-- begin:: Footer -->
-
-<div class="kt-footer kt-grid__item" id="kt_footer">
-	<div class="kt-container ">
-		<div class="kt-footer__wrapper">
-			<div class="kt-footer__copyright">
-
-				2022&nbsp;&copy;&nbsp;<a href="#" target="_blank" class="kt-link">HelloWorld Inc.</a>
 			</div>
-			<div class="kt-footer__menu">
-				<a href="#" target="_blank" class="kt-link">About</a>
-				<a href="#" target="_blank" class="kt-link">Team</a>
-				<a href="#" target="_blank" class="kt-link">Contact</a>
-
+		</form>
+		<!--end::Form-->		
+	</div>
+	<!-- end:: type comment -->
+	
+	<!-- begin:: comments -->
+	<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid all-comments">
+		<div class="row" style="justify-content:center">
+		    <div class="col-lg-10">
+		        <!--Begin::comment-->
+		        <div class="kt-portlet">
+		        
+		        	<!-- head  -->
+		            <div class="kt-portlet__head">
+		                <div class="kt-portlet__head-label">
+		                    <h3 class="kt-portlet__head-title">
+		                        All Comments
+		                    </h3>
+		                </div>
+		            </div>
+		            
+		            <!--  body  -->
+		            <div class="kt-portlet__body">                   
+		                <div class="kt-notes">
+		                    <div class="kt-notes__items">
+		                        
+		                        <c:forEach items="${currentPost.comments }" var="comment">
+		                        
+		                        <!-- get comment author --> 
+		                       	<c:set var="currComment" value="${comment}" scope="request"/>
+		                       	<%
+		
+		                       		List<User> users = (ArrayList<User>)session.getAttribute("allUsers");
+		                       		for(User u: users){
+		                       			// Finding the author of currentComment before display it.
+		                       			if(u.getUserID() == ((Comment)request.getAttribute("currComment")).getUserID() ) {
+		                       				request.setAttribute("commentAuthor", u);
+		                       				break;
+		                       			}
+		                       		}
+		                       		
+		                       	%>
+								<!-- Start of comment -->
+		                        <div class="kt-notes__item" id="${comment.commentID}-div"> 
+		                            <div class="kt-notes__media">
+		                                <img class="kt-hidden-" src="${commentAuthor.profilePictureSrc}" alt="image">
+		                                <span class="kt-notes__icon kt-font-boldest kt-hidden">
+		                                    <i class="flaticon2-cup"></i>                                    
+		                                </span> 
+		                                <h3 class="kt-notes__user kt-font-boldest kt-hidden">
+		                                    N S                                                       
+		                                </h3>                                 
+		                            </div>    
+		                            <div class="kt-notes__content"> 
+		                                <div class="kt-notes__section">     
+		                                    <div class="kt-notes__info">
+		                                    	
+		                                    	
+		                                    
+		                                        <a href="#" class="kt-notes__title">
+		                                         	<c:out value="${commentAuthor.fullName }"></c:out>                                                       
+		                                        </a>
+		                                        
+		                                        <span class="kt-notes__desc">
+		                                           	<c:out value=""></c:out>
+		                                        </span>
+		                                        <span class="kt-badge kt-badge--success kt-badge--inline">new</span>
+		                                    </div>
+		                                    
+		                                    <!--
+		                                    	Admin can delete all comments
+		                                    	post author can delete all her/his post
+		                                    	others can delete only their own comments
+		                                     -->
+		                                    <c:if test="${
+		                                    	(currentUser.userType == MyConstants.TYPE_ADMIN)
+		                                    || (currentUser.userType == MyConstants.TYPE_ACADEMICIAN && currentUser.userID == currentPost.authorID)
+		                                    || (currentUser.userType == MyConstants.TYPE_GRADUATE && currentUser.userID == currentPost.authorID)
+		                                    || (currentUser.userID == comment.userID)
+		                                    }">
+		                                    <div class="kt-notes__dropdown"> 
+		                                        <a href="#" class="btn btn-sm btn-icon-md btn-icon" data-toggle="dropdown">
+		                                            <i class="flaticon-more-1 kt-font-brand"></i>
+		                                        </a>
+		                                        <form class="delete-comment-form" id="${comment.commentID}-form">
+		                                        <div class="dropdown-menu dropdown-menu-right">
+		                                            <ul class="kt-nav">
+													    <li class="kt-nav__item">
+													        <a class="kt-nav__link">
+													            <i class="kt-nav__link-icon flaticon2-line-chart"></i>
+													         	
+													         	<!-- Do not add anything between the spans below  -->
+													            <span class="kt-nav__link-text delete-comment" >Delete</span>
+													            <span class="${comment.commentID}"></span>
+													            <!-- next comment :) -->
+													            
+													            <input type="hidden" name="operation" value="${MyConstants.OPP_DELETE_COMMENT }">
+													            <input type="hidden" name="commentID" value="${comment.commentID}">
+													            
+													        </a>
+													    </li>
+													</ul>                                        
+												</div>
+		                                        </form>
+												
+		                                    </div>
+											</c:if>
+		                                </div>
+		                                <span class="kt-notes__body">                                        
+		                                    <c:out value="${comment.text }"></c:out>
+		                                </span>  
+		                            </div>                                             
+		                        </div> 
+		                        </c:forEach>
+		                        <script type="text/javascript">
+									if(performance.navigation.type == 2){
+										console.log("xx");
+										location.reload(true);
+									}
+								</script>
+		                        
+		                    </div>
+		                    <!-- notes item end -->
+		                </div>
+		            </div>
+		        </div>
+		        <!--End::comment-->
+		    </div>
+		</div>	
+	</div>
+	<!-- end:: comments -->
+	
+	<!-- begin:: Footer -->
+	<div class="kt-footer kt-grid__item" id="kt_footer">
+		<div class="kt-container ">
+			<div class="kt-footer__wrapper">
+				<div class="kt-footer__copyright">
+	
+					2022&nbsp;&copy;&nbsp;<a href="#" target="_blank" class="kt-link">HelloWorld Inc.</a>
+				</div>
+				<div class="kt-footer__menu">
+					<a href="#" target="_blank" class="kt-link">About</a>
+					<a href="#" target="_blank" class="kt-link">Team</a>
+					<a href="#" target="_blank" class="kt-link">Contact</a>
+	
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end:: Footer -->			</div>
-		</div>
-	</div>
+	<!-- end:: Footer -->
 	
+</div>
+
+
+						</div>
+					</div>
+				</div>
+				<!-- end:: 3 wrapper classes for content-->
+				
+			</div>
+		</div><!-- root end -->
 <!-- end:: Page -->
-
-
-    
 
  <!-- begin::Global Config(global config for global JS sciprts) -->
  <script>
@@ -649,8 +504,7 @@
  </script>
  <!-- end::Global Config -->
 
-
-    	<!--begin:: Global Mandatory Vendors -->
+<!--begin:: Global Mandatory Vendors -->
 <script src="./assets/vendors/general/jquery/dist/jquery.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/popper.js/dist/umd/popper.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
@@ -664,6 +518,7 @@
 
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
+<script src="./js/sidenavbar.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

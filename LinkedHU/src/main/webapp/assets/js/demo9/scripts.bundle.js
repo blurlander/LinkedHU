@@ -7382,7 +7382,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 				}
 				return result;
 			},
-
+			
 			/**
 			 * Sort table row at HTML level by column index.
 			 * todo; Not in use.
@@ -7391,6 +7391,9 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 			 * @param int Boolean. Optional. Comparison value parse to integer.
 			 *     Default false
 			 */
+			
+			
+			 
 			sortColumn: function(header, sort, int) {
 				if (typeof sort === 'undefined') sort = 'asc'; // desc
 				if (typeof int === 'undefined') int = false;
@@ -7461,7 +7464,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 						// set sorted class to header on init
 						$(td).addClass(pfx + 'datatable__cell--sorted');
 					},
-					sortClick: function(e) {
+					
+					/*sortClick: function(e) {
 						var meta = Plugin.getDataSourceParam('sort');
 						var field = $(this).data('field');
 						var column = Plugin.getColumnByField(field);
@@ -7498,7 +7502,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 								$(datatable).trigger(pfx + 'datatable--on-sort', meta);
 							}, 300);
 						}
-					},
+					},*/
 				};
 				sortObj.init();
 			},

@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #5867dd;
+  --secondary: #e1e1ef;
+  --success: #1dc9b7;
+  --info: #2786fb;
+  --warning: #ffb822;
+  --danger: #fd27eb;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1399px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+  
+.sb_sidebar {
+	z-index: 1;
+	position: sticky;
+	top:0px;
+	left: 0px;
+	
+	width: 25%;
+	height: 100vh;
+	background-color: var(--white);
+	opacity:1;	
+
+	padding:  10px;
+	
+	display: flex;
+	flex-direction: column;
+	
+	justify-content: space-between;
+	align-items: center;
+	
+	box-shadow: 0px 0px 13px 0px rgb(82 63 105 / 5%);
+	
+	min-width: 250px;
+}
+
+.sb_top_content {
+
+	width: 100%;
+}
+
+.sb_sidebar .sb_logo_content .sb_logo{
+	display: flex;
+	height:75px;
+	width:100%;
+	align-items: center;
+	justify-content: center;
+	
+
+}
+
+.sb_sidebar ul{
+	margin-top: 20px;
+	padding-inline-start: 20px;
+}
+.sb_sidebar ul li {
+	list-style: none;
+	line-height: 50px;
+	
+	height: 50px;
+	width: 100%;
+	margin: 0 5px;
+	
+}
+
+.sb_sidebar ul li a{
+	color: var(--indigo);
+	
+	display: flex;
+	align-items: center;
+	
+	text-decoration: none;
+	
+	transition: all 0.4s ease;
+	
+	border-radius: 12px;
+	
+	font-size: 1.3rem;
+    color: #48465b;
+    font-weight: 600;
+}
+
+.sb_sidebar ul li a:hover{
+	color: var(--light);
+	background-color: var(--indigo);
+}
+
+.sb_sidebar ul li a i {
+	height: 50px;
+	min-width: 50px;
+	border-radius: 12px;
+	line-height: 50px;
+	text-align: center;
+	color: #48465b;
+}
+
+
+.sb_profile_details {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 100px;
+}
+.sb_profile_content{
+	width: 100%;
+
+	padding: 0px 20px;
+	border-top: 1px solid #ebedf2;
+	border-bottom: 1px solid #ebedf2;
+}
+.sb_profile_details img{
+	height: 45px;
+	width: 45px;
+	object-fit: cover;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+
+
+.sb_profile_content .sb_fullname {
+	font-size: 1.2rem;
+    color: #48465b;
+    font-weight: 600;
+}
+
+
+
+
+
+

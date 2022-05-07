@@ -1,6 +1,7 @@
 package DAO;
 import Model.Academician;
 import Model.Graduate;
+import Model.UploadedFile;
 import Model.User;
 import general.MyConstants;
 
@@ -14,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import Interfaces.IDao;
@@ -48,6 +50,66 @@ public class UserDao implements IUserDao {
 		}
 
 	}
+	
+	
+	@Override
+	public boolean createFiles(List<UploadedFile> uploadedFiles){
+			
+		for (int i = 0; i < uploadedFiles.size(); i++) {
+			
+			String query = "Insert into upload(uploaderID,uploadUrl,extension,name,idInfo) values(?,?,?,?,?)";
+			try {
+				preparedStatement = connection.prepareStatement(query);
+
+				preparedStatement.setInt(1,uploadedFiles.get(i).getUploaderID());
+				preparedStatement.setString(2,uploadedFiles.get(i).getUploadUrl());
+				preparedStatement.setString(3,uploadedFiles.get(i).getExtension());
+				preparedStatement.setString(4,uploadedFiles.get(i).getName());
+				preparedStatement.setString(5,uploadedFiles.get(i).getIdInfo());
+				
+				preparedStatement.executeUpdate();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		return true;
+	}
+	
+	@Override
+	public List<UploadedFile> fetchAllUploadedFiles(){
+		
+		List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
+		
+		String query = "Select * from upload";
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				UploadedFile uploadedFile = new UploadedFile();
+				
+				uploadedFile.setFileID(rs.getInt("fileID"));
+				uploadedFile.setUploaderID(rs.getInt("uploaderID"));
+				uploadedFile.setUploadUrl(rs.getString("uploadUrl"));
+				uploadedFile.setExtension(rs.getString("extension"));
+				uploadedFile.setName(rs.getString("name"));
+				uploadedFile.setIdInfo(rs.getString("idInfo"));
+				
+				uploadedFiles.add(uploadedFile);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();		
+		}
+		
+		return uploadedFiles;
+	}
+	
 	@Override
 	public List<User> fetchAll() {
 		List<User> allUsers = new ArrayList<User>();

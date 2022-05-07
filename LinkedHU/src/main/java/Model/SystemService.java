@@ -38,7 +38,16 @@ public class SystemService implements IService{
 	public List<Post> fetchAllPosts() {
 		return postDao.fetchAll();
 	}
-
+	
+	@Override
+	public List<UploadedFile> fetchAllFiles() {
+		return userDao.fetchAllUploadedFiles();
+	}
+	@Override
+	public boolean createFiles(List<UploadedFile> uploadedFiles) {
+		return userDao.createFiles(uploadedFiles);
+	}
+	
 	@Override
 	public List<Post> fetchUserPosts(int userID) {
 		return postDao.fetchAllUserPosts(userID);

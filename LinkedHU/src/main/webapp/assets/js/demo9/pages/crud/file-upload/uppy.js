@@ -7,6 +7,7 @@ var KTUppy = function () {
 	const StatusBar = Uppy.StatusBar;
 	const FileInput = Uppy.FileInput;
 	const Informer = Uppy.Informer;
+	const up = Uppy.Core;
 
 	// to get uppy companions working, please refer to the official documentation here: https://uppy.io/docs/companion/
 	const Dashboard = Uppy.Dashboard;
@@ -14,7 +15,8 @@ var KTUppy = function () {
 	const GoogleDrive = Uppy.GoogleDrive;
 	const Instagram = Uppy.Instagram;
 	const Webcam = Uppy.Webcam;
-
+	
+	/*
 	// Private functions
 	var initUppy1 = function(){
 		var id = '#kt_uppy_1';
@@ -261,7 +263,7 @@ var KTUppy = function () {
 			$(id + ' .kt-uppy__list-item[data-id="'+itemId+'"').remove();
 		});
 	}
-
+	*/
 	var initUppy6 = function(){
 		var id = '#kt_uppy_6';
 		var options = {
@@ -295,29 +297,43 @@ var KTUppy = function () {
 		uppyDashboard.use(Dropbox, { target: Dashboard, companionUrl: 'https://companion.uppy.io' });
 		uppyDashboard.use(Instagram, { target: Dashboard, companionUrl: 'https://companion.uppy.io' });
 		uppyDashboard.use(Webcam, { target: Dashboard });
-	}
+		
+		
+		$("#uploadFilesToServer").click(function(){
+			
+			/*
+			uppyDashboard.getFiles().map((item) => {
+				$(this).next().attr("value", JSON.stringify(item));
+				console.log(item.tus.uploadUrl);
 
+			});
+			*/
+
+			$(this).next().attr("value", JSON.stringify(uppyDashboard.getFiles()));
+			
+			
+		});
+		
+		$('#deneme').click(function(){
+			console.log("dasboard get files");
+			console.log(uppyDashboard.getFiles());
+		});
+		
+		
+	}
+	
 	return {
 		// public functions
 		init: function() {
+			/*
 			initUppy1();
 			initUppy2();
 			initUppy3();
 			initUppy4();
 			initUppy5();
+			*/
 			initUppy6();
-
-			swal.fire({
-				"title": "Notice", 
-				"html": "Uppy demos uses <b>https://master.tus.io/files/</b> URL for resumable upload examples and your uploaded files will be temporarely stored in <b>tus.io</b> servers.", 
-				"type": "info",
-				"buttonsStyling": false,
-				"confirmButtonClass": "btn btn-brand kt-btn kt-btn--wide",
-				"confirmButtonText": "Ok, I understand",
-				"onClose": function(e) {
-					console.log('on close event fired!');
-				}
-			});
+			
 		}
 	};
 }();

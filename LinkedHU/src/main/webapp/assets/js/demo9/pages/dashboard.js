@@ -1646,6 +1646,20 @@ var KTDashboard = function() {
             {"RecordID":199,"OrderID":"65121-883","Country":"Russia","ShipCountry":"RU","ShipCity":"Antipino","ShipName":"Mitchell Inc","ShipAddress":"69291 Leroy Hill","CompanyEmail":"phaimes5i@usa.gov","CompanyAgent":"Paddy Haimes","CompanyName":"Larkin and Sons","Currency":"RUB","Notes":"neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante","Department":"Clothing","Website":"twitter.com","Latitude":58.9918209,"Longitude":55.1890813,"ShipDate":"3/13/2018","PaymentDate":"2016-04-16 08:18:58","TimeZone":"Asia/Yekaterinburg","TotalPayment":"$481960.81","Status":2,"Type":2,"Actions":null},
             {"RecordID":200,"OrderID":"51672-4144","Country":"Russia","ShipCountry":"RU","ShipCity":"Navashino","ShipName":"Monahan and Sons","ShipAddress":"44114 Autumn Leaf Street","CompanyEmail":"blambourn5j@google.com","CompanyAgent":"Byram Lambourn","CompanyName":"Huel and Sons","Currency":"RUB","Notes":"eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus","Department":"Electronics","Website":"china.com.cn","Latitude":55.5292,"Longitude":42.2003001,"ShipDate":"1/13/2016","PaymentDate":"2017-09-29 11:36:18","TimeZone":"Europe/Moscow","TotalPayment":"$240701.63","Status":4,"Type":3,"Actions":null}];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         var datatable = $('.kt-datatable').KTDatatable({
             data: {
                 type: 'local',
