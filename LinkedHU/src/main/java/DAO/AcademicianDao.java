@@ -107,6 +107,7 @@ public class AcademicianDao implements IDao<Academician>{
 				academician.setResearchHistory(rs.getString("researchHistory"));
 				academician.setProficiencies(rs.getString("proficiencies"));
 				academician.setOfficeNumber(rs.getString("officeNumber"));
+				
 				return academician;	
 			}
 		}

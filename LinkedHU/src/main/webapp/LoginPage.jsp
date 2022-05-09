@@ -148,36 +148,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     	</div>
                                     </c:if>                                                           	
                                     
-                                    
-                                   
-                                        <c:if test="${userexists == MyConstants.USERNAME_EXISTS}">
-                                    	<div class="alert alert-outline-warning fade show" role="alert">
-			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-			                            <div class="alert-text">This username is already used.</div>
-			                            <div class="alert-close">
-			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
-			                                </button>
-			                            </div>
-                        				</div>
-                                    </c:if> 
-                                    <c:if test="${userexists == MyConstants.EMAIL_EXISTS}">
-                                    	<div class="alert alert-outline-warning fade show" role="alert">
-			                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-			                            <div class="alert-text">This email is already used.</div>
-			                            <div class="alert-close">
-			                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			                                    <span aria-hidden="true"><i class="la la-close"></i></span>
-			                                </button>
-			                            </div>
-                        				</div>
-                                    </c:if> 
-                                
-                                    
-                               
-
-                                    
-                                    
                                 </form>
                             </div>
                         </div>
@@ -187,7 +157,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="kt-login__desc">Enter your details to create your account:</div>
                             </div>
                             <div class="kt-login__form">
-                                <form class="kt-form" method = "POST" action="UserController" >
+                                <form class="kt-form" id="form_id_login">
                                     <div class="form-group">
                                         <input class="form-control" type="text" required placeholder="Username" name="username">
                                     </div>                                    
@@ -209,12 +179,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="kt-login__actions">                                        
                                          
-                                        <button id="kt_login_signup_submitogluit" class="btn btn-brand btn-pill btn-elevate">Sign Up</button>
+                                        <button type="button" id="button_id_login" class="btn btn-brand btn-pill btn-elevate" style="color:white;cursor:pointer">Sign Up</button>
                                         <button id="kt_login_signup_cancel" class="btn btn-outline-brand btn-pill">Cancel</button>
                                        
                                         
                                     </div>
                                 </form>
+                                
+                                <div id="div_id_message_container"></div>
+                                
+                                
                             </div>
                         </div>
 
@@ -286,6 +260,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="./assets/vendors/general/sticky-js/dist/sticky.min.js" type="text/javascript"></script>
 <script src="./assets/vendors/general/wnumb/wNumb.js" type="text/javascript"></script>
 <!--end:: Global Mandatory Vendors -->
+
+<script src="./js/register.js" type="text/javascript"></script>
+
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

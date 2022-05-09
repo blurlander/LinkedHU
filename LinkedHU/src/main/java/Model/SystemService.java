@@ -3,6 +3,7 @@ package Model;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import Interfaces.IService;
 import Interfaces.IUserDao;
@@ -94,16 +95,8 @@ public class SystemService implements IService{
 		}else {
 			return control1 ;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
+	
 		// if user type == student ,  
 	}
 
@@ -204,13 +197,56 @@ public class SystemService implements IService{
 
 	@Override
 	public User readUser(int userID) {
+
 		User user = userDao.read(userID);
+		
 		if(user.getUserType() == MyConstants.TYPE_ACADEMICIAN) {
-			user = (Academician)academicianDao.read(userID);	
+			Academician academician = (Academician)academicianDao.read(userID);
+			
+			// get likes of the user
+			academician.setLikes(this.getLikes(userID));
+			
+			// get posts of the user
+			academician.setAuthorOf(this.fetchUserPosts(userID));
+			
+			user = academician;
 		}
+		else if(user.getUserType() == MyConstants.TYPE_GRADUATE) {
+			Graduate graduate = (Graduate)graduateDao.read(userID);
+			
+			// get likes of the user
+			graduate.setLikes(this.getLikes(userID));
+			
+			// get posts of the user
+			graduate.setAuthorOf(this.fetchUserPosts(userID));
+
+			user = graduate;
+		}
+		else if(user.getUserType() == MyConstants.TYPE_STUDENT) {
+			Student student = (Student)studentDao.read(userID);
+			
+			// get likes of the user
+			student.setLikes(this.getLikes(userID));
+
+			user = student;
+		}
+
+		// get messages of the user
+		
+		TreeMap<Message, User> map = new TreeMap<Message, User>();
+		
+		// iterate over list of messages and fill the map
+		for (Message message : this.fetchUserMessages(userID)) {
+			map.put(message, user);
+		}
+		user.setMessages(map);
+				
+		// end get messages of the user 
+		
 		return user;
 		
 	}
+	
 
 	@Override
 	public Message readMessage(int messageID) {

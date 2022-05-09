@@ -31,7 +31,7 @@ var KTDatatablesAdvancedFooterCalllback = function() {
 
 				// Update footer
 				$(api.column(column).footer()).html(
-					'$' + KTUtil.numberString(pageTotal.toFixed(2)) + '<br/> ( $' + KTUtil.numberString(total.toFixed(2)) + ' total)',
+					'$' + KTUtil.numberString(pageTotal.toFixed(2)) + '<br/> ( $' + KTUtil.numberString(total.toFixed(2)) + ' total)'
 				);
 			},
 		});

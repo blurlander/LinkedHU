@@ -2,6 +2,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -86,7 +87,34 @@ public class GraduateDao implements IDao<Graduate>{
 
 	@Override
 	public Graduate read(int id) {
-		// TODO Auto-generated method stub
+		String query = "Select * from Graduate where userID ="+id;
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Graduate graduate = new Graduate();
+				graduate.setUserID(rs.getInt("userID"));
+				graduate.setUsername(rs.getString("username"));
+				graduate.setEmail(rs.getString("email"));
+				graduate.setPassword(rs.getString("password"));
+				graduate.setFullName(rs.getString("fullName"));
+				graduate.setUserType(rs.getInt("userType"));
+				graduate.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				graduate.setStatus(rs.getString("status"));
+				graduate.setBio(rs.getString("bio"));
+				graduate.setProficiencies(rs.getString("proficiencies"));
+				graduate.setGraduationYear(rs.getString("graduation"));
+				
+				
+
+				return graduate;	
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 

@@ -59,7 +59,7 @@ public class UserController extends HttpServlet {
 				return;
 		
 			case MyConstants.OPP_LOGIN:
-				
+
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
 				boolean control = checkUserLoginInfo(email, password);
@@ -352,46 +352,57 @@ public class UserController extends HttpServlet {
 					boolean check = (password.equals(confPassword));
 					int checkUserName = service.checkUserNameExists(username);
 					int checkEmail = service.checkEmailExists(email);
-					boolean tryagain = false;
-					if(checkUserName > 0) {
-						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
-						tryagain = true;
-					}
-					if(checkEmail > 0) {
-						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
-						tryagain = true;
-					}
-					if(tryagain) {
-						response.sendRedirect("LoginPage.jsp");
+					
+					
+					PrintWriter out = response.getWriter();
+					
+					if(email == "" || password == "" || confPassword == "" || username == "") {
+						out.print("-blank-message-");
 						break;
 					}
 					
+					if(checkUserName > 0) {
+						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
+						out.print("-username-message-");
+						return;
+					}
+					
+					if(email.split("@").length != 2 ) {
+						out.print("-invalidEmail-message-");
+						return;
+					}
+					
+					if(checkEmail > 0) {
+						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+						out.print("-email-message-");
+						return;
+					}
+					
+					
+					if(password.length() <= 7) {
+						out.print("-invalidPassword-message-");
+						return;
+					}
+					
+					if(!check) {
+						out.print("-password-message-");
+						return;
+					}
+					
+					System.out.println("gecti");
 					Student student = new Student();
 					student.setEmail(email);
-					student.setProfilePictureSrc("");
 					student.setPassword(password);
 					student.setUserType(MyConstants.TYPE_STUDENT);
 					student.setUsername(username);
-					//student.setProfilePictureSrc(".\\.\\webapp\\assets\\media\\users\\default.jpg");
+					student.setProfilePictureSrc("./assets/media/users/default.jpg");
 					
+					//service.createUser(student);
+					session.setAttribute("currentUser",student);
+					session.setAttribute("otherUser",student);
 					
+					session.setAttribute("status", MyConstants.CONTINUE_REGISTER);
 					
-					
-					// if check = false, sendredirect login
-					System.out.println(student.getUsername());
-					
-					if(check) {
-						//service.createUser(student);
-						session.setAttribute("currentUser",student);
-						session.setAttribute("otherUser",student);
-						//session.setAttribute("otherUser", student);
-						session.setAttribute("status", MyConstants.CONTINUE_REGISTER);
-						response.sendRedirect("UpdateProfile.jsp");
-					}
-					else {
-						session.setAttribute("status", "registerFail");
-						response.sendRedirect("LoginPage.jsp");
-					}				 
 				 break;
 				
 			 case MyConstants.OPP_FINISH_REGISTER:	 
@@ -798,10 +809,10 @@ public class UserController extends HttpServlet {
 			 		
 			 		if(userType != MyConstants.TYPE_STUDENT) {			 			
 			 			service.deleteFile(fileID);
-			 			PrintWriter out = response.getWriter();
+			 			 out = response.getWriter();
 						out.println("success-deleteFile");
 			 		}else {
-			 			PrintWriter out = response.getWriter();
+			 			 out = response.getWriter();
 						out.println("fail-deleteFile");
 			 		}
 			 		
@@ -1034,6 +1045,7 @@ public class UserController extends HttpServlet {
 				if(service.createUser(s)) {
 					session.setAttribute("currentUser", s);
 					session.setAttribute("otherUser", s);
+					System.out.println(s.getBio());
 					session.setAttribute("status", "Success");
 					return true;
 				}

@@ -3,13 +3,14 @@ package Model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NonAdminUser extends User{
 	private String profilePictureSrc;
 	//private String status;
 	//private Date bannedUntil;
-	private List<Integer> likes = null;
+	private List<Integer> likes = new ArrayList<Integer>();
 	private String bio;
 	
 	public String getProfilePictureSrc() {

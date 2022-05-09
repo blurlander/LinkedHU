@@ -17,7 +17,7 @@ var KTDatatablesAdvancedRowGrouping = function() {
 				api.column(2, {page: 'current'}).data().each(function(group, i) {
 					if (last !== group) {
 						$(rows).eq(i).before(
-							'<tr class="group"><td colspan="10">' + group + '</td></tr>',
+							'<tr class="group"><td colspan="10">' + group + '</td></tr>'
 						);
 						last = group;
 					}

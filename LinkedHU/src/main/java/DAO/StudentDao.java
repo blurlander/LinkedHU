@@ -2,11 +2,13 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
 import Interfaces.IDao;
+import Model.Graduate;
 import Model.Student;
 public class StudentDao implements IDao<Student> {
 	private String userName = "root";
@@ -82,7 +84,34 @@ public class StudentDao implements IDao<Student> {
 
 	@Override
 	public Student read(int id) {
-		// TODO Auto-generated method stub
+		String query = "Select * from Student where userID ="+id;
+		ResultSet rs;
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(query);
+			while(rs.next()) {
+				Student student = new Student();
+				student.setUserID(rs.getInt("userID"));
+				student.setUsername(rs.getString("username"));
+				student.setEmail(rs.getString("email"));
+				student.setPassword(rs.getString("password"));
+				student.setFullName(rs.getString("fullName"));
+				student.setUserType(rs.getInt("userType"));
+				student.setProfilePictureSrc(rs.getString("profilePictureSrc"));
+				student.setStatus(rs.getString("status"));
+				student.setBio(rs.getString("bio"));
+				student.setSkills(rs.getString("skills"));
+				student.setGpa(rs.getDouble("gpa"));
+				student.setGraduation(rs.getString("graduation"));
+				student.setType(rs.getInt("type"));
+
+				return student;	
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 
