@@ -126,6 +126,7 @@
 		<div
 			class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 
+
 			<!-- begin:: side bar -->
 			<div class="sb_sidebar ">
 				<div class="sb_top_content">
@@ -191,16 +192,16 @@
 							<form action="MessageController" method="POST" id="form_viewMessages">
 								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
 							
-							<a href="#" onclick='this.parentNode.submit(); return false;'>
-								<i class="fa fa-comments"></i>
-								<!-- <i class="fa fa-envelope"></i> -->
-								<span class="links_name">Messages</span>
-							</a>
-	
+								<a href="#" onclick='this.parentNode.submit(); return false;'>
+									<i class="fa fa-comments"></i>
+									<!-- <i class="fa fa-envelope"></i> -->
+									<span class="links_name">Messages</span>
+								</a>
+
 							</form>
 						</li>
 						<li>
-							<a href="#">
+							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 								<i class="fa fa-key"></i>
 								<span class="links_name">Change Password</span>
 							</a>
@@ -216,14 +217,17 @@
 
 							</li>
 						</c:if>
-						<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
-							<li>
-								<a href="#" onclick = "window.location = 'FileUpload.jsp'">
-									<i class="fa fa-upload"></i>
+						<li>
+							<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+								<i class="fa fa-upload"></i>
+								<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">										
 									<span class="links_name">Upload File</span>
-								</a>
-							</li>
-						</c:if>
+								</c:if>
+								<c:if test="${currentUser.userType == MyConstants.TYPE_STUDENT }">										
+									<span class="links_name">File Portal</span>
+								</c:if>
+							</a>
+						</li>
 					</ul>
 					<!-- side bar:: navigation list end-->
 					
@@ -231,7 +235,6 @@
 			</div>
 			<!-- end:: side bar -->
 
-			
 
 			<!-- begin:: 3 wrapper classes for content-->
 			<div
@@ -281,37 +284,39 @@
 		</div>
 		<!-- sub-header main end-->
 
-		<!-- begin:: right buttons (create post and plus sign)-->
-		<div class="kt-subheader__toolbar">
-			<div class="kt-subheader__wrapper" style="display: flex;">
-
-				<!-- begin:: file upload  -->
-
-
-
-				<div class="kt-uppy" id="kt_uppy_6">
-
-					<button
-						class="kt-uppy__btn btn btn-label-success btn-bold btn-sm">
-						<i class="fa fa-upload" style="margin-right: 10px"></i>Choose Files
-					</button>
-
-					<div class="kt-uppy__dashboard"></div>
-					<div class="kt-uppy__progress"></div>
+		<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+			<!-- begin:: right buttons (choose file upload files)-->
+			<div class="kt-subheader__toolbar">
+				<div class="kt-subheader__wrapper" style="display: flex;">
+	
+					<!-- begin:: file upload  -->
+	
+	
+	
+					<div class="kt-uppy" id="kt_uppy_6">
+	
+						<button
+							class="kt-uppy__btn btn btn-label-success btn-bold btn-sm">
+							<i class="fa fa-upload" style="margin-right: 10px"></i>Choose Files
+						</button>
+	
+						<div class="kt-uppy__dashboard"></div>
+						<div class="kt-uppy__progress"></div>
+					</div>
+	
+					<form action="UserController" method="POST">
+						<button  class="btn btn-label-brand btn-bold btn-sm" 
+							type="submit" id="uploadFilesToServer">Upload Files</button>
+						<input type="hidden" name="fileObject" value="">
+						<input type="hidden" name="userID" value="${currentUser.userID }">
+						<input type="hidden" name="operation" value="${MyConstants.OPP_FILE_UPLOAD }">
+					</form>
+					<!-- end:: file upload  -->
+	
 				</div>
-
-				<form action="UserController" method="POST">
-					<button  class="btn btn-label-brand btn-bold btn-sm" 
-						type="submit" id="uploadFilesToServer">Upload Files</button>
-					<input type="hidden" name="fileObject" value="">
-					<input type="hidden" name="userID" value="5">
-					<input type="hidden" name="operation" value="${MyConstants.OPP_FILE_UPLOAD }">
-				</form>
-				<!-- end:: file upload  -->
-
 			</div>
-		</div>
-		<!-- end:: right buttons (create post and plus sign)-->
+			<!-- end:: right buttons (choose file upload files)-->
+		</c:if>
 
 	</div>
 	<!-- container div -->
@@ -344,7 +349,7 @@
 				
 				<div class="kt-portlet__body kt-portlet__body--fit">
 					<!--begin: Datatable -->
-					<div class="kt-datatable" id="kt_datatable_latest_orders"></div>
+					<div data-currentUserID="${currentUser.userID }" class="kt-datatable" id="kt_datatable_latest_orders"></div>
 					<!--end: Datatable -->
 				</div>
 			</div>
@@ -353,6 +358,14 @@
 	
 	</div>
 	<!--End::Row-->
+
+	<form id="form_id_deleteFile">
+		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DELETE_FILE}" >
+		<input type = "hidden" id = "input_id_deleteFile" name = "input_name_deleteFile" value = "">
+		<input type = "hidden" name = "input_name_userType" value = "${currentUser.userType }">
+		
+	<!-- 	<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}"> -->
+	</form>
 
 
 	<!-- begin:: Footer -->
@@ -437,7 +450,14 @@
 	<script src="./js/Like.js" type="text/javascript"></script>
 	<script src="./js/Comment.js" type="text/javascript"></script>
 	<script src="./js/sidenavbar.js" type="text/javascript"></script>
-	<script src="./js/FileTable.js" type="text/javascript"></script>
+	
+	<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">	
+		<script src="./js/FileTable.js" type="text/javascript"></script>
+	</c:if>
+
+	<c:if test="${currentUser.userType == MyConstants.TYPE_STUDENT }">	
+		<script src="./js/FileTableStudent.js" type="text/javascript"></script>
+	</c:if>
 
 	<!--begin:: Global Optional Vendors -->
 	<script

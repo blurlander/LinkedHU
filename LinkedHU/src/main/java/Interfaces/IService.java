@@ -12,6 +12,7 @@ public interface IService {
 	List<Post> fetchAllPosts();
 	List<UploadedFile> fetchAllFiles();
 	boolean createFiles(List<UploadedFile> uploadedFiles);
+	boolean deleteFile(int fileID);
 	
 	List<Post> fetchUserPosts(int userID);
 	List<Comment> fetchAllComments(int postID);

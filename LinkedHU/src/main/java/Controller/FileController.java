@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,17 +32,26 @@ public class FileController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		//Parsing as json
-		Gson gson = new Gson(); 
-        JsonObject jsonObject = new JsonObject();
-        
+		Gson gson = new Gson();
+		
+		JsonObject files = new JsonObject();
+		
+     
         List<UploadedFile> uploadedFiles = service.fetchAllFiles();
+        
         
         for (int i = 0; i < uploadedFiles.size(); i++) {
         	
+        	// fetch user from file uploader id
+        	User user = (User) service.readUser(uploadedFiles.get(i).getUploaderID());
+        	
+        	uploadedFiles.get(i).setUploaderEmail(user.getEmail());
+        	uploadedFiles.get(i).setUploaderName(user.getFullName());
+        	
     		JsonElement firstElement = gson.toJsonTree(uploadedFiles.get(i));
-            jsonObject.add(Integer.toString(i),firstElement);
+            files.add(Integer.toString(i),firstElement);
 		}
-        
+                       
                
         response.setContentType("text/html");
         response.setHeader("Cache-control", "no-cache, no-store");
@@ -59,7 +66,7 @@ public class FileController extends HttpServlet {
         session.setAttribute("fileCount", uploadedFiles.size() );
         
         PrintWriter out = response.getWriter();
-		out.println(jsonObject);
+		out.println(files);
 		
 	}
 

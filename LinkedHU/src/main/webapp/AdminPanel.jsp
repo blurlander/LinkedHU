@@ -98,108 +98,114 @@
 	<div class="kt-grid kt-grid--hor kt-grid--root">
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 		
-		
-			
-		<!-- begin:: side bar -->
-		<div class="sb_sidebar ">
-			<div class="sb_top_content">
-				
-				<!-- side bar:: brand-->
-				<div class="sb_logo_content">
-					<div class="sb_logo">
-						<a class="kt-header__brand-logo" href="#">
-							<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
-						</a>	
-					</div>
-				</div>
-				<!-- side bar:: brand end-->
-				
-				<!-- side bar:: profile picture -->
-				<div class="sb_profile_content">
-					<div class="sb_profile"> 
-						<div class="sb_profile_details">
-						 
-							<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
-							
-							<div class="sb_fullname " style="display: none">
-								<c:out value="${currentUser.username }"></c:out>
-							</div>
-								
-					        <form action="UserController" method="POST">
-						        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
-						        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
-					        </form>
-							
+			<!-- begin:: side bar -->
+			<div class="sb_sidebar ">
+				<div class="sb_top_content">
+					
+					<!-- side bar:: brand-->
+					<div class="sb_logo_content">
+						<div class="sb_logo">
+							<a class="kt-header__brand-logo" href="#">
+								<img alt="Logo" src="./assets/media/logos/4060logos.png"/>		
+							</a>	
 						</div>
 					</div>
-				</div>
-				<!-- side bar:: profile picture end-->
-				
-				<!-- side bar:: navigation list -->
-				<ul class="sb_nav_list">
-					<li>
-						<form action="UserController" method="POST">
-							<a href="#" onclick = "window.location = 'HomePage.jsp'">
-								<i class="fa fa-home"></i>
-								<span class="links_name">Home Page</span>
+					<!-- side bar:: brand end-->
+					
+					<!-- side bar:: profile picture -->
+					<div class="sb_profile_content">
+						<div class="sb_profile"> 
+							<div class="sb_profile_details">
+							 
+								<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+								
+								<div class="sb_fullname " style="display: none">
+									<c:out value="${currentUser.username }"></c:out>
+								</div>
+									
+						        <form action="UserController" method="POST">
+							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+							        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
+						        </form>
+								
+							</div>
+						</div>
+					</div>
+					<!-- side bar:: profile picture end-->
+					
+					<!-- side bar:: navigation list -->
+					<ul class="sb_nav_list">
+						<li>
+							<form action="UserController" method="POST">
+								<a href="#" onclick = "window.location = 'HomePage.jsp'">
+									<i class="fa fa-home"></i>
+									<span class="links_name">Home Page</span>
+								</a>
+							</form>
+						</li>
+						<li>
+							<form action="UserController" method="POST">
+								<a href="#" onclick='this.parentNode.submit(); return false;'>					
+									<i class="fa fa-user-alt"></i>
+									<span class="links_name">Profile</span>
+								</a>
+								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+								<input type="hidden" name="userID" value="${currentUser.userID }">
+							</form>
+						</li>
+						<li>
+							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+								<i class="fa fa-user-edit"></i>
+								<span class="links_name">Update Profile</span>
 							</a>
-						</form>
-					</li>
-					<li>
-						<form action="UserController" method="POST">
-							<a href="#" onclick='this.parentNode.submit(); return false;'>					
-								<i class="fa fa-user-alt"></i>
-								<span class="links_name">Profile</span>
+						</li>
+						<li>
+							<form action="MessageController" method="POST" id="form_viewMessages">
+								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
+							
+								<a href="#" onclick='this.parentNode.submit(); return false;'>
+									<i class="fa fa-comments"></i>
+									<!-- <i class="fa fa-envelope"></i> -->
+									<span class="links_name">Messages</span>
+								</a>
+
+							</form>
+						</li>
+						<li>
+							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+								<i class="fa fa-key"></i>
+								<span class="links_name">Change Password</span>
 							</a>
-							<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
-							<input type="hidden" name="userID" value="${currentUser.userID }">
-						</form>
-					</li>
-					<li>
-						<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
-							<i class="fa fa-user-edit"></i>
-							<span class="links_name">Update Profile</span>
-						</a>
-					</li>
-					<li>
-						<form action="MessageController" method="POST" id="form_viewMessages">
-							<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
+						</li>
 						
-						<a href="#" onclick='this.parentNode.submit(); return false;'>
-							<i class="fa fa-comments"></i>
-							<!-- <i class="fa fa-envelope"></i> -->
-							<span class="links_name">Messages</span>
-						</a>
+						<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
+							<li>
 
-						</form>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-key"></i>
-							<span class="links_name">Change Password</span>
-						</a>
-					</li>
-					<li>
+								<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
+									<i class="fa fa-info"></i>
+									<span class="links_name">Administrator</span>
+								</a>
 
-						<a href="#" onclick = "window.location = 'AdminPanel.jsp'">
-							<i class="fa fa-info"></i>
-							<span class="links_name">Administrator</span>
-						</a>
-
-					</li>
-					<li>
-						<a href="#" onclick = "window.location = 'FileUpload.jsp'">
-							<i class="fa fa-upload"></i>
-							<span class="links_name">Update Profile</span>
-						</a>
-					</li>
-				</ul>
-				<!-- side bar:: navigation list end-->
-				
+							</li>
+						</c:if>
+						<li>
+							<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+								<i class="fa fa-upload"></i>
+								<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">										
+									<span class="links_name">Upload File</span>
+								</c:if>
+								<c:if test="${currentUser.userType == MyConstants.TYPE_STUDENT }">										
+									<span class="links_name">File Portal</span>
+								</c:if>
+							</a>
+						</li>
+					</ul>
+					<!-- side bar:: navigation list end-->
+					
+				</div>
 			</div>
-		</div>
-		<!-- end:: side bar -->
-			
+			<!-- end:: side bar -->
+		
 		
 		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding: 0px !important">
 			<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">

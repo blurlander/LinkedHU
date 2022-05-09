@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Date;
+
 public class UploadedFile {
 	
 	private int fileID;
@@ -8,6 +10,12 @@ public class UploadedFile {
 	private String extension;
 	private String name;
 	private String idInfo;
+	private Date createdAt;
+	
+	private String uploaderProfilePicture;
+	private String uploaderEmail;
+	private String uploaderName;
+	
 	public int getFileID() {
 		return fileID;
 	}
@@ -43,6 +51,32 @@ public class UploadedFile {
 	}
 	public void setIdInfo(String idInfo) {
 		this.idInfo = idInfo;
+	}
+	public String getUploaderProfilePicture() {
+		return uploaderProfilePicture;
+	}
+	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public void setUploaderProfilePicture(String uploaderProfilePicture) {
+		this.uploaderProfilePicture = uploaderProfilePicture;
+	}
+	public String getUploaderEmail() {
+		return uploaderEmail;
+	}
+	public void setUploaderEmail(String uploaderEmail) {
+		this.uploaderEmail = uploaderEmail;
+	}
+	public String getUploaderName() {
+		return uploaderName;
+	}
+	public void setUploaderName(String uploaderName) {
+		this.uploaderName = uploaderName;
 	}
 	
 	

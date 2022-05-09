@@ -13,6 +13,8 @@ public interface IUserDao extends IDao<User>{
 	boolean dislikePost(int userID,int postID);
 	List<UploadedFile> fetchAllUploadedFiles();
 	boolean createFiles(List<UploadedFile> uploadedFiles);
+	boolean deleteFile(int fileID);
+	
 	//boolean ban(int userID, Date ts, int type);
 	int getTypefromID(int id);
 	boolean ban(int ID, Date ts, int type);

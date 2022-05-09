@@ -30,6 +30,7 @@ public class MyConstants {
 	public static final String OPP_LIFT_BAN = "21";
 	public static final String OPP_DELETE_SELF = "22";
 	public static final String OPP_CREATED_BY_ADMIN = "23";
+	public static final String OPP_DELETE_FILE = "24-ali";
 	
 	
 	public static final String TARGET_TYPE_CREATOR = "666";

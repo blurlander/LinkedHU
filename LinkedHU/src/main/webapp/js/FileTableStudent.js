@@ -171,47 +171,8 @@ var myKTDashboard = function() {
 
 					return output;
 				}
-			},
-			
-			
-			
-			{
-				field: "Actions",
-				width: 80,
-				title: "Actions",
-				sortable: false,
-				autoHide: false,
-				overflow: 'visible',
-				template: function(data) {
-						
-					var output = `
-						<div class="dropdown myDropdown" id="${data.uploaderID}-uploaderID">
-						
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown">
-                                <i class="flaticon-more-1"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="kt-nav">
-                                    <li class="kt-nav__item delete-file" id="fa_li_fileID_${data.fileID}">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-trash"></i>
-                                            <span class="kt-nav__link-text">Delete</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">             
-                                        <a href="${data.uploadUrl}" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-mail-1"></i>
-                                            <span class="kt-nav__link-text">Download</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    `;
-					return output; 
-				}
-			}]
+			}
+			]
 		});
 	}
 
@@ -240,13 +201,6 @@ var myKTDashboard = function() {
 					// add listener to the data table delete button 
 					addDeleteListener();
 					
-					setTimeout(() => {
-						// the user can not delete other's files 
-						//deleteActionDropDownButton();
-					}, "800")
-										
-					
-					
 					loading.hide();
 				},
 				error: function(jqXHR, exception) {
@@ -260,25 +214,6 @@ var myKTDashboard = function() {
 	};
 }();
 
-function deleteActionDropDownButton(){
-	
-	// kt_datatable_latest_orders id of dataTablee
-	let userID = $("#kt_datatable_latest_orders").attr("data-currentUserID");
-	
-	console.log(userID);
-	
-	console.log($("#kt_datatable_latest_orders").find(".myDropdown"));
-	
-	$("#kt_datatable_latest_orders").find(".myDropdown").each(function(index,element){
-		let currentID = $(element).attr("id").split("-")[0];
-		
-		if(currentID != userID){
-			$(element).remove();
-		}
-		
-	});
-	
-}
 
 function addDeleteListener(){
 	

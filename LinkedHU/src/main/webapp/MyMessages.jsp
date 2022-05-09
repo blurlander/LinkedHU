@@ -129,7 +129,6 @@
 		<div
 			class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 			
-			
 			<!-- begin:: side bar -->
 			<div class="sb_sidebar ">
 				<div class="sb_top_content">
@@ -195,16 +194,16 @@
 							<form action="MessageController" method="POST" id="form_viewMessages">
 								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
 							
-							<a href="#" onclick='this.parentNode.submit(); return false;'>
-								<i class="fa fa-comments"></i>
-								<!-- <i class="fa fa-envelope"></i> -->
-								<span class="links_name">Messages</span>
-							</a>
+								<a href="#" onclick='this.parentNode.submit(); return false;'>
+									<i class="fa fa-comments"></i>
+									<!-- <i class="fa fa-envelope"></i> -->
+									<span class="links_name">Messages</span>
+								</a>
 
 							</form>
 						</li>
 						<li>
-							<a href="#">
+							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 								<i class="fa fa-key"></i>
 								<span class="links_name">Change Password</span>
 							</a>
@@ -220,20 +219,25 @@
 
 							</li>
 						</c:if>
-						<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
-							<li>
-								<a href="#" onclick = "window.location = 'FileUpload.jsp'">
-									<i class="fa fa-upload"></i>
+						<li>
+							<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+								<i class="fa fa-upload"></i>
+								<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">										
 									<span class="links_name">Upload File</span>
-								</a>
-							</li>
-						</c:if>
+								</c:if>
+								<c:if test="${currentUser.userType == MyConstants.TYPE_STUDENT }">										
+									<span class="links_name">File Portal</span>
+								</c:if>
+							</a>
+						</li>
 					</ul>
 					<!-- side bar:: navigation list end-->
 					
 				</div>
 			</div>
 			<!-- end:: side bar -->
+
+
 			
 			<!-- 3 wrapper class start-->
 			<div

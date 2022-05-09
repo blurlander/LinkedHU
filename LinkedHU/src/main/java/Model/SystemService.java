@@ -52,6 +52,11 @@ public class SystemService implements IService{
 	}
 	
 	@Override
+	public boolean deleteFile(int fileID) {
+		return userDao.deleteFile(fileID);
+	}
+	
+	@Override
 	public List<Post> fetchUserPosts(int userID) {
 		return postDao.fetchAllUserPosts(userID);
 	}

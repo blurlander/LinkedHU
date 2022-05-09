@@ -5571,7 +5571,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					var theadHeight = $(datatable.tableHead).find('.' + pfx + 'datatable__row').outerHeight();
 					var tfootHeight = $(datatable.tableFoot).find('.' + pfx + 'datatable__row').outerHeight();
 					var bodyHeight = options.layout.height;
-					console.log(options.layout);
+
 					if (theadHeight > 0) {
 						bodyHeight -= theadHeight;
 					}

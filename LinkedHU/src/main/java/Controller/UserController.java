@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -787,6 +788,21 @@ public class UserController extends HttpServlet {
 			 		if(checkfo1llow) {
 			 			session.setAttribute("studList",studlist);
 			 			
+			 		}
+			 		
+			 		break;
+			 	case  MyConstants.OPP_DELETE_FILE:
+			 		
+			 		int fileID = Integer.parseInt(request.getParameter("input_name_deleteFile"));
+			 		userType = Integer.parseInt(request.getParameter("input_name_userType"));
+			 		
+			 		if(userType != MyConstants.TYPE_STUDENT) {			 			
+			 			service.deleteFile(fileID);
+			 			PrintWriter out = response.getWriter();
+						out.println("success-deleteFile");
+			 		}else {
+			 			PrintWriter out = response.getWriter();
+						out.println("fail-deleteFile");
 			 		}
 			 		
 			 		break;

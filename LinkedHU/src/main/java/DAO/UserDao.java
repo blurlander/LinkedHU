@@ -83,7 +83,7 @@ public class UserDao implements IUserDao {
 		
 		List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
 		
-		String query = "Select * from upload";
+		String query = "Select * from upload order by createdAt desc";
 		ResultSet rs;
 		try {
 			statement = connection.createStatement();
@@ -98,6 +98,9 @@ public class UserDao implements IUserDao {
 				uploadedFile.setName(rs.getString("name"));
 				uploadedFile.setIdInfo(rs.getString("idInfo"));
 				
+				Date date = new Date(rs.getTimestamp(7).getTime());
+				uploadedFile.setCreatedAt(date);
+				
 				uploadedFiles.add(uploadedFile);
 			}
 		}
@@ -106,6 +109,25 @@ public class UserDao implements IUserDao {
 		}
 		
 		return uploadedFiles;
+	}
+	
+	@Override
+	public boolean deleteFile(int fileID) {
+		
+		try {
+			String delete = "DELETE FROM upload WHERE fileID = ?";
+			PreparedStatement sql = connection.prepareStatement(delete);
+			sql.setInt(1,fileID);
+			
+			sql.executeUpdate();
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override
