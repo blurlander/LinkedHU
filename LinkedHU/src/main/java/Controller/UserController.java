@@ -785,7 +785,7 @@ public class UserController extends HttpServlet {
 			 					for(int z = 0; z<flw.size();z++) {
 			 						if(flw.get(z) == anotherID) {
 			 							flw.remove(z);
-			 							break;
+			 							break; 
 			 						}
 			 					} 					
 			 					

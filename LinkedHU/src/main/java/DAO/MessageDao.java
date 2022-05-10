@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import Interfaces.IDao;
 import Interfaces.IMessageDao;
 import Model.Message;
@@ -116,7 +118,7 @@ public class MessageDao implements IMessageDao{
 				}
 				List<String> uploadedFiles = new ArrayList<String>();
 				String uploadedFilesData = rSet.getString("uploadedFiles");
-				if(uploadedFilesData.length() != 0) {
+				if(uploadedFilesData != null && uploadedFilesData.length() != 0) {
 					String[] uploaded = uploadedFilesData.split("\\+");
 					for(String s : uploaded) {
 						uploadedFiles.add(s);
@@ -208,7 +210,7 @@ public class MessageDao implements IMessageDao{
 				}
 				List<String> uploadedFiles = new ArrayList<String>();
 				String uploadedFilesData = rSet.getString("uploadedFiles");
-				if(uploadedFilesData.length() != 0) {
+				if(uploadedFilesData != null && uploadedFilesData.length() != 0) {
 					String[] uploaded = uploadedFilesData.split("\\+");
 					for(String s : uploaded) {
 						uploadedFiles.add(s);
