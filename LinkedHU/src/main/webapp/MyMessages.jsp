@@ -129,6 +129,7 @@
 		<div
 			class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
 			
+			
 			<!-- begin:: side bar -->
 			<div class="sb_sidebar ">
 				<div class="sb_top_content">
@@ -194,16 +195,16 @@
 							<form action="MessageController" method="POST" id="form_viewMessages">
 								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
 							
-								<a href="#" onclick='this.parentNode.submit(); return false;'>
-									<i class="fa fa-comments"></i>
-									<!-- <i class="fa fa-envelope"></i> -->
-									<span class="links_name">Messages</span>
-								</a>
+							<a href="#" onclick='this.parentNode.submit(); return false;'>
+								<i class="fa fa-comments"></i>
+								<!-- <i class="fa fa-envelope"></i> -->
+								<span class="links_name">Messages</span>
+							</a>
 
 							</form>
 						</li>
 						<li>
-							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
+							<a href="#">
 								<i class="fa fa-key"></i>
 								<span class="links_name">Change Password</span>
 							</a>
@@ -219,72 +220,85 @@
 
 							</li>
 						</c:if>
-						<li>
-							<a href="#" onclick = "window.location = 'FileUpload.jsp'">
-								<i class="fa fa-upload"></i>
-								<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">										
+						<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+							<li>
+								<a href="#" onclick = "window.location = 'FileUpload.jsp'">
+									<i class="fa fa-upload"></i>
 									<span class="links_name">Upload File</span>
-								</c:if>
-								<c:if test="${currentUser.userType == MyConstants.TYPE_STUDENT }">										
-									<span class="links_name">File Portal</span>
-								</c:if>
-							</a>
-						</li>
+								</a>
+							</li>
+						</c:if>
 					</ul>
 					<!-- side bar:: navigation list end-->
 					
 				</div>
 			</div>
 			<!-- end:: side bar -->
-
-
 			
-			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" style="padding: 0px !important">
-				<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
-					<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+			<!-- 3 wrapper class start-->
+				<div
+					class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch"
+					id="kt_body">
+					<div
+						class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
+						id="kt_content">
 
-
-<!-- begin:: Subheader -->
-<div class="kt-subheader   kt-grid__item" id="kt_subheader">
-	<div class="kt-container ">
-		<div class="kt-subheader__main">
-			<h3 class="kt-subheader__title">
-				<button
-					class="kt-subheader__mobile-toggle kt-subheader__mobile-toggle--left"
-					id="kt_subheader_mobile_toggle">
-					<span></span>
-				</button>
-
-				My Messages
-			</h3>
-
-			<span class="kt-subheader__separator kt-hidden"></span>
-			<div class="kt-subheader__breadcrumbs">
-			 <span
-					class="kt-subheader__breadcrumbs-separator"></span> <a
-					href="" class="kt-subheader__breadcrumbs-link" id="currentSection"> Inbox
-				</a> <span class="kt-subheader__breadcrumbs-separator"></span>
-				
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end:: Subheader -->
 
 <!-- begin:: Content -->
-<div class="kt-container  kt-grid__item kt-grid__item--fluid">
-	<!--Begin::Inbox-->
+<div
+	class="kt-container  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
 	<div
-		class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox"
-		id="kt_inbox">
-		<!--Begin::Aside Mobile Toggle-->
-		<button class="kt-inbox__aside-close"
-			id="kt_inbox_aside_close">
-			<i class="la la-close"></i>
-		</button>
-		<!--End:: Aside Mobile Toggle-->
+		class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch">
+		<div
+			class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+			<div
+				class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch"
+				id="kt_body">
+				<div
+					class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
+					id="kt_content">
 
-		<!--Begin:: Inbox Aside-->
+					<!-- begin:: Subheader -->
+					<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+						<div class="kt-container ">
+							<div class="kt-subheader__main">
+								<h3 class="kt-subheader__title">
+									<button
+										class="kt-subheader__mobile-toggle kt-subheader__mobile-toggle--left"
+										id="kt_subheader_mobile_toggle">
+										<span></span>
+									</button>
+
+									My Messages
+								</h3>
+
+								<span class="kt-subheader__separator kt-hidden"></span>
+								<div class="kt-subheader__breadcrumbs">
+								 <span
+										class="kt-subheader__breadcrumbs-separator"></span> <a
+										href="" class="kt-subheader__breadcrumbs-link" id="currentSection"> Inbox
+									</a> <span class="kt-subheader__breadcrumbs-separator"></span>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end:: Subheader -->
+
+					<!-- begin:: Content -->
+					<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+						<!--Begin::Inbox-->
+						<div
+							class="kt-grid kt-grid--desktop kt-grid--ver-desktop  kt-inbox"
+							id="kt_inbox">
+							<!--Begin::Aside Mobile Toggle-->
+							<button class="kt-inbox__aside-close"
+								id="kt_inbox_aside_close">
+								<i class="la la-close"></i>
+							</button>
+							<!--End:: Aside Mobile Toggle-->
+
+							<!--Begin:: Inbox Aside-->
 													<div class="kt-grid__item   kt-portlet  kt-inbox__aside"
 														id="kt_inbox_aside">
 														<button type="button"
@@ -310,24 +324,24 @@
 																				id="Combined-Shape" fill="#000000" />
     </g>
 </svg> <span class="kt-nav__link-text">Inbox</span> 				<% 
-													int unreadInbox = 0; 
-													User user = (User)session.getAttribute("currentUser");
-													
-													for(Message m : user.getMessages().keySet())
-													{
-														if(m.getReceiverID() == user.getUserID() && m.getIsRead() == false)
-														{
-															
-															unreadInbox++;
-														}
-													request.setAttribute("unreadInbox",unreadInbox);
-													}
-													%>
-													<c:if test="${unreadInbox > 0}">
-														<span class="kt-nav__link-badge"> 
-															<span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest" id="unreadCount">${unreadInbox}</span>
-														</span>
-													</c:if>
+																		int unreadInbox = 0; 
+																		User user = (User)session.getAttribute("currentUser");
+																		
+																		for(Message m : user.getMessages().keySet())
+																		{
+																			if(m.getReceiverID() == user.getUserID() && m.getIsRead() == false)
+																			{
+																				
+																				unreadInbox++;
+																			}
+																		request.setAttribute("unreadInbox",unreadInbox);
+																		}
+																		%>
+																		<c:if test="${unreadInbox > 0}">
+																			<span class="kt-nav__link-badge"> 
+																				<span class="kt-badge kt-badge--unified-success kt-badge--md kt-badge--rounded kt-badge--boldest" id="unreadCount">${unreadInbox}</span>
+																			</span>
+																		</c:if>
 																		
 																</a></li>
 
@@ -374,7 +388,7 @@
 													</div>
 													<!--End::Aside-->
 
-		<!--Begin:: Inbox List-->
+							<!--Begin:: Inbox List-->
 													<div
 														class="kt-grid__item kt-grid__item--fluid    kt-portlet    kt-inbox__list kt-inbox__list--shown"
 														id="kt_inbox_list">
@@ -461,281 +475,281 @@
 														<div class="kt-portlet__body kt-portlet__body--fit-x">
 															<div class="kt-inbox__items" data-type="inbox" id="inboxItems">
 																<c:forEach items="${currentUser.messages.entrySet()}" var="entry">
-						<c:if
-							test="${entry.getKey().receiverID == currentUser.userID && entry.getKey().deletionStatus != MyConstants.CODE_DELETEDMESSAGE_BY_RECEIVER}">
-							<c:if test="${entry.getKey().isRead == false}">
-								<div
-									class="kt-inbox__item kt-inbox__item--unread"
-									data-id="1" data-type="inbox"
-									id="${entry.getKey().messageID}">
-									<div class="kt-inbox__info">
-										<div class="kt-inbox__actions">
-											<label
-												class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
-												<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
-											</label> 
-										</div>
-										<div class="kt-inbox__sender" data-toggle="view">
-											<!-- For admin,you will use c:if -->
-											<span
-												class="kt-media kt-media--sm kt-media--danger"
-												id="${entry.getKey().messageID}senderImg"
-												style="background-image: url('${entry.getValue().profilePictureSrc}')">
-												<span></span>
-											</span> <a href="#" class="kt-inbox__author"
-												id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
-											<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
-										</div>
-									</div>
-									<div class="kt-inbox__details" data-toggle="view">
-										<div class="kt-inbox__message">
-											<span class="kt-inbox__subject"
-												id="${entry.getKey().messageID}topic">${entry.getKey().messageTopic}
-											</span>
-											<c:if test="${entry.getKey().text.length() > 100}">
-												<span class="kt-inbox__summary"
-													id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none">
-													${entry.getKey().text}</span>
-
-											</c:if>
 											<c:if
-												test="${entry.getKey().text.length() <= 100}">
-												<span class="kt-inbox__summary"
-													id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none">
-													${entry.getKey().text}</span>
+												test="${entry.getKey().receiverID == currentUser.userID && entry.getKey().deletionStatus != MyConstants.CODE_DELETEDMESSAGE_BY_RECEIVER}">
+												<c:if test="${entry.getKey().isRead == false}">
+													<div
+														class="kt-inbox__item kt-inbox__item--unread"
+														data-id="1" data-type="inbox"
+														id="${entry.getKey().messageID}">
+														<div class="kt-inbox__info">
+															<div class="kt-inbox__actions">
+																<label
+																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
+																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
+																</label> 
+															</div>
+															<div class="kt-inbox__sender" data-toggle="view">
+																<!-- For admin,you will use c:if -->
+																<span
+																	class="kt-media kt-media--sm kt-media--danger"
+																	id="${entry.getKey().messageID}senderImg"
+																	style="background-image: url('${entry.getValue().profilePictureSrc}')">
+																	<span></span>
+																</span> <a href="#" class="kt-inbox__author"
+																	id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
+																<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
+															</div>
+														</div>
+														<div class="kt-inbox__details" data-toggle="view">
+															<div class="kt-inbox__message">
+																<span class="kt-inbox__subject"
+																	id="${entry.getKey().messageID}topic">${entry.getKey().messageTopic}
+																</span>
+																<c:if test="${entry.getKey().text.length() > 100}">
+																	<span class="kt-inbox__summary"
+																		id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none">
+																		${entry.getKey().text}</span>
+
+																</c:if>
+																<c:if
+																	test="${entry.getKey().text.length() <= 100}">
+																	<span class="kt-inbox__summary"
+																		id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none">
+																		${entry.getKey().text}</span>
+																</c:if>
+															</div>
+															<div class="kt-inbox__labels">
+																<span
+																	class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">inbox</span>
+															</div>
+														</div>
+														<div class="kt-inbox__datetime"
+															id="${entry.getKey().messageID}createdAt"
+															data-toggle="view">
+															${entry.getKey().formattedDateWithoutHours}</div>
+														<span id="${entry.getKey().messageID}fullTime"
+															style="display: none">
+															${entry.getKey().formattedDate}</span>
+													</div>
+												</c:if>
+												<c:if test="${entry.getKey().isRead == true}">
+													<div class="kt-inbox__item" data-id="3"
+														data-type="inbox" id="${entry.getKey().messageID}">
+														<div class="kt-inbox__info">
+															<div class="kt-inbox__actions">
+																<label
+																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
+																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
+																</label>
+															</div>
+															<div class="kt-inbox__sender" data-toggle="view">
+																<span
+																	class="kt-media kt-media--sm kt-media--brand"
+																	id="${entry.getKey().messageID}senderImg"
+																	style="background-image: url('${entry.getValue().profilePictureSrc}')">
+																	<span></span>
+																</span> <a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender"  >${entry.getValue().fullName}</a>
+																<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
+
+															</div>
+														</div>
+
+														<div class="kt-inbox__details" data-toggle="view">
+															<div class="kt-inbox__message">
+																<span class="kt-inbox__subject"
+																	id="${entry.getKey().messageID}topic" >${entry.getKey().messageTopic}
+																</span>
+																<c:if test="${entry.getKey().text.length() > 100}">
+																	<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+
+																</c:if>
+																<c:if
+																	test="${entry.getKey().text.length() <= 100}">
+																	<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+																</c:if>
+															</div>
+														</div>
+														<div class="kt-inbox__datetime"
+															id="${entry.getKey().messageID}createdAt"
+															data-toggle="view">
+															${entry.getKey().formattedDateWithoutHours}</div>
+														<span id="${entry.getKey().messageID}fullTime"
+															style="display: none">
+															${entry.getKey().formattedDate}</span>
+													</div>
+												</c:if>
+												<c:if test="${entry.getKey().uploadedFiles.size() != 0 }">
+			                                        <c:forEach items="${entry.getKey().uploadedFiles}" var="filePath">
+			                                        	<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
+			                                        </c:forEach>
+												</c:if>		
+												<c:if test="${entry.getKey().uploadedFiles.size() == 0 }">
+													<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
+												</c:if>			
 											</c:if>
-										</div>
-										<div class="kt-inbox__labels">
-											<span
-												class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">inbox</span>
-										</div>
+										
+										</c:forEach>
+										<c:forEach items="${currentUser.messages.entrySet()}" var="entry">
+											<c:if
+												test="${entry.getKey().senderID == currentUser.userID  && entry.getKey().deletionStatus != MyConstants.CODE_DELETEDMESSAGE_BY_SENDER}">
+												<c:if test="${entry.getKey().isRead == false}">
+													<div class="kt-inbox__item kt-inbox__item--unread"
+														data-id="20" data-type="sent"
+														id="${entry.getKey().messageID}">
+														<div class="kt-inbox__info">
+															<div class="kt-inbox__actions">
+																<label
+																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
+																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
+																</label>
+																 <span
+																	class="kt-inbox__icon kt-inbox__icon--light"
+																	data-toggle="kt-tooltip" data-placement="right"
+																	title="Your message has been delivered."> 
+																	<i class="flaticon2-check-mark" style="color:#D3D3D3"></i>
+																</span>
+															</div>
+															<div class="kt-inbox__sender" data-toggle="view">
+																<c:if
+																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--brand"
+																		style="background-image: url('./assets/media/users/100_5.jpg')"
+																		id="${entry.getKey().messageID}senderImg"> <span></span>
+																	</span>
+																</c:if>
+																<c:if
+																	test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--brand"
+																		style="background-image: url('${entry.getValue().profilePictureSrc}')"
+																		id="${entry.getKey().messageID}senderImg"> <span></span>
+																	</span>
+																</c:if>
+																<a href="#" class="kt-inbox__author"
+																	id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
+															</div>
+														</div>
+														<div class="kt-inbox__details" data-toggle="view">
+															<div class="kt-inbox__message">
+																<span class="kt-inbox__subject"
+																	id="${entry.getKey().messageID}topic">${entry.getKey().messageTopic}
+																</span>
+																<c:if test="${entry.getKey().text.length() > 100}">
+																	<span class="kt-inbox__summary"
+																		id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+
+																</c:if>
+																<c:if test="${entry.getKey().text.length() <= 100}">
+																	<span class="kt-inbox__summary"
+																		id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+																</c:if>
+															</div>
+														</div>
+														<div class="kt-inbox__datetime"
+															id="${entry.getKey().messageID}createdAt"
+															data-toggle="view">
+															${entry.getKey().formattedDateWithoutHours}</div>
+														<span id="${entry.getKey().messageID}fullTime"
+															style="display: none">
+															${entry.getKey().formattedDate}</span>
+													</div>
+												</c:if>
+												<c:if test="${entry.getKey().isRead == true}">
+													<div class="kt-inbox__item" data-id="19"
+														data-type="sent" id="${entry.getKey().messageID}">
+														<div class="kt-inbox__info">
+															<div class="kt-inbox__actions">
+																<label
+																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
+																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
+																</label> 
+																<span
+																	class="kt-inbox__icon kt-inbox__icon--light"
+																	data-toggle="kt-tooltip" data-placement="right"
+																	title="Your message has been read"> 
+																	<i class="flaticon2-check-mark" style="color:green"></i>
+																</span>
+															</div>
+															<div class="kt-inbox__sender" data-toggle="view">
+																<c:if
+																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--brand"
+																		style="background-image: url('./assets/media/users/100_5.jpg')">
+																		<span></span>
+																	</span>
+																</c:if>
+																<c:if
+																	test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--brand"
+																		style="background-image: url('${entry.getValue().profilePictureSrc}')" id="${entry.getKey().messageID}senderImg">
+																		<span></span>
+																	</span>
+																</c:if>
+																<a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
+															</div>
+														</div>
+														<div class="kt-inbox__details" data-toggle="view">
+															<div class="kt-inbox__message">
+																<span class="kt-inbox__subject" id="${entry.getKey().messageID}topic" >${entry.getKey().messageTopic}</span>
+																<c:if test="${entry.getKey().text.length() > 100}">
+																	<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_" ">${entry.getKey().text.substring(0,100)}...</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+
+																</c:if>
+																<c:if test="${entry.getKey().text.length() <= 100}">
+																	<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_" >${entry.getKey().text}</span>
+																	<span id="${entry.getKey().messageID}fullText"
+																		style="display: none; white-space: pre">
+																		${entry.getKey().text}</span>
+																</c:if>
+															</div>
+														</div>
+														<div class="kt-inbox__datetime" id="${entry.getKey().messageID}createdAt" data-toggle="view">
+															${entry.getKey().formattedDateWithoutHours}</div>
+														<span id="${entry.getKey().messageID}fullTime"
+															style="display: none">
+															${entry.getKey().formattedDate}
+														</span>
+													</div>
+												</c:if>
+												<c:if test="${entry.getKey().uploadedFiles.size() != 0 }">
+			                                        <c:forEach items="${entry.getKey().uploadedFiles}" var="filePath">
+			                                        	<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
+			                                        </c:forEach>
+												</c:if>		
+												<c:if test="${entry.getKey().uploadedFiles.size() == 0 }">
+													<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
+												</c:if>			
+											</c:if>
+										</c:forEach>
 									</div>
-									<div class="kt-inbox__datetime"
-										id="${entry.getKey().messageID}createdAt"
-										data-toggle="view">
-										${entry.getKey().formattedDateWithoutHours}</div>
-									<span id="${entry.getKey().messageID}fullTime"
-										style="display: none">
-										${entry.getKey().formattedDate}</span>
 								</div>
-							</c:if>
-							<c:if test="${entry.getKey().isRead == true}">
-								<div class="kt-inbox__item" data-id="3"
-									data-type="inbox" id="${entry.getKey().messageID}">
-									<div class="kt-inbox__info">
-										<div class="kt-inbox__actions">
-											<label
-												class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
-												<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
-											</label>
-										</div>
-										<div class="kt-inbox__sender" data-toggle="view">
-											<span
-												class="kt-media kt-media--sm kt-media--brand"
-												id="${entry.getKey().messageID}senderImg"
-												style="background-image: url('${entry.getValue().profilePictureSrc}')">
-												<span></span>
-											</span> <a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender"  >${entry.getValue().fullName}</a>
-											<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
+							</div>
+							<!--End:: Inbox List-->
 
-										</div>
-									</div>
-
-									<div class="kt-inbox__details" data-toggle="view">
-										<div class="kt-inbox__message">
-											<span class="kt-inbox__subject"
-												id="${entry.getKey().messageID}topic" >${entry.getKey().messageTopic}
-											</span>
-											<c:if test="${entry.getKey().text.length() > 100}">
-												<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-
-											</c:if>
-											<c:if
-												test="${entry.getKey().text.length() <= 100}">
-												<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-											</c:if>
-										</div>
-									</div>
-									<div class="kt-inbox__datetime"
-										id="${entry.getKey().messageID}createdAt"
-										data-toggle="view">
-										${entry.getKey().formattedDateWithoutHours}</div>
-									<span id="${entry.getKey().messageID}fullTime"
-										style="display: none">
-										${entry.getKey().formattedDate}</span>
-								</div>
-							</c:if>
-							<c:if test="${entry.getKey().uploadedFiles.size() != 0 }">
-                                      <c:forEach items="${entry.getKey().uploadedFiles}" var="filePath">
-                                      	<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
-                                      </c:forEach>
-							</c:if>		
-							<c:if test="${entry.getKey().uploadedFiles.size() == 0 }">
-								<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
-							</c:if>			
-						</c:if>
-					
-					</c:forEach>
-					<c:forEach items="${currentUser.messages.entrySet()}" var="entry">
-						<c:if
-							test="${entry.getKey().senderID == currentUser.userID  && entry.getKey().deletionStatus != MyConstants.CODE_DELETEDMESSAGE_BY_SENDER}">
-							<c:if test="${entry.getKey().isRead == false}">
-								<div class="kt-inbox__item kt-inbox__item--unread"
-									data-id="20" data-type="sent"
-									id="${entry.getKey().messageID}">
-									<div class="kt-inbox__info">
-										<div class="kt-inbox__actions">
-											<label
-												class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
-												<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
-											</label>
-											 <span
-												class="kt-inbox__icon kt-inbox__icon--light"
-												data-toggle="kt-tooltip" data-placement="right"
-												title="Your message has been delivered."> 
-												<i class="flaticon2-check-mark" style="color:#D3D3D3"></i>
-											</span>
-										</div>
-										<div class="kt-inbox__sender" data-toggle="view">
-											<c:if
-												test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
-												<span
-													class="kt-media kt-media--sm kt-media--brand"
-													style="background-image: url('./assets/media/users/100_5.jpg')"
-													id="${entry.getKey().messageID}senderImg"> <span></span>
-												</span>
-											</c:if>
-											<c:if
-												test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
-												<span
-													class="kt-media kt-media--sm kt-media--brand"
-													style="background-image: url('${entry.getValue().profilePictureSrc}')"
-													id="${entry.getKey().messageID}senderImg"> <span></span>
-												</span>
-											</c:if>
-											<a href="#" class="kt-inbox__author"
-												id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
-										</div>
-									</div>
-									<div class="kt-inbox__details" data-toggle="view">
-										<div class="kt-inbox__message">
-											<span class="kt-inbox__subject"
-												id="${entry.getKey().messageID}topic">${entry.getKey().messageTopic}
-											</span>
-											<c:if test="${entry.getKey().text.length() > 100}">
-												<span class="kt-inbox__summary"
-													id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-
-											</c:if>
-											<c:if test="${entry.getKey().text.length() <= 100}">
-												<span class="kt-inbox__summary"
-													id="${entry.getKey().messageID}short_">${entry.getKey().text}</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-											</c:if>
-										</div>
-									</div>
-									<div class="kt-inbox__datetime"
-										id="${entry.getKey().messageID}createdAt"
-										data-toggle="view">
-										${entry.getKey().formattedDateWithoutHours}</div>
-									<span id="${entry.getKey().messageID}fullTime"
-										style="display: none">
-										${entry.getKey().formattedDate}</span>
-								</div>
-							</c:if>
-							<c:if test="${entry.getKey().isRead == true}">
-								<div class="kt-inbox__item" data-id="19"
-									data-type="sent" id="${entry.getKey().messageID}">
-									<div class="kt-inbox__info">
-										<div class="kt-inbox__actions">
-											<label
-												class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
-												<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
-											</label> 
-											<span
-												class="kt-inbox__icon kt-inbox__icon--light"
-												data-toggle="kt-tooltip" data-placement="right"
-												title="Your message has been read"> 
-												<i class="flaticon2-check-mark" style="color:green"></i>
-											</span>
-										</div>
-										<div class="kt-inbox__sender" data-toggle="view">
-											<c:if
-												test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
-												<span
-													class="kt-media kt-media--sm kt-media--brand"
-													style="background-image: url('./assets/media/users/100_5.jpg')">
-													<span></span>
-												</span>
-											</c:if>
-											<c:if
-												test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
-												<span
-													class="kt-media kt-media--sm kt-media--brand"
-													style="background-image: url('${entry.getValue().profilePictureSrc}')" id="${entry.getKey().messageID}senderImg">
-													<span></span>
-												</span>
-											</c:if>
-											<a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
-										</div>
-									</div>
-									<div class="kt-inbox__details" data-toggle="view">
-										<div class="kt-inbox__message">
-											<span class="kt-inbox__subject" id="${entry.getKey().messageID}topic" >${entry.getKey().messageTopic}</span>
-											<c:if test="${entry.getKey().text.length() > 100}">
-												<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_" ">${entry.getKey().text.substring(0,100)}...</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-
-											</c:if>
-											<c:if test="${entry.getKey().text.length() <= 100}">
-												<span class="kt-inbox__summary" id="${entry.getKey().messageID}short_" >${entry.getKey().text}</span>
-												<span id="${entry.getKey().messageID}fullText"
-													style="display: none; white-space: pre">
-													${entry.getKey().text}</span>
-											</c:if>
-										</div>
-									</div>
-									<div class="kt-inbox__datetime" id="${entry.getKey().messageID}createdAt" data-toggle="view">
-										${entry.getKey().formattedDateWithoutHours}</div>
-									<span id="${entry.getKey().messageID}fullTime"
-										style="display: none">
-										${entry.getKey().formattedDate}
-									</span>
-								</div>
-							</c:if>
-							<c:if test="${entry.getKey().uploadedFiles.size() != 0 }">
-                                      <c:forEach items="${entry.getKey().uploadedFiles}" var="filePath">
-                                      	<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
-                                      </c:forEach>
-							</c:if>		
-							<c:if test="${entry.getKey().uploadedFiles.size() == 0 }">
-								<span class = "${entry.getKey().messageID}uploads" style="display:none">${filePath}</span>
-							</c:if>			
-						</c:if>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
-		<!--End:: Inbox List-->
-
-		<!--Begin:: Inbox View-->
+							<!--Begin:: Inbox View-->
 													
 													
 													
@@ -792,398 +806,401 @@
 											                                        File Attachments
 											                                    </button>
 											                                    <div class="dropdown-menu  _msgFiles" aria-labelledby="dropdownMenuButton" style="">
-						                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="display:none">Action</a>
-						                                        <a class="dropdown-item" href="#" style="display:none">Another action</a>
-						                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Tooltip title" style="display:none">Something else here</a>
-						                                    </div>
-						                                    
-						                                    
-						                           </div>
+											                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="display:none">Action</a>
+											                                        <a class="dropdown-item" href="#" style="display:none">Another action</a>
+											                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Tooltip title" style="display:none">Something else here</a>
+											                                    </div>
+											                                    
+											                                    
+											                           </div>
+																</div>
+														</div>
+
+														<div class="kt-portlet__body kt-portlet__body--fit-x">
+															<div class="kt-inbox__subject">
+																<div class="kt-inbox__title">
+																	<h3 class="kt-inbox__text msg-topic"></h3>
+																</div>
+																
+																
+															</div>
+
+															<div class="kt-inbox__messages">
+																<div
+																	class="kt-inbox__message kt-inbox__message--expanded">
+																	<div class="kt-inbox__head">
+																		<span class="kt-media sender_img" data-toggle="expand"
+																			style="background-image: url('./assets/media/users/100_13.jpg')">
+													<span></span>
+												</span>
+												<div class="kt-inbox__info">
+													<div class="kt-inbox__author" data-toggle="expand">
+														<a href="#" class="kt-inbox__name sender_name"></a>
+														<div class="kt-inbox__status">
+															<span class="msg_dateTime"> 1 day ago</span>
+														</div>
+														&nbsp
+														&nbsp
+														&nbsp
+														<span id="replyIcon" class="kt-inbox__icon kt-inbox__icon--reply kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="" data-original-title="Reply">
+					                                    <i class="flaticon2-reply-1"></i>
+					                                	</span>
+													</div>
+													
+													<div class="kt-inbox__details">
+														<div class="kt-inbox__tome">
+															<span class="kt-inbox__label _toWho"
+																data-toggle="dropdown" id="toWho"> to me <i
+																class="flaticon2-down"></i>
+															</span>
+															<div
+																class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-left">
+																<table class="kt-inbox__details">
+																	<tr>
+																		<td>date:</td>
+																		<td class="msgDate_">Jul 30, 2019, 11:27 PM</td>
+																	</tr>
+																	<tr>
+																		<td>from:</td>
+																		<td class="msgSender_">Mark Andre</td>
+																	</tr>
+																	<tr>
+																		<td>subject:</td>
+																		<td class="msgSubject_">Trip Reminder.
+																			Thank you for flying with us!</td>
+																	</tr>
+																	<tr>
+																		<td>reply to:</td>
+																		<td class="msg_reply">mark.andre@gmail.com</td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+														<div class="kt-inbox__desc msgText_short"
+															data-toggle="expand">With resrpect, i must
+															disagree with Mr.Zinsser. We all know the most part
+															of important part....</div>
+													</div>
+												</div>
+
+												
+												
 											</div>
-									</div>
-
-									<div class="kt-portlet__body kt-portlet__body--fit-x">
-										<div class="kt-inbox__subject">
-											<div class="kt-inbox__title">
-												<h3 class="kt-inbox__text msg-topic"></h3>
+											<div class="kt-inbox__body">
+												<div class="kt-inbox__text">
+													<p class="kt-margin-t-25 msg_paragraph"
+														style="white-space: pre-line">With resrpect, i
+														must disagree with Mr.Zinsser. We all know the most
+														part of important part of any article is the
+														title.Without a compelleing title, your reader won't
+														even get to the first sentence.After the title,
+														however, the first few sentences of your article are
+														certainly the most important part.</p>
+												</div>
 											</div>
-											
-											
+										</div>
+										<form id="deleteFromViewForm">
+											<input type="hidden" name="operation" value="${MyConstants.OPP_DELETE_MESSAGE}"> 
+												<input id="deletedMessageInput" type="hidden" name="deletedMessage" value=""> 
+												<input id="currentUserRoleInput" type="hidden" name="currentUserRole" value="receiver">
+										</form>
+										<form id="markAsReadInboxView">
+											<input type="hidden" name="operation" value="${MyConstants.OPP_MARK_INBOXVIEW}"> 
+											<input id="markedMessageInput" type="hidden" name="markedMessage" value=""> 	
+										</form>
+
+									</div>
+
+									<div class="kt-inbox__reply kt-inbox__reply--on">
+										<div class="kt-inbox__actions">
+											<button class="btn btn-secondary btn-bold">
+												<i class="flaticon2-reply-1 kt-font-brand"></i> Reply
+											</button>
+
+											<button class="btn btn-secondary btn-bold">
+												<i class="flaticon2-left-arrow-1 kt-font-brand"></i>
+												Forward
+											</button>
 										</div>
 
-										<div class="kt-inbox__messages">
-											<div
-												class="kt-inbox__message kt-inbox__message--expanded">
-												<div class="kt-inbox__head">
-													<span class="kt-media sender_img" data-toggle="expand"
-														style="background-image: url('./assets/media/users/100_13.jpg')">
-								<span></span>
-							</span>
-							<div class="kt-inbox__info">
-								<div class="kt-inbox__author" data-toggle="expand">
-									<a href="#" class="kt-inbox__name sender_name"></a>
-									<div class="kt-inbox__status">
-										<span class="msg_dateTime"> 1 day ago</span>
-									</div>
-									&nbsp
-									&nbsp
-									&nbsp
-									<span id="replyIcon" class="kt-inbox__icon kt-inbox__icon--reply kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="" data-original-title="Reply">
-                                    <i class="flaticon2-reply-1"></i>
-                                	</span>
-								</div>
-								
-								<div class="kt-inbox__details">
-									<div class="kt-inbox__tome">
-										<span class="kt-inbox__label _toWho"
-											data-toggle="dropdown" id="toWho"> to me <i
-											class="flaticon2-down"></i>
-										</span>
-										<div
-											class="dropdown-menu dropdown-menu-fit dropdown-menu-md dropdown-menu-left">
-											<table class="kt-inbox__details">
-												<tr>
-													<td>date:</td>
-													<td class="msgDate_">Jul 30, 2019, 11:27 PM</td>
-												</tr>
-												<tr>
-													<td>from:</td>
-													<td class="msgSender_">Mark Andre</td>
-												</tr>
-												<tr>
-													<td>subject:</td>
-													<td class="msgSubject_">Trip Reminder.
-														Thank you for flying with us!</td>
-												</tr>
-												<tr>
-													<td>reply to:</td>
-													<td class="msg_reply">mark.andre@gmail.com</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-									<div class="kt-inbox__desc msgText_short"
-										data-toggle="expand">With resrpect, i must
-										disagree with Mr.Zinsser. We all know the most part
-										of important part....</div>
-								</div>
-							</div>
-
-							
-							
-						</div>
-						<div class="kt-inbox__body">
-							<div class="kt-inbox__text">
-								<p class="kt-margin-t-25 msg_paragraph"
-									style="white-space: pre-line">With resrpect, i
-									must disagree with Mr.Zinsser. We all know the most
-									part of important part of any article is the
-									title.Without a compelleing title, your reader won't
-									even get to the first sentence.After the title,
-									however, the first few sentences of your article are
-									certainly the most important part.</p>
-							</div>
-						</div>
-					</div>
-					<form id="deleteFromViewForm">
-						<input type="hidden" name="operation" value="${MyConstants.OPP_DELETE_MESSAGE}"> 
-							<input id="deletedMessageInput" type="hidden" name="deletedMessage" value=""> 
-							<input id="currentUserRoleInput" type="hidden" name="currentUserRole" value="receiver">
-					</form>
-					<form id="markAsReadInboxView">
-						<input type="hidden" name="operation" value="${MyConstants.OPP_MARK_INBOXVIEW}"> 
-						<input id="markedMessageInput" type="hidden" name="markedMessage" value=""> 	
-					</form>
-
-				</div>
-
-				<div class="kt-inbox__reply kt-inbox__reply--on">
-					<div class="kt-inbox__actions">
-						<button class="btn btn-secondary btn-bold">
-							<i class="flaticon2-reply-1 kt-font-brand"></i> Reply
-						</button>
-
-						<button class="btn btn-secondary btn-bold">
-							<i class="flaticon2-left-arrow-1 kt-font-brand"></i>
-							Forward
-						</button>
-					</div>
-
-					<div class="kt-inbox__form" id="kt_inbox_compose_formReply"
-						style="display: none">
-						<div class="kt-inbox__head">
-							<div class="kt-inbox__title">Reply</div>
-							<div class="kt-inbox__actions">
-								<button type="button"
-									class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
-									id="">
-									<i class="flaticon2-cross"></i>
-								</button>
-							</div>
-						</div>
-						<form id="msgInfoFormReply">
-							<div class="kt-inbox__body">
-								<div class="kt-inbox__to">
-									<div class="kt-inbox__wrapper">
-										<div class="kt-inbox__field kt-inbox__field--to">
-											<div class="kt-inbox__label">To:</div>
-											<input id="reply__" type="text"
-											class="form-control" name="receiverName" value=""
-											style="border: 1px solid #F0F8FF; border-radius: 5px; background-color: #F0F8FF; width: 300px; height: 30px">
-											
-											<input id="receiverID__" type="hidden"
-												name="receiverID" value="">
-										</div>
-									</div>
-								</div>
-
-								<div class="kt-inbox__subject"
-									style="border-bottom: 1px inset">
-									<input id="msgsbjct"
-										class="form-control replySubjectArea"
-										name="messageSubject" placeholder="Subject">
-									<hr>
-
-								</div>
-
-								<textarea name="messageText"
-									class="form-control replyTextArea"
-									placeholder="Type your message here"
-									style="height: 300px; width: %100; border: none"></textarea>
-								<input type="hidden" name="operation"
-									value="${MyConstants.OPP_SEND_MESSAGE}">
-
-								<div class="kt-inbox__attachments">
-									<div class="dropzone dropzone-multi"
-										id="kt_inbox_compose_attachments">
-										<div class="dropzone-items" id="replyDropzone"></div>
-										<!-- start dropzone -->
-											
-										<!-- endDropzone -->
-									</div>
-								</div>
-							</div>
-						</form>
-
-						<div class="kt-inbox__foot">
-							<div class="kt-inbox__primary">
-								<div class="btn-group">
-									<button type="button"
-										class="btn btn-brand btn-bold msg-PushButton">Send</button>
-									<input type="hidden" value="msgInfoFormReply">
-									<div
-										class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
-										<ul class="kt-nav">
-											<li class="kt-nav__item"><a href="#"
-												class="kt-nav__link"> <i
-													class="kt-nav__link-icon flaticon2-writing"></i>
-													<span class="kt-nav__link-text">Schedule
-														Send</span>
-											</a></li>
-											<li class="kt-nav__item"><a href="#"
-												class="kt-nav__link"> <i
-													class="kt-nav__link-icon flaticon2-medical-records"></i>
-													<span class="kt-nav__link-text">Save
-														&amp; archive</span>
-											</a></li>
-											<li class="kt-nav__item"><a href="#"
-												class="kt-nav__link"> <i
-													class="kt-nav__link-icon flaticon2-hourglass-1"></i>
-													<span class="kt-nav__link-text">Cancel</span>
-											</a></li>
-										</ul>
-									</div>
-								</div>
-
-								<div class="kt-inbox__panel">
-									<label
-										class="kt-inbox__icon kt-inbox__icon--light dz-clickable"
-										id="kt_inbox_compose_attachments_select"> <i
-										class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
-										<input id="fileInputReply" type="file" name="uploadReply" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
-									</label>
-									
-								</div>
-							</div>
-
-							<div class="kt-inbox__secondary">
-								<button
-									class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light "
-									data-toggle="kt-tooltip" title=""
-									data-original-title="Clear" id="clearSecond">
-									<i class="flaticon2-rubbish-bin-delete-button"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--End:: 
--->
-	</div>
-	<!--End::Inbox-->
-
-	<!--Begin:: Inbox Compose-->
-	<div
-		class="modal modal-sticky-bottom-right modal-sticky-lg show"
-		id="kt_inbox_composeFromMain" role="dialog"
-		data-backdrop="false" aria-modal="true"
-		style="padding-right: 17px; display: none;">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content kt-inbox">
-				<div class="kt-inbox__form" id="kt_inbox_compose_form">
-					<div class="kt-inbox__head">
-						<div class="kt-inbox__title">New Message</div>
-						<div class="kt-inbox__actions">
-							<button type="button"
-								class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
-								id="msgModelCloseBtnInbox">
-								<i class="flaticon2-cross"></i>
-							</button>
-						</div>
-					</div>
-					<form id="msgInfoFormInbox">
-						<div class="kt-inbox__body">
-							<div class="kt-inbox__to">
-								<div class="kt-inbox__wrapper">
-									<div class="kt-inbox__field kt-inbox__field--to">
-										<div class="kt-inbox__label">To:</div>
-										<input id="receiverSelect" type="text" class="form-control" name="receiverName" value="" style="border: 1px solid #F0F8FF; border-radius: 5px; background-color: #F0F8FF; width: 300px; height: 30px">
-										<input type="hidden" id="receiverFromInbox"
-											name="receiverID" value="">
-										<div class="tagify__dropdown color-blue"
-											role="menu"
-											style="left: 5px; top: 120.8px; width: 442.75px; display: none"
-											id="systemUsers">
-
-											<c:forEach items="${allSystemUsers}" var="user">
-												<c:if test="${user.userID != currentUser.userID}">
-													<div
-														class="tagify__dropdown__item tagify__dropdown__item" id="${user.userID}">
-														<!--  --active -->
-														<div class="kt-media-card" id="${user.userID}mediaCard">
-															<c:if
-																test="${user.userType != MyConstants.TYPE_ADMIN}">
-																<span class="kt-media kt-media--"
-																	style="background-image: url('${user.profilePictureSrc}')"><span></span>
-																</span>
-															</c:if>
-															<c:if
-																test="${user.userType == MyConstants.TYPE_ADMIN}">
-																<span class="kt-media kt-media--"
-																	style="background-image: url('./assets/media/users/100_6.jpg')"><span></span>
-																</span>
-															</c:if>
-
-															<div class="kt-media-card__info">
-																<a href="#"
-																	class="kt-media-card__title ${user.userID}fullName">${user.fullName}</a>
-																<span class="kt-media-card__desc">${user.username}</span>
+										<div class="kt-inbox__form" id="kt_inbox_compose_formReply"
+											style="display: none">
+											<div class="kt-inbox__head">
+												<div class="kt-inbox__title">Reply</div>
+												<div class="kt-inbox__actions">
+													<button type="button"
+														class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
+														id="">
+														<i class="flaticon2-cross"></i>
+													</button>
+												</div>
+											</div>
+											<form id="msgInfoFormReply">
+												<div class="kt-inbox__body">
+													<div class="kt-inbox__to">
+														<div class="kt-inbox__wrapper">
+															<div class="kt-inbox__field kt-inbox__field--to">
+																<div class="kt-inbox__label">To:</div>
+																<input id="reply__" type="text"
+																class="form-control" name="receiverName" value=""
+																style="border: 1px solid #F0F8FF; border-radius: 5px; background-color: #F0F8FF; width: 300px; height: 30px">
+																
+																<input id="receiverID__" type="hidden"
+																	name="receiverID" value="">
 															</div>
 														</div>
 													</div>
-												</c:if>
-											</c:forEach>
+
+													<div class="kt-inbox__subject"
+														style="border-bottom: 1px inset">
+														<input id="msgsbjct"
+															class="form-control replySubjectArea"
+															name="messageSubject" placeholder="Subject">
+														<hr>
+
+													</div>
+
+													<textarea name="messageText"
+														class="form-control replyTextArea"
+														placeholder="Type your message here"
+														style="height: 300px; width: %100; border: none"></textarea>
+													<input type="hidden" name="operation"
+														value="${MyConstants.OPP_SEND_MESSAGE}">
+
+													<div class="kt-inbox__attachments">
+														<div class="dropzone dropzone-multi"
+															id="kt_inbox_compose_attachments">
+															<div class="dropzone-items" id="replyDropzone"></div>
+															<!-- start dropzone -->
+																
+															<!-- endDropzone -->
+														</div>
+													</div>
+												</div>
+											</form>
+
+											<div class="kt-inbox__foot">
+												<div class="kt-inbox__primary">
+													<div class="btn-group">
+														<button type="button"
+															class="btn btn-brand btn-bold msg-PushButton">Send</button>
+														<input type="hidden" value="msgInfoFormReply">
+														<div
+															class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
+															<ul class="kt-nav">
+																<li class="kt-nav__item"><a href="#"
+																	class="kt-nav__link"> <i
+																		class="kt-nav__link-icon flaticon2-writing"></i>
+																		<span class="kt-nav__link-text">Schedule
+																			Send</span>
+																</a></li>
+																<li class="kt-nav__item"><a href="#"
+																	class="kt-nav__link"> <i
+																		class="kt-nav__link-icon flaticon2-medical-records"></i>
+																		<span class="kt-nav__link-text">Save
+																			&amp; archive</span>
+																</a></li>
+																<li class="kt-nav__item"><a href="#"
+																	class="kt-nav__link"> <i
+																		class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+																		<span class="kt-nav__link-text">Cancel</span>
+																</a></li>
+															</ul>
+														</div>
+													</div>
+
+													<div class="kt-inbox__panel">
+														<label
+															class="kt-inbox__icon kt-inbox__icon--light dz-clickable"
+															id="kt_inbox_compose_attachments_select"> <i
+															class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
+															<input id="fileInputReply" type="file" name="uploadReply" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
+														</label>
+														
+													</div>
+												</div>
+
+												<div class="kt-inbox__secondary">
+													<button
+														class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light "
+														data-toggle="kt-tooltip" title=""
+														data-original-title="Clear" id="clearSecond">
+														<i class="flaticon2-rubbish-bin-delete-button"></i>
+													</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<!--End:: 
+-->
+						</div>
+						<!--End::Inbox-->
 
-							<div class="kt-inbox__subject"
-								style="border-bottom: 1px inset">
-								<input id="msgsbjct"
-									class="form-control inboxSubjectArea"
-									name="messageSubject" placeholder="Subject">
-								<hr>
+						<!--Begin:: Inbox Compose-->
+						<div
+							class="modal modal-sticky-bottom-right modal-sticky-lg show"
+							id="kt_inbox_composeFromMain" role="dialog"
+							data-backdrop="false" aria-modal="true"
+							style="padding-right: 17px; display: none;">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content kt-inbox">
+									<div class="kt-inbox__form" id="kt_inbox_compose_form">
+										<div class="kt-inbox__head">
+											<div class="kt-inbox__title">New Message</div>
+											<div class="kt-inbox__actions">
+												<button type="button"
+													class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
+													id="msgModelCloseBtnInbox">
+													<i class="flaticon2-cross"></i>
+												</button>
+											</div>
+										</div>
+										<form id="msgInfoFormInbox">
+											<div class="kt-inbox__body">
+												<div class="kt-inbox__to">
+													<div class="kt-inbox__wrapper">
+														<div class="kt-inbox__field kt-inbox__field--to">
+															<div class="kt-inbox__label">To:</div>
+															<input id="receiverSelect" type="text" class="form-control" name="receiverName" value="" style="border: 1px solid #F0F8FF; border-radius: 5px; background-color: #F0F8FF; width: 300px; height: 30px">
+															<input type="hidden" id="receiverFromInbox"
+																name="receiverID" value="">
+															<div class="tagify__dropdown color-blue"
+																role="menu"
+																style="left: 5px; top: 120.8px; width: 442.75px; display: none"
+																id="systemUsers">
 
-							</div>
+																<c:forEach items="${allSystemUsers}" var="user">
+																	<c:if test="${user.userID != currentUser.userID}">
+																		<div
+																			class="tagify__dropdown__item tagify__dropdown__item" id="${user.userID}">
+																			<!--  --active -->
+																			<div class="kt-media-card" id="${user.userID}mediaCard">
+																				<c:if
+																					test="${user.userType != MyConstants.TYPE_ADMIN}">
+																					<span class="kt-media kt-media--"
+																						style="background-image: url('${user.profilePictureSrc}')"><span></span>
+																					</span>
+																				</c:if>
+																				<c:if
+																					test="${user.userType == MyConstants.TYPE_ADMIN}">
+																					<span class="kt-media kt-media--"
+																						style="background-image: url('./assets/media/users/100_6.jpg')"><span></span>
+																					</span>
+																				</c:if>
 
-							<textarea name="messageText"
-								class="form-control inboxTextArea"
-								placeholder="Type your message here"
-								style="height: 300px; width: %100; border: none"></textarea>
-							<input type="hidden" name="operation"
-								value="${MyConstants.OPP_SEND_MESSAGE}">
+																				<div class="kt-media-card__info">
+																					<a href="#"
+																						class="kt-media-card__title ${user.userID}fullName">${user.fullName}</a>
+																					<span class="kt-media-card__desc">${user.username}</span>
+																				</div>
+																			</div>
+																		</div>
+																	</c:if>
+																</c:forEach>
+															</div>
+														</div>
+													</div>
+												</div>
 
-							<div class="kt-inbox__attachments">
-								<div class="dropzone dropzone-multi"
-									id="kt_inbox_compose_attachments">
-									<div class="dropzone-items" id="mainDropzone"></div>
-									<div class="dz-default dz-message">
-										<span>Drop files here to upload</span>
+												<div class="kt-inbox__subject"
+													style="border-bottom: 1px inset">
+													<input id="msgsbjct"
+														class="form-control inboxSubjectArea"
+														name="messageSubject" placeholder="Subject">
+													<hr>
+
+												</div>
+
+												<textarea name="messageText"
+													class="form-control inboxTextArea"
+													placeholder="Type your message here"
+													style="height: 300px; width: %100; border: none"></textarea>
+												<input type="hidden" name="operation"
+													value="${MyConstants.OPP_SEND_MESSAGE}">
+
+												<div class="kt-inbox__attachments">
+													<div class="dropzone dropzone-multi"
+														id="kt_inbox_compose_attachments">
+														<div class="dropzone-items" id="mainDropzone"></div>
+														<div class="dz-default dz-message">
+															<span>Drop files here to upload</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+
+										<div class="kt-inbox__foot">
+											<div class="kt-inbox__primary">
+												<div class="btn-group">
+													<button type="button"
+														class="btn btn-brand btn-bold msg-PushButton">Send</button>
+													<input type="hidden" value="msgInfoFormInbox">
+													<div
+														class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
+														<ul class="kt-nav">
+															<li class="kt-nav__item"><a href="#"
+																class="kt-nav__link"> <i
+																	class="kt-nav__link-icon flaticon2-writing"></i>
+																	<span class="kt-nav__link-text">Schedule
+																		Send</span>
+															</a></li>
+															<li class="kt-nav__item"><a href="#"
+																class="kt-nav__link"> <i
+																	class="kt-nav__link-icon flaticon2-medical-records"></i>
+																	<span class="kt-nav__link-text">Save &amp;
+																		archive</span>
+															</a></li>
+															<li class="kt-nav__item"><a href="#"
+																class="kt-nav__link"> <i
+																	class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+																	<span class="kt-nav__link-text">Cancel</span>
+															</a></li>
+														</ul>
+													</div>
+												</div>
+
+												<div class="kt-inbox__panel">
+													<label
+														class="kt-inbox__icon kt-inbox__icon--light dz-clickable"
+														id="kt_inbox_compose_attachments_selectGeneral"> <i
+														class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
+														<input class = "fileInputGeneral" type="file" name="uploadInbox" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
+													</label>
+													
+													
+												</div>
+											</div>
+
+											<div class="kt-inbox__secondary">
+												<button
+													class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light"
+													data-toggle="kt-tooltip" title=""
+													data-original-title="Clear" id = "clearFirst">
+													<i class="flaticon2-rubbish-bin-delete-button"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form>
-
-					<div class="kt-inbox__foot">
-						<div class="kt-inbox__primary">
-							<div class="btn-group">
-								<button type="button"
-									class="btn btn-brand btn-bold msg-PushButton">Send</button>
-								<input type="hidden" value="msgInfoFormInbox">
-								<div
-									class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
-									<ul class="kt-nav">
-										<li class="kt-nav__item"><a href="#"
-											class="kt-nav__link"> <i
-												class="kt-nav__link-icon flaticon2-writing"></i>
-												<span class="kt-nav__link-text">Schedule
-													Send</span>
-										</a></li>
-										<li class="kt-nav__item"><a href="#"
-											class="kt-nav__link"> <i
-												class="kt-nav__link-icon flaticon2-medical-records"></i>
-												<span class="kt-nav__link-text">Save &amp;
-													archive</span>
-										</a></li>
-										<li class="kt-nav__item"><a href="#"
-											class="kt-nav__link"> <i
-												class="kt-nav__link-icon flaticon2-hourglass-1"></i>
-												<span class="kt-nav__link-text">Cancel</span>
-										</a></li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="kt-inbox__panel">
-								<label
-									class="kt-inbox__icon kt-inbox__icon--light dz-clickable"
-									id="kt_inbox_compose_attachments_selectGeneral"> <i
-									class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
-									<input class = "fileInputGeneral" type="file" name="uploadInbox" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
-								</label>
-								
-								
-							</div>
-						</div>
-
-						<div class="kt-inbox__secondary">
-							<button
-								class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light"
-								data-toggle="kt-tooltip" title=""
-								data-original-title="Clear" id = "clearFirst">
-								<i class="flaticon2-rubbish-bin-delete-button"></i>
-							</button>
-						</div>
+						<!--End:: Inbox Compose-->
 					</div>
+					<!-- end:: Content -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--End:: Inbox Compose-->
 </div>
 <!-- end:: Content -->
-
-
+						
+						<!-- 3 wrapper class end-->
 					</div>
 				</div>
-			</div>
 			
-			
-	
 			<!-- end root -->
 		</div>
 	</div>
@@ -1245,7 +1262,6 @@
 	<script src="./js/Comment.js" type="text/javascript"></script>
 	<script src="./js/Message.js" type="text/javascript"></script>
 	<script src="./js/sidenavbar.js" type="text/javascript"></script>
-	<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 	<!--begin:: Global Optional Vendors -->
 	<script
