@@ -740,6 +740,9 @@
 												value="${otherUser.fullName}">name</c:out> <i
 											class="flaticon2-correct"></i>
 										</a>
+										<c:if test="${currentUser.userID != otherUser.userID}">
+											<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
+										</c:if>
 									</div>
 	
 									<div class="kt-widget__subhead">
@@ -891,7 +894,10 @@
 												value="${otherUser.fullName}">name</c:out> <i
 											class="flaticon2-correct"></i>
 										</a>
-	
+										<c:if test="${currentUser.userID != otherUser.userID}">
+											<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
+										</c:if>
+
 									</div>
 	
 									<div class="kt-widget__subhead">
@@ -1413,6 +1419,7 @@
 	</div>
 </div>
 <!-- Form to send message -->
+
 <form id="msgSendForm">
 	<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
 	<input type="hidden" name="receiverID" value="${otherUser.userID}">
