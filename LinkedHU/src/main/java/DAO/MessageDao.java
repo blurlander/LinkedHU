@@ -33,7 +33,7 @@ public class MessageDao implements IMessageDao{
 	}
 	
 	public void connectDatabase() {
-		String url = "jdbc:mysql://"+host+":"+port+"/"+dbName;
+		String url = "jdbc:mysql://"+host+":"+port+"/"+dbName+"?characterEncoding=UTF8";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		}catch(Exception e) {
@@ -58,7 +58,7 @@ public class MessageDao implements IMessageDao{
 
 	@Override
 	public boolean create(Message t) {
-		String query = "Insert into Message(senderID,receiverID,text,topic,deletionStatus,isRead) values(?,?,?,?,?,?)";
+		String query = "Insert into Message(senderID,receiverID,text,topic,deletionStatus,isRead,uploadedFiles) values(?,?,?,?,?,?,?)";
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1,t.getSenderID());
@@ -67,6 +67,18 @@ public class MessageDao implements IMessageDao{
 			preparedStatement.setString(4,t.getMessageTopic());
 			preparedStatement.setInt(5,t.getDeletionStatus());
 			preparedStatement.setString(6,"false");
+			String uploadedFiles = "";
+			for(int i=0;i<t.getUploadedFiles().size();i++) {
+				if(i== t.getUploadedFiles().size()-1) {
+					uploadedFiles+=t.getUploadedFiles().get(i);
+				}
+				else {
+					uploadedFiles+=t.getUploadedFiles().get(i)+"+";
+				}
+				
+				
+			}
+			preparedStatement.setString(7,uploadedFiles);
 			preparedStatement.executeUpdate();
 			return true;
 
@@ -102,6 +114,16 @@ public class MessageDao implements IMessageDao{
 				else {
 					message.setIsRead(true);
 				}
+				List<String> uploadedFiles = new ArrayList<String>();
+				String uploadedFilesData = rSet.getString("uploadedFiles");
+				if(uploadedFilesData.length() != 0) {
+					String[] uploaded = uploadedFilesData.split("\\+");
+					for(String s : uploaded) {
+						uploadedFiles.add(s);
+					}
+					
+				}
+				message.setUploadedFiles(uploadedFiles);
 				return message;
 				
 			}
@@ -184,6 +206,16 @@ public class MessageDao implements IMessageDao{
 				else {
 					message.setIsRead(true);
 				}
+				List<String> uploadedFiles = new ArrayList<String>();
+				String uploadedFilesData = rSet.getString("uploadedFiles");
+				if(uploadedFilesData.length() != 0) {
+					String[] uploaded = uploadedFilesData.split("\\+");
+					for(String s : uploaded) {
+						uploadedFiles.add(s);
+					}
+					
+				}
+				message.setUploadedFiles(uploadedFiles);
 				
 				allUserMessages.add(message);
 				

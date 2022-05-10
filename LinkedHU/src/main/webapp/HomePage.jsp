@@ -269,7 +269,7 @@
 
 	<!-- begin:: all posts -->	
 	<c:forEach items="${map.entrySet()}" var="entry">
-		<div class="row" id =${ String.valueOf(entry.getKey().postID)} >
+		<div class="row postRow" id =${ String.valueOf(entry.getKey().postID)} >
 		    <div class="col-xl-12">
 		        <!--begin:: single post (3 wrapper class)-->
 		        <div class="kt-portlet kt-portlet--height-fluid">
@@ -291,12 +291,12 @@
 		                            	
 		                            </div>
 		                            <div class="kt-widget__info kt-margin-t-5">
-		                                <a href="#" class="kt-widget__title">
+		                                <a href="#" class="kt-widget__title" id="${ entry.getKey().postID}title">
 		                                ${ entry.getKey().title }
 		                                                                        
 		                                </a>
 		                                
-		                                <span class="kt-widget__desc">
+		                                <span class="kt-widget__desc" id="${ entry.getKey().postID}author">
 		                                ${entry.getValue().fullName}
 		                                <br>
 		                                ${ entry.getKey().dateFormat}
@@ -332,7 +332,7 @@
 							
 							<!-- post body -->
 		                    <div class="kt-widget__body">
-		                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px">
+		                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px" id="${ entry.getKey().postID}messageText">
 		                    		${entry.getKey().messageText}
 		                    	</span>	
 		                    </div>
@@ -455,7 +455,7 @@
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
-<script src="./js/Message.js" type="text/javascript"></script>
+<script src="./js/postSearch.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>
