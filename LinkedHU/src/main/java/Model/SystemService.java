@@ -227,22 +227,13 @@ public class SystemService implements IService{
 			
 			// get likes of the user
 			student.setLikes(this.getLikes(userID));
+			
+			// get fallows of the student
+			student.setFollows(this.getFollowedUserID(userID));
 
 			user = student;
 		}
-
-		// get messages of the user
-		
-		TreeMap<Message, User> map = new TreeMap<Message, User>();
-		
-		// iterate over list of messages and fill the map
-		for (Message message : this.fetchUserMessages(userID)) {
-			map.put(message, user);
-		}
-		user.setMessages(map);
-				
-		// end get messages of the user 
-		
+	
 		return user;
 		
 	}

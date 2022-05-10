@@ -21,14 +21,14 @@
 			
 			// next next is input of the post id			
 			$("#dislikedPost").attr("value", $(this).next().next().attr("value")) ;
-			callJqueryAjax(1,this)	
+			callJqueryAjaxForLike(1,this)	
 			
 		// if button is gray then LIKE
 		}else if($(this).css("color") === 'rgb(128, 128, 128)'){
 			
 			// next next is input of the post id	
 			$("#likedPost").attr("value", $(this).next().next().attr("value") ) ;
-			callJqueryAjax(0,this);
+			callJqueryAjaxForLike(0,this);
 		}
 		
 	});
@@ -56,7 +56,7 @@ function dislikePost(btn){
 		
 }
 
-function callJqueryAjax(selector,btn){
+function callJqueryAjaxForLike(selector,btn){
 	//Converting the input values in the form with id=likeForm to the string.
 	if(selector == 0){
 		var dataString = $("#likeForm").serialize();	

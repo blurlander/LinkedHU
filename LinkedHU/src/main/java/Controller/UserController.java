@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.sql.Date;
 import java.util.List;
 import java.util.Random;
@@ -51,7 +52,13 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operation = request.getParameter("operation");
 		session = request.getSession();
-				
+		
+		Enumeration<String> attributes = session.getAttributeNames();
+		while (attributes.hasMoreElements()) {
+		    String attribute = (String) attributes.nextElement();
+		    System.out.println(attribute+" : "+session.getAttribute(attribute));
+		}
+		
 		switch(operation) 
 		{
 			case MyConstants.OPP_LOGOUT:
@@ -275,6 +282,11 @@ public class UserController extends HttpServlet {
 			case MyConstants.OPP_LIKE_POST:				
 				int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
 				NonAdminUser user = ((NonAdminUser)session.getAttribute("currentUser"));
+				
+				if(user.getUserType() == MyConstants.TYPE_ADMIN) {
+					return;
+				}
+				
 				user.getLikes().add(likedPostID);
 				session.setAttribute("currentUser", user);
 				service.likePost(user.getUserID(), likedPostID);
@@ -283,6 +295,11 @@ public class UserController extends HttpServlet {
 			case MyConstants.OPP_DISLIKE_POST:
 				int dislikedPostID = Integer.parseInt(request.getParameter("dislikedPost"));
 				NonAdminUser userDisliked = ((NonAdminUser)session.getAttribute("currentUser"));
+				
+				if(userDisliked.getUserType() == MyConstants.TYPE_ADMIN) {
+					return;
+				}
+				
 				userDisliked.getLikes().remove((Integer)dislikedPostID);
 				session.setAttribute("currentUser", userDisliked);
 				service.dislikePost(userDisliked.getUserID(),dislikedPostID);
@@ -291,19 +308,27 @@ public class UserController extends HttpServlet {
 				
 			case MyConstants.OPP_SHARE_COMMENT:
 				
-				//increment the comment count of the post of current user.
-				PostCreator pc = (PostCreator)session.getAttribute("otherUser");
+				user = (NonAdminUser)session.getAttribute("otherUser");
+				if(user.getUserType() != MyConstants.TYPE_STUDENT) {
+					//increment the comment count of the post of current user.
+					PostCreator pc = (PostCreator)session.getAttribute("otherUser");
+					
+					// fill currentUser's Posts
+					pc.setAuthorOf(service.fetchUserPosts(pc.getUserID()));
+					session.setAttribute("otherUser", pc);
+				}
 				
-				// fill currentUser's Posts
-				pc.setAuthorOf(service.fetchUserPosts(pc.getUserID()));
-				session.setAttribute("otherUser", pc);
 				break;
 			 case MyConstants.OPP_DELETE_COMMENT:
-				 PostCreator postCreator = (PostCreator)session.getAttribute("otherUser");
-					
-				 // fill currentUser's Posts
-				 postCreator.setAuthorOf(service.fetchUserPosts(postCreator.getUserID()));
-				 session.setAttribute("otherUser", postCreator);
+				 
+				user = (NonAdminUser) session.getAttribute("otherUser");
+				if (user.getUserType() != MyConstants.TYPE_STUDENT) {
+					PostCreator postCreator = (PostCreator) session.getAttribute("otherUser");
+	
+					// fill currentUser's Posts
+					postCreator.setAuthorOf(service.fetchUserPosts(postCreator.getUserID()));
+					session.setAttribute("otherUser", postCreator);
+				}
 				 break;
 			 case MyConstants.OPP_FILE_UPLOAD:
 				 
@@ -760,7 +785,8 @@ public class UserController extends HttpServlet {
 			 				break;			 				
 			 			}
 			 		}
-			 					 		
+			 		
+			 		session.setAttribute("followerCount", (Integer)session.getAttribute("followerCount") + 1);
 			 		
 			 		if(checkfollow) {
 			 			session.setAttribute("studList",sstudlist);
@@ -795,6 +821,7 @@ public class UserController extends HttpServlet {
 			 			}
 			 		}
 			 		
+			 		session.setAttribute("followerCount", (Integer)session.getAttribute("followerCount") + -1);
 			 		
 			 		if(checkfo1llow) {
 			 			session.setAttribute("studList",studlist);

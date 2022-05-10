@@ -30,14 +30,14 @@
 			$(this).prev().css("display","inline");
 			
 			console.log("unfoollow");
-			callJqueryAjax(0,this);
+			callJqueryAjaxForFollow(0,this);
 			
 		}else if(content == "Follow User"){
 			
 			$(this).css("display","none");
 			$(this).next().css("display","inline");
 			
-			callJqueryAjax(1,this);
+			callJqueryAjaxForFollow(1,this);
 		}
 		
 
@@ -69,7 +69,8 @@ function unfollowUser(btn){
 		
 }
 
-function callJqueryAjax(selector,btn){
+function callJqueryAjaxForFollow(selector,btn){
+	
 	//Converting the input values in the form with id=likeForm to the string.
 	if(selector == 0){
 		var dataString = $("#unfollowform").serialize();	
