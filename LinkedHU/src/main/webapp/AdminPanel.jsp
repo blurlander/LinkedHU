@@ -366,8 +366,7 @@
 									<div class="modal-body">
 										<form action="UserController" method="Post">
 											<div class="form-group">
-												<label for="ban-date" class="form-control-label">Ban
-													User Until:</label> <input type="date" class="form-control"
+												<label for="ban-date" class="form-control-label">Ban User Until:</label> <input type="date" class="form-control"
 													id="ban-date" name="banDate">
 											</div>
 											<div class="form-group">
@@ -381,8 +380,7 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Ban
-													User</button>
+												<button type="submit" class="btn btn-primary">Ban User</button>
 											</div>
 										</form>
 									</div>
@@ -401,8 +399,7 @@
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLongTitle">Are
-											You Sure?</h5>
+										<h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close"></button>
 									</div>
@@ -504,8 +501,8 @@
 									<div class="modal-body">
 										<form action="UserController" method="Post">
 											<div class="form-group">
-												<label for="ban-date" class="form-control-label">Ban
-													User Until:</label> <input type="date" class="form-control"
+												<label for="ban-date" class="form-control-label">Ban User Until:</label>
+												 <input type="date" class="form-control"
 													id="ban-date" name="banDate">
 											</div>
 											<div class="form-group">
@@ -519,8 +516,7 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Ban
-													User</button>
+												<button type="submit" class="btn btn-primary">Ban User</button>
 											</div>
 										</form>
 									</div>
@@ -539,8 +535,7 @@
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLongTitle">Are
-											You Sure?</h5>
+										<h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close"></button>
 									</div>
@@ -641,8 +636,7 @@
 									<div class="modal-body">
 										<form action="UserController" method="Post">
 											<div class="form-group">
-												<label for="ban-date" class="form-control-label">Ban
-													User Until:</label> <input type="date" class="form-control"
+												<label for="ban-date" class="form-control-label">Ban User Until:</label> <input type="date" class="form-control"
 													id="ban-date" name="banDate">
 											</div>
 											<div class="form-group">
@@ -656,8 +650,7 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Ban
-													User</button>
+												<button type="submit" class="btn btn-primary">Ban User</button>
 											</div>
 										</form>
 									</div>
@@ -676,16 +669,14 @@
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLongTitle">Are
-											You Sure?</h5>
+										<h5 class="modal-title" id="exampleModalLongTitle">Are You Sure?</h5>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close"></button>
 									</div>
 									<div class="modal-body"
 										style="display: flex; justify-content: center; align-content: space-between;">
 										<form action="UserController" method="Post">
-											<button type="submit" class="btn btn-primary">Delete
-												User With Id ${ String.valueOf(grad.userID) }</button>
+											<button type="submit" class="btn btn-primary">Delete User With Id ${ String.valueOf(grad.userID) }</button>
 											<input type="hidden"
 												value="${MyConstants.OPP_DELETE_USER }"
 												name="operation"> <input type="hidden"
@@ -709,8 +700,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Add
-								User</h5>
+							<h5 class="modal-title" id="exampleModalLabel">Add User</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
@@ -718,8 +708,7 @@
 							<form method="POST" action="UserController"
 								id="add-user-form">
 								<div class="form-group">
-									<label for="firstname" class="form-control-label">First
-										Name:</label> <input type="text" required class="form-control"
+									<label for="firstname" class="form-control-label">First Name:</label> <input type="text" required class="form-control"
 										name="firstname"> <label for="lastname"
 										class="form-control-label">Last Name:</label> <input
 										type="text" required class="form-control"
@@ -797,6 +786,7 @@
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
+<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

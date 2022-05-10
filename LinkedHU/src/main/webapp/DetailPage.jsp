@@ -323,7 +323,7 @@
 		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
 		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
 	</form>
-	<form id="disForm">
+	<form id="dislikeForm">
 		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_DISLIKE_POST}" >
 		<input type = "hidden" id = "dislikedPost" name = "dislikedPost" value = "">
 		<input type = "hidden" name = "pageCode" value = "${MyConstants.CODE_DETAILPAGE}">
@@ -471,12 +471,6 @@
 		                            </div>                                             
 		                        </div> 
 		                        </c:forEach>
-		                        <script type="text/javascript">
-									if(performance.navigation.type == 2){
-										console.log("xx");
-										location.reload(true);
-									}
-								</script>
 		                        
 		                    </div>
 		                    <!-- notes item end -->
@@ -541,6 +535,7 @@
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
+<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

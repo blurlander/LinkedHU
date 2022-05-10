@@ -17,7 +17,6 @@
         <meta name="description" content="List columns 1 example">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
 		<!--begin::Fonts -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">       
 		 <!--end::Fonts -->
@@ -77,8 +76,6 @@
 					<!-- begin:: side bar -->
 					<div class="sb_sidebar ">
 						<div class="sb_top_content">
-							
-							<c:out value="${ status }"></c:out>
 							<!-- side bar:: brand-->
 							<div class="sb_logo_content">
 								<div class="sb_logo">
@@ -544,6 +541,7 @@
 <script src="./js/Like.js" type="text/javascript"></script>
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
+<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

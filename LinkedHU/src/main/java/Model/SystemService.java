@@ -227,6 +227,9 @@ public class SystemService implements IService{
 			
 			// get likes of the user
 			student.setLikes(this.getLikes(userID));
+			
+			// get fallows of the student
+			student.setFollows(this.getFollowedUserID(userID));
 
 			user = student;
 		}

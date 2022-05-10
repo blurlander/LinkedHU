@@ -1245,6 +1245,7 @@
 	<script src="./js/Comment.js" type="text/javascript"></script>
 	<script src="./js/Message.js" type="text/javascript"></script>
 	<script src="./js/sidenavbar.js" type="text/javascript"></script>
+	<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 	<!--begin:: Global Optional Vendors -->
 	<script

@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="Model.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -404,13 +405,6 @@
 	</div>
 	<!-- end:: Footer -->
 
-	<script type="text/javascript">
-		if(performance.navigation.type == 2){
-			console.log("xx");
-			location.reload(true);
-		}
-	</script>
-	
 	<form id="likeForm">
 		<input type = "hidden" name = "operation" value = "${MyConstants.OPP_LIKE_POST }" >
 		<input type = "hidden" id = "likedPost" name = "likedPost" value = "">
@@ -456,6 +450,8 @@
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
 <script src="./js/postSearch.js" type="text/javascript"></script>
+<script src="./js/Message.js" type="text/javascript"></script>
+<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>

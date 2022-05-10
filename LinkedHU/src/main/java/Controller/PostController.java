@@ -119,10 +119,13 @@ public class PostController extends HttpServlet {
 		
 		else if(request.getParameter("operation").equals(MyConstants.OPP_LIKE_POST)) {
 			int likedPostID = Integer.parseInt(request.getParameter("likedPost"));
+			
 			//Post post likedPostID; 
 			Post p = service.readPost(likedPostID);
 			p.setLikeCount(p.getLikeCount()+1);
 			service.updatePost(p);
+			
+			// update map
 			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			for (Post post :  map1.keySet()) {
 				if (post.getPostID() == likedPostID) {
@@ -132,21 +135,31 @@ public class PostController extends HttpServlet {
 			}
 			session.setAttribute("map", map1);
 			
-			PostCreator user = (PostCreator)session.getAttribute("otherUser");
-			for(Post post : user.getAuthorOf()) {
-				if(post.getPostID() == likedPostID) {
-					post.setLikeCount(post.getLikeCount()+1);
+			
+			User otherUser = (User)session.getAttribute("otherUser");
+			if(otherUser.getUserType() != MyConstants.TYPE_STUDENT) {
+				// update other user post
+				PostCreator user = (PostCreator)session.getAttribute("otherUser");
+				for(Post post : user.getAuthorOf()) {
+					if(post.getPostID() == likedPostID) {
+						post.setLikeCount(post.getLikeCount()+1);
+					}
 				}
+				session.setAttribute("otherUser", user);
 			}
-			session.setAttribute("otherUser", user);
-			
-			
-			
-			if(Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_DETAILPAGE) {
-				Post currentPost = ((Post)session.getAttribute("currentPost"));
+				
+			Post currentPost = ((Post)session.getAttribute("currentPost"));
+			if((Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_DETAILPAGE ||
+					Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_HOMEPAGE ||
+					Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_PROFILEPAGE)&&
+					currentPost != null
+					) {
+				
 				currentPost.setLikeCount(currentPost.getLikeCount()+1);
 				session.setAttribute("currentPost", currentPost);
 			}
+			
+
 			
 			
 		}
@@ -165,15 +178,24 @@ public class PostController extends HttpServlet {
 			}
 			session.setAttribute("map", map1);
 			
-			PostCreator user = (PostCreator)session.getAttribute("otherUser");
-			for(Post post : user.getAuthorOf()) {
-				if(post.getPostID() == dislikedPostID) {
-					post.setLikeCount(post.getLikeCount()-1);
+			
+			User otherUser = (User)session.getAttribute("otherUser");
+			if(otherUser.getUserType() != MyConstants.TYPE_STUDENT) {				
+				PostCreator user = (PostCreator)session.getAttribute("otherUser");
+				for(Post post : user.getAuthorOf()) {
+					if(post.getPostID() == dislikedPostID) {
+						post.setLikeCount(post.getLikeCount()-1);
+					}
 				}
+				session.setAttribute("otherUser", user);
 			}
-			session.setAttribute("otherUser", user);
-			if(Integer.parseInt(request.getParameter("pageCode")) ==MyConstants.CODE_DETAILPAGE) {
-				Post currentPost = ((Post)session.getAttribute("currentPost"));
+			
+			Post currentPost = ((Post)session.getAttribute("currentPost"));
+			if((Integer.parseInt(request.getParameter("pageCode")) ==MyConstants.CODE_DETAILPAGE ||
+					Integer.parseInt(request.getParameter("pageCode")) ==MyConstants.CODE_HOMEPAGE ||
+					Integer.parseInt(request.getParameter("pageCode")) == MyConstants.CODE_PROFILEPAGE)&&
+					currentPost != null) {
+				
 				currentPost.setLikeCount(currentPost.getLikeCount()-1);
 				session.setAttribute("currentPost", currentPost);
 			}
@@ -189,19 +211,7 @@ public class PostController extends HttpServlet {
 			session.setAttribute("currentPost", p);
 			response.sendRedirect("DetailPage.jsp");
 			
-			PostCreator postCreator = new PostCreator();
-			
-			TreeMap<Post,User> map = (TreeMap<Post,User>)session.getAttribute("map");
-			for (Post post :  map.keySet()) {
-				if (post.getPostID() == p.getPostID()) {
-					postCreator = (PostCreator) map.get(post);
-					break;
-				}
-			}			
-			session.setAttribute("otherUser", postCreator);
-			
-			
-			
+
 		}else if( request.getParameter("operation").equals(MyConstants.OPP_SHARE_COMMENT)) {
 			
 			Post p = (Post)session.getAttribute("currentPost");

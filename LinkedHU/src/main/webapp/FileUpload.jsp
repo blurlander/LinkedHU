@@ -450,6 +450,7 @@
 	<script src="./js/Like.js" type="text/javascript"></script>
 	<script src="./js/Comment.js" type="text/javascript"></script>
 	<script src="./js/sidenavbar.js" type="text/javascript"></script>
+	<script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
 	
 	<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">	
 		<script src="./js/FileTable.js" type="text/javascript"></script>
