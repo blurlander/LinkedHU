@@ -1324,110 +1324,112 @@
 				</div>
 			</div>
 			
-
-<!-- begin:: of messeage pop up -->			
-<div class="modal modal-sticky-bottom-right modal-sticky-lg show" id="kt_inbox_compose" role="dialog" data-backdrop="false" aria-modal="true" style="padding-right: 17px; display: none;">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content kt-inbox">
-			<div class="kt-inbox__form" id="kt_inbox_compose_form">
-				<div class="kt-inbox__head">
-					<div class="kt-inbox__title">New Message</div>
-					<div class="kt-inbox__actions">
-						<button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light" id="msgModelCloseBtn">
-							<i class="flaticon2-cross"></i>
-						</button>
-					</div>
-				</div>
-				<form id="msgInfoFormProfile">
-					<div class="kt-inbox__body">
-						<div class="kt-inbox__to">
-							<div class="kt-inbox__wrapper">
-								<div class="kt-inbox__field kt-inbox__field--to">
-									<div class="kt-inbox__label">
-										To:
+		
+					<div class="modal modal-sticky-bottom-right modal-sticky-lg show" id="kt_inbox_compose" role="dialog" data-backdrop="false" aria-modal="true" style="padding-right: 17px; display: none;">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content kt-inbox">
+								<div class="kt-inbox__form" id="kt_inbox_compose_form">
+									<div class="kt-inbox__head">
+										<div class="kt-inbox__title">New Message</div>
+										<div class="kt-inbox__actions">
+											<button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light" id="msgModelCloseBtn">
+												<i class="flaticon2-cross"></i>
+											</button>
+										</div>
 									</div>
-									<input class = "form-control" type="text" name="receiverName" value="${otherUser.fullName}" style="border: 1px solid #F0F8FF; border-radius: 5px; background-color:#F0F8FF;width:300px;height:30px">
-									<input type="hidden" name="receiverID" value="${otherUser.userID}">
+									<form id="msgInfoFormProfile">
+										<div class="kt-inbox__body">
+											<div class="kt-inbox__to">
+												<div class="kt-inbox__wrapper">
+													<div class="kt-inbox__field kt-inbox__field--to">
+														<div class="kt-inbox__label">
+															To:
+														</div>
+														<input class = "form-control" type="text" name="receiverName" value="${otherUser.fullName}" style="border: 1px solid #F0F8FF; border-radius: 5px; background-color:#F0F8FF;width:300px;height:30px">
+														<input type="hidden" name="receiverID" value="${otherUser.userID}">
+													</div>
+												</div>
+											</div>
+						
+											<div class="kt-inbox__subject msgSubjectArea" style="border-bottom:1px inset">
+												<input id="msgsbjct" class="form-control msgSubjectArea" name="messageSubject" placeholder="Subject" ><hr>
+											
+											</div>
+											
+											<textarea name="messageText" class="form-control msgTextArea" placeholder="Type your message here" style="height: 300px;width:%100;border:none"></textarea>
+											<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
+											
+											
+											<div class="kt-inbox__attachments">
+													<div class="dropzone dropzone-multi"
+														id="kt_inbox_compose_attachments">
+														<div class="dropzone-items" id="mainDropzone"></div>
+														<div class="dz-default dz-message">
+															<span>Drop files here to upload</span>
+														</div>
+													</div>
+											</div>
+										</div>
+									</form>
+								
+									<div class="kt-inbox__foot">
+										<div class="kt-inbox__primary">
+											<div class="btn-group">
+												<button type="button" class="btn btn-brand btn-bold msg-PushButton">
+													Send
+												</button>
+												<input type="hidden" value="msgInfoFormProfile">
+												<div class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
+													<ul class="kt-nav">
+														<li class="kt-nav__item">
+															<a href="#" class="kt-nav__link">
+																<i class="kt-nav__link-icon flaticon2-writing"></i>
+																<span class="kt-nav__link-text">Schedule Send</span>
+															</a>
+														</li>
+														<li class="kt-nav__item">
+															<a href="#" class="kt-nav__link">
+																<i class="kt-nav__link-icon flaticon2-medical-records"></i>
+																<span class="kt-nav__link-text">Save &amp; archive</span>
+															</a>
+														</li>
+														<li class="kt-nav__item">
+															<a href="#" class="kt-nav__link">
+																<i class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+																<span class="kt-nav__link-text">Cancel</span>
+															</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="kt-inbox__panel">
+												<label class="kt-inbox__icon kt-inbox__icon--light dz-clickable" id="kt_inbox_compose_attachments_select">
+													<i class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
+													<input class="fileInputGeneral" type="file" name="uploadOtherProfile" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
+												</label>
+											</div>
+										</div>
+
+										<div class="kt-inbox__secondary">
+											<button class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light" id = "clearThird" data-toggle="kt-tooltip" title="" data-original-title="Clear">
+												<i class="flaticon2-rubbish-bin-delete-button"></i>
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-	
-						<div class="kt-inbox__subject" style="border-bottom:1px inset">
-							<input id="msgsbjct" class="form-control msgSubjectArea" name="messageSubject" placeholder="Subject" ><hr>
-						
-						</div>
-						
-						<textarea name="messageText" class="form-control msgTextArea" placeholder="Type your message here" style="height: 300px;width:%100;border:none"></textarea>
-						<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
-	
-						<div class="kt-inbox__attachments">
-							<div class="dropzone dropzone-multi" id="kt_inbox_compose_attachments">
-								<div class="dropzone-items">
-									
-								</div>
-							<div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
-						</div>
 					</div>
-				</form>
-			
-				<div class="kt-inbox__foot">
-					<div class="kt-inbox__primary">
-						<div class="btn-group">
-							<button type="button" class="btn btn-brand btn-bold msg-PushButton">
-								Send
-							</button>
-							<input type="hidden" value="msgInfoFormProfile">
-							<div class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
-								<ul class="kt-nav">
-									<li class="kt-nav__item">
-										<a href="#" class="kt-nav__link">
-											<i class="kt-nav__link-icon flaticon2-writing"></i>
-											<span class="kt-nav__link-text">Schedule Send</span>
-										</a>
-									</li>
-									<li class="kt-nav__item">
-										<a href="#" class="kt-nav__link">
-											<i class="kt-nav__link-icon flaticon2-medical-records"></i>
-											<span class="kt-nav__link-text">Save &amp; archive</span>
-										</a>
-									</li>
-									<li class="kt-nav__item">
-										<a href="#" class="kt-nav__link">
-											<i class="kt-nav__link-icon flaticon2-hourglass-1"></i>
-											<span class="kt-nav__link-text">Cancel</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+					<!-- Form to send message -->
+						<form id="msgSendForm">
+							<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
+							<input type="hidden" name="receiverID" value="${otherUser.userID}">
+							<input type="hidden" id="msgSubject" name="subject" value="">
+							<input type="hidden" id="msgText" name="messageText" value="">
+						</form>
 
-						<div class="kt-inbox__panel">
-							<label class="kt-inbox__icon kt-inbox__icon--light dz-clickable" id="kt_inbox_compose_attachments_select">
-								<i class="flaticon2-clip-symbol"></i>
-							</label>
-						</div>
-					</div>
-
-					<div class="kt-inbox__secondary">
-						<button class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light" data-toggle="kt-tooltip" title="" data-original-title="Dismiss reply">
-							<i class="flaticon2-rubbish-bin-delete-button"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Form to send message -->
-
-<form id="msgSendForm">
-	<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
-	<input type="hidden" name="receiverID" value="${otherUser.userID}">
-	<input type="hidden" id="msgSubject" name="subject" value="">
-	<input type="hidden" id="msgText" name="messageText" value="">
-</form>
-
-<!-- end:: of messeage pop up -->			
+				<!-- End of the form -->	
 				
 
 			<!-- end:: Content -->
