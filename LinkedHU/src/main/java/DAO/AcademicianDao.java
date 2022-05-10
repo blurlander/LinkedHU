@@ -118,7 +118,8 @@ public class AcademicianDao implements IDao<Academician>{
 	}
 
 	@Override
-	public boolean update(Academician t) {
+	public boolean update(Academician t) 
+	{
 		
 
 		String query = "UPDATE academician SET username = ?,email=?,password=?,"

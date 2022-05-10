@@ -42,6 +42,9 @@ public class MyConstants {
 	public static final String OPP_SEND_MESSAGE = "30";
 	public static final String OPP_VIEW_INBOX = "31";
 	public static final String OPP_DELETE_MESSAGE = "32";
+	public static final String OPP_DELETE_MESSAGE_MULTIPLE = "33";
+	public static final String OPP_MARK_INBOXVIEW = "34";
+	public static final String OPP_MARK_MULTIPLE = "35";
 	
 	public static final int CODE_HOMEPAGE = 100;
 	public static final int CODE_DETAILPAGE = 101;

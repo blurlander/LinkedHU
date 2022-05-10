@@ -1,18 +1,24 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -25,6 +31,9 @@ import Model.User;
 import general.MyConstants;
 
 @WebServlet("/MessageController")
+@MultipartConfig(
+		  fileSizeThreshold = 1024 * 1024 * 1, 
+		  maxRequestSize = 1024 * 1024 * 100 )
 public class MessageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
@@ -52,7 +61,6 @@ public class MessageController extends HttpServlet {
 		else if(operation.equals(MyConstants.OPP_VIEW_INBOX)) {
 			response.sendRedirect("MessageController");
 		}
-		
 		
 		else if(operation.equals(MyConstants.OPP_SEND_MESSAGE)) {
 			String receiverID = request.getParameter("receiverID");
@@ -87,16 +95,90 @@ public class MessageController extends HttpServlet {
 			deleteMessage(currentUser,deletedMessageID,userRole);
 			System.out.println(deletedMessageID+" " + userRole);
 		}
+		else if(operation.equals(MyConstants.OPP_MARK_INBOXVIEW)) {
+			int markedMessageID = Integer.parseInt(request.getParameter("markedMessage"));
+			markAsRead(currentUser, markedMessageID);
+		}
+		else if(operation.equals(MyConstants.OPP_DELETE_MESSAGE_MULTIPLE)) {
+			String[] idValues = request.getParameterValues("json[]");
+			String userRole = request.getParameter("role");
+			boolean control = false;
+			for(String s : idValues) 
+			{
+				control = deleteMessage(currentUser,Integer.parseInt(s),userRole);
+			}
+			if(control) {
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("status","success");
+				response.setContentType("text/html");
+		        response.setHeader("Cache-control", "no-cache, no-store");
+		        response.setHeader("Pragma", "no-cache");
+		        response.setHeader("Expires", "-1");
+		        response.setHeader("Access-Control-Allow-Origin", "*");
+		        response.setHeader("Access-Control-Allow-Methods", "POST");
+		        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		        response.setHeader("Access-Control-Max-Age", "86400");
+				PrintWriter out = response.getWriter();
+				out.println(jsonObject.toString());
+			}
+			
+		}
+		else if(operation.equals(MyConstants.OPP_MARK_MULTIPLE)) {
+			String[] idValues = request.getParameterValues("json[]");
+			boolean control = false;
+			for(String s : idValues) 
+			{
+				control = markAsRead(currentUser,Integer.parseInt(s));
+				
+			}
+			if(control) {
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("status","success");
+				response.setContentType("text/html");
+		        response.setHeader("Cache-control", "no-cache, no-store");
+		        response.setHeader("Pragma", "no-cache");
+		        response.setHeader("Expires", "-1");
+		        response.setHeader("Access-Control-Allow-Origin", "*");
+		        response.setHeader("Access-Control-Allow-Methods", "POST");
+		        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		        response.setHeader("Access-Control-Max-Age", "86400");
+				PrintWriter out = response.getWriter();
+				out.println(jsonObject.toString());
+			}
+		}
 		
 	}
 	
 	private boolean sendMessage(User user,int receiverID,String messageSubject,String messageText,HttpServletRequest request) {
 		
 		Message newMessage = new Message();
-		newMessage.setSenderID(((User)session.getAttribute("currentUser")).getUserID());
+		newMessage.setSenderID(user.getUserID());
 		newMessage.setReceiverID(receiverID);
 		newMessage.setMessageTopic(messageSubject);
 		newMessage.setText(messageText);
+		List<String> uploadedFiles = new ArrayList<String>();
+		
+		try {
+			for(Part filePart : request.getParts()) 
+			{	
+				if(filePart.getContentType() != null) 
+				{
+					String fileName = filePart.getSubmittedFileName();
+					String destinationFolderSrc = request.getServletContext().getRealPath("MessageUploads");
+					String targetURL = destinationFolderSrc+ File.separator + fileName;
+					filePart.write(targetURL);
+					String relativePath = "./MessageUploads/"+fileName;
+					uploadedFiles.add(relativePath);
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		
+		newMessage.setUploadedFiles(uploadedFiles);
 		
 		if(service.createMessage(newMessage)) {
 			Message lastCreatedMessage = service.readMessage(service.getLastMessageID());
@@ -212,6 +294,24 @@ public class MessageController extends HttpServlet {
 		return true;
 		
 	}
+	
+	private boolean markAsRead(User user,int messageID) {
+		TreeMap<Message,User> messages = user.getMessages();
+		Message updatedMessage = null;
+		
+		for(Message m : messages.keySet()) {
+			if(m.getMessageID() == messageID) {
+				m.setIsRead(true);
+				updatedMessage = m;
+			}
+		}
+		service.updateMessage(updatedMessage);
+		user.setMessages(messages);
+		session.setAttribute("currentUser",user);
+		return true;
+	}
+	
+	
 	
 
 }

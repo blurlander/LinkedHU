@@ -3,6 +3,7 @@ package Model;
 import java.io.File;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,7 +16,7 @@ public class Message implements Comparable<Message>{
 	private String formattedDateWithoutHours;
 	private String text;
 	private String messageTopic;
-	private List<File> uploadedFiles;
+	private List<String> uploadedFiles = new ArrayList<String>();
 	private int deletionStatus = 0;
 	private boolean isRead = false;
 	private List<String> links;
@@ -65,10 +66,10 @@ public class Message implements Comparable<Message>{
 	public void setMessageTopic(String messageTopic) {
 		this.messageTopic = messageTopic;
 	}
-	public List<File> getUploadedFiles() {
+	public List<String> getUploadedFiles() {
 		return uploadedFiles;
 	}
-	public void setUploadedFiles(List<File> uploadedFiles) {
+	public void setUploadedFiles(List<String> uploadedFiles) {
 		this.uploadedFiles = uploadedFiles;
 	}
 	public int getDeletionStatus() {

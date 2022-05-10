@@ -260,7 +260,7 @@
 																
 																<!-- fallow button -->
 																<c:if test="${currentUser.userID != otherUser.userID}">
-																<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
+																<button type="button" class="btn btn-label-success btn-sm btn-upper" id="msgModalBtnOtherUser">Send Message</button>
 																</c:if>
 																<c:if
 																	test="${ (currentUser.userID != otherUser.userID) && (currentUser.userType == MyConstants.TYPE_STUDENT)}">
@@ -535,6 +535,9 @@
 															<div class="kt-widget__action">
 																
 																<!-- fallow button -->
+																<c:if test="${currentUser.userID != otherUser.userID}">
+																		<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
+																</c:if>
 																<c:if
 																	test="${ (currentUser.userID != otherUser.userID) && (currentUser.userType == MyConstants.TYPE_STUDENT)}">
 																	<form id="followform">
@@ -1360,20 +1363,23 @@
 												</div>
 											</div>
 						
-											<div class="kt-inbox__subject" style="border-bottom:1px inset">
+											<div class="kt-inbox__subject msgSubjectArea" style="border-bottom:1px inset">
 												<input id="msgsbjct" class="form-control msgSubjectArea" name="messageSubject" placeholder="Subject" ><hr>
 											
 											</div>
 											
 											<textarea name="messageText" class="form-control msgTextArea" placeholder="Type your message here" style="height: 300px;width:%100;border:none"></textarea>
 											<input type="hidden" name="operation" value="${MyConstants.OPP_SEND_MESSAGE}">
-						
+											
+											
 											<div class="kt-inbox__attachments">
-												<div class="dropzone dropzone-multi" id="kt_inbox_compose_attachments">
-													<div class="dropzone-items">
-														
+													<div class="dropzone dropzone-multi"
+														id="kt_inbox_compose_attachments">
+														<div class="dropzone-items" id="mainDropzone"></div>
+														<div class="dz-default dz-message">
+															<span>Drop files here to upload</span>
+														</div>
 													</div>
-												<div class="dz-default dz-message"><span>Drop files here to upload</span></div></div>
 											</div>
 										</div>
 									</form>
@@ -1411,13 +1417,14 @@
 
 											<div class="kt-inbox__panel">
 												<label class="kt-inbox__icon kt-inbox__icon--light dz-clickable" id="kt_inbox_compose_attachments_select">
-													<i class="flaticon2-clip-symbol"></i>
+													<i class="flaticon2-clip-symbol" data-container="body" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="Maximum 3 files."></i>
+													<input class="fileInputGeneral" type="file" name="uploadOtherProfile" value ="" accept="audio/*,video/*,image/*, .pdf , .txt" style="display:none">
 												</label>
 											</div>
 										</div>
 
 										<div class="kt-inbox__secondary">
-											<button class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light" data-toggle="kt-tooltip" title="" data-original-title="Dismiss reply">
+											<button class="kt-inbox__icon kt-inbox__icon--remove kt-inbox__icon--light" id = "clearThird" data-toggle="kt-tooltip" title="" data-original-title="Clear">
 												<i class="flaticon2-rubbish-bin-delete-button"></i>
 											</button>
 										</div>
