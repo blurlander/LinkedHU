@@ -260,7 +260,7 @@
 	                        </div>
 	                        
 	                         <!-- DELETE POST ENABLE OR DISABLE -->
-	                        <c:if test="${currentUser.userID ==  postAuthor.userID}">
+	                        <c:if test="${currentUser.userID ==  postAuthor.userID || currentUser.userType == MyConstants.TYPE_ADMIN}">
 	                        <div class="kt-portlet__head-toolbar">
 	                            <a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown">
 	                                <i class="flaticon-more-1"></i>
