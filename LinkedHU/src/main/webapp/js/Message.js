@@ -253,16 +253,47 @@ $(document).ready(function()
 	$("#clearFirst").click(function(){
 		$(".inboxSubjectArea").val("");
 		$(".inboxTextArea").val("");
+		for(var i=0;i<uploadedFiles.length;i++)
+		{
+			if(uploadedFiles[i] != "")
+			{
+				$("#"+i).css("display","none");
+				
+			}
+			
+		}
+		uploadedFiles = [];
+		index = 0;
 
 	});
 	$("#clearSecond").click(function(){
 		$(".replySubjectArea").val("");
 		$(".replyTextArea").val("");
+		for(var i=0;i<uploadedFiles.length;i++)
+		{
+			if(uploadedFiles[i] != "")
+			{
+				$("#"+i+"reply").css("display","none");
+				
+			}
+			
+		}
+		uploadedFiles = [];
+		index = 0;
 
 	});
 	$("#clearThird").click(function(){
 		$("#msgsbjct").val("");
 		$(".msgTextArea").val("");
+		for(var i=0;i<uploadedFiles.length;i++)
+		{
+			if(uploadedFiles[i] != "")
+			{
+				$("#"+i).css("display","none");
+				
+			}
+			
+		}
 
 	});
 	
@@ -301,6 +332,7 @@ $(document).ready(function()
 			        for(var j=0;j<messageIDs.length;j++){
 						messageID = messageIDs[j];
 						document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
+						$("#"+messageID+"icon").css("display","none");
 						var unreadCount = parseInt(document.getElementById("unreadCount").textContent)-1;
 						document.getElementById("unreadCount").textContent = unreadCount;
 						if(unreadCount <= 0)
@@ -309,7 +341,8 @@ $(document).ready(function()
 							
 						}	
 						
-				}
+					}
+					
 			    },
 				});
 			}
@@ -325,6 +358,7 @@ $(document).ready(function()
 		if(selectedMessages.length != 0)
 		{
 			for(var i=0;i<selectedMessages.length;i++){
+				console.log(selectedMessages[i].getAttribute("id"));
 				messageIDs.push(selectedMessages[i].getAttribute("id"));
 			}
 			$.ajax({
@@ -337,7 +371,8 @@ $(document).ready(function()
 		        console.log(data);
 		        console.log("success");
 		        var messageID;
-		        for(var j=0;j<messageIDs.length;j++){
+		        for(var j=0;j<messageIDs.length;j++)
+		        {
 					messageID = messageIDs[j];
 									
 					if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread") && $("#currentUserRoleInput").val() != "sender")
@@ -350,7 +385,7 @@ $(document).ready(function()
 								
 							}				
 					}
-						
+					$("#"+messageID).attr("class","trash");		
 					$("#"+messageID).css("display","none");	
 			}
 		    },
@@ -380,6 +415,7 @@ $(document).ready(function()
 				if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread"))
 				{
 					document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
+					$("#"+messageID+"icon").css("display","none");
 					var unreadCount = parseInt(document.getElementById("unreadCount").textContent) -1;
 					document.getElementById("unreadCount").textContent = unreadCount;
 					if(unreadCount <= 0)
@@ -447,13 +483,15 @@ $(document).ready(function()
 			document.getElementsByClassName("msgSender_")[0].textContent = "me";
 			document.getElementById("toWho").innerHTML = `from me <i
 																class="flaticon2-down"></i>;`
-			$("#inboxViewMark").css("display","none");											
+			$("#inboxViewMark").css("display","none");	
+			$("#receiverID__").val(document.getElementById("NextReceiverSent").textContent);										
 		}
 		else if(userRole === "receiver"){
 			document.getElementsByClassName("msgSender_")[0].textContent = document.getElementById(messageID+"sender").textContent;
 			document.getElementById("toWho").innerHTML = `to me <i
 																class="flaticon2-down"></i>;`
 			$("#inboxViewMark").css("display","flex");	
+			$("#receiverID__").val(document.getElementById("NextReceiverInbox").textContent);
 		}
 
 		document.getElementsByClassName("msgSubject_")[0].textContent = document.getElementById(messageID+"topic").textContent;
@@ -481,21 +519,21 @@ $(document).ready(function()
 		}
 		$("._msgFiles").append(start);	
 		$("#reply__").val(document.getElementsByClassName("sender_name")[0].textContent);
-		$("#receiverID__").val(document.getElementById("NextReceiver").textContent);
 		
 	});
 	function addNewMessage(data){		
 		let messageID = data.messageInfo.messageID;
+		let receiverID = data.messageInfo.receiverID;
 		let userType = data.authorInfo.userType;
 		let profilePictureSrc = "";
 		let userFullName = data.authorInfo.fullName;
 		let messageTopic = data.messageInfo.messageTopic;
-		let messageText = data.messageInfo.text;
-		let messageTextShort = "";
+		var messageText = data.messageInfo.text;
+		var messageTextShort = "";
 		let formattedDate = data.messageInfo.formattedDate;
 		let formattedDateWithoutHours = data.messageInfo.formattedDateWithoutHours;
 		
-		if(messageText.lenght > 100)
+		if(messageText.length > 100)
 		{
 			messageTextShort = messageText.substr(0,100);
 		}
@@ -530,16 +568,16 @@ $(document).ready(function()
 		}
 		if(fileNumber === 1)
 		{
-			info = "1 file attachment!";
+			info = "1 file attachment.";
 			color = "#DB7093";
 			
 		}
 		else if(fileNumber > 1)
 		{
-			info = fileNumber+ " file attachments!";
+			info = fileNumber+ " file attachments.";
 			color = "#DB7093";
 		}
-		var itemText =`<div class="kt-inbox__item kt-inbox__item--unread"
+		var itemText =`<div class="kt-inbox__item"
 							data-id="20" data-type="sent"
 							id="${messageID}">
 							<div class="kt-inbox__info">
@@ -566,6 +604,7 @@ $(document).ready(function()
 										</span>
 									<a href="#" class="kt-inbox__author"
 										id="${messageID}sender">${userFullName}</a>
+									<span id="NextReceiverSent" style="display: none">${receiverID}</span>
 								</div>
 							</div>
 							<div class="kt-inbox__details" data-toggle="view">

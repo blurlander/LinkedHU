@@ -494,8 +494,13 @@
 									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
 									                            	</span>
 																</c:if>
-																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
-																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+																<c:if test="${entry.getKey().uploadedFiles.size() == 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="1 file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() > 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments.">
 									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
 									                            	</span>
 																</c:if>
@@ -510,7 +515,7 @@
 																	<span></span>
 																</span> <a href="#" class="kt-inbox__author"
 																	id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
-																<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
+																<span id="NextReceiverInbox" style="display: none">${entry.getValue().userID}</span>
 															</div>
 														</div>
 														<div class="kt-inbox__details" data-toggle="view">
@@ -537,7 +542,7 @@
 															</div>
 															<div class="kt-inbox__labels">
 																<span
-																	class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline">inbox</span>
+																	class="kt-inbox__label kt-badge kt-badge--unified-brand kt-badge--bold kt-badge--inline" id="${entry.getKey().messageID}icon">inbox</span>
 															</div>
 														</div>
 														<div class="kt-inbox__datetime"
@@ -564,8 +569,13 @@
 									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
 									                            	</span>
 																</c:if>
-																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
-																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+																<c:if test="${entry.getKey().uploadedFiles.size() == 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="1 file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() > 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments.">
 									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
 									                            	</span>
 																</c:if>
@@ -578,7 +588,7 @@
 																	style="background-image: url('${entry.getValue().profilePictureSrc}')">
 																	<span></span>
 																</span> <a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender"  >${entry.getValue().fullName}</a>
-																<span id="NextReceiver" style="display: none">${entry.getValue().userID}</span>
+																<span id="NextReceiverInbox" style="display: none">${entry.getValue().userID}</span>
 
 															</div>
 														</div>
@@ -642,8 +652,13 @@
 									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
 									                            	</span>
 																</c:if>
-																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
-																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+																<c:if test="${entry.getKey().uploadedFiles.size() == 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="1 file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() > 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments.">
 									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
 									                            	</span>
 																</c:if>
@@ -673,6 +688,7 @@
 																</c:if>
 																<a href="#" class="kt-inbox__author"
 																	id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
+																<span id="NextReceiverSent" style="display: none">${entry.getValue().userID}</span>
 															</div>
 														</div>
 														<div class="kt-inbox__details" data-toggle="view">
@@ -720,8 +736,13 @@
 									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
 									                            	</span>
 																</c:if>
-																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
-																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+																<c:if test="${entry.getKey().uploadedFiles.size() == 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="1 file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() > 1}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments.">
 									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
 									                            	</span>
 																</c:if>
@@ -750,6 +771,7 @@
 																	</span>
 																</c:if>
 																<a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
+																<span id="NextReceiverSent" style="display: none">${entry.getValue().userID}</span>
 															</div>
 														</div>
 														<div class="kt-inbox__details" data-toggle="view">
