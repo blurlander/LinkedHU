@@ -294,6 +294,8 @@ $(document).ready(function()
 			}
 			
 		}
+		uploadedFiles = [];
+		index = 0;
 
 	});
 	
