@@ -100,14 +100,16 @@
 									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
 									</c:if>
 								
-								<div class="sb_fullname " style="display: none">
-									<c:out value="${currentUser.username }"></c:out>
-								</div>
-									
-						        <form action="UserController" method="POST">
-							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+								
+									 
+						        <form action="UserController" method="POST" style="display: none">
+							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold" >Sign Out</button>
 							        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
 						        </form>
+						        
+						        <div class="sb_fullname " >
+									<c:out value="${currentUser.username }"></c:out>
+								</div>
 								
 							</div>
 						</div>
@@ -134,12 +136,14 @@
 								<input type="hidden" name="userID" value="${currentUser.userID }">
 							</form>
 						</li>
+						<c:if test ="${currentUser.userType != MyConstants.TYPE_ADMIN }">
 						<li>
 							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 								<i class="fa fa-user-edit"></i>
 								<span class="links_name">Update Profile</span>
 							</a>
 						</li>
+						</c:if>
 						<li>
 							<form action="MessageController" method="POST" id="form_viewMessages">
 								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
@@ -152,13 +156,14 @@
 
 							</form>
 						</li>
+						<c:if test ="${currentUser.userType != MyConstants.TYPE_ADMIN }">
 						<li>
 							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 								<i class="fa fa-key"></i>
 								<span class="links_name">Change Password</span>
 							</a>
 						</li>
-						
+						</c:if>
 						<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
 							<li>
 
@@ -232,6 +237,11 @@
 									</div>
 									<div class="modal-body"
 										style="display: flex; justify-content: center; align-content: space-between;">
+										
+										
+										
+										
+										
 										<form method="POST" action="UserController">
 											<div class="form-group">
 	
@@ -268,6 +278,14 @@
 										<div class="kt-widget__action" style="display:flex">
 											
 											<!-- fallow button -->
+											<c:if
+												test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold"  onclick = "window.location = 'UpdateProfileAdmin.jsp'">UPDATE PROFILE</button>
+							        							
+											</c:if>
+											
+											
+											
 											<c:if test="${currentUser.userID != otherUser.userID}">
 											<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
 											</c:if>
@@ -317,6 +335,13 @@
 											<!-- fallow button end -->
 											
 											<!-- delete account button -->
+											
+											
+											
+											
+											
+	
+											
 											<c:if
 												test="${ currentUser.userID == otherUser.userID }">
 												<button type="button"
@@ -540,12 +565,19 @@
 											class="flaticon2-correct"></i>
 										</a>
 	
-										<div class="kt-widget__action">
+										<div class="kt-widget__action" style="display:flex;">
 											
 											<!-- fallow button -->
+											<c:if
+												test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold"  onclick = "window.location = 'UpdateProfileAdmin.jsp'">UPDATE PROFILE</button>
+							        							
+											</c:if>
+											
 											<c:if test="${currentUser.userID != otherUser.userID}">
 												<button type="button" class="btn btn-label-success btn-sm btn-upper" id="msgModalBtnOtherUser">Send Message</button>
 											</c:if>
+											
 											<c:if
 												test="${ (currentUser.userID != otherUser.userID) && (currentUser.userType == MyConstants.TYPE_STUDENT)}">
 												<form id="followform">
@@ -747,9 +779,20 @@
 												value="${otherUser.fullName}">name</c:out> <i
 											class="flaticon2-correct"></i>
 										</a>
+										<div>
+											<c:if
+												test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold" style="margin-right:3px;" onclick = "window.location = 'UpdateProfileAdmin.jsp'">UPDATE PROFILE</button>
+							        							
+											</c:if>
+										
+										
 										<c:if test="${currentUser.userID != otherUser.userID}">
 											<button type="button" class="btn btn-label-success btn-sm btn-upper follow-btn" id="msgModalBtnOtherUser">Send Message</button>
 										</c:if>
+										
+										</div>
+										
 									</div>
 	
 									<div class="kt-widget__subhead">

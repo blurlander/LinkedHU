@@ -31,6 +31,7 @@ public class MyConstants {
 	public static final String OPP_DELETE_SELF = "22";
 	public static final String OPP_CREATED_BY_ADMIN = "23";
 	public static final String OPP_DELETE_FILE = "24-ali";
+	public static final String OPP_UPDATED_BY_ADMIN = "25";
 	
 	
 	public static final String TARGET_TYPE_CREATOR = "666";

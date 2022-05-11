@@ -158,12 +158,12 @@
 									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
 									</c:if>
 								
-								<div class="sb_fullname " style="display: none">
+								<div class="sb_fullname " >
 									<c:out value="${currentUser.username }"></c:out>
 								</div>
 									
-						        <form action="UserController" method="POST">
-							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+						        <form action="UserController" method="POST" style="display: none">
+							        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold" >Sign Out</button>
 							        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
 						        </form>
 								
@@ -192,12 +192,14 @@
 								<input type="hidden" name="userID" value="${currentUser.userID }">
 							</form>
 						</li>
+						<c:if test ="${currentUser.userType != MyConstants.TYPE_ADMIN }">
 						<li>
 							<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 								<i class="fa fa-user-edit"></i>
 								<span class="links_name">Update Profile</span>
 							</a>
 						</li>
+						</c:if>
 						<li>
 							<form action="MessageController" method="POST" id="form_viewMessages">
 								<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
@@ -210,12 +212,8 @@
 
 							</form>
 						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-key"></i>
-								<span class="links_name">Change Password</span>
-							</a>
-						</li>
+						
+						
 						
 						<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
 							<li>
@@ -515,12 +513,23 @@
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
 																<!-- For admin,you will use c:if -->
-																<span
-																	class="kt-media kt-media--sm kt-media--danger"
-																	id="${entry.getKey().messageID}senderImg"
-																	style="background-image: url('${entry.getValue().profilePictureSrc}')">
-																	<span></span>
-																</span> <a href="#" class="kt-inbox__author"
+																<c:if test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--danger"
+																		id="${entry.getKey().messageID}senderImg"
+																		style="background-image: url('./ProfilePictures/amdin.jpg')">
+																		<span></span>
+																	</span>
+																</c:if>
+																<c:if test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--danger"
+																		id="${entry.getKey().messageID}senderImg"
+																		style="background-image: url('${entry.getValue().profilePictureSrc}')">
+																		<span></span>
+																	</span>
+																</c:if>
+																 <a href="#" class="kt-inbox__author"
 																	id="${entry.getKey().messageID}sender">${entry.getValue().fullName}</a>
 																<span id="NextReceiverInbox" style="display: none">${entry.getValue().userID}</span>
 															</div>
@@ -589,12 +598,24 @@
 																
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
-																<span
-																	class="kt-media kt-media--sm kt-media--brand"
-																	id="${entry.getKey().messageID}senderImg"
-																	style="background-image: url('${entry.getValue().profilePictureSrc}')">
-																	<span></span>
-																</span> <a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender"  >${entry.getValue().fullName}</a>
+																<c:if test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--danger"
+																		id="${entry.getKey().messageID}senderImg"
+																		style="background-image: url('./ProfilePictures/amdin.jpg')">
+																		<span></span>
+																	</span>
+																</c:if>
+																<c:if test="${entry.getValue().userType != MyConstants.TYPE_ADMIN}">
+																	<span
+																		class="kt-media kt-media--sm kt-media--danger"
+																		id="${entry.getKey().messageID}senderImg"
+																		style="background-image: url('${entry.getValue().profilePictureSrc}')">
+																		<span></span>
+																	</span>
+																</c:if>
+															
+															 <a href="#" class="kt-inbox__author" id="${entry.getKey().messageID}sender"  >${entry.getValue().fullName}</a>
 																<span id="NextReceiverInbox" style="display: none">${entry.getValue().userID}</span>
 
 															</div>
@@ -677,8 +698,7 @@
 																</span>
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
-																<c:if
-																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
+																<c:if test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
 																	<span
 																		class="kt-media kt-media--sm kt-media--brand"
 																		style="background-image: url('./ProfilePictures/amdin.jpg')"

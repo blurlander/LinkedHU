@@ -94,8 +94,7 @@ public class UserController extends HttpServlet {
 				}
 				
 				break;
-				
-			case MyConstants.OPP_UPDATE_PROFILE:
+			case MyConstants.OPP_UPDATED_BY_ADMIN:	
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String fullName = firstName.concat(" ").concat(lastName);
@@ -158,7 +157,7 @@ public class UserController extends HttpServlet {
 					}
 				}
 				if(tryagain1) {
-					response.sendRedirect("UpdateProfile.jsp");
+					response.sendRedirect("UpdateProfileAdmin.jsp");
 					break;
 				}
 				
@@ -214,6 +213,129 @@ public class UserController extends HttpServlet {
 				
 				
 				updateAccountInfo(infoList);
+				response.sendRedirect("Profile.jsp");
+				
+				break;
+				
+			case MyConstants.OPP_UPDATE_PROFILE:
+				String firstName3 = request.getParameter("firstName");
+				String lastName3 = request.getParameter("lastName");
+				String fullName3 = firstName3.concat(" ").concat(lastName3);
+				
+				int typecheck3 = 0; // False if student , true if Academician
+				String acadTitle3= "";
+				String officeNumber3 = ""; 
+				String professionalHistory3 = "";
+				String researchHistory3 = "";
+				String proficiencies3 = "";
+				String skills3= "";
+				String gpa3= "";
+				String graduation3 = "";
+				
+				if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_ACADEMICIAN) {
+					typecheck3 = 1;
+					acadTitle3 = request.getParameter("acadTitle");
+					officeNumber3 = request.getParameter("officeNumber");
+					professionalHistory3 = request.getParameter("professionalHistory");
+					researchHistory3 = request.getParameter("researchHistory");
+					proficiencies3 = request.getParameter("proficiencies");
+				}
+				else if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_STUDENT) {
+					typecheck3 = 2;
+					skills3 = request.getParameter("skills");
+					gpa3 = request.getParameter("gpa");
+					graduation3 = request.getParameter("graduation");
+					
+				}
+				else if(((NonAdminUser)session.getAttribute("otherUser")).getUserType() == MyConstants.TYPE_GRADUATE) {
+					typecheck3 = 3;
+					proficiencies3 = request.getParameter("proficiencies");
+					graduation3 = request.getParameter("graduation");
+					
+				}
+				
+									
+				String bio3 = request.getParameter("bio");
+				
+				String username3 = request.getParameter("userName");
+				String password13 = request.getParameter("password");
+				String email13 = request.getParameter("email");
+				
+				boolean changeEmail3 = !(((User)session.getAttribute("otherUser")).getEmail().equals(email13));
+				boolean changeUsername3 = !(((User)session.getAttribute("otherUser")).getUsername().equals(username3));
+				
+				int checkUserName13 = service.checkUserNameExists(username3);
+				int checkEmail13 = service.checkEmailExists(email13);
+				boolean tryagain13 = false;
+				if(changeUsername3) {
+					if(checkUserName13 > 0) {
+						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
+						tryagain13 = true;
+					}
+				}
+				if(changeEmail3) {
+					if(checkEmail13 > 0) {
+						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+						tryagain13 = true;
+					}
+				}
+				if(tryagain13) {
+					response.sendRedirect("UpdateProfile.jsp");
+					break;
+				}
+				
+				
+				
+				
+				
+				Part filePart3 = request.getPart("profilePicture");
+				String fileName3 = filePart3.getSubmittedFileName();
+				String destinationFolderSrc3 = request.getServletContext().getRealPath("ProfilePictures");
+				Random random3 = new Random();
+				String uploadedFileName3 = username3+random3.nextInt(10000)+".jpg";
+				filePart3.write(destinationFolderSrc3+ File.separator + uploadedFileName3);
+				String profilePictureSrc3 ="";
+				//After register operation,a default profile picture will be set to the user and this code piece will always work.
+				// If no path is selected to update the profile picture,the last one will be selected.
+				
+				if(fileName3.equals("")) {
+					profilePictureSrc3 +=((NonAdminUser)session.getAttribute("otherUser")).getProfilePictureSrc();
+				}
+				else {
+					profilePictureSrc3 += "./ProfilePictures/"+uploadedFileName3;
+				}
+
+				List<String> infoList3 = new ArrayList<String>();
+				
+				infoList3.add(username3);
+				infoList3.add(email13);
+				infoList3.add(password13);
+				infoList3.add(fullName3);
+				infoList3.add(profilePictureSrc3);
+				infoList3.add(bio3);
+				
+				if(typecheck3 == 1) {				
+				infoList3.add(acadTitle3);
+				infoList3.add(professionalHistory3);
+				infoList3.add(researchHistory3);
+				infoList3.add(proficiencies3);
+				infoList3.add(officeNumber3);				
+				}
+				else if(typecheck3 == 2) {
+				infoList3.add(skills3);
+				infoList3.add(gpa3);
+				infoList3.add(graduation3);
+				}
+				else if(typecheck3 == 3) {				
+				infoList3.add(graduation3);
+				infoList3.add(proficiencies3);
+				}
+				
+				
+				
+				
+				
+				updateAccountInfo(infoList3);
 				response.sendRedirect("Profile.jsp");
 				
 				break;

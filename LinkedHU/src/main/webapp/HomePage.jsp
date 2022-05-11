@@ -100,12 +100,12 @@
 									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
 									</c:if>
 									
-									<div class="sb_fullname " style="display: none">
+									<div class="sb_fullname ">
 										<c:out value="${currentUser.username }"></c:out>
 									</div>
 										
-							        <form action="UserController" method="POST">
-								        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</button>
+							        <form action="UserController" method="POST" style="display: none">
+								        <button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold" >Sign Out</button>
 								        <input type = "hidden" value = "${MyConstants.OPP_LOGOUT }" name = "operation">        
 							        </form>
 									
@@ -134,12 +134,14 @@
 									<input type="hidden" name="userID" value="${currentUser.userID }">
 								</form>
 							</li>
+							<c:if test ="${currentUser.userType != MyConstants.TYPE_ADMIN }">
 							<li>
 								<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 									<i class="fa fa-user-edit"></i>
 									<span class="links_name">Update Profile</span>
 								</a>
 							</li>
+							</c:if>
 							<li>
 								<form action="MessageController" method="POST" id="form_viewMessages">
 									<input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_INBOX}">
@@ -152,13 +154,14 @@
 
 								</form>
 							</li>
+							<c:if test ="${currentUser.userType != MyConstants.TYPE_ADMIN }">
 							<li>
 								<a href="#" onclick = "window.location = 'UpdateProfile.jsp'">
 									<i class="fa fa-key"></i>
 									<span class="links_name">Change Password</span>
 								</a>
 							</li>
-							
+							</c:if>
 							<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN }">
 								<li>
 	
