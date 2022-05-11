@@ -149,7 +149,14 @@
 						<div class="sb_profile"> 
 							<div class="sb_profile_details">
 							 
-								<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+								<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
+									</c:if>
+								 	
+								 	
+								 	<c:if test="${currentUser.userType != MyConstants.TYPE_ADMIN}">
+									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+									</c:if>
 								
 								<div class="sb_fullname " style="display: none">
 									<c:out value="${currentUser.username }"></c:out>
@@ -674,7 +681,7 @@
 																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
 																	<span
 																		class="kt-media kt-media--sm kt-media--brand"
-																		style="background-image: url('./assets/media/users/100_5.jpg')"
+																		style="background-image: url('./ProfilePictures/amdin.jpg')"
 																		id="${entry.getKey().messageID}senderImg"> <span></span>
 																	</span>
 																</c:if>
@@ -758,7 +765,7 @@
 																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
 																	<span
 																		class="kt-media kt-media--sm kt-media--brand"
-																		style="background-image: url('./assets/media/users/100_5.jpg')">
+																		style="background-image: url('./ProfilePictures/amdin.jpg')">
 																		<span></span>
 																	</span>
 																</c:if>
@@ -1150,7 +1157,7 @@
 																				<c:if
 																					test="${user.userType == MyConstants.TYPE_ADMIN}">
 																					<span class="kt-media kt-media--"
-																						style="background-image: url('./assets/media/users/100_6.jpg')"><span></span>
+																						style="background-image: url('./ProfilePictures/amdin.jpg')"><span></span>
 																					</span>
 																				</c:if>
 

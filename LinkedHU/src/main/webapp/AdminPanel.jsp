@@ -117,7 +117,7 @@
 						<div class="sb_profile"> 
 							<div class="sb_profile_details">
 							 
-								<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+								<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
 								
 								<div class="sb_fullname " style="display: none">
 									<c:out value="${currentUser.username }"></c:out>

@@ -94,8 +94,17 @@
 						<div class="sb_profile_content">
 							<div class="sb_profile"> 
 								<div class="sb_profile_details">
-								 
+								 	
+								 	
+								 	<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
+									</c:if>
+								 	
+								 	
+								 	<c:if test="${currentUser.userType != MyConstants.TYPE_ADMIN}">
 									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+									</c:if>
+									
 									
 									<div class="sb_fullname " style="display: none">
 										<c:out value="${currentUser.username }"></c:out>
@@ -219,7 +228,14 @@
 												}
 											}
 	                                	%>               
-	                                    <input type="image" src="${postAuthor.profilePictureSrc }" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+										 	<c:if test = "${postAuthor.userType == MyConstants.TYPE_ADMIN}">                           
+		                                    <input type="image" src="./ProfilePictures/amdin.jpg" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+		                                    </c:if>
+		                                    
+		                                    <c:if test = "${postAuthor.userType != MyConstants.TYPE_ADMIN}">                           
+		                                    <input type="image" src="${postAuthor.profilePictureSrc}" alt="image" style="height:100px;width:100px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+		                                    </c:if>	                                   
+	                                   	                                    
 	                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
 	                                    <input type="hidden" name="userID" value="${currentPost.authorID }">                                	
 	                                </span>
@@ -402,7 +418,16 @@
 								<!-- Start of comment -->
 		                        <div class="kt-notes__item" id="${comment.commentID}-div"> 
 		                            <div class="kt-notes__media">
+		                            	
+		                            	<c:if test = "${commentAuthor.userType != MyConstants.TYPE_ADMIN }">	                            			                                		                               
 		                                <img class="kt-hidden-" src="${commentAuthor.profilePictureSrc}" alt="image">
+		                                </c:if>
+		                                
+		                                <c:if test = "${commentAuthor.userType == MyConstants.TYPE_ADMIN }">	                            			                                		                               
+		                                <img class="kt-hidden-" src="./ProfilePictures/amdin.jpg" alt="image">
+		                                </c:if>
+		                                
+		                                
 		                                <span class="kt-notes__icon kt-font-boldest kt-hidden">
 		                                    <i class="flaticon2-cup"></i>                                    
 		                                </span> 

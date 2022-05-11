@@ -91,7 +91,14 @@
 						<div class="sb_profile"> 
 							<div class="sb_profile_details">
 							 
-								<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+									<c:if test="${currentUser.userType == MyConstants.TYPE_ADMIN}">
+									<img id="sb_profile_picture" alt="Pic" src="./ProfilePictures/amdin.jpg" />
+									</c:if>
+								 	
+								 	
+								 	<c:if test="${currentUser.userType != MyConstants.TYPE_ADMIN}">
+									<img id="sb_profile_picture" alt="Pic" src="${currentUser.profilePictureSrc }" />
+									</c:if>
 								
 								<div class="sb_fullname " style="display: none">
 									<c:out value="${currentUser.username }"></c:out>
@@ -1034,10 +1041,20 @@
 											<div class="kt-widget__media">
 	
 												<form action="UserController" method="POST">
-													<span class="kt-media--circle"> <input
+													<span class="kt-media--circle"> 
+													
+													<c:if test = "${otherUser.userType == MyConstants.TYPE_ADMIN}">
+													<input
+														type="image" src="./ProfilePictures/amdin.jpg"
+														alt="image"
+														style="height: 100px; width: 100px; cursor: pointer; border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+													</c:if>
+													<c:if test = "${otherUser.userType != MyConstants.TYPE_ADMIN}">
+													<input
 														type="image" src="${otherUser.profilePictureSrc }"
 														alt="image"
 														style="height: 100px; width: 100px; cursor: pointer; border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+													</c:if>
 														<input type="hidden" name="operation"
 														value="${MyConstants.OPP_VIEW_PROFILE }"> <input
 														type="hidden" name="userID"
