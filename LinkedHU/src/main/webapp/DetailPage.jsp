@@ -254,7 +254,7 @@
 	                                <span class="kt-widget__desc">
 	                                ${postAuthor.fullName}
 	                                <br>
-	                                ${currentPost.dateFormat}
+	                                ${currentPost.createdAt}
 	                                </span>
 	                            </div>
 	                        </div>
@@ -421,15 +421,24 @@
 								<!-- Start of comment -->
 		                        <div class="kt-notes__item" id="${comment.commentID}-div"> 
 		                            <div class="kt-notes__media">
-		                            	
-		                            	<c:if test = "${commentAuthor.userType != MyConstants.TYPE_ADMIN }">	                            			                                		                               
-		                                <img class="kt-hidden-" src="${commentAuthor.profilePictureSrc}" alt="image">
-		                                </c:if>
-		                                
-		                                <c:if test = "${commentAuthor.userType == MyConstants.TYPE_ADMIN }">	                            			                                		                               
-		                                <img class="kt-hidden-" src="./ProfilePictures/amdin.jpg" alt="image">
-		                                </c:if>
-		                                
+		                            			                            			                                
+		                                <form action="UserController" method="POST">
+		                                <span>   
+		                                    <c:if test = "${commentAuthor.userType != MyConstants.TYPE_ADMIN }">                           
+		                                    <input type="image" src="${commentAuthor.profilePictureSrc}" alt="image" style="height:50px;width:50px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+		                                    </c:if>
+		                                    
+		                                    <c:if test = "${commentAuthor.userType == MyConstants.TYPE_ADMIN }">                           
+		                                    <input type="image" src="./ProfilePictures/amdin.jpg" alt="image" style="height:50px;width:50px;cursor: pointer;border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
+		                                    </c:if>
+		                                    
+		                                    
+		                                    
+		                                    <input type="hidden" name="operation" value="${MyConstants.OPP_VIEW_PROFILE }">
+		                                    <input type="hidden" name="userID" value="${commentAuthor.userID }">                                	
+		                                </span>
+		                            	</form>
+		                                                       
 		                                
 		                                <span class="kt-notes__icon kt-font-boldest kt-hidden">
 		                                    <i class="flaticon2-cup"></i>                                    

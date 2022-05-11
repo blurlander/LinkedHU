@@ -387,6 +387,7 @@ public class UserController extends HttpServlet {
 						studentPosts.addAll(service.fetchUserPosts(i));						
 						}
 					}
+					session.setAttribute("allUsers", service.fetchAllUsers());
 					session.setAttribute("followedPosts", studentPosts);
 					session.setAttribute("targetType", MyConstants.TARGET_TYPE_STUDENT);
 					response.sendRedirect("Profile.jsp");

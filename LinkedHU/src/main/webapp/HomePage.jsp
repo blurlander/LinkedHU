@@ -319,7 +319,7 @@
 		                                <span class="kt-widget__desc" id="${ entry.getKey().postID}author">
 		                                ${entry.getValue().fullName}
 		                                <br>
-		                                ${ entry.getKey().dateFormat}
+		                                ${ entry.getKey().createdAt}
 		                                </span>
 		                            </div>
 		                        </div>

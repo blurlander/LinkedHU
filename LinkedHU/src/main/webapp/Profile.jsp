@@ -1,7 +1,11 @@
-<%@page import="Model.User"%>
+
+<%@page import="java.util.TreeMap,java.util.List,java.util.ArrayList,Model.*"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="general.MyConstants" %>     
+<%@ page import="general.MyConstants" %>    
+ 
 
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -1110,7 +1114,7 @@
 												<a href="#" class="kt-widget__title"> ${ post.title }
 	
 												</a> <span class="kt-widget__desc">
-													${otherUser.fullName} <br> ${post.dateFormat}
+													${otherUser.fullName} <br> ${post.createdAt}
 												</span>
 											</div>
 										</div>
@@ -1223,10 +1227,29 @@
 									<div class="kt-widget__head">
 										<div class="kt-widget__label">
 											<div class="kt-widget__media">
-	
+												
+												
+												
+												
+												<c:set var="currPostAuthID" value="${post.authorID}" scope="request"/>
+						                       	<%
+						
+						                       		List<User> users = (ArrayList<User>)session.getAttribute("allUsers");
+						                       		for(User uss: users){
+						                       			// Finding the author of currentComment before display it.
+						                       			if(uss.getUserID() == ((Integer)request.getAttribute("currPostAuthID"))) {
+						                       				request.setAttribute("followedPostAuthor", uss);
+						                       				break;
+						                       			}
+						                       		}
+						                       		
+						                       	%>
+												
+												
+												
 												<form action="UserController" method="POST">
 													<span class="kt-media--circle"> <input
-														type="image" src="" alt="image"
+														type="image" src="${followedPostAuthor.profilePictureSrc}" alt="image"
 														style="height: 100px; width: 100px; cursor: pointer; border-top-left-radius: 50% 50%; border-top-right-radius: 50% 50%; border-bottom-right-radius: 50% 50%; border-bottom-left-radius: 50% 50%;">
 														<input type="hidden" name="operation"
 														value="${MyConstants.OPP_VIEW_PROFILE }"> <input
@@ -1238,8 +1261,10 @@
 											<div class="kt-widget__info kt-margin-t-5">
 												<a href="#" class="kt-widget__title"> ${ post.title }
 	
-												</a> <span class="kt-widget__desc"> <br>
-													${post.dateFormat}
+												</a> <span class="kt-widget__desc">
+												<c:out value = "${followedPostAuthor.fullName }"/>
+												 <br>
+													${post.createdAt}
 												</span>
 											</div>
 										</div>

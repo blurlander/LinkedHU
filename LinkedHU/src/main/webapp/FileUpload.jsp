@@ -350,8 +350,7 @@
 				<div
 					class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
 					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title">Exclusive Datatable
-							Plugin</h3>
+						<h3 class="kt-portlet__head-title">File Portal</h3>
 					</div>
 					
 				</div>
