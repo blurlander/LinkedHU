@@ -259,7 +259,7 @@
                                             <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
                                             	
                                             	
-                                                	<img class="kt-avatar__holder" src="${otherUser.profilePictureSrc}">
+                                                	<img class="kt-avatar__holder" src="${currentUser.profilePictureSrc}">
                                             	
                                             	
                                                 <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
@@ -274,7 +274,7 @@
                                     </div>
                                     
 
-                                    <c:set var="dateParts" value="${fn:split(otherUser.fullName, ' ')}" />
+                                    <c:set var="dateParts" value="${fn:split(currentUser.fullName, ' ')}" />
 									<div class="form-group row">
 										<label class="col-3 col-form-label">First Name</label>
 										<div class="col-9">
@@ -291,14 +291,14 @@
 										</div>
 									</div>
 									
-									<c:if test="${otherUser.userType == MyConstants.TYPE_ACADEMICIAN}"> 
+									<c:if test="${currentUser.userType == MyConstants.TYPE_ACADEMICIAN}"> 
 									<!-- Graduate icin ayrı yapılacak  -->
 									
 									<div class="form-group row">
 										<label class="col-3 col-form-label">Academic Title</label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="acadTitle" type="text" value="${otherUser.academicTitle}">
+											<input required class="form-control" name ="acadTitle" type="text" value="${currentUser.academicTitle}">
 
 										</div>
 									</div>
@@ -307,7 +307,7 @@
 										<label class="col-3 col-form-label">Office Number </label>
 										<div class="col-9">
 
-											<input required class="form-control" name ="officeNumber" type="text" value="${otherUser.officeNumber }">
+											<input required class="form-control" name ="officeNumber" type="text" value="${currentUser.officeNumber }">
 
 										</div>
 									</div>
@@ -317,7 +317,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="professionalHistory" rows="5" cols="100" >${otherUser.professionalHistory }</textarea>
+												<textarea required class="form-control" name="professionalHistory" rows="5" cols="100" >${currentUser.professionalHistory }</textarea>
 
 											</div>
 										</div>
@@ -328,7 +328,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="researchHistory" rows="5" cols="100" >${otherUser.researchHistory }</textarea>
+												<textarea required class="form-control" name="researchHistory" rows="5" cols="100" >${currentUser.researchHistory }</textarea>
 
 											</div>
 										</div>
@@ -339,20 +339,20 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${currentUser.proficiencies }</textarea>
 
 											</div>
 										</div>
 									</div>
 									</c:if>
 									
-									<c:if test = "${otherUser.userType == MyConstants.TYPE_STUDENT}">
+									<c:if test = "${currentUser.userType == MyConstants.TYPE_STUDENT}">
 									<div class="form-group form-group-last row" style="margin-bottom:20px">
 										<label class="col-3 col-form-label">Skills</label>
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="skills" rows="5" cols="100">${otherUser.skills}</textarea>
+												<textarea required class="form-control" name="skills" rows="5" cols="100">${currentUser.skills}</textarea>
 
 											</div>
 										</div>
@@ -363,7 +363,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<input required class="form-control" name ="gpa" type="text" value="${otherUser.gpa }">	
+												<input required class="form-control" name ="gpa" type="text" value="${currentUser.gpa }">	
 
 											</div>
 										</div>
@@ -374,14 +374,14 @@
 										<div class="col-9">
 											<div class="input-group">
 												
-												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduation }">
+												<input required class="form-control" name ="graduation" type="text" value="${currentUser.graduation }">
 
 											</div>
 										</div>
 									</div>
 									</c:if>
 									
-									<c:if test = "${otherUser.userType == MyConstants.TYPE_GRADUATE}">
+									<c:if test = "${currentUser.userType == MyConstants.TYPE_GRADUATE}">
 									
 									
 									
@@ -391,7 +391,7 @@
 										<div class="col-9">
 											<div class="input-group">
 												
-												<input required class="form-control" name ="graduation" type="text" value="${otherUser.graduationYear }">
+												<input required class="form-control" name ="graduation" type="text" value="${currentUser.graduationYear }">
 
 											</div>
 										</div>
@@ -402,7 +402,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${otherUser.proficiencies }</textarea>
+												<textarea required class="form-control" name="proficiencies" rows="5" cols="100">${currentUser.proficiencies }</textarea>
 
 											</div>
 										</div>
@@ -419,7 +419,7 @@
 										<div class="col-9">
 											<div class="input-group">
 
-												<textarea required name="bio" class="form-control" rows="5" cols="100">${otherUser.bio }</textarea>
+												<textarea required name="bio" class="form-control" rows="5" cols="100">${currentUser.bio }</textarea>
 
 											</div>
 										</div>
@@ -436,7 +436,7 @@
 										<label class="col-3 col-form-label">Username</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="userName" type="text" value="${otherUser.username }">				
+												<input required class="form-control" name ="userName" type="text" value="${currentUser.username }">				
 
 										</div>
 									</div>
@@ -444,7 +444,7 @@
 										<label class="col-3 col-form-label">Password</label>
 										<div class="col-9">
 
-												<input required class="form-control" name ="password" type="password" pattern=".{8,}"   required title="8 characters minimum" value="${otherUser.password }">				
+												<input required class="form-control" name ="password" type="password" pattern=".{8,}"   required title="8 characters minimum" value="${currentUser.password }">				
 
 										</div>
 									</div>
@@ -454,7 +454,7 @@
 											<div class="input-group">
 												<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
 
-												<input required type="email" class="form-control" name ="email" value="${otherUser.email }" placeholder="Email" aria-describedby="basic-addon1">
+												<input required type="email" class="form-control" name ="email" value="${currentUser.email }" placeholder="Email" aria-describedby="basic-addon1">
 
 												
 												<c:if test = "${status != MyConstants.CONTINUE_REGISTER}">

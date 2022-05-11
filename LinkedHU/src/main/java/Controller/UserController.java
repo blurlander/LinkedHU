@@ -387,7 +387,6 @@ public class UserController extends HttpServlet {
 					}
 					
 					if(checkUserName > 0) {
-						session.setAttribute("userexists", MyConstants.USERNAME_EXISTS);
 						out.print("-username-message-");
 						return;
 					}
@@ -397,8 +396,7 @@ public class UserController extends HttpServlet {
 						return;
 					}
 					
-					if(checkEmail > 0) {
-						session.setAttribute("userexists", MyConstants.EMAIL_EXISTS);
+					if(checkEmail > 0) {				
 						out.print("-email-message-");
 						return;
 					}
