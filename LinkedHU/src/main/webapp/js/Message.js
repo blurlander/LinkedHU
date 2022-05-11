@@ -61,6 +61,9 @@ $(document).ready(function()
 	}
 	});
 	}
+	$('body').tooltip({
+    	selector: '.kt-inbox__icon'
+	});
 	
 	$("#mainDropzone").on("click",".flaticon2-cross",function(){
 		var id = $(this).next().val();
@@ -152,7 +155,6 @@ $(document).ready(function()
 			{
 				if(elements[j].style.display === "none")
 				{
-					console.log("Bana girdi");
 					elements[j].style.display = "";
 					
 				}
@@ -238,6 +240,7 @@ $(document).ready(function()
 	
 	$("#inboxBtnSide").click(function(){
 		document.getElementById("currentUserRoleInput").value = "receiver";
+		setTimeout(() => { $("#multipleMark").css("display","flex"); }, 600)
 		document.getElementsByClassName("_msgFiles")[0].innerHTML = "";
 		
 	});
@@ -266,6 +269,7 @@ $(document).ready(function()
 	
 	$("#sentBtnSide").click(function(){
 		document.getElementById("currentUserRoleInput").value = "sender";
+		setTimeout(() => { $("#multipleMark").css("display","none"); }, 600)
 		document.getElementsByClassName("_msgFiles")[0].innerHTML = "";
 	});
 	$("#multipleMark").click(function(){
@@ -275,31 +279,41 @@ $(document).ready(function()
 		if(selectedMessages.length != 0)
 		{
 			for(var i=0;i<selectedMessages.length;i++){
-				messageIDs.push(selectedMessages[i].getAttribute("id"));
+				if(document.getElementById(selectedMessages[i].getAttribute("id")).classList.contains("kt-inbox__item--unread"))
+				{
+					messageIDs.push(selectedMessages[i].getAttribute("id"));
+				}
+				
 			}
-			$.ajax({
-		    url:"MessageController",
-		    type:"POST",
-		    dataType:'json',
-		    data: {json:messageIDs,operation:"35",role:userRole},
-		    success:function(data,textStatus, jqXHR)
-		    {
-		        console.log(data);
-		        console.log("success");
-		        var messageID;
-		        for(var j=0;j<messageIDs.length;j++){
-					messageID = messageIDs[j];
-					document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
-					var unreadCount = parseInt(document.getElementById("unreadCount").textContent)-1;
-					document.getElementById("unreadCount").textContent = unreadCount;
-					if(unreadCount <= 0)
-					{
-						$(".kt-nav__link-badge").css("display","none");
+			if(messageIDs.length != 0)
+			{
+				
+				$.ajax({
+			    url:"MessageController",
+			    type:"POST",
+			    dataType:'json',
+			    data: {json:messageIDs,operation:"35",role:userRole},
+			    success:function(data,textStatus, jqXHR)
+			    {
+			        console.log(data);
+			        console.log("success");
+			        var messageID;
+			        for(var j=0;j<messageIDs.length;j++){
+						messageID = messageIDs[j];
+						document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
+						var unreadCount = parseInt(document.getElementById("unreadCount").textContent)-1;
+						document.getElementById("unreadCount").textContent = unreadCount;
+						if(unreadCount <= 0)
+						{
+							$(".kt-nav__link-badge").css("display","none");
+							
+						}	
 						
-					}
+				}
+			    },
+				});
 			}
-		    },
-			});
+			
 			
 		}
 	});
@@ -326,7 +340,7 @@ $(document).ready(function()
 		        for(var j=0;j<messageIDs.length;j++){
 					messageID = messageIDs[j];
 									
-					if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread"))
+					if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread") && $("#currentUserRoleInput").val() != "sender")
 					{
 						var unreadCount = parseInt(document.getElementById("unreadCount").textContent) -1;
 						document.getElementById("unreadCount").textContent = unreadCount;
@@ -363,14 +377,18 @@ $(document).ready(function()
 			success    : function(data)
 			{	
 				document.getElementById("inboxViewBack").click();
-				document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
-				var unreadCount = parseInt(document.getElementById("unreadCount").textContent) -1;
-				document.getElementById("unreadCount").textContent = unreadCount;
-				if(unreadCount <= 0)
-					{
-						$(".kt-nav__link-badge").css("display","none");
-						
-					}
+				if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread"))
+				{
+					document.getElementById(messageID).classList.remove('kt-inbox__item--unread');
+					var unreadCount = parseInt(document.getElementById("unreadCount").textContent) -1;
+					document.getElementById("unreadCount").textContent = unreadCount;
+					if(unreadCount <= 0)
+						{
+							$(".kt-nav__link-badge").css("display","none");
+							
+						}
+				}
+				
 			
 			},
 			error : function(jqXHR, exception){
@@ -391,7 +409,7 @@ $(document).ready(function()
 			success    : function(data)
 			{	
 				
-				if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread"))
+				if(document.getElementById(messageID).classList.contains("kt-inbox__item--unread") && $("#currentUserRoleInput").val() != "sender")
 				{
 					var unreadCount = parseInt(document.getElementById("unreadCount").textContent) -1;
 					document.getElementById("unreadCount").textContent = unreadCount;
@@ -416,6 +434,7 @@ $(document).ready(function()
 	
 	$(".kt-inbox__items").on('click','.kt-inbox__item',function() 
 	{	
+		document.getElementsByClassName("_msgFiles")[0].innerHTML = "";
 		let userRole = document.getElementById("currentUserRoleInput").value;
 		let messageID = $(this).attr("id");
 		document.getElementById("deletedMessageInput").value = messageID;
@@ -428,7 +447,7 @@ $(document).ready(function()
 			document.getElementsByClassName("msgSender_")[0].textContent = "me";
 			document.getElementById("toWho").innerHTML = `from me <i
 																class="flaticon2-down"></i>;`
-			$("#inboxViewMark").css("display","none");													
+			$("#inboxViewMark").css("display","none");											
 		}
 		else if(userRole === "receiver"){
 			document.getElementsByClassName("msgSender_")[0].textContent = document.getElementById(messageID+"sender").textContent;
@@ -443,16 +462,23 @@ $(document).ready(function()
 		document.getElementsByClassName("msg_paragraph")[0].textContent = document.getElementById(messageID+"fullText").textContent;
 		document.getElementsByClassName("sender_img")[0].style.backgroundImage= document.getElementById(messageID+"senderImg").style.backgroundImage;
 		
-		
 		var elements = document.getElementsByClassName(messageID+"uploads");
 		var start = ``;
 		for(var i=0;i<elements.length;i++){
 			var filePath = elements[i].textContent;
-			var fileName = filePath.substr(17,filePath.length-1);
-			var menuButton =  `<a class="dropdown-item ${messageID}Download}" href="${filePath}" download="${fileName}" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="color:#191970">${fileName}</a>`
-			start+= menuButton;
+			if(filePath.length != 0)
+			{
+				var fileName = filePath.substr(17,filePath.length-1);
+				var menuButton =  `<a class="dropdown-item ${messageID}Download" href="${filePath}" download="${fileName}" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="color:#191970">${fileName}</a>`
+				start+= menuButton;
+			}
 		}
-		
+		if(start.length === 0)
+		{
+			var menuButton =  `<a class="dropdown-item" href="javascript:void(0);" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="color:#191970">No file attachment.</a>`
+			start+= menuButton;
+			
+		}
 		$("._msgFiles").append(start);	
 		$("#reply__").val(document.getElementsByClassName("sender_name")[0].textContent);
 		$("#receiverID__").val(document.getElementById("NextReceiver").textContent);
@@ -488,7 +514,32 @@ $(document).ready(function()
 			profilePictureSrc = data.authorInfo.profilePictureSrc;
 			
 		}
-		let itemText =`<div class="kt-inbox__item kt-inbox__item--unread"
+		
+		var uploads = data.messageInfo.uploadedFiles;
+		var uploadedFilesArea = ``;
+		var file = "";
+		var fileNumber = 0;
+		var color = "#708090";
+		var info = "No file attachment.";
+		for(var i = 0;i<uploads.length;i++)
+		{
+			file = uploads[i];
+			uploadedFilesArea += `<span class = "${messageID}uploads" style="display:none">${file}</span>`
+			fileNumber++;
+			
+		}
+		if(fileNumber === 1)
+		{
+			info = "1 file attachment!";
+			color = "#DB7093";
+			
+		}
+		else if(fileNumber > 1)
+		{
+			info = fileNumber+ " file attachments!";
+			color = "#DB7093";
+		}
+		var itemText =`<div class="kt-inbox__item kt-inbox__item--unread"
 							data-id="20" data-type="sent"
 							id="${messageID}">
 							<div class="kt-inbox__info">
@@ -497,11 +548,14 @@ $(document).ready(function()
 										class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
 										<input type="checkbox"> <span></span>
 									</label> 
+									<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="${info}" data-original-title="${info}">
+				                           			<i class="flaticon2-paper" style="color:${color} !important" ></i>
+				                    </span>
 									<span
 										class="kt-inbox__icon kt-inbox__icon--light"
 										data-toggle="kt-tooltip" data-placement="right"
 										title="Your message has been delivered."> 
-										<i class="flaticon2-check-mark" style="color:#D3D3D3"></i>
+										<i class="flaticon2-check-mark" style="color:#C0C0C0"></i>
 									</span>
 								</div>
 								<div class="kt-inbox__sender" data-toggle="view">
@@ -534,7 +588,7 @@ $(document).ready(function()
 								style="display: none">
 								${formattedDate}</span>
 						</div>`;
-		
+		itemText+=uploadedFilesArea;
 		$(".kt-inbox__items").prepend(itemText);
 	}
 	

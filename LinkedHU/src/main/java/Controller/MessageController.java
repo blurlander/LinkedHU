@@ -77,6 +77,7 @@ public class MessageController extends HttpServlet {
 	        jsonObject.add("authorInfo",secondElement);
 	        request.removeAttribute("lastCreated");
 	        request.removeAttribute("receiver");
+	        System.out.println(jsonObject.toString());
 	        response.setContentType("text/html");
 	        response.setHeader("Cache-control", "no-cache, no-store");
 	        response.setHeader("Pragma", "no-cache");
