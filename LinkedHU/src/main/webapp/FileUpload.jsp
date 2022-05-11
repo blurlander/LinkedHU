@@ -294,7 +294,7 @@
 		</div>
 		<!-- sub-header main end-->
 
-		<c:if test="${currentUser.userType != MyConstants.TYPE_STUDENT }">
+		<c:if test="${(currentUser.userType != MyConstants.TYPE_STUDENT) && (currentUser.userType != MyConstants.TYPE_ADMIN)}">
 			<!-- begin:: right buttons (choose file upload files)-->
 			<div class="kt-subheader__toolbar">
 				<div class="kt-subheader__wrapper" style="display: flex;">

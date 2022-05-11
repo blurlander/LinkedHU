@@ -73,7 +73,7 @@ var myKTDashboard = function() {
 						`<div id="fa_fileID_${data.fileID}">
 							<div class="kt-user-card-v2">
 		                        <div class="kt-user-card-v2__pic">
-		                            <img src="./ProfilePictures/123.jpg" alt="photo">
+		                            <img src="${data.uploaderProfilePicture}" alt="photo">
 		                        </div>
 		                        <div class="kt-user-card-v2__details">
 		                            <a href="#" class="kt-user-card-v2__name">${data.uploaderName}</a>
@@ -243,7 +243,7 @@ var myKTDashboard = function() {
 					setTimeout(() => {
 						// the user can not delete other's files 
 						//deleteActionDropDownButton();
-					}, "800")
+					}, "100")
 										
 					
 					

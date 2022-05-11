@@ -43,10 +43,13 @@ public class FileController extends HttpServlet {
         for (int i = 0; i < uploadedFiles.size(); i++) {
         	
         	// fetch user from file uploader id
-        	User user = (User) service.readUser(uploadedFiles.get(i).getUploaderID());
+        	NonAdminUser user = (NonAdminUser) service.readUser(uploadedFiles.get(i).getUploaderID());
+        	
+        	
         	
         	uploadedFiles.get(i).setUploaderEmail(user.getEmail());
         	uploadedFiles.get(i).setUploaderName(user.getFullName());
+        	uploadedFiles.get(i).setUploaderProfilePicture(user.getProfilePictureSrc());
         	
     		JsonElement firstElement = gson.toJsonTree(uploadedFiles.get(i));
             files.add(Integer.toString(i),firstElement);
