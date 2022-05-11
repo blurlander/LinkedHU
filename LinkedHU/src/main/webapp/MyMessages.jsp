@@ -488,6 +488,18 @@
 																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
 																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
 																</label> 
+																
+																<c:if test="${entry.getKey().uploadedFiles.size() == 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="No file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
 																<!-- For admin,you will use c:if -->
@@ -546,6 +558,18 @@
 																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
 																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
 																</label>
+																
+																<c:if test="${entry.getKey().uploadedFiles.size() == 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="No file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
+																
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
 																<span
@@ -613,11 +637,21 @@
 																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
 																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
 																</label>
+																<c:if test="${entry.getKey().uploadedFiles.size() == 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="No file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
 																 <span
 																	class="kt-inbox__icon kt-inbox__icon--light"
 																	data-toggle="kt-tooltip" data-placement="right"
 																	title="Your message has been delivered."> 
-																	<i class="flaticon2-check-mark" style="color:#D3D3D3"></i>
+																	<i class="flaticon2-check-mark" style="color:#C0C0C0"></i>
 																</span>
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
@@ -681,11 +715,21 @@
 																	class="kt-checkbox kt-checkbox--single kt-checkbox--tick kt-checkbox--brand">
 																	<input id = "${entry.getKey().messageID}checkBox" type="checkbox"> <span></span>
 																</label> 
+																<c:if test="${entry.getKey().uploadedFiles.size() == 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="No file attachment.">
+									                           			<i class="flaticon2-paper" style="color:#708090 !important" ></i>
+									                            	</span>
+																</c:if>
+																<c:if test="${entry.getKey().uploadedFiles.size() != 0}">
+																	<span class="kt-inbox__icon" data-toggle="kt-tooltip" data-placement="right" title="" data-original-title="${entry.getKey().uploadedFiles.size()} file attachments!">
+									                           			<i class="flaticon2-paper" style="color:#DB7093 !important" ></i>
+									                            	</span>
+																</c:if>
 																<span
 																	class="kt-inbox__icon kt-inbox__icon--light"
 																	data-toggle="kt-tooltip" data-placement="right"
 																	title="Your message has been read"> 
-																	<i class="flaticon2-check-mark" style="color:green"></i>
+																	<i class="flaticon2-check-mark" style="color:#9ACD32"></i>
 																</span>
 															</div>
 															<div class="kt-inbox__sender" data-toggle="view">
@@ -761,7 +805,7 @@
 															<div class="kt-inbox__toolbar">
 																<div class="kt-inbox__actions">
 																	<a href="#" class="kt-inbox__icon kt-inbox__icon--back"
-																		id="inboxViewBack"> <i
+																		id="inboxViewBack" style="margin-right: 0px !important"> <i
 																		class="flaticon2-left-arrow-1"></i>
 																	</a> 
 																															
@@ -806,9 +850,7 @@
 											                                        File Attachments
 											                                    </button>
 											                                    <div class="dropdown-menu  _msgFiles" aria-labelledby="dropdownMenuButton" style="">
-											                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="right" data-skin="dark" data-container="body" data-original-title="Tooltip title" style="display:none">Action</a>
-											                                        <a class="dropdown-item" href="#" style="display:none">Another action</a>
-											                                        <a class="dropdown-item" href="#" data-toggle="kt-tooltip" title="" data-placement="left" data-original-title="Tooltip title" style="display:none">Something else here</a>
+											                                       
 											                                    </div>
 											                                    
 											                                    
