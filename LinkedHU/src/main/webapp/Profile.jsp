@@ -349,9 +349,8 @@
 											<c:if
 												test="${ currentUser.userID == otherUser.userID }">
 												<button type="button"
-													class="btn btn-label-danger btn-sm btn-upper"
-													data-toggle="modal" data-target="#del-modal">Delete
-													Account</button>
+													class="btn btn-label-deleteAccount btn-sm btn-upper"
+													data-toggle="modal" data-target="#del-modal" >Delete Account</button>
 											</c:if>
 											
 											
@@ -627,7 +626,7 @@
 											<c:if
 												test="${ currentUser.userID == otherUser.userID }">
 												<button type="button"
-													class="btn btn-label-danger btn-sm btn-upper"
+													class="btn btn-label-dark btn-sm btn-upper"
 													data-toggle="modal" data-target="#del-modal">Delete Account</button>
 											</c:if>
 											

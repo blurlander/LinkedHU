@@ -429,7 +429,7 @@ public class UserController extends HttpServlet {
 				request.getRequestDispatcher("PostController").include(request, response);	
 				break;
 				
-			case MyConstants.OPP_SHARE_COMMENT:
+			case MyConstants.OPP_SHARE_COMMENT: 
 				
 				user = (NonAdminUser)session.getAttribute("otherUser");
 				if(user.getUserType() != MyConstants.TYPE_STUDENT) {
