@@ -121,7 +121,7 @@ public class PostDao implements IPostDao{
 			preparedStatement.setTimestamp(4,(Timestamp)p.getCreatedAt());
 			preparedStatement.setInt(5,0);
 			preparedStatement.setInt(6,0);
-			preparedStatement.setString(7,"Normal");
+			preparedStatement.setString(7,p.getPostType());
 			preparedStatement.setString(8,"");
 			preparedStatement.setString(9,"");
 			preparedStatement.setInt(10,p.getAuthorID());

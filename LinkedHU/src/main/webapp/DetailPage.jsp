@@ -206,9 +206,26 @@
 
 	<!--Begin:: current Post-->
 	<div class="row">
+		
+			<c:if test="${String.valueOf(currentPost.postType) == \"post-intern\" }">
+				<c:set var="bgcolor_post" value="${\"#e6ffe6\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(currentPost.postType) == \"post-job\" }">
+				<c:set var="bgcolor_post" value="${\"#ffffe6\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(currentPost.postType) == \"post-scholar\" }">
+				<c:set var="bgcolor_post" value="${\"#e6ffff\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(currentPost.postType) == \"Normal\" }">
+				<c:set var="bgcolor_post" value="${\"#ffffff\"}" scope="request"/>			
+			</c:if>
+	
+	
+	
+	
 	    <div class="col-xl-12">
 	        <div class="kt-portlet kt-portlet--height-fluid">
-	            <div class="kt-portlet__body kt-portlet__body--fit">
+	            <div class="kt-portlet__body kt-portlet__body--fit" style="background-color:${bgcolor_post};">
 	            	<!-- begin:: post -->
 	                <div class="kt-widget kt-widget--project-1">
 	                		

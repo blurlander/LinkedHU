@@ -81,6 +81,7 @@ public class PostController extends HttpServlet {
 			int int_random = random.nextInt(upperbound);
 			String title = request.getParameter("title");
 			String text = request.getParameter("text");
+			String type = request.getParameter("type");
 			User user = (User)session.getAttribute("currentUser");
 			int authorID = user.getUserID();
 			Post post = new Post();
@@ -91,7 +92,7 @@ public class PostController extends HttpServlet {
 			post.setMessageText(text);
 			post.setCommentCount(0);
 			post.setLikeCount(0);
-			post.setPostType("Normal");
+			post.setPostType(type);
 			post.setPostID(int_random);
 			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			map1.put(post, getPostInfo(post,allUsers));

@@ -266,7 +266,16 @@
 	                        <textarea class="form-control" id="message-text" name = "text"></textarea>
 	                        <input type="hidden" id = "5" name = "operation" value="${MyConstants.OPP_CREATE_POST }">
 	                    </div>
-              			</form>
+	                    <div class ="form-group">
+	                    	<label for="post-type" class="form-control-label">Post type:</label>
+	                    	<br>
+	                    	<input type ="radio" name= "type" value ="Normal"> 	Standard Post	 
+	                    	<input type ="radio" name= "type"  value ="post-job">		Job Opportunity            
+	                    	<input type ="radio" name= "type" value ="post-scholar">	Scholarship Opportunity	  
+	                    	<input type ="radio" name= "type"  value ="post-intern">	Internship Opportunity	     
+	                    	<br>                         
+	                    </div>
+	                    </form>
            		</div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
@@ -281,10 +290,25 @@
 	<!-- begin:: all posts -->	
 	<c:forEach items="${map.entrySet()}" var="entry">
 		<div class="row postRow" id =${ String.valueOf(entry.getKey().postID)} >
+			
+			<c:if test="${String.valueOf(entry.getKey().postType) == \"post-intern\" }">
+				<c:set var="bgcolor_post" value="${\"#e6ffe6\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(entry.getKey().postType) == \"post-job\" }">
+				<c:set var="bgcolor_post" value="${\"#ffffe6\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(entry.getKey().postType) == \"post-scholar\" }">
+				<c:set var="bgcolor_post" value="${\"#e6ffff\"}" scope="request"/>			
+			</c:if>
+			<c:if test="${String.valueOf(entry.getKey().postType) == \"Normal\" }">
+				<c:set var="bgcolor_post" value="${\"#ffffff\"}" scope="request"/>			
+			</c:if>
+			
+		
 		    <div class="col-xl-12">
 		        <!--begin:: single post (3 wrapper class)-->
 		        <div class="kt-portlet kt-portlet--height-fluid">
-		            <div class="kt-portlet__body kt-portlet__body--fit">
+		            <div class="kt-portlet__body kt-portlet__body--fit" style="background-color:${bgcolor_post};">
 		                <div class="kt-widget kt-widget--project-1">
 		                	
 		                	<!-- post head -->
@@ -318,9 +342,10 @@
 		                                
 		                                <span class="kt-widget__desc" id="${ entry.getKey().postID}author">
 		                                ${entry.getValue().fullName}
-		                                <br>
-		                                ${ entry.getKey().createdAt}
+		                                		                                
 		                                </span>
+		                                ${ entry.getKey().createdAt}
+		                                
 		                            </div>
 		                        </div>
 		                        
