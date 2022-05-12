@@ -523,7 +523,7 @@
 																</span>
 																<c:if test="${entry.getKey().text.length() > 100}">
 																	<span class="kt-inbox__summary"
-																		id="${entry.getKey().messageID}short_">${entry.getKey().text.substring(0,100)}...</span>
+																		id="${entry.getKey().messageID}short_" style="word-break: break-all" >${entry.getKey().text.substring(0,100)}...</span>
 																	<span id="${entry.getKey().messageID}fullText"
 																		style="display: none">
 																		${entry.getKey().text}</span>
