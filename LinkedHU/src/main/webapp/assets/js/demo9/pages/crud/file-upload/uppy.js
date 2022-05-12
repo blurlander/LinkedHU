@@ -190,7 +190,7 @@ var KTUppy = function () {
 			$(id + ' .kt-uppy__thumbnail-container[data-id="'+imageId+'"').remove();
 		});	
 	}
-
+	*/
 	var initUppy5 = function(){
 		// Uppy variables
         // For more info refer: https://uppy.io/
@@ -263,7 +263,7 @@ var KTUppy = function () {
 			$(id + ' .kt-uppy__list-item[data-id="'+itemId+'"').remove();
 		});
 	}
-	*/
+
 	var initUppy6 = function(){
 		var id = '#kt_uppy_6';
 		var options = {
@@ -330,8 +330,8 @@ var KTUppy = function () {
 			initUppy2();
 			initUppy3();
 			initUppy4();
-			initUppy5();
 			*/
+			initUppy5();
 			initUppy6();
 			
 		}

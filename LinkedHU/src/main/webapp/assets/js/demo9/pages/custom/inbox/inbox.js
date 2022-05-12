@@ -361,7 +361,7 @@ var KTAppInbox = function() {
             KTAppInbox.initAside();
             KTAppInbox.initList();
             KTAppInbox.initView();
-            KTAppInbox.initReply();
+            //KTAppInbox.initReply();
             KTAppInbox.initCompose();
         },
 

@@ -25,6 +25,11 @@
 		<!--begin:: Global Mandatory Vendors -->
 		<link href="./assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
 		<!--end:: Global Mandatory Vendors -->
+		<link href="./assets/css/demo9/pages/inbox/inbox.css" rel="stylesheet"
+	type="text/css" />
+	
+	<link href="./assets/vendors/custom/uppy/uppy.bundle.css"
+	rel="stylesheet" type="text/css" />
 		
 		<!--begin:: Global Optional Vendors -->
 		<link href="./assets/vendors/general/tether/dist/css/tether.css" rel="stylesheet" type="text/css" />
@@ -231,9 +236,135 @@
 			<div class="kt-subheader__toolbar">
 	           <div class="kt-subheader__wrapper">
 	           
-					<!-- Create post iÃ§in buton -->
-					<button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_4">Create Post</button>
+				    <div class="kt-grid__item   kt-portlet  kt-inbox__aside" id="kt_inbox_aside">
+				        <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_inbox_compose">Create Post</button>
+				    </div>
+   					 <!--End:: create Message button-->
+					<!--Begin:: Inbox Compose-->
+					<div class="modal modal-sticky-bottom-right modal-sticky-lg" id="kt_inbox_compose" role="dialog" data-backdrop="false">
+					    <div class="modal-dialog" role="document">
+					        <div class="modal-content kt-inbox">
+					            <div class="kt-inbox__form" id="kt_inbox_compose_form">
+					                <div class="kt-inbox__head">
+					                    <div class="kt-inbox__title">Write a Post</div>
+					                    <div class="kt-inbox__actions">
+					                        <button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light" data-dismiss="modal">
+					                            <i class="flaticon2-cross"></i>
+					                        </button>
+					                    </div>
+					                </div>
+					               
+					                <form method="POST" action="PostController" id = "create-post-form">
+						                <input type="hidden" id = "5" name = "operation" value="${MyConstants.OPP_CREATE_POST }">
+						                <input id="input-id-post-text" type="hidden" class="form-control" name="text" value="hello">
+						                <input id="postType" type ="hidden" name= "type"  value ="Normal">
+								                
+						                <div class="kt-inbox__body">
+						  					
+						                    <div class="kt-inbox__subject">
+						                        <input class="form-control" name="title" placeholder="Title"></input>
+						                    </div>
+						
+						                    <div class="kt-inbox__editor" id="kt_inbox_compose_editor" style="height: 300px">
+						                    </div>
+						
+						                    <div class="kt-inbox__attachments">
+						                        <div class="dropzone dropzone-multi" id="kt_inbox_compose_attachments">
+						                            <div class="dropzone-items">
+						                                <div class="dropzone-item" style="display:none">
+						                                    <div class="dropzone-file">
+						                                        <div class="dropzone-filename" title="some_image_file_name.jpg">
+						                                            <span data-dz-name>some_image_file_name.jpg</span> <strong>(<span  data-dz-size>340kb</span>)</strong>
+						                                        </div>
+						                                        <div class="dropzone-error" data-dz-errormessage></div>
+						                                    </div>
+						                                    <div class="dropzone-progress">
+						                                        <div class="progress">
+						                                            <div class="progress-bar kt-bg-brand" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress></div>
+						                                        </div>
+						                                    </div>
+						                                    <div class="dropzone-toolbar">
+						                                        <span class="dropzone-delete" data-dz-remove><i class="flaticon2-cross"></i></span>
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+						                    </div>
+						                </div>
+						                
+						                <div class="kt-inbox__foot">
+					                    <div class="kt-inbox__primary">
+					                        <div class="btn-group">
+					                            <button type="submit" class="btn btn-brand btn-bold button-id-send-post">
+					                                Send As
+					                            </button>
 					
+					                            <button type="button" class="btn btn-brand btn-bold dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					                            </button>
+					
+					                            <div class="dropdown-menu dropup dropdown-menu-fit dropdown-menu-right">
+					                            	
+					                                <ul class="kt-nav">
+					                                    <li class="kt-nav__item sendPost-li" data-li="intern">
+					                                        <a href="#" class="kt-nav__link button-id-send-post" >					                                        	<i class="kt-nav__link-icon flaticon2-writing"></i>
+					                                            <span class="kt-nav__link-text">Internship</span>
+					                                        </a>
+					                                    </li>
+					                                    <li class="kt-nav__item sendPost-li" data-li="job">
+					                                        <a href="#" class="kt-nav__link button-id-send-post">
+					                                        <i class="kt-nav__link-icon flaticon2-medical-records"></i>
+					                                            <span class="kt-nav__link-text">Job opportunity</span>
+					                                        </a>
+					                                    </li>
+					                                    <li class="kt-nav__item sendPost-li" data-li="scholar">
+					                                        <a href="#" class="kt-nav__link button-id-send-post">
+					                                        <i class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+					                                            <span class="kt-nav__link-text">Scholarship</span>
+					                                        </a>
+					                                    </li>
+					                                    <li class="kt-nav__item sendPost-li" data-li="standart">
+					                                        <a href="#" class="kt-nav__link button-id-send-post">
+					                                        <i class="kt-nav__link-icon flaticon2-hourglass-1"></i>
+					                                            <span class="kt-nav__link-text">Standart</span>
+					                                        </a>
+					                                    </li>
+					                                </ul>
+					                            </div>
+					                        </div>
+					
+											<div class="kt-uppy" id="kt_uppy_5">
+												<div class="kt-uppy__wrapper"></div>
+												<div class="kt-uppy__list"></div>
+												<div class="kt-uppy__status"></div>
+				                                <div class="kt-uppy__informer kt-uppy__informer--min"></div>
+											</div>
+					
+					                        <div class="kt-inbox__panel" style="display: none;">
+					                            <label class="kt-inbox__icon kt-inbox__icon--light" id="kt_inbox_compose_attachments_select">
+					                                <i class="flaticon2-clip-symbol"></i>
+					                            </label>
+					                        </div>
+					                        
+					                        <div class="kt-uppy" id="kt_uppy_6" style="display: none;">
+
+												<button
+													class="kt-uppy__btn btn btn-label-success btn-bold btn-sm">
+													<i class="fa fa-upload" style="margin-right: 10px"></i>Choose
+													Files
+												</button>
+
+												<div class="kt-uppy__dashboard"></div>
+												<div class="kt-uppy__progress"></div>
+											</div>
+					                    </div>
+					
+					                </div>
+					            	</form>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<!--End:: Inbox Compose-->
 				
 	            </div>
 	        </div>
@@ -247,46 +378,6 @@
 <!-- begin:: Content (posts, footer)-->
 <div id = "1234567" class="kt-container  kt-grid__item kt-grid__item--fluid" >
 	
-	<!-- create post pop-up -->
-	<div class="modal fade show" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 16px;" aria-modal="true">
-   		<div class="modal-dialog modal-lg" role="document">
-       		<div class="modal-content">
-           		<div class="modal-header">
-               		<h5 class="modal-title" id="exampleModalLabel">New Post</h5>
-              			 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-           		</div>
-           		<div class="modal-body">
-               		<form method="POST" action="PostController" id = "create-post-form">
-                   		<div class="form-group">
-                        	<label for="post-name" class="form-control-label">Title:</label>
-                        	<input type="text" class="form-control" name="title">						                        
-                   		</div>
-	                    <div class="form-group">
-	                        <label for="post-text" class="form-control-label">Text:</label>
-	                        <textarea class="form-control" id="message-text" name = "text"></textarea>
-	                        <input type="hidden" id = "5" name = "operation" value="${MyConstants.OPP_CREATE_POST }">
-	                    </div>
-	                    <div class ="form-group">
-	                    	<label for="post-type" class="form-control-label">Post type:</label>
-	                    	<br>
-	                    	<input type ="radio" name= "type" value ="Normal"> 	Standard Post	 
-	                    	<input type ="radio" name= "type"  value ="post-job">		Job Opportunity            
-	                    	<input type ="radio" name= "type" value ="post-scholar">	Scholarship Opportunity	  
-	                    	<input type ="radio" name= "type"  value ="post-intern">	Internship Opportunity	     
-	                    	<br>                         
-	                    </div>
-	                    </form>
-           		</div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-	                <button type="submit" form="create-post-form" value="submit" class="btn btn-primary">Share Post</button>
-	                
-	            </div>
-      	 		</div>
-  			 </div>
-	</div>  
-	<!-- create post pop-up end-->
-
 	<!-- begin:: all posts -->	
 	<c:forEach items="${map.entrySet()}" var="entry">
 		<div class="row postRow" id =${ String.valueOf(entry.getKey().postID)} >
@@ -494,8 +585,8 @@
 <script src="./js/Comment.js" type="text/javascript"></script>
 <script src="./js/sidenavbar.js" type="text/javascript"></script>
 <script src="./js/postSearch.js" type="text/javascript"></script>
-<script src="./js/Message.js" type="text/javascript"></script>
 <script src="./js/pageRefreshForSession.js" type="text/javascript"></script>
+<script src="./js/sendPost.js" type="text/javascript"></script>
 
 <!--begin:: Global Optional Vendors -->
 <script src="./assets/vendors/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>
@@ -559,7 +650,13 @@
     	    	   
 		    	   <script src="./assets/js/demo9/scripts.bundle.js" type="text/javascript"></script>
 				<!--end::Global Theme Bundle -->
-
+	<script src="./assets/js/demo9/pages/custom/inbox/inbox.js"
+		type="text/javascript"></script>
+        
+        	<script src="./assets/vendors/custom/uppy/uppy.bundle.js"
+		type="text/javascript"></script>
+	 <script src="./assets/js/demo9/pages/crud/file-upload/uppy.js"
+		type="text/javascript"></script>
         
             </body>
     <!-- end::Body -->
