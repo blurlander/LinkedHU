@@ -579,7 +579,7 @@ $(document).ready(function()
 			info = fileNumber+ " file attachments.";
 			color = "#DB7093";
 		}
-		var itemText =`<div class="kt-inboxitem kt-inbox__item--unread"
+		var itemText =`<div class="kt-inbox__item kt-inbox__item--unread"
 							data-id="20" data-type="sent"
 							id="${messageID}">
 							<div class="kt-inbox__info">
