@@ -2,10 +2,10 @@ package general;
 
 public class MyConstants {
 
-	public static final int TYPE_ADMIN = 0; 
-	public static final int TYPE_ACADEMICIAN = 1; 
-	public static final int	TYPE_STUDENT = 2;
-	public static final int TYPE_GRADUATE = 3;
+	public static final int TYPE_ADMIN = 0;   // dont change
+	public static final int TYPE_ACADEMICIAN = 1;   // dont change
+	public static final int	TYPE_STUDENT = 2;	 // dont change
+	public static final int TYPE_GRADUATE = 3;	 // dont change
 	
 	
 	public static final String OPP_LOGIN = "1";

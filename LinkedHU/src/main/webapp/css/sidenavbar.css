@@ -150,6 +150,19 @@
 }
 
 
+.overflowText {
+	display: -webkit-box !important;
+	-webkit-line-clamp: 10;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.overflowTextRow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75ch;
+}
+
 
 
 

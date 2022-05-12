@@ -74,6 +74,23 @@ function addComment(data){
 	let commentText = data.commentInfo.text;
 	let commentID = data.commentInfo.commentID;
 	
+	let userType = "default";
+	switch(data.authorInfo.userType){
+		case 0:
+			userType = "Admin";
+			break;
+		case 1:
+			userType = "Academician";
+			break;
+		case 2:
+			userType = "Student";
+			break;
+		case 3:
+			userType = "Graduate";
+			break;
+		
+	}
+	
 	let itemText =`<div class="kt-notes__item " id="${commentID}-div"> 
                             <div class="kt-notes__media">
                                 <img class="kt-hidden-" src="${authorPictureSrc}" alt="image">
@@ -99,7 +116,9 @@ function addComment(data){
                                         <span class="kt-notes__desc">
                                            	
                                         </span>
-                                        <span class="kt-badge kt-badge--success kt-badge--inline">new</span>
+                                        <span class="kt-badge kt-badge--primary kt-badge--inline">
+                                        	${userType}
+                                        </span>
                                     </div>
                                     
                                     <!--

@@ -579,7 +579,7 @@ $(document).ready(function()
 			info = fileNumber+ " file attachments.";
 			color = "#DB7093";
 		}
-		var itemText =`<div class="kt-inbox__item"
+		var itemText =`<div class="kt-inboxitem kt-inbox__item--unread"
 							data-id="20" data-type="sent"
 							id="${messageID}">
 							<div class="kt-inbox__info">
@@ -609,12 +609,12 @@ $(document).ready(function()
 									<span id="NextReceiverSent" style="display: none">${receiverID}</span>
 								</div>
 							</div>
-							<div class="kt-inbox__details" data-toggle="view">
+							<div class="kt-inbox__details overflowTextRow" data-toggle="view">
 								<div class="kt-inbox__message">
 									<span class="kt-inbox__subject"
 										id="${messageID}topic">${messageTopic}
 									</span>
-										<span class="kt-inbox__summary"
+										<span class="kt-inbox__summary "
 											id="${messageID}short_">${messageTextShort}...</span>
 										<span id="${messageID}fullText"
 											style="display: none; white-space: pre">
