@@ -1,7 +1,9 @@
 package Model;
 
 import java.sql.Timestamp;
+import java.security.Provider.Service;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -40,9 +42,19 @@ public class SystemService implements IService{
 
 	@Override
 	public List<Post> fetchAllPosts() {
-		return postDao.fetchAll();
+		
+		List<Post> posts = postDao.fetchAll();
+		for (Post post : posts) {
+			post.setUploadedFiles(this.fetchFilesWithPostID(post.getPostID()));
+		}
+		return posts;
+
 	}
 	
+	@Override
+	public ArrayList<UploadedFile> fetchFilesWithPostID(int postID){
+		return postDao.fetchFilesWithPostID(postID);
+	}
 	@Override
 	public List<UploadedFile> fetchAllFiles() {
 		return userDao.fetchAllUploadedFiles();
@@ -59,7 +71,11 @@ public class SystemService implements IService{
 	
 	@Override
 	public List<Post> fetchUserPosts(int userID) {
-		return postDao.fetchAllUserPosts(userID);
+		List<Post> posts = postDao.fetchAllUserPosts(userID);
+		for (Post post : posts) {
+			post.setUploadedFiles(this.fetchFilesWithPostID(post.getPostID()));
+		}
+		return posts;
 	}
 
 	@Override
@@ -171,7 +187,9 @@ public class SystemService implements IService{
 	
 	@Override
 	public Post readPost(int postID) {
-		return postDao.read(postID);
+		Post post = postDao.read(postID);
+		post.setUploadedFiles(this.fetchFilesWithPostID(postID));
+		return post;
 	}
 
 	@Override

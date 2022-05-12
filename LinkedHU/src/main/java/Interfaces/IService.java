@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.sql.Timestamp;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.*;
@@ -10,6 +11,8 @@ public interface IService {
 	//Minimum requirements for all services that will be used by this system.
 	List<User> fetchAllUsers();
 	List<Post> fetchAllPosts();
+	
+	ArrayList<UploadedFile> fetchFilesWithPostID(int postID);
 	List<UploadedFile> fetchAllFiles();
 	boolean createFiles(List<UploadedFile> uploadedFiles);
 	boolean deleteFile(int fileID);
@@ -46,4 +49,5 @@ public interface IService {
 	int getFollowCount(int ID);
 	int checkUserNameExists(String name);
 	int checkEmailExists(String email);
+
 }

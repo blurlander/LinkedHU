@@ -14,6 +14,7 @@ import java.util.List;
 import Interfaces.IDao;
 import Interfaces.IPostDao;
 import Model.Post;
+import Model.UploadedFile;
 
 public class PostDao implements IPostDao{
 	private String userName = "root";
@@ -109,6 +110,34 @@ public class PostDao implements IPostDao{
 		return allPosts;
 		
 	}
+	
+	@Override
+	public ArrayList<UploadedFile> fetchFilesWithPostID(int postID){
+		
+		ArrayList<UploadedFile>  uploadedFiles = new ArrayList<UploadedFile>();
+		String query = "Select * from postFile WHERE postID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, postID);
+			ResultSet rSet = preparedStatement.executeQuery();
+			
+			while(rSet.next()) {
+				UploadedFile file = new UploadedFile();
+				
+				file.setName(rSet.getString("fileName"));
+				file.setExtension(rSet.getString("fileExtension"));
+				file.setUploadUrl(rSet.getString("fileUrl"));
+				
+				uploadedFiles.add(file);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return uploadedFiles;
+		
+	}
 
 	@Override
 	public boolean create(Post p) {
@@ -126,14 +155,33 @@ public class PostDao implements IPostDao{
 			preparedStatement.setString(9,"");
 			preparedStatement.setInt(10,p.getAuthorID());
 			preparedStatement.executeUpdate();
-			return true;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+	
+		for (UploadedFile file : p.getUploadedFiles()) {
+			
+			query = "Insert into postFile values(?,?,?,?)";
+			try {
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setInt(1,p.getPostID());
+				preparedStatement.setString(2,file.getName());
+				preparedStatement.setString(3,file.getExtension());
+				preparedStatement.setString(4,file.getUploadUrl());
+
+				preparedStatement.executeUpdate();
+	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
 		
+		return true;
 	}
 
 	@Override
@@ -191,20 +239,35 @@ public class PostDao implements IPostDao{
 
 	@Override
 	public boolean delete(Post t) {
-		boolean control;
+		
 		String query = "Delete from Post where postID = ?";
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1,t.getPostID());
 			preparedStatement.executeUpdate();
-			control = true;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			control = false;
-					
 			e.printStackTrace();
+			return false;
 		}
-		return control;
+		
+		query = "Delete from postFile where postID = ?";
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1,t.getPostID());
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+					
+		}
+		
+		return true;
+		
 	}
 	
 

@@ -301,7 +301,12 @@
 	
 					<!-- begin:: file upload  -->
 	
-	
+					<div class="kt-uppy" id="kt_uppy_5" style="display: none;">
+						<div class="kt-uppy__wrapper"></div>
+						<div class="kt-uppy__list"></div>
+						<div class="kt-uppy__status"></div>
+                              <div class="kt-uppy__informer kt-uppy__informer--min"></div>
+					</div>
 	
 					<div class="kt-uppy" id="kt_uppy_6">
 	

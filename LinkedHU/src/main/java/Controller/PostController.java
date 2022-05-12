@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import Interfaces.IService;
 import Model.Comment;
 import Model.NonAdminUser;
@@ -25,6 +30,7 @@ import Model.PostCreator;
 import Model.User;
 import general.MyConstants;
 import Model.SystemService;
+import Model.UploadedFile;
 
 @WebServlet("/PostController")
 public class PostController extends HttpServlet {
@@ -59,6 +65,11 @@ public class PostController extends HttpServlet {
 		if(session.getAttribute("operation").equals("getPostsForDiscoverPage") ) {
 			
 			List<Post> allPosts = service.fetchAllPosts();
+			
+			for (Post post : allPosts) {
+				// add all post its files
+			}
+			
 			List<User> allUsers = service.fetchAllUsers();
 			TreeMap<Post,User> map = new TreeMap<>();
 			for(Post p:allPosts) {
@@ -72,6 +83,35 @@ public class PostController extends HttpServlet {
 		
 		// Create Post
 		else if(request.getParameter("operation").equals(MyConstants.OPP_CREATE_POST)) {
+			
+			
+			String jsonString = request.getParameter("uploadedFiles");
+			ArrayList<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
+			if(jsonString != "") {				
+				
+				try {
+
+					JSONArray jsonArray = new JSONArray(jsonString);
+					for (int i = 0; i < jsonArray.length(); ++i) {
+						JSONObject jsonObject = jsonArray.getJSONObject(i);
+						System.out.println(jsonObject);
+						UploadedFile uploadedFile = new UploadedFile();
+
+						uploadedFile.setExtension((String) jsonObject.get("extension"));
+						uploadedFile.setIdInfo((String) jsonObject.get("id"));
+						uploadedFile.setName((String) jsonObject.get("name"));
+						uploadedFile.setUploadUrl((String) jsonObject.get("uploadURL"));
+
+						uploadedFiles.add(uploadedFile);
+						
+					}
+					
+				} catch (JSONException err) {
+					System.out.println("Error" + err.toString());
+				}
+			}
+			
+					
 			
 			List<User> allUsers = service.fetchAllUsers();
 			//TreeMap<Post,User> map = new TreeMap<>();
@@ -94,10 +134,18 @@ public class PostController extends HttpServlet {
 			post.setLikeCount(0);
 			post.setPostType(type);
 			post.setPostID(int_random);
+			
+			if(uploadedFiles.size() != 0) {
+				post.setUploadedFiles(uploadedFiles);
+			}
 			TreeMap<Post,User> map1 = (TreeMap<Post,User>)session.getAttribute("map");
 			map1.put(post, getPostInfo(post,allUsers));
 			session.setAttribute("map",map1);
 			createNewPost(post);
+			
+			// addd files to the post
+			
+			
 			response.sendRedirect("PostController");
 			// to merge
 		}
@@ -113,6 +161,8 @@ public class PostController extends HttpServlet {
 					break;
 				}
 			}
+			// delete files from table
+			
 			session.setAttribute("map", map1);
 			response.sendRedirect("PostController");
 			
@@ -206,6 +256,9 @@ public class PostController extends HttpServlet {
 			
 			// Creating the necessary post object and fetch its comments to display user
 			Post p = service.readPost(postID);
+			
+			// add files to the post
+			
 			p.setComments(service.fetchAllComments(postID));
 			
 			session.setAttribute("allUsers", service.fetchAllUsers());

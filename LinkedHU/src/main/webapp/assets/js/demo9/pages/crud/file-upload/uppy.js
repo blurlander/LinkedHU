@@ -199,6 +199,9 @@ var KTUppy = function () {
 		var $statusBar = $(id + ' .kt-uppy__status');
 		var $uploadedList = $(id + ' .kt-uppy__list');
 		var timeout;
+		var myUploadedList = $("#uploadedList");
+		var inputForFiles = $("#input-id-fileList");
+		var files = [];
 		
 		var uppyMin = Uppy.Core({
 			debug: true, 
@@ -233,6 +236,7 @@ var KTUppy = function () {
 			$statusBar.removeClass('kt-uppy__status--hidden');
 			clearTimeout( timeout );
 		});
+		
 
 		uppyMin.on('complete', function(file) {
 			$.each(file.successful, function(index, value){
@@ -249,8 +253,17 @@ var KTUppy = function () {
 				}					
 				var uploadListHtml = '<div class="kt-uppy__list-item" data-id="'+value.id+'"><div class="kt-uppy__list-label">'+value.name+' ('+ Math.round(filesize, 2) +' '+sizeLabel+')</div><span class="kt-uppy__list-remove" data-id="'+value.id+'"><i class="flaticon2-cancel-music"></i></span></div>';
 				$uploadedList.append(uploadListHtml);
+				//myUploadedList.append(uploadListHtml);
+				
 			});
-
+			
+			
+			$.each(file.successful, function(index,value){
+				files.push(value);
+			});
+			
+			inputForFiles.attr("value",JSON.stringify(files) );
+			
 			$fileLabel.text("Add more files");		
 
 			$statusBar.addClass('kt-uppy__status--hidden');

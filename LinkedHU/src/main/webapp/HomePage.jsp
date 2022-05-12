@@ -241,7 +241,8 @@
 				    </div>
    					 <!--End:: create Message button-->
 					<!--Begin:: Inbox Compose-->
-					<div class="modal modal-sticky-bottom-right modal-sticky-lg" id="kt_inbox_compose" role="dialog" data-backdrop="false">
+					<div class="modal modal-sticky-bottom-right modal-sticky-lg" id="kt_inbox_compose" role="dialog" data-backdrop="false"
+						style="">
 					    <div class="modal-dialog" role="document">
 					        <div class="modal-content kt-inbox">
 					            <div class="kt-inbox__form" id="kt_inbox_compose_form">
@@ -258,6 +259,8 @@
 						                <input type="hidden" id = "5" name = "operation" value="${MyConstants.OPP_CREATE_POST }">
 						                <input id="input-id-post-text" type="hidden" class="form-control" name="text" value="hello">
 						                <input id="postType" type ="hidden" name= "type"  value ="Normal">
+						                <input id="input-id-fileList" type ="hidden" name= "uploadedFiles"  value ="">
+						                
 								                
 						                <div class="kt-inbox__body">
 						  					
@@ -295,7 +298,7 @@
 						                <div class="kt-inbox__foot">
 					                    <div class="kt-inbox__primary">
 					                        <div class="btn-group">
-					                            <button type="submit" class="btn btn-brand btn-bold button-id-send-post">
+					                            <button type="submit" class="btn btn-brand btn-bold " id="button-id-send-post">
 					                                Send As
 					                            </button>
 					
@@ -470,9 +473,57 @@
 		                    <div class="kt-widget__body">
 		                    	<span class="kt-widget__text" style="font-size: 17px; white-space: pre-line;margin-top:0px" id="${ entry.getKey().postID}messageText">
 		                    		${entry.getKey().messageText}
+		                    		
+		                    		
 		                    	</span>	
 		                    </div>
 		                    <!-- post body end -->
+		                    
+		                    <div class="kt-widget__body">
+			                    <c:forEach items="${entry.getKey().uploadedFiles }" var="file">
+									<div class="kt-uppy__list-item" style="display: flex;margin-bottom: 5px" >
+										
+										<c:choose>
+											<c:when test="${file.extension == 'pdf'}">
+												<i class="fa fa-file-pdf"></i>
+											</c:when>
+											
+											<c:when test="${file.extension == 'jpg' || 
+												file.extension == 'jpeg' || 
+												file.extension == 'png' || 
+												file.extension == 'img' }">
+												<i class="fa fa-file-image"></i>
+											</c:when>
+											
+											<c:when test="${file.extension == 'docx'}">
+												<i class="fa fa-file-word"></i>
+											</c:when>
+											
+											<c:when test="${file.extension == 'csv'}">
+												<i class="fa fa-file-csv"></i>
+											</c:when>
+											
+											<c:when test="${file.extension == 'xlsx'}">
+												<i class="fa fa-file-excel"></i>
+											</c:when>
+											
+											<c:when test="${file.extension == 'txt'}">
+												<i class="fa fa-file-alt"></i>
+											</c:when>
+											
+											<c:otherwise>
+												<i class="fa fa-file"></i>
+									        </c:otherwise>
+											
+										</c:choose>
+										
+										<a href="${file.uploadUrl }" class="kt-uppy__list-label" style="margin-left: 5px" >
+											<c:out value="${file.name }"></c:out>
+										</a>
+									</div>
+								</c:forEach>
+		                    </div>
+		                    
 		                    
 		                    <!-- post footer -->
 		                    <div class="kt-widget__footer">
@@ -501,12 +552,24 @@
 		                           			<a href="#" style="font-size: 15px; color: black;"> <span class="comment-count">${entry.getKey().commentCount}</span> Comments</a>
 		                           		</div>
 		                           	</div>
-		                           	<div class="kt-widget__section">
+		                           	<div class="kt-widget__section" style="display: flex">
+		                           	
+		                           		<c:if test="${String.valueOf(entry.getKey().postType) != \"Normal\" && 
+		                           			(currentUser.userType == MyConstants.TYPE_STUDENT ||  currentUser.userType == MyConstants.TYPE_GRADUATE  ) }">
+			                           		
+			                           		
+			                           		<label for="myfile" style="margin-bottom: 0px !important; margin-right: 5px"><span class="btn btn-outline-dark" >Apply</span> </label>
+											<input type="file" id="myfile" name="myfile" style="display: none;" onchange="successApply()" >
+											
+		                           		</c:if>
+		                           		
 		                           		<form action="PostController" method="POST">
 			                           		<button class="btn btn-outline-dark" type="submit">Details</button>
 			                           		<input type="hidden" value="${MyConstants.OPP_POST_DETAILS }" name="operation" > 
 				               				<input type="hidden" name="postID" value=${entry.getKey().postID }>  
 		                           		</form>
+		                           		
+		                           		
 		                           	</div>
 		                        </div>
 		                    </div>
@@ -657,6 +720,22 @@
 		type="text/javascript"></script>
 	 <script src="./assets/js/demo9/pages/crud/file-upload/uppy.js"
 		type="text/javascript"></script>
+        
+        
+        
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script type="text/javascript">
+		function  successApply() {
+			swal({
+				title : "Success!",
+				text : "Your file has been sent successfully !",
+				icon : "success",
+				button : "Ok",
+			});
+		}
+		
+	</script>
         
             </body>
     <!-- end::Body -->

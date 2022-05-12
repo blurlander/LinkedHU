@@ -1169,7 +1169,56 @@
 											style="font-size: 17px; white-space: pre-line; margin-top: 0px">
 											${post.messageText} </span>
 									</div>
-	
+
+									 
+	                 				<div class="kt-widget__body">
+					                    <c:forEach items="${post.uploadedFiles }" var="file">
+											<div class="kt-uppy__list-item" style="display: flex;margin-bottom: 5px" >
+												
+												<c:choose>
+													<c:when test="${file.extension == 'pdf'}">
+														<i class="fa fa-file-pdf"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'jpg' || 
+														file.extension == 'jpeg' || 
+														file.extension == 'png' || 
+														file.extension == 'img' }">
+														<i class="fa fa-file-image"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'docx'}">
+														<i class="fa fa-file-word"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'csv'}">
+														<i class="fa fa-file-csv"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'xlsx'}">
+														<i class="fa fa-file-excel"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'txt'}">
+														<i class="fa fa-file-alt"></i>
+													</c:when>
+													
+													<c:otherwise>
+														<i class="fa fa-file"></i>
+											        </c:otherwise>
+													
+												</c:choose>
+												
+												<a href="${file.uploadUrl }" class="kt-uppy__list-label" style="margin-left: 5px" >
+													<c:out value="${file.name }"></c:out>
+												</a>
+											</div>
+										</c:forEach>
+				                    </div>
+	                    
+						
+						
+										
 									<div class="kt-widget__footer">
 										<div class="kt-widget__wrapper">
 											<div class="kt-widget__section">
@@ -1205,7 +1254,17 @@
 													</a>
 												</div>
 											</div>
-											<div class="kt-widget__section">
+											<div class="kt-widget__section" style="display: flex;">
+												
+												<c:if test="${String.valueOf(post.postType) != \"Normal\" && 
+		                           				(currentUser.userType == MyConstants.TYPE_STUDENT ||  currentUser.userType == MyConstants.TYPE_GRADUATE  ) }">
+			                           		
+					                           		
+					                           		<label for="myfile" style="margin-bottom: 0px !important; margin-right: 5px"><span class="btn btn-outline-dark" >Apply</span> </label>
+													<input type="file" id="myfile" name="myfile" style="display: none;" onchange="successApply()" >
+												
+		                           				</c:if>
+		                           				
 												<form action="PostController" method="POST">
 													<button class="btn btn-outline-dark" type="submit">Details</button>
 													<input type="hidden"
@@ -1340,6 +1399,55 @@
 											style="font-size: 17px; white-space: pre-line; margin-top: 0px">
 											${post.messageText} </span>
 									</div>
+	 
+				                    <div class="kt-widget__body">
+					                    <c:forEach items="${post.uploadedFiles }" var="file">
+											<div class="kt-uppy__list-item" style="display: flex;margin-bottom: 5px" >
+												
+												<c:choose>
+													<c:when test="${file.extension == 'pdf'}">
+														<i class="fa fa-file-pdf"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'jpg' || 
+														file.extension == 'jpeg' || 
+														file.extension == 'png' || 
+														file.extension == 'img' }">
+														<i class="fa fa-file-image"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'docx'}">
+														<i class="fa fa-file-word"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'csv'}">
+														<i class="fa fa-file-csv"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'xlsx'}">
+														<i class="fa fa-file-excel"></i>
+													</c:when>
+													
+													<c:when test="${file.extension == 'txt'}">
+														<i class="fa fa-file-alt"></i>
+													</c:when>
+													
+													<c:otherwise>
+														<i class="fa fa-file"></i>
+											        </c:otherwise>
+													
+												</c:choose>
+												
+												<a href="${file.uploadUrl }" class="kt-uppy__list-label" style="margin-left: 5px" >
+													<c:out value="${file.name }"></c:out>
+												</a>
+											</div>
+										</c:forEach>
+				                    </div>
+	                    
+						
+						
+	
 	
 									<div class="kt-widget__footer">
 										<div class="kt-widget__wrapper">
@@ -1376,7 +1484,18 @@
 													</a>
 												</div>
 											</div>
-											<div class="kt-widget__section">
+											<div class="kt-widget__section" style="display: flex;">
+											
+												<c:if test="${String.valueOf(post.postType) != \"Normal\" && 
+				                           			(currentUser.userType == MyConstants.TYPE_STUDENT ||  currentUser.userType == MyConstants.TYPE_GRADUATE  ) }">
+					                           		
+					                           		
+					                           		<label for="myfile" style="margin-bottom: 0px !important; margin-right: 5px"><span class="btn btn-outline-dark" >Apply</span> </label>
+													<input type="file" id="myfile" name="myfile" style="display: none;" onchange="successApply()" >
+													
+				                           		</c:if>
+		                           		
+											
 												<form action="PostController" method="POST">
 													<button class="btn btn-outline-dark" type="submit">Details</button>
 													<input type="hidden"
@@ -1671,8 +1790,18 @@
 							  icon: "success",
 							  button: "Ok",
 							});
+						
+					}
+					function  successApply() {
+						swal({
+							title : "Success!",
+							text : "Your file has been sent successfully !",
+							icon : "success",
+							button : "Ok",
+						});
 					}
 				</script>
+			
 				
             </body>
     <!-- end::Body -->

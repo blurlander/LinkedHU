@@ -9,7 +9,7 @@
 	sendButton.click(function(){
 		let text = editor.find(".ql-editor");
 		textInput.attr("value",text.html());
-		postTypeInput.attr("value","Normal");
+		postTypeInput.attr("value","Normal");		
 	});
 	
 	$(".sendPost-li").click(function(){

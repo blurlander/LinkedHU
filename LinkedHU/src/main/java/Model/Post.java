@@ -16,8 +16,7 @@ public class Post implements Comparable<Post>{
 	private int commentCount;
 	private int likeCount;
 	private String postType;
-	private ArrayList<File> uploadedFiles = null; // List attributes will not be used in demo.
-	private ArrayList<String> links = null;
+	private ArrayList<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>(); // List attributes will not be used in demo.
 	private List<Comment> comments = null;
 	private int authorID;
 	private String dateFormat;
@@ -68,17 +67,11 @@ public class Post implements Comparable<Post>{
 	public void setPostType(String postType) {
 		this.postType = postType;
 	}
-	public ArrayList<File> getUploadedFiles() {
+	public ArrayList<UploadedFile> getUploadedFiles() {
 		return uploadedFiles;
 	}
-	public void setUploadedFiles(ArrayList<File> uploadedFiles) {
+	public void setUploadedFiles(ArrayList<UploadedFile> uploadedFiles) {
 		this.uploadedFiles = uploadedFiles;
-	}
-	public ArrayList<String> getLinks() {
-		return links;
-	}
-	public void setLinks(ArrayList<String> links) {
-		this.links = links;
 	}
 	public List<Comment> getComments() {
 		return comments;
