@@ -255,8 +255,8 @@
    					 <!--End:: create Message button-->
 					<!--Begin:: Inbox Compose-->
 					<div class="modal modal-sticky-bottom-right modal-sticky-lg" id="kt_inbox_compose" role="dialog" data-backdrop="false"
-						style="">
-					    <div class="modal-dialog" role="document">
+						style="max-width: 55%;">
+					    <div class="modal-dialog" role="document"  style="max-width: 100%;">
 					        <div class="modal-content kt-inbox">
 					            <div class="kt-inbox__form" id="kt_inbox_compose_form">
 					                <div class="kt-inbox__head">
@@ -309,7 +309,7 @@
 						                </div>
 						                
 						                <div class="kt-inbox__foot">
-					                    <div class="kt-inbox__primary">
+					                    <div class="kt-inbox__primary" style="align-items: flex-end ;max-height: 40px;">
 					                        <div class="btn-group">
 					                            <button type="submit" class="btn btn-brand btn-bold " id="button-id-send-post">
 					                                Send As
