@@ -390,7 +390,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line">${ otherUser.professionalHistory }
+																style="white-space: pre-line;margin-left: 15px;">${ otherUser.professionalHistory }
 															</div>
 														</div>
 	
@@ -402,7 +402,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line">${ otherUser.researchHistory }
+																style="white-space: pre-line;margin-left: 15px;">${ otherUser.researchHistory }
 															</div>
 														</div>
 	
@@ -414,7 +414,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line;">
+																style="white-space: pre-line;;margin-left: 15px;">
 																${otherUser.proficiencies}</div>
 														</div>
 													</div>
@@ -668,7 +668,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line;">
+																style="white-space: pre-line;;margin-left: 15px;">
 																${otherUser.proficiencies}</div>
 														</div>
 													</div>
@@ -829,7 +829,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line;">
+																style="white-space: pre-line;;margin-left: 15px;">
 																${otherUser.skills}</div>
 														</div>
 	
@@ -841,7 +841,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line;">
+																style="white-space: pre-line;;margin-left: 15px;">
 																${otherUser.bio}</div>
 														</div>
 	
@@ -984,7 +984,7 @@
 															</div>
 															&nbsp
 															<div class="kt-widget4__info"
-																style="white-space: pre-line;">
+																style="white-space: pre-line;;margin-left: 15px;">
 																${otherUser.bio}</div>
 														</div>
 	
