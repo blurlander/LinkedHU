@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Post implements Comparable<Post>{
 	private int postID;
@@ -87,7 +88,10 @@ public class Post implements Comparable<Post>{
 	}
 	
 	public String getDateFormat() {
-		return dateFormat;
+		Date date= new Date(createdAt.getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm aa",Locale.ENGLISH);
+        dateFormat = formatter.format(date);
+        return dateFormat;		
 	}
 	public void setDateFormat(String dateFormat) {
 		this.dateFormat = dateFormat;

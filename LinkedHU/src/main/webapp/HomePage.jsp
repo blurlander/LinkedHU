@@ -454,7 +454,7 @@
 		                                ${entry.getValue().fullName}
 		                                		                                
 		                                </span>
-		                                ${ entry.getKey().createdAt}
+		                                ${ entry.getKey().dateFormat}
 		                                
 		                            </div>
 		                        
