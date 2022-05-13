@@ -546,7 +546,7 @@ $(document).ready(function()
 		}
 		if(userType == 0)
 		{
-			profilePictureSrc = "./assets/media/users/100_5.jpg";	
+			profilePictureSrc = "./ProfilePictures/amdin.jpg";	
 		}
 		else
 		{

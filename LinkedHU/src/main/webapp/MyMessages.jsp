@@ -767,7 +767,7 @@
 																	test="${entry.getValue().userType == MyConstants.TYPE_ADMIN}">
 																	<span
 																		class="kt-media kt-media--sm kt-media--brand"
-																		style="background-image: url('./ProfilePictures/amdin.jpg')">
+																		style="background-image: url('./ProfilePictures/amdin.jpg')" id="${entry.getKey().messageID}senderImg">
 																		<span></span>
 																	</span>
 																</c:if>
@@ -912,9 +912,9 @@
 														<div class="kt-inbox__status">
 															<span class="msg_dateTime"> 1 day ago</span>
 														</div>
-														&nbsp
-														&nbsp
-														&nbsp
+														&nbsp;
+														&nbsp;
+														&nbsp;
 														<span id="replyIcon" class="kt-inbox__icon kt-inbox__icon--reply kt-inbox__icon--light" data-toggle="kt-tooltip" data-placement="top" title="" data-original-title="Reply">
 					                                    <i class="flaticon2-reply-1"></i>
 					                                	</span>
