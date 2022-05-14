@@ -226,18 +226,7 @@
 				</form>
 				<!-- search form end-->
 				
-				<div class="dropdown dropdown-inline" style="margin-left: 20px">
-				    <button type="button" class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				        <i class="flaticon-more-1"></i>
-				    </button>
-				    <div class="dropdown-menu dropdown-menu-right">
-				        <a class="dropdown-item" href="#"><i class="la la-plus"></i> Get Scholarships</a>
-				        <a class="dropdown-item" href="#"><i class="la la-user"></i> Get Job Advertisements</a>
-				        <a class="dropdown-item" href="#"><i class="la la-cloud-download"></i> Get Internships</a>
-				        <div class="dropdown-divider"></div>
-				        <a class="dropdown-item" href="#"><i class="la la-refresh"></i> Get All Posts</a>
-				    </div>
-				</div>
+				
 				
 			</div>
 			
